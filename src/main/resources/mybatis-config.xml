@@ -7,10 +7,12 @@
 <configuration>
 
 <typeAliases>
+	<typeAlias type="com.teamplanner.dto.Member" alias="Member"/>
 	<typeAlias type="com.teamplanner.dto.Board" alias="Board"/>
 </typeAliases>
 
 <mappers>
+	<mapper resource="com/teamplanner/mapper/MemberMapper.xml"/>
 	<mapper resource="com/teamplanner/mapper/BoardMapper.xml"/>
 </mappers>
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamplanner.mapper.MemberMapper">
+	<sql id="member">
+		no, username, fullname, regdate, email, notification, iconpath
+	</sql>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO member
+			(no, username, fullname, email, password)
+		VALUSE
+			(member_sequence.nextval, #{userName}, #{fullName}, #{email}, #{password})
+	</insert>
+	
+	<select id="selectMemberByEmailCheck" parameterType="String" resultType="String">
+		SELECT
+			email
+		FROM
+			member
+		WHERE
+			email = #{email}
+	</select>
+	
+	<select id="selectMemberByUserNameCheck" parameterType="String" resultType="String">
+		SELECT
+			username
+		FROM
+			member
+		WHERE
+			username = #{userName}
+	</select>
+	
+	<select id="selectMemberByMemberNo" parameterType="int">
+		SELECT
+			<include refid="member"/>
+		FROM
+			member
+		WHERE
+			no = #{memberNo}
+	</select>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE
+			member
+		SET
+			username=#{userName}, fullname=#{fullName}, notification=#{notification}, iconpath=#{iconPath}
+		WHERE
+			no = #{no}
+	</update>
+	
+	<select id="selectMemberByIdAndPassword" parameterType="hashMap" resultType="Member">
+		SELECT
+			<include refid="member"/>
+		FROM
+			member
+		WHERE
+			email=#{email} AND password=#{password}
+	</select>
+</mapper>

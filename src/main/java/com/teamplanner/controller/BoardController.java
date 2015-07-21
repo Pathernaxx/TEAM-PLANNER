@@ -11,7 +11,6 @@ import com.teamplanner.repository.MemberRepository;
 @Controller
 @RequestMapping(value="board")
 public class BoardController {
-	
 
 	
 	@RequestMapping(value="link.action", method = RequestMethod.GET)
