@@ -4,8 +4,9 @@ import com.teamplanner.dto.Member;
 
 public interface MemberRepository {
 	void insertMember(Member member);
-	boolean selectMemberByIdCheck(String id);
+	String selectMemberByUserNameCheck(String userName);
+	String selectMemberByEmailCheck(String email);
 	Member selectMemberByMemberNo(int memberNo);
 	void updateMember(Member member);
-	Member selectMemberByIdAndPassword(String id, String password);
+	Member selectMemberByIdAndPassword(String email, String password);
 }
