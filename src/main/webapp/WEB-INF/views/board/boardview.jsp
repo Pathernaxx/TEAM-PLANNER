@@ -15,33 +15,40 @@
 		</div>
 		
 		<div id="content" class="clearfix">
-			<div class="board-wrapper">
-				<div class="board-header u-clearfix js-boardd-header">
-				<a class="board-header-btn board-header-btn-name js-rename-board" href="#">
-					<span class="voard-header-btn-text">보드이름</span>
-				</a>
-				</div>
-				<div class="board-header-btns mod-left">
-					<a id="permission-level" class="board-header-btn js-change-vis" href="#" title="This board is public">
-					<span class="board-header-btn-text">보드 공개 상태</span>
+			<div>
+			
+				<!-- 보드이름 나오는 부분 -->
+				<div>
+					<a href="#">
+						<span>보드이름</span>
 					</a>
-				</div>
-				<div class="board-header-btns mod-right">
-					<a class="board-header-btn mod-show-menu js-show-sidebar" href="#">
-					<span class="icon-sm icon-back board-header-btn-icon"></span>
-					<span class="board-header-btn-text u-text-underline">Show Menu</span>
-					</a>
+					<div class="board-header-btns mod-left">
+						<a href="#" title="This board is public">
+							<span>보드 공개 상태</span>
+						</a>
+					</div>
+					<div class="board-header-btns mod-right">
+						<a href="#">
+							<span></span>
+							<span>Show Menu</span>
+						</a>
+					</div>
 				</div>
 				
 				<!-- tab부분
 				<div class="board-menu js-fill-board-menu"></div>
 				 -->
 				 
-				 <div class="board-canvas" style="height:195px">
-				 <div id="board" class="u-fancy-scrollbar js-no-higher-edit js-list-sortable ui-sortable">
-				 	<div class="list">
-				 	</div>
-				 </div>
+				 <!-- 보드화면 메인부분 -->
+				 <div>
+					 <div>
+					 	<div> <!-- 리스트부분 -->
+					 		<div>
+					 			<h2>리스트 이름</h2>
+					 			<span></span>
+					 		</div>
+					 	</div>
+					 </div>
 				 </div>
 				 
 			</div>

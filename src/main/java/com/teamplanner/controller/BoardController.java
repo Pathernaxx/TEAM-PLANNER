@@ -12,12 +12,19 @@ import com.teamplanner.repository.MemberRepository;
 @RequestMapping(value="board")
 public class BoardController {
 	
-
-	
+////////////////////////// 동윤 /////////////////////////////////////////	
 	@RequestMapping(value="link.action", method = RequestMethod.GET)
 	public String BoardLink(){
 		
 		return "main/main";
+	}
+	
+	
+//////////////////////// 유정 /////////////////////////////////////////
+	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
+	public String BoardView(){
+		
+		return "board/boardview";
 	}
 	
 }

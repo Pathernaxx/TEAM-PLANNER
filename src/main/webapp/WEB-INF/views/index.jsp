@@ -13,5 +13,6 @@
 </head>
 <body >
 	<a href="/finalProject/board/link.action">main</a>
+	<a href="/finalProject/board/boardview.action">보드자세히 보기</a>
 </body>
 </html>
