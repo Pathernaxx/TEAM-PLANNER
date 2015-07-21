@@ -5,13 +5,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
-
-
 </head>
-<body >
-	<a href="/finalProject/board/link.action">Board</a>
+<body>
+	<div class="content">
+		<div class="headmenu">
+			<% pageContext.include("/WEB-INF/views/include/header.jsp"); %>
+		</div>
+		<div class="mainboard">
+			<div class="boardname">
+				<h2>My Board</h2>
+			</div>
+			<ul>
+				<li></li>
+			</ul>
+			<div>
+			</div><br/><br/>
+			<a href="#">Closed List</a>
+		</div>
+		<div class="clickclosedboard">
+		</div>
+	</div>	
 </body>
 </html>
