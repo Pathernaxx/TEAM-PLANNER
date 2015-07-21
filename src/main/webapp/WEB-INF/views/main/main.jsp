@@ -8,14 +8,22 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="Stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+
 
 <script>
 	$(document).ready(function(){
-		var dialog;
+		var dialog,form;
+		dialog = $( "#dialog-form" ).dialog({
+		      autoOpen: false,
+		      height: 300,
+		      width: 350,
+		      
+		    });
 		$('.createBoard').click(function(){
-			dialog.dialog( "open" );
+			dialog.dialog("open");
 		});
 		
 	});
@@ -34,7 +42,7 @@
 			<div>
 				<ul>
 				<li><div class="board"><p>Board name<p></div></li>	
-				<li><div class="createBoard"><p class="createBoardName">New Board...</p></div></li>
+				<li><div class="createBoard"><p class="createBoardName">New Board.....</p></div></li>
 				</ul>
 			</div>			
 		</div>
@@ -42,5 +50,17 @@
 	<div class="clickclosedboard">
 		<a href="#">Closed List</a>
 	</div>
+<div id="dialog-form" title="Create new user">
+  <form>
+    <fieldset>
+      <label for="name">Title</label>
+      <input type="text" name="name" id="name" value="">
+     
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
 </body>
 </html>
