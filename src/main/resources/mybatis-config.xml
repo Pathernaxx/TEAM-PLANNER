@@ -6,14 +6,12 @@
 
 <configuration>
 
-<!--
 <typeAliases>
-	<typeAlias type="com.mvc.yjstore.dto.Work" alias="Work"/>
+	<typeAlias type="com.teamplanner.dto.Board" alias="Board"/>
 </typeAliases>
 
 <mappers>
-	<mapper resource="com/mvc/yjstore/mapper/WorkMapper.xml"/>
+	<mapper resource="com/teamplanner/mapper/MainMapper.xml"/>
 </mappers>
--->
 
 </configuration>

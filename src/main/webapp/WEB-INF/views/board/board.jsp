@@ -21,7 +21,8 @@
 				<li></li>
 			</ul>
 			<div>
-			</div>
+			</div><br/><br/>
+			<a href="#">Closed List</a>
 		</div>
 		<div class="clickclosedboard">
 		</div>

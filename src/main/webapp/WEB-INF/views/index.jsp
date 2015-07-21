@@ -7,16 +7,11 @@
 <title>Insert title here</title>
 
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
-<link rel="Stylesheet" href="/finalProject/resources/styles/body.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 
 
 </head>
 <body >
-	<div id="headmenu">
-		<% pageContext.include("/WEB-INF/views/include/header.jsp"); %>
-	</div>
-	<div align="center">
-		<h2>This is TeamPlanner</h2>
-	</div>
+	<a href="/finalProject/board/link.action">Board</a>
 </body>
 </html>

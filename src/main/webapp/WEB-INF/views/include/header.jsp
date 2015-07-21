@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="searchName">
+	<div class="searchName">
 		Search
 	</div>
-	<div id="search">
+	<div class="search">
 		Search
 	</div>
 </body>
