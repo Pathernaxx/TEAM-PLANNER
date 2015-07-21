@@ -8,11 +8,14 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript">
+
+<script>
 	$(document).ready(function(){
-		$("div").click(function(){
-			alert("성공@!");
+		var dialog;
+		$('.createBoard').click(function(){
+			dialog.dialog( "open" );
 		});
 		
 	});
@@ -31,7 +34,7 @@
 			<div>
 				<ul>
 				<li><div class="board"><p>Board name<p></div></li>	
-				<li><div class="createBoard"><p class="createBoardName">Create Board</p></div></li>
+				<li><div class="createBoard"><p class="createBoardName">New Board...</p></div></li>
 				</ul>
 			</div>			
 		</div>

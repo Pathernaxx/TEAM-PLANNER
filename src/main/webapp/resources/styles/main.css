@@ -4,9 +4,10 @@ p{
 	font-size: 20px;
 }
 .createBoardName{
-	margin:23%;
+	margin:25%;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 18px;
+	color: white;
 }
 ul{
 	
@@ -29,6 +30,7 @@ li{
 	width:300px;
 	height:200px;
 	background-color: #666666;
+	cursor:pointer;
 }
 .createBoard:hover{
 	background-color: #999999;
@@ -48,6 +50,7 @@ li{
 	overflow: hidden;
 	padding: 5px;
 	position: relative;
+	cursor:pointer;
 }
 .board:hover{
 	background: #ff3300;
