@@ -13,5 +13,6 @@
 </head>
 <body >
 	<a href="/finalProject/board/link.action">main</a>
+	<a href="/finalProject/account/signup.action">signup</a>
 </body>
 </html>

@@ -31,4 +31,8 @@
 		<property name="mapperInterface" value="com.teamplanner.mapper.BoardMapper" />
 		<property name="sqlSessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.teamplanner.mapper.MemberMapper" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
