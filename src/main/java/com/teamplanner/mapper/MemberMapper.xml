@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamplanner.mapper.MemberMapper">
+	<insert id="insertMember" parameterType="Member">
+		
+	</insert>
+	boolean selectMemberByIdCheck(String id);
+	Member selectMemberByMemberNo(int memberNo);
+	void updateMember(Member member);
+	Member selectMemberByIdAndPassword(HashMap<String, String> params);
+</mapper>
