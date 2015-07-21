@@ -1,3 +1,60 @@
-.boardName{
-	margin-left: 30px
+p{
+	padding-left: 5%;
+	font-weight: bold;
+	font-size: 20px;
+}
+.createBoardName{
+	margin:23%;
+	font-weight: bold;
+	font-size: 20px;
+}
+ul{
+	
+	padding-left: 5%;
+	list-style: none;
+	height:100%;
+}
+li{
+	
+	float:left;
+	margin:30 0;
+	padding: 15px;
+	
+}
+.createBoard{
+	border-radius:20px;
+	border:none;
+	padding-left: 5%;
+	padding: 5px;
+	width:300px;
+	height:200px;
+	background-color: #666666;
+}
+.createBoard:hover{
+	background-color: #999999;
+}
+.clickclosedboard{
+	padding-left: 5%;
+	margin-top: 25%;
+	clear: both;
+	
+}
+.board{
+	border-radius:20px;
+	border:none;
+	background: #ab0c67;
+	width:300px;
+	height:200px;
+	overflow: hidden;
+	padding: 5px;
+	position: relative;
+}
+.board:hover{
+	background: #ff3300;
+}
+.content{
+	height:100%;
+}
+.mainboard{
+	height:100%;
 }
