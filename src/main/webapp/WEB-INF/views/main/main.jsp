@@ -8,25 +8,36 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("div").click(function(){
+			alert("성공@!");
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<div class="content">
 		<div class="headmenu">
 			<% pageContext.include("/WEB-INF/views/include/header.jsp"); %>
-		</div>
+		</div><br/><br/><br/>
+		
 		<div class="mainboard">
-			<div class="boardname">
-				<h2>My Board</h2>
+			<div class="boardlisttitle">
+				<p>◎  My Board</p>
 			</div>
-			<ul>
-				<li></li>
-			</ul>
 			<div>
-			</div><br/><br/>
-			<a href="#">Closed List</a>
+				<ul>
+				<li><div class="board"><p>Board name<p></div></li>	
+				<li><div class="createBoard"><p class="createBoardName">Create Board</p></div></li>
+				</ul>
+			</div>			
 		</div>
-		<div class="clickclosedboard">
-		</div>
-	</div>	
+	</div>
+	<div class="clickclosedboard">
+		<a href="#">Closed List</a>
+	</div>
 </body>
 </html>
