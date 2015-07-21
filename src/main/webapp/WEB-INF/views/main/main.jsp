@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
 </head>
 <body>
 	<div class="content">

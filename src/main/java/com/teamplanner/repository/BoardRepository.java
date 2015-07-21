@@ -1,6 +1,6 @@
-package com.teamplanner.mapper;
+package com.teamplanner.repository;
 
-public interface MainMapper {
+public interface BoardRepository {
 	void createBoard(String boardName);
 	int getTeamList(int memberNo); //return boardNo
 	String getBoardName(int boardNo);//memberNo로 뽑힌
