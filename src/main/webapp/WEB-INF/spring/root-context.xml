@@ -27,8 +27,8 @@
 			value="classpath:mybatis-config.xml" />	
 	</bean>
 
-	 <bean id="MainMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.teamplanner.mapper.MainMapper" />
+	 <bean id="boardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.teamplanner.mapper.BoardMapper" />
 		<property name="sqlSessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

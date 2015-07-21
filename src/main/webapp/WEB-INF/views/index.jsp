@@ -12,6 +12,6 @@
 
 </head>
 <body >
-	<a href="/finalProject/board/link.action">Board</a>
+	<a href="/finalProject/board/link.action">main</a>
 </body>
 </html>

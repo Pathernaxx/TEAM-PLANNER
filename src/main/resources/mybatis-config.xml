@@ -11,7 +11,7 @@
 </typeAliases>
 
 <mappers>
-	<mapper resource="com/teamplanner/mapper/MainMapper.xml"/>
+	<mapper resource="com/teamplanner/mapper/BoardMapper.xml"/>
 </mappers>
 
 </configuration>
