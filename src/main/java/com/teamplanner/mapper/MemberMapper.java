@@ -6,7 +6,8 @@ import com.teamplanner.dto.Member;
 
 public interface MemberMapper {
 	void insertMember(Member member);
-	boolean selectMemberByIdCheck(String id);
+	String selectMemberByUserNameCheck(String userName);
+	String selectMemberByEmailCheck(String email);
 	Member selectMemberByMemberNo(int memberNo);
 	void updateMember(Member member);
 	Member selectMemberByIdAndPassword(HashMap<String, String> params);
