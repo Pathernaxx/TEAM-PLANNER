@@ -14,5 +14,6 @@
 <body >
 	<a href="/finalProject/board/link.action">main</a>
 	<a href="/finalProject/account/signup.action">signup</a>
+	<a href="/finalProject/member/member.action">member</a>
 </body>
 </html>
