@@ -46,18 +46,18 @@ public class OracleBoardRepository implements BoardRepository{
 	////////////////////유정////////////////
 	@Override
 	public Board selectBoardByList(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return boardMapper.selectBoardByList(boardNo);
 	}
 	@Override
 	public List<Card> selectCard(int listNo) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return boardMapper.selectCard(listNo);
 	}
 
 	@Override
-	public void insertCard(HashMap<String, Object> params) {
-		// TODO Auto-generated method stub
+	public void insertCard(Card card) {
 		
+		boardMapper.insertCard(card);
 	}
 }
