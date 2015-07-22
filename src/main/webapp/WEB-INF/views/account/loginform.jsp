@@ -38,14 +38,21 @@ textarea, input {
 					user: $("#user").val(),
 					password : $("#password").val()
 				},
-				success : function() {
-					var url = '/finalProject/home.action';
-					$(location).attr('href', url);
+				success : function(result) {
+					if(result=="complete")
+					{
+						var url = '/finalProject/home.action';
+						$(location).attr('href', url);
+					} else {
+						alert('Not User Find');
+					}
 				},
 				error : function() {
 					alert('fail');
 				}
-			});	
+			});
+			
+			event.preventDefault();
 		});
 	});
 

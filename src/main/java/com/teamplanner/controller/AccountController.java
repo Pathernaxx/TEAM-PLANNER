@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.commons.Util;
@@ -56,22 +57,23 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="login.action", method= RequestMethod.POST)
-	public ModelAndView accountLogin(String user, String password, HttpSession session)
+	@ResponseBody
+	public String accountLogin(String user, String password, HttpSession session)
 	{
-		ModelAndView mav = new ModelAndView();
 		Member loginuser = null;
-		
+		String message;
 		loginuser = accountService.AccountLogin(user, password);
 		
 		if(loginuser != null)
 		{
 			session.setAttribute("loginuser", loginuser);
+			message = "complete";
+			
 		} else {
-			mav.addObject("logindfail", user);
-			mav.setViewName("account/loginform");
+			message = "fail";
 		}
-		mav.setViewName("main/main");
-		return mav;
+		
+		return message;
 	}
 	
 	@RequestMapping(value="logout.action", method = RequestMethod.GET)
