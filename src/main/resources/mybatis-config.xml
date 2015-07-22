@@ -11,6 +11,7 @@
 	<typeAlias type="com.teamplanner.dto.Board" alias="Board"/>
 	<typeAlias type="com.teamplanner.dto.Card" alias="Card"/>
 	<typeAlias type="com.teamplanner.dto.Comment" alias="Comment"/>
+	<typeAlias type="com.teamplanner.dto.BoardList" alias="BoardList"/>
 	<typeAlias type="com.teamplanner.dto.Attachment" alias="Attachment"/>
 	<typeAlias type="com.teamplanner.dto.CheckList" alias="CheckList"/>
 	<typeAlias type="com.teamplanner.dto.CheckItem" alias="CheckItem"/>
