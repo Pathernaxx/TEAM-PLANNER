@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
@@ -34,19 +35,20 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="insert.action", method = RequestMethod.GET)
+	@ResponseBody
 	public String insertBoard(String title, HttpSession session){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-		
+		String message;
 		if(title ==null || Integer.toString(memberNo) == null){
-			return "redirect:/board/boardmain.action";
+			message = "fail";
 		}else{
+			message = "complete";
 			boardService.insertBoard(title);
-		}
-		int boardNo = boardService.getBoardNo(title);
-		boardService.insertTeamList(boardNo, memberNo);
+			int boardNo = boardService.getBoardNo(title);
+			boardService.insertTeamList(boardNo, memberNo);
+		}		
 		
-		
-		return "redirect:/board/boardmain.action";
+		return message;
 	}
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)

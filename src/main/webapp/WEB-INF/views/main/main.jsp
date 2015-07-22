@@ -28,22 +28,23 @@
 					data: {
 						title : title
 					},
-					success: function(){
-						$("#title").val("");
-						dialog.dialog("close");
+					success: function(message){
+						if(message == "complete"){
+							$("#title").val("");
+							dialog.dialog("close");
+							var url = '/finalProject/board/boardmain.action';
+							$(location).attr('href', url);
+						}else{
+							alert("error - can't make board");
+						}						
 					},
 					error:function(){
 						$("#title").val("");
 						alert("데이터가 전송되지않음");
-					}
-					
-					
+					}					
 				});
-				title ="";
-				
-				
 			}else{
-				title ="";
+				$("#title").val("");
 				return;
 			}
 			event.preventDefault();
@@ -55,6 +56,7 @@
 		      buttons:{
 		    	  "CREATE" : addBoard,
 		    	  Cancel: function(){
+		    		  $("#title").val("");
 		    		  dialog.dialog("close");
 		    	  }
 		      }
