@@ -17,28 +17,36 @@ public class OracleBoardRepository implements BoardRepository{
 	private BoardMapper boardMapper;
 	@Autowired
 	@Qualifier("boardMapper")
-	public void setMainMapper(BoardMapper boardMapper){
+	public void setBoardMapper(BoardMapper boardMapper){
 		this.boardMapper = boardMapper;
 	}
 	
   ////////////////////동윤////////////////
 	@Override
-	public void createBoard(String boardName) {
-		// TODO Auto-generated method stub
+	public void insertBoard(String boardName) {
+		boardMapper.insertBoard(boardName);
+	}
+	public int getBoardNo(String boardName){
+		int boardNo = boardMapper.getBoardNo(boardName);
+		return boardNo;
+	}
+	public void insertTeamList(int boardNo, int memberNo){
 		
 	}
+	
+	
 	@Override
-	public int getTeamList(int memberNo) {
+	public int selectTeamList(int memberNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
-	public String getBoardName(int boardNo) {
+	public String selectBoardName(int boardNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public String getClosedBoardName(int boardNo, int closed) {
+	public String selectClosedBoardName(int boardNo, int closed) {
 		// TODO Auto-generated method stub
 		return null;
 	}

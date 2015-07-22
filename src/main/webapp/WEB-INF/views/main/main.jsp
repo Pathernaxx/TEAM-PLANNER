@@ -8,18 +8,54 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
-<link rel="Stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<!-- <link rel="Stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" /> -->
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 
 
 <script>
 	$(document).ready(function(){
-		var dialog,form;
+		var dialog;
+		function addBoard(event){
+			var title = $('#title').val();
+			var check = /^[\s]+$/;
+			var checkTitle = check.test(title);
+			
+			if(checkTitle==false && title != ""){
+				$.ajax({
+					url:'/finalProject/board/insert.action',
+					type: 'get',
+					data: title,
+					success: function(){
+						$('#title').val("");
+						dialog.dialog("close");
+					},
+					error:function(){
+						$('#title').val("");
+						alert("데이터가 전송되지않음");
+					}
+					
+					
+				});
+				title ="";
+				
+				
+			}else{
+				title ="";
+				return;
+			}
+			event.preventDefault();
+		}
 		dialog = $( "#dialog-form" ).dialog({
 		      autoOpen: false,
 		      height: 300,
 		      width: 350,
+		      buttons:{
+		    	  "CREATE" : addBoard,
+		    	  Cancel: function(){
+		    		  dialog.dialog("close");
+		    	  }
+		      }
 		      
 		    });
 		$('.createBoard').click(function(){
@@ -50,11 +86,11 @@
 	<div class="clickclosedboard">
 		<a href="#">Closed List</a>
 	</div>
-<div id="dialog-form" title="Create new user">
+<div id="dialog-form">
   <form>
 
-      <label for="name">Title</label>
-      <input type="text" name="name" id="name" value="">
+      <label for="name" style="text-align: center">Title</label><br/>
+      <input type="text" name="title" id="title" value="">
      
  
       <!-- Allow form submission with keyboard without duplicating the dialog button -->

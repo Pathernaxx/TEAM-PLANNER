@@ -18,6 +18,7 @@
 	<typeAlias type="com.teamplanner.dto.TagMember" alias="TagMember"/>
 	<typeAlias type="com.teamplanner.dto.Activity" alias="Activity"/>
 	<typeAlias type="com.teamplanner.dto.ActivityTarget" alias="ActivityTarget"/>
+	<typeAlias type="com.teamplanner.dto.TeamList" alias="TeamList"/>
 </typeAliases>
 
 <mappers>

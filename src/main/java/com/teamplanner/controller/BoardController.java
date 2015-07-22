@@ -8,13 +8,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="board")
 public class BoardController {
 ////////////////////////// 동윤 /////////////////////////////////////////	
-	@RequestMapping(value="link.action", method = RequestMethod.GET)
+	@RequestMapping(value="boardmain.action", method = RequestMethod.GET)
 	public String BoardLink(){
 		
 		return "main/main";
 	}
 	
-	
+	@RequestMapping(value="insert.action", method = RequestMethod.GET)
+	public String insertBoard(String title){
+		
+		
+		
+		
+		return "redirect:/board/boardmain.action";
+	}
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public String BoardView(){
