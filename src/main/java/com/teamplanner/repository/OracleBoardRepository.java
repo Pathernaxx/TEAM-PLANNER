@@ -32,6 +32,11 @@ public class OracleBoardRepository implements BoardRepository{
 	}
 	public void insertTeamList(int boardNo, int memberNo){
 		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardNo", boardNo);
+		params.put("memberNo", memberNo);
+		
+		boardMapper.insertTeamList(params);
 	}
 	
 	

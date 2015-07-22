@@ -42,12 +42,18 @@
  	</insert>
  
  <!-- 동윤 -->
- 	<insert id="insertBoard" parameterType="Board">
- 		INSERT INTO board(no, name) VALUES (board_sequence , #{name})
+ 	<insert id="insertBoard" parameterType="String">
+ 		INSERT INTO board(no, name) VALUES (board_sequence.nextval , #{name})
  	</insert>
+ 	
  	<select id="getBoardNo" parameterType="String" resultType="int">
  		SELECT no FROM board WHERE name = #{name}
  	</select>
+ 	
+ 	<insert id="insertTeamList" parameterType="hashMap">
+ 		INSERT INTO teamlist(no, memberno, boardno, usertype) 
+ 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , 0 )
+ 	</insert>
  </mapper>
  
  

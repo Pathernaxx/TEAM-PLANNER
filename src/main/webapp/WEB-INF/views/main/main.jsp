@@ -17,7 +17,7 @@
 	$(document).ready(function(){
 		var dialog;
 		function addBoard(event){
-			var title = $('#title').val();
+			var title = $("#title").val();
 			var check = /^[\s]+$/;
 			var checkTitle = check.test(title);
 			
@@ -25,13 +25,15 @@
 				$.ajax({
 					url:'/finalProject/board/insert.action',
 					type: 'get',
-					data: title,
+					data: {
+						title : title
+					},
 					success: function(){
-						$('#title').val("");
+						$("#title").val("");
 						dialog.dialog("close");
 					},
 					error:function(){
-						$('#title').val("");
+						$("#title").val("");
 						alert("데이터가 전송되지않음");
 					}
 					
@@ -90,7 +92,7 @@
   <form>
 
       <label for="name" style="text-align: center">Title</label><br/>
-      <input type="text" name="title" id="title" value="">
+      <input type="text" name="title" id="title">
      
  
       <!-- Allow form submission with keyboard without duplicating the dialog button -->

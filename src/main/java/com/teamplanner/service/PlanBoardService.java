@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamplanner.repository.BoardRepository;
 
-@Service(value="BoardService")
+@Service(value="boardService")
 public class PlanBoardService implements BoardService{
 	
 	private BoardRepository boardRepository; 
@@ -26,7 +26,7 @@ public class PlanBoardService implements BoardService{
 	}
 	@Override
 	public void insertTeamList(int boardNo, int memberNo) {
-		
+		boardRepository.insertTeamList(boardNo, memberNo);
 	}
 	@Override
 	public int selectTeamList(int memberNo) {

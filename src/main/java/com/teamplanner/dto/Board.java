@@ -9,7 +9,6 @@ public class Board {
 	private Date regDate;
 	private boolean visibility;
 	private boolean closed;
-	private int position;
 	
 	private List<BoardList> boardlists;
 	
@@ -48,11 +47,5 @@ public class Board {
 	}
 	public void setClosed(boolean closed) {
 		this.closed = closed;
-	}
-	public int getPosition() {
-		return position;
-	}
-	public void setPosition(int position) {
-		this.position = position;
 	}
 }
