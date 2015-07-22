@@ -23,32 +23,27 @@ public class OracleCardRepository implements CardRepository {
 
 	@Override
 	public List<Comment> selectComment(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardMapper.selectComment(cardNo);
 	}
 
 	@Override
 	public List<Attachment> selectAttachment(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardMapper.selectAttachment(cardNo);
 	}
 
 	@Override
 	public List<CheckList> selectCheckList(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardMapper.selectCheckList(cardNo);
 	}
 
 	@Override
 	public List<CheckItem> selectCheckItem(int checklistNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardMapper.selectCheckItem(checklistNo);
 	}
 
 	@Override
 	public List<TagMember> selectTagMember(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardMapper.selectTagMember(cardNo);
 	}
 
 }
