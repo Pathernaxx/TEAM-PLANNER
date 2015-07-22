@@ -16,9 +16,12 @@
 	<typeAlias type="com.teamplanner.dto.CheckList" alias="CheckList"/>
 	<typeAlias type="com.teamplanner.dto.CheckItem" alias="CheckItem"/>
 	<typeAlias type="com.teamplanner.dto.TagMember" alias="TagMember"/>
+	<typeAlias type="com.teamplanner.dto.Activity" alias="Activity"/>
+	<typeAlias type="com.teamplanner.dto.ActivityTarget" alias="ActivityTarget"/>
 </typeAliases>
 
 <mappers>
+	<mapper resource="com/teamplanner/mapper/ActivityMapper.xml"/>
 	<mapper resource="com/teamplanner/mapper/MemberMapper.xml"/>
 	<mapper resource="com/teamplanner/mapper/BoardMapper.xml"/>
 	<mapper resource="com/teamplanner/mapper/CardMapper.xml"/>

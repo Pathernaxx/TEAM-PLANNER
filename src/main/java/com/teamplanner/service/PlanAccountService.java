@@ -23,9 +23,16 @@ private MemberRepository memberRepository;
 	@Override
 	public Member AccountLogin(String id, String password) {
 		
+		Member member = null;
 		password = Util.getHashedString(password, "SHA-1");
 		
-		return memberRepository.selectMemberByIdAndPassword(id, password);
+		if(id.contains("@")) {
+			member = memberRepository.selectMemberByIdAndPasswordByEmail(id, password);
+		} else {
+			member = memberRepository.selectMemberByIdAndPasswordByName(id, password);
+		}		
+		
+		return member;
 	}
 
 	@Override
@@ -37,6 +44,20 @@ private MemberRepository memberRepository;
 	@Override
 	public void joinWithUs(Member member) {
 		
+		String user = member.getUserName();
+		String email = member.getEmail();
+		
+		if(memberRepository.selectMemberByEmailCheck(email) != null)
+		{
+			//return "email";
+		}
+		//while()
+		while(memberRepository.selectMemberByUserNameCheck(user) != null)
+		{
+			user = user + (int)(Math.random() * 1000) + 1;
+			member.setUserName(user);
+		}
+		
 		memberRepository.insertMember(member);
 	}
 
@@ -47,6 +68,7 @@ private MemberRepository memberRepository;
 		{
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -57,6 +79,7 @@ private MemberRepository memberRepository;
 		{
 			return true;
 		}
+		
 		return false;
 	}
 }

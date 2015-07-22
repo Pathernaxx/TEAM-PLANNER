@@ -50,12 +50,21 @@
 			no = #{no}
 	</update>
 	
-	<select id="selectMemberByIdAndPassword" parameterType="hashMap" resultType="Member">
+	<select id="selectMemberByIdAndPasswordByEmail" parameterType="hashMap" resultType="Member">
 		SELECT
 			<include refid="member"/>
 		FROM
 			member
 		WHERE
 			email=#{email} AND password=#{password}
+	</select>
+	
+	<select id="selectMemberByIdAndPasswordByName" parameterType="hashMap" resultType="Member">
+		SELECT
+			<include refid="member"/>
+		FROM
+			member
+		WHERE
+			username=#{name} AND password=#{password}
 	</select>
 </mapper>

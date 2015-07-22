@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamplanner.ActivityMapper">
+	
+	<resultMap type="Activity" id="resultActivity">
+		<id column="no" property="no"/>
+		<result column="userno" property="userNo"/>
+		<result column="username" property="userName"/>
+		<result column="typeno" property="typeNo"/>
+		<result column="backno" property="backNo"/>
+		<result column="backtitle" property="backTitle"/>
+		<result column="boardno" property="boardNo"/>
+		<result column="boardname" property="boardName"/>
+		<association column="targetno" property="target" select="selectResultTarget"/>
+	</resultMap>
+	
+	<resultMap type="ActivityTarget" id="target">
+		<id column="targetno" property="no"/>
+		<result column="typeno" property="typeNo"/>
+		<result column="targetno" property="targetNo"/>
+		<result column="targetname" property="targetName"/>
+		<result column="activityno" property="ActivityNo"/>
+	</resultMap>
+	
+	<select id="selectResultTarget" resultMap="target">
+		SELECT
+			*
+		FROM
+			activitytarget
+		WHERE
+			no = #{targetno}
+	</select>
+	
+	<insert id="insertActivity" parameterType="Activity">
+		INSERT INTO activity(no, userno, username, typeno, targetno, backno, backtitle, boardno, boardname)
+		VALUES(activity_sequence.nextVal, #{userNo}, #{userName}, #{target.typeNo}, #{targetNo}, #{backNo}, #{backTitle}, #{boardNo}, #{boardName})
+	</insert>
+	<select id="selectActivityByBoard">
+	</select>
+	<select id="selectActivityByUser">
+	</select>
+</mapper>

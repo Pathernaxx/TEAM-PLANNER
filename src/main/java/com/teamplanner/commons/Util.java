@@ -66,4 +66,5 @@ public class Util {
 
 		return name + ext;
 	}
+	public static enum STATE{ BOARD, LIST, CARD, CHECKLIST, ATTACHEMENT, COMMENT, MEMBER};
 }

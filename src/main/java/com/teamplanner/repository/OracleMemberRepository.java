@@ -54,12 +54,22 @@ public class OracleMemberRepository implements MemberRepository{
 	}
 
 	@Override
-	public Member selectMemberByIdAndPassword(String email, String password) {
+	public Member selectMemberByIdAndPasswordByEmail(String email, String password) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		
 		params.put("email", email);
 		params.put("password", password);
 		
-		return memberMapper.selectMemberByIdAndPassword(params);
+		return memberMapper.selectMemberByIdAndPasswordByEmail(params);
+	}
+	
+	@Override
+	public Member selectMemberByIdAndPasswordByName(String name, String password) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		
+		params.put("name", name);
+		params.put("password", password);
+		
+		return memberMapper.selectMemberByIdAndPasswordByName(params);
 	}
 }

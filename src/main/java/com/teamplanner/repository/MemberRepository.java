@@ -8,5 +8,6 @@ public interface MemberRepository {
 	String selectMemberByEmailCheck(String email);
 	Member selectMemberByMemberNo(int memberNo);
 	void updateMember(Member member);
-	Member selectMemberByIdAndPassword(String email, String password);
+	Member selectMemberByIdAndPasswordByEmail(String email, String password);
+	Member selectMemberByIdAndPasswordByName(String name, String password);
 }
