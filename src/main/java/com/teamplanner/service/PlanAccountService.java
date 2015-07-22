@@ -33,4 +33,30 @@ private MemberRepository memberRepository;
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void joinWithUs(Member member) {
+		
+		memberRepository.insertMember(member);
+	}
+
+	@Override
+	public boolean IdCheckForEmail(String email) {
+		
+		if(memberRepository.selectMemberByEmailCheck(email) == null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean IdCheckForUserName(String userName) {
+		
+		if(memberRepository.selectMemberByUserNameCheck(userName) == null)
+		{
+			return true;
+		}
+		return false;
+	}
 }

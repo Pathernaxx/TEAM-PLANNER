@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.commons.Util;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.AccountService;
 
@@ -31,6 +32,29 @@ public class AccountController {
 		return "account/signup";
 	}
 	
+	@RequestMapping(value="signup.action", method=RequestMethod.POST)
+	public String createTeamPlanner(String name, String email, String password)
+	{
+		
+		password = Util.getHashedString(password, "SHA-1");
+		
+		Member member = new Member();
+		member.setUserName(name);
+		member.setFullName(name);
+		member.setEmail(email);
+		member.setPassword(password);
+
+		accountService.joinWithUs(member);
+		// 차후 수정
+		return "redirect:/home.action";
+	}
+	
+	@RequestMapping(value="login.action", method= RequestMethod.GET)
+	public String locationlogin()
+	{
+		return "account/loginform";
+	}
+	
 	@RequestMapping(value="login.action", method= RequestMethod.POST)
 	public ModelAndView accountLogin(String id, String password, HttpSession session)
 	{
@@ -44,7 +68,7 @@ public class AccountController {
 			session.setAttribute("loginuser", loginuser);
 		} else {
 			mav.addObject("logindfail", id);
-			mav.setViewName("");
+			mav.setViewName("board/");
 		}
 		return mav;
 	}

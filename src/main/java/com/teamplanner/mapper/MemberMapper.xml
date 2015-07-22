@@ -10,10 +10,8 @@
 	</sql>
 	
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO member
-			(no, username, fullname, email, password)
-		VALUSE
-			(member_sequence.nextval, #{userName}, #{fullName}, #{email}, #{password})
+		INSERT INTO member(no, username, fullname, email, password)
+		VALUES(member_sequence.nextVal, #{userName}, #{fullName}, #{email}, #{password})
 	</insert>
 	
 	<select id="selectMemberByEmailCheck" parameterType="String" resultType="String">
