@@ -6,6 +6,7 @@
   
  <mapper namespace="com.teamplanner.mapper.CardMapper">
  	
+
  	<select id="selectComment" parameterType="int" resultType="Comment">
  		SELECT * 
  		FROM Comment
@@ -29,5 +30,6 @@
  	<select id="selectTagMember" parameterType="int">
  		
  	</select>
+
  	
  </mapper>
