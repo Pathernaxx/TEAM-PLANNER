@@ -6,8 +6,13 @@
   
  <mapper namespace="com.teamplanner.mapper.BoardMapper">
  
- 	<select id="selectBoardByList" parameterType="Board"></select>
- 	
+ <!-- 유정 -->
+ 	<select id="selectBoardByList" parameterType="Board">
+ 		
+ 	</select>
  	<select id="selectCard" parameterType="Card"></select>
+ 
+ <!-- 동윤 -->
+ 
  	
  </mapper>
