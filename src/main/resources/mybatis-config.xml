@@ -10,11 +10,11 @@
 	<typeAlias type="com.teamplanner.dto.Member" alias="Member"/>
 	<typeAlias type="com.teamplanner.dto.Board" alias="Board"/>
 	<typeAlias type="com.teamplanner.dto.Card" alias="Card"/>
-	<typeAlias type="com.teamplanner.dto.Card" alias="Comment"/>
-	<typeAlias type="com.teamplanner.dto.Card" alias="Attachment"/>
-	<typeAlias type="com.teamplanner.dto.Card" alias="CheckList"/>
-	<typeAlias type="com.teamplanner.dto.Card" alias="CheckItem"/>
-	<typeAlias type="com.teamplanner.dto.Card" alias="TagMember"/>
+	<typeAlias type="com.teamplanner.dto.Comment" alias="Comment"/>
+	<typeAlias type="com.teamplanner.dto.Attachment" alias="Attachment"/>
+	<typeAlias type="com.teamplanner.dto.CheckList" alias="CheckList"/>
+	<typeAlias type="com.teamplanner.dto.CheckItem" alias="CheckItem"/>
+	<typeAlias type="com.teamplanner.dto.TagMember" alias="TagMember"/>
 </typeAliases>
 
 <mappers>
