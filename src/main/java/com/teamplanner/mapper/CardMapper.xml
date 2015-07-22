@@ -6,10 +6,10 @@
   
  <mapper namespace="com.teamplanner.mapper.CardMapper">
  	
- 	<select id="selectComment" parameterType="Comment"></select>
+ 	<!-- <select id="selectComment" parameterType="Comment"></select>
  	<select id="selectAttachment" parameterType="Attachment"></select>
  	<select id="selectCheckList" parameterType="CheckList"></select>
  	<select id="selectCheckItem" parameterType="CheckItem"></select>
- 	<select id="selectTagMember" parameterType="TagMember"></select>
+ 	<select id="selectTagMember" parameterType="TagMember"></select> -->
  	
  </mapper>
