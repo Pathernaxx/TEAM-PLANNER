@@ -12,7 +12,7 @@
 
 </head>
 <body >
-	<a href="/finalProject/board/link.action">main</a>
+	<a href="/finalProject/board/boardmain.action">main</a>
 	<a href="/finalProject/board/boardview.action">보드자세히 보기</a>
 	<a href="/finalProject/account/signup.action">signup</a>
 	<a href="/finalProject/member/member.action">member</a>

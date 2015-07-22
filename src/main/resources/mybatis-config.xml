@@ -16,6 +16,7 @@
 	<typeAlias type="com.teamplanner.dto.CheckList" alias="CheckList"/>
 	<typeAlias type="com.teamplanner.dto.CheckItem" alias="CheckItem"/>
 	<typeAlias type="com.teamplanner.dto.TagMember" alias="TagMember"/>
+	<typeAlias type="com.teamplanner.dto.TeamList" alias="TeamList"/>
 </typeAliases>
 
 <mappers>

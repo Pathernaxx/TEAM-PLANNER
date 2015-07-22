@@ -42,8 +42,12 @@
  	</insert>
  
  <!-- 동윤 -->
- 
- 	
+ 	<insert id="insertBoard" parameterType="Board">
+ 		INSERT INTO board(no, name) VALUES (board_sequence , #{name})
+ 	</insert>
+ 	<select id="getBoardNo" parameterType="String" resultType="int">
+ 		SELECT no FROM board WHERE name = #{name}
+ 	</select>
  </mapper>
  
  

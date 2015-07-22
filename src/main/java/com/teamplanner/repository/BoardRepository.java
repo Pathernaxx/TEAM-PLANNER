@@ -9,10 +9,12 @@ import com.teamplanner.dto.Card;
 public interface BoardRepository {
 	
 //////////////동윤///////////////////////
-	void createBoard(String boardName);
-	int getTeamList(int memberNo); //return boardNo
-	String getBoardName(int boardNo);//memberNo로 뽑힌
-	String getClosedBoardName(int boardNo, int closed);//memberNo로 뽑힌
+	void insertBoard(String boardName);
+	int getBoardNo(String boardName);
+	void insertTeamList(int boardNo, int memberNo);
+	int selectTeamList(int memberNo); //return boardNo
+	String selectBoardName(int boardNo);//memberNo로 뽑힌
+	String selectClosedBoardName(int boardNo, int closed);//memberNo로 뽑힌
 	
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
