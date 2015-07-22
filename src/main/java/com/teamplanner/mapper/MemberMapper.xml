@@ -20,7 +20,7 @@
 		FROM
 			member
 		WHERE
-			email = #{email}`
+			email = #{email}
 	</select>
 	
 	<select id="selectMemberByUserNameCheck" parameterType="String" resultType="String">

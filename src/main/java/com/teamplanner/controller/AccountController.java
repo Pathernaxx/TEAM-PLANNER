@@ -56,20 +56,21 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="login.action", method= RequestMethod.POST)
-	public ModelAndView accountLogin(String id, String password, HttpSession session)
+	public ModelAndView accountLogin(String user, String password, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
 		Member loginuser = null;
 		
-		loginuser = accountService.AccountLogin(id, password);
+		loginuser = accountService.AccountLogin(user, password);
 		
 		if(loginuser != null)
 		{
 			session.setAttribute("loginuser", loginuser);
 		} else {
-			mav.addObject("logindfail", id);
-			mav.setViewName("board/");
+			mav.addObject("logindfail", user);
+			mav.setViewName("account/loginform");
 		}
+		mav.setViewName("main/main");
 		return mav;
 	}
 	

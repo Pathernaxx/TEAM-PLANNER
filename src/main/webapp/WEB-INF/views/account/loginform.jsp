@@ -39,7 +39,8 @@ textarea, input {
 					password : $("#password").val()
 				},
 				success : function() {
-					alert('succes');
+					var url = '/finalProject/home.action';
+					$(location).attr('href', url);
 				},
 				error : function() {
 					alert('fail');

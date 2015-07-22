@@ -40,8 +40,8 @@ textarea, input {
 					password : $("#password").val()
 				},
 				success : function() {
-					alert('succes');
-					location.href("/finalProject/account/login.action");
+					var url = "/finalProject/account/login.action";
+					$(location).attr('href', url);
 				},
 				error : function() {
 					alert('fail');
