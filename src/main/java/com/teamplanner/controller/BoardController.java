@@ -14,7 +14,14 @@ public class BoardController {
 		return "main/main";
 	}
 	
-	
+	@RequestMapping(value="insert.action", method = RequestMethod.GET)
+	public String insertBoard(String title){
+		
+		
+		
+		
+		return "redirect:/board/link.action";
+	}
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public String BoardView(){
