@@ -1,5 +1,6 @@
 package com.teamplanner.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.teamplanner.dto.Board;
@@ -16,4 +17,5 @@ public interface BoardMapper {
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);
+	void insertCard(Card card);//boardno, listno 가지고 들어옴
 }

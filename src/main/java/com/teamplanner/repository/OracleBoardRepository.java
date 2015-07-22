@@ -1,5 +1,6 @@
 package com.teamplanner.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,11 @@ public class OracleBoardRepository implements BoardRepository{
 	public List<Card> selectCard(int listNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void insertCard(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		
 	}
 }

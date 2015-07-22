@@ -1,5 +1,6 @@
 package com.teamplanner.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.teamplanner.dto.Board;
@@ -16,5 +17,5 @@ public interface BoardRepository {
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);
-	
+	void insertCard(HashMap<String, Object> params);
 }
