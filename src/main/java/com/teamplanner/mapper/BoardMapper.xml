@@ -7,10 +7,16 @@
  <mapper namespace="com.teamplanner.mapper.BoardMapper">
  
  <!-- 유정 -->
- 	<select id="selectBoardByList" parameterType="Board">
- 		
+ 	<select id="selectBoardByList" parameterType="int" resultType="Board">
+ 		SELECT *
+ 		FROM BoardList
+ 		WHERE boardNo = #{boardNo}
  	</select>
- 	<select id="selectCard" parameterType="Card"></select>
+ 	<select id="selectCard" parameterType="int" resultType="Card">
+ 		SELECT *
+ 		FROM BoardCard
+ 		WHERE listNo = #{listNo}
+ 	</select>
  
  <!-- 동윤 -->
  

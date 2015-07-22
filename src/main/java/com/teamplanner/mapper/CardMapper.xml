@@ -6,10 +6,30 @@
   
  <mapper namespace="com.teamplanner.mapper.CardMapper">
  	
- 	<!-- <select id="selectComment" parameterType="Comment"></select>
- 	<select id="selectAttachment" parameterType="Attachment"></select>
- 	<select id="selectCheckList" parameterType="CheckList"></select>
- 	<select id="selectCheckItem" parameterType="CheckItem"></select>
- 	<select id="selectTagMember" parameterType="TagMember"></select> -->
+
+ 	<select id="selectComment" parameterType="int" resultType="Comment">
+ 		SELECT * 
+ 		FROM Comment
+ 		WHERE cardNo = #{cardNo}
+ 	</select>
+ 	<select id="selectAttachment" parameterType="int">
+ 		SELECT *
+ 		FROM Attachment
+ 		WHERE cardNo = #{cardNo}
+ 	</select>
+ 	<select id="selectCheckList" parameterType="int">
+ 		SELECT *
+ 		FROM CheckList
+ 		WHERE cardNo = #{cardNo}
+ 	</select>
+ 	<select id="selectCheckItem" parameterType="int">
+ 		SELECT *
+ 		FROM CheckItem
+ 		WHERE checklistNo = #{checklistNo}
+ 	</select>
+ 	<select id="selectTagMember" parameterType="int">
+ 		
+ 	</select>
+
  	
  </mapper>

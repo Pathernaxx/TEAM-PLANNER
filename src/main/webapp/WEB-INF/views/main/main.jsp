@@ -52,14 +52,14 @@
 	</div>
 <div id="dialog-form" title="Create new user">
   <form>
-    <fieldset>
+
       <label for="name">Title</label>
       <input type="text" name="name" id="name" value="">
      
  
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    </fieldset>
+
   </form>
 </div>
 </body>
