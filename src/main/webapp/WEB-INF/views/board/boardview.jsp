@@ -7,43 +7,40 @@
 <title>Insert title here</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
 </head>
-<body>
+<body style="background-color: #ab0c67">
 	<div class="content">
 		<div class="headmenu">
 			<% pageContext.include("/WEB-INF/views/include/header.jsp"); %>
 		</div>
 		
 		<div id="content" class="clearfix">
-			<div class="board-wrapper">
-				<div class="board-header u-clearfix js-boardd-header">
-				<a class="board-header-btn board-header-btn-name js-rename-board" href="#">
-					<span class="voard-header-btn-text">보드이름</span>
-				</a>
-				</div>
-				<div class="board-header-btns mod-left">
-					<a id="permission-level" class="board-header-btn js-change-vis" href="#" title="This board is public">
-					<span class="board-header-btn-text">보드 공개 상태</span>
+			<div class="wrapper">
+			
+				<div class="header">
+					<a class="header-btn header-btn-name" href="#">
+						<span class="header-btn-text">프로젝트명</span>
 					</a>
+					<div class="header-btns">
+						<a class="header-btn show-menu" href="#">
+							<span class="header-btn-icon"></span>
+							<span class="header-btn-text">Show Menu</span>
+						</a>
+					</div> 
 				</div>
-				<div class="board-header-btns mod-right">
-					<a class="board-header-btn mod-show-menu js-show-sidebar" href="#">
-					<span class="icon-sm icon-back board-header-btn-icon"></span>
-					<span class="board-header-btn-text u-text-underline">Show Menu</span>
-					</a>
-				</div>
+
+				<div class="canvas">
+					<div class="list">
+						<div class="list-name">
+							<a href="#">리스트이름</a>
+						</div>
+						<div class="list-cards">
+							<div class="card">카드1</div>
+						</div>
+					</div>
+				</div>				
 				
-				<!-- tab부분
-				<div class="board-menu js-fill-board-menu"></div>
-				 -->
-				 
-				 <div class="board-canvas" style="height:195px">
-				 <div id="board" class="u-fancy-scrollbar js-no-higher-edit js-list-sortable ui-sortable">
-				 	<div class="list">
-				 	</div>
-				 </div>
-				 </div>
-				 
 			</div>
 		</div>
 		

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.teamplanner.mapper.CardMapper">
+ 	
+
+ 	<select id="selectComment" parameterType="int" resultType="Comment">
+ 		SELECT  no, regdate, cardno, content
+ 		FROM boardcomment
+ 		WHERE cardno = #{cardNo}
+ 	</select>
+ 	<select id="selectAttachment" parameterType="int" resultType="Attachment">
+ 		SELECT no, userfilename, cardno, boardno, regdate, archived
+ 		FROM attachment
+ 		WHERE cardno = #{cardNo}
+ 	</select>
+ 	<select id="selectCheckList" parameterType="int" resultType="CheckList">
+ 		SELECT no, name, cardno, regdate
+ 		FROM checklist
+ 		WHERE cardno = #{cardNo}
+ 	</select>
+ 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
+ 		SELECT no, name, checked, checklistno
+ 		FROM checkitem
+ 		WHERE checklistno = #{checklistNo}
+ 	</select>
+ 	<select id="selectTagMember" parameterType="int" resultType="TagMember">
+ 		SELECT cardno, teamno
+ 		FROM tagmember
+ 		WHERE checklistno = #{checklistNo}
+ 	</select>
+
+ 	
+ </mapper>
