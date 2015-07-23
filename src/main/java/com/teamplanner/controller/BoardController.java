@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.Board;
+import com.teamplanner.dto.Board;
+import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
 
@@ -66,9 +69,19 @@ public class BoardController {
 	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
-	public String BoardView(){
+	public String BoardView(@RequestParam("boardno") int boardNo){
 		
 		return "board/boardview";
+		
+	}
+	
+	@RequestMapping(value="boardview.action", method = RequestMethod.POST)
+	@ResponseBody
+	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
+		List<BoardList> boardLists = boardService.BoardView(boardNo);
+		
+		
+		return boardLists;
 	}
 	
 }
