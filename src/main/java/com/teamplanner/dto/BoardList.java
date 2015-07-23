@@ -9,7 +9,7 @@ public class BoardList {
 	private String name;
 	private Date regDate;
 	private int position;
-	private boolean archive;
+	private boolean archived;
 	
 	private List<Card> cards;
 	
@@ -49,10 +49,10 @@ public class BoardList {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	public boolean isArchive() {
-		return archive;
+	public boolean isArchived() {
+		return archived;
 	}
-	public void setArchive(boolean archive) {
-		this.archive = archive;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 }

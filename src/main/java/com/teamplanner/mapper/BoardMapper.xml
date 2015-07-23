@@ -17,27 +17,51 @@
  	<collection column="no" property="boardlist" ofType="BoardList" select="selectBoardList" /> 
  </resultMap>
  
+ <resultMap id="BoardListResult" type="BoardList">
+ 	<id column="no" property="no" />
+ 	<result column="boardno" property="boardNo" />
+ 	<result column="name" property="name" />
+ 	<result column="regdate" property="regDate" />
+ 	<result column="position" property="position" />
+ 	<result column="archived" property="archived" />
+ 	<collection column="no" property="cards" ofType="Card" select="selectCard" />
+ </resultMap>
+ 
+ <resultMap id="CardResult" type="Card" >
+ 	<id column="no" property="no" />
+ 	<result column="name" property="name" />
+ 	<result column="regdate" property="regDate" 
+ 		typeHandler="com.teamplanner.handler.DataFormatHandler"/>
+ 	<result column="listno" property="listNo" />
+ 	<result column="boardno" property="boardNo" />
+ 	<result column="boardname" property="boardName" />
+ 	<result column="position" property="position" />
+ 	<result column="duedate" property="dueDate" />
+ 	<result column="archived" property="archived" />
+ 	<result column="deleted" property="deleted" />
+ </resultMap>
+ 
  <!-- 유정 -->
  	<select id="selectBoardByList" parameterType="int" resultMap="BoardResult">
- 		SELECT no, name, regdate, visibility, closed, position
+ 		SELECT no, name, regdate, visibility, closed
  		FROM board
- 		WHERE boardno = #{boardNo}
+ 		WHERE no = #{boardNo}
  	</select>
  	
- 	<select id="selectBoardList" parameterType="int" resultType="BoardList">
+ 	<select id="selectBoardList" parameterType="int" resultMap="BoardListResult">
  		SELECT no, boardno, name, regdate, position, archived
  		FROM boardlist
  		WHERE boardno = #{no}
  	</select>
  	
- 	<select id="selectCard" parameterType="int" resultType="Card">
+ 	<select id="selectCard" parameterType="int" resultMap="CardResult">
  		SELECT no, name, listno, boardno, boardname, position, duedate, archived, deleted
  		FROM boardcard
- 		WHERE listno = #{listNo}
+ 		WHERE listno = #{listno}
  	</select>
  	
  	<insert id="insertCard" parameterType="Card">
- 		INSERT INTO card(no, name, listno, boardno, boardname, position)
+ 		INSERT INTO boardcard(no, name, listno, boardno, boardname, position)
  		VALUES (boardcard_sequence, #{name}, #{listno}, #{boardno}, #{boardname}, #{position})
  	</insert>
  

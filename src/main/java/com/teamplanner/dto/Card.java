@@ -11,7 +11,7 @@ public class Card {
 	private Date regDate;
 	private Date dueDate;
 	private int position;
-	private boolean archive;
+	private boolean archived;
 	private boolean deleted;
 	
 	public int getNo() {
@@ -62,11 +62,11 @@ public class Card {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	public boolean isArchive() {
-		return archive;
+	public boolean isArchived() {
+		return archived;
 	}
-	public void setArchive(boolean archive) {
-		this.archive = archive;
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 	public boolean isDeleted() {
 		return deleted;

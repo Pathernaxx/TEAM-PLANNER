@@ -58,17 +58,19 @@ public class BoardController {
 	}
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
-	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
+	public String BoardView(@RequestParam("boardno") int boardNo){
 		
+		return "board/boardview";
 		
+	}
+	
+	@RequestMapping(value="boardview.action", method = RequestMethod.POST)
+	@ResponseBody
+	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(boardLists);
-		mav.setViewName("board/boardview");
 		
-		return mav;
-		
+		return boardLists;
 	}
 	
 }

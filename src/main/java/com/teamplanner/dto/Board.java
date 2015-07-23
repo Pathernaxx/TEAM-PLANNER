@@ -6,7 +6,7 @@ import java.util.List;
 public class Board {
 	private int no;
 	private String name;
-	private Date regDate;
+	private String regdate;
 	private boolean visibility;
 	private boolean closed;
 	
@@ -30,11 +30,11 @@ public class Board {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public String getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 	public boolean isVisibility() {
 		return visibility;

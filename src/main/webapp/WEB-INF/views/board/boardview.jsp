@@ -12,6 +12,37 @@
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript">
 
+$(document).ready(function() {
+	$.ajax({
+		url: "/finalProject/board/boardview.action",
+		async: true,
+		data: {
+			boardno : 1
+		},
+		method: "post",
+		success: function(result) {
+			
+			$.each(result, function(index, item) {
+				var output="";
+				output += '<div class="list">';
+				output += '<div class="list-name" style="background-color:white">' + item.name + '</div>';
+				for(var card in item.cards) {
+					output += '<div class="list-card" style="background-color:blue">'+ item.cards[card].name +'</div>';
+				};
+				output += '<div class="list-insert">리스트추가</div>';
+				output += '</div>';
+				$(".canvas").append(output);
+			});
+			
+		},
+		error: function() {
+			alert("error");
+		}
+	});
+	
+	
+});
+
 </script>
 
 </head>
@@ -35,17 +66,9 @@
 						</a>
 					</div> 
 				</div>
-
+				
 				<div class="canvas">
-					<div class="list">
-						<div class="list-name">
-							<a href="#">리스트이름</a>
-						</div>
-						<div class="list-cards">
-							<div class="card">카드1</div>
-						</div>
-					</div>
-				</div>				
+				</div>		
 				
 			</div>
 		</div>
