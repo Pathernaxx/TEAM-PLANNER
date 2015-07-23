@@ -28,7 +28,7 @@ textarea, input {
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#join").click(function(evnet)
+		$("#join").click(function(event)
 		{
 			$.ajax({
 				url: "/finalProject/account/login.action",

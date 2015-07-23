@@ -17,5 +17,6 @@
 	<a href="/finalProject/account/signup.action">signup</a>
 	<a href="/finalProject/account/login.action">login</a>
 	<a href="/finalProject/member/member.action">member</a>
+	<a href="/finalProject/member/memberinfo.action">memberinfo</a>
 </body>
 </html>
