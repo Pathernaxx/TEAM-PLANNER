@@ -1,5 +1,7 @@
 package com.teamplanner.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.dto.Board;
+import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
 
@@ -52,9 +58,17 @@ public class BoardController {
 	}
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
-	public String BoardView(){
+	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
 		
-		return "board/boardview";
+		
+		List<BoardList> boardLists = boardService.BoardView(boardNo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(boardLists);
+		mav.setViewName("board/boardview");
+		
+		return mav;
+		
 	}
 	
 }

@@ -8,6 +8,12 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
+
+<script src="//code.jquery.com/jquery-1.11.3.js"></script>
+<script type="text/javascript">
+
+</script>
+
 </head>
 <body style="background-color: #ab0c67">
 	<div class="content">
