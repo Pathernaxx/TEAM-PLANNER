@@ -1,5 +1,7 @@
 package com.teamplanner.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
 
@@ -27,29 +31,39 @@ public class BoardController {
 	
 ////////////////////////// 동윤 /////////////////////////////////////////	
 	@RequestMapping(value="boardmain.action", method = RequestMethod.GET)
-	public String boardMain(){
+	public ModelAndView boardMain(HttpSession session){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Board> boards = boardService.selectBoardbyTeamList(memberNo);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/main");
+		mav.addObject("boards", boards);
 		
-		
-		
-		return "main/main";
+		return mav;
 	}
 	
 	@RequestMapping(value="insert.action", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertBoard(String title, HttpSession session){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boolean check = boardService.checkBoardName(title);
 		String message;
-		if(title ==null || Integer.toString(memberNo) == null){
-			message = "fail";
+		if(check == true){
+			message = "check";
 		}else{
-			message = "complete";
-			boardService.insertBoard(title);
-			int boardNo = boardService.getBoardNo(title);
-			boardService.insertTeamList(boardNo, memberNo);
-		}		
+			if(title ==null || Integer.toString(memberNo) == null){
+				message = "fail";
+			}else{
+				message = "complete";
+				boardService.insertBoard(title);
+				int boardNo = boardService.getBoardNo(title);
+				boardService.insertTeamList(boardNo, memberNo);
+			}
+		}
+				
 		
 		return message;
 	}
+	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public String BoardView(){

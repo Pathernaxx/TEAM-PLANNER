@@ -54,6 +54,17 @@
  		INSERT INTO teamlist(no, memberno, boardno, usertype) 
  		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , 0 )
  	</insert>
+ 	
+ 	<select id="selectBoardbyTeamList" parameterType="Integer" resultType="Board">
+ 		SELECT b.* 
+ 		FROM teamlist t, board b 
+ 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '0' 
+ 		ORDER BY b.name
+ 	</select>
+ 	
+ 	<select id="checkBoardName" parameterType="String" resultType="String">
+ 		SELECT name FROM board WHERE name = #{title}
+ 	</select>
  </mapper>
  
  

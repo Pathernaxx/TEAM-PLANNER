@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.teamplanner.dto.Board"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,6 +36,8 @@
 							dialog.dialog("close");
 							var url = '/finalProject/board/boardmain.action';
 							$(location).attr('href', url);
+						}else if(message == "check"){
+							alert("이름이 중복됩니다.")
 						}else{
 							alert("error - can't make board");
 						}						
@@ -58,13 +62,17 @@
 		    	  Cancel: function(){
 		    		  $("#title").val("");
 		    		  dialog.dialog("close");
+		    		  $(".createBoard").css("display","block");
 		    	  }
 		      }
 		      
 		    });
 		$('.createBoard').click(function(){
 			dialog.dialog("open");
+			$(".createBoard").css("display","none");
 		});
+		
+		
 		
 	});
 </script>
@@ -80,8 +88,11 @@
 				<p>◎  My Board</p>
 			</div>
 			<div>
+			<% List<Board> boards = (List<Board>)request.getAttribute("boards");%>
 				<ul>
-				<li><div class="board"><p>Board name<p></div></li>	
+			<%for(Board board : boards){ %>	
+				<li><div class="board"><p><%=board.getName() %><p></div></li>	
+			<%} %>
 				<li><div class="createBoard"><p class="createBoardName">New Board.....</p></div></li>
 				</ul>
 			</div>			

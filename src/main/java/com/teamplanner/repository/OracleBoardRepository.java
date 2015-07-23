@@ -37,24 +37,31 @@ public class OracleBoardRepository implements BoardRepository{
 		params.put("memberNo", memberNo);
 		
 		boardMapper.insertTeamList(params);
-	}
-	
-	
+	}	
 	@Override
-	public int selectTeamList(int memberNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<Board> selectBoardbyTeamList(int memberNo) {
+		List<Board> boards = boardMapper.selectBoardbyTeamList(memberNo);
+		return boards;
 	}
 	@Override
-	public String selectBoardName(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean checkBoardName(String title) {
+		
+		String check = boardMapper.checkBoardName(title);
+		boolean checkName = false;
+		if(check !=null){	
+			checkName = true;	//중복될 때
+		}else{
+			checkName = false;
+		}
+			
+		return checkName;
 	}
 	@Override
 	public String selectClosedBoardName(int boardNo, int closed) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	
 	////////////////////유정////////////////
 	@Override
@@ -73,4 +80,6 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		boardMapper.insertCard(card);
 	}
+
+
 }
