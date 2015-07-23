@@ -9,7 +9,10 @@ public interface MemberMapper {
 	String selectMemberByUserNameCheck(String userName);
 	String selectMemberByEmailCheck(String email);
 	Member selectMemberByMemberNo(int memberNo);
-	void updateMember(Member member);
+	void updateMemberName(Member member);
+	void updateMemberNotification(HashMap<String, Object> params);
+	void updateMemberIconPath(HashMap<String, Object> params);
+	void updateMemberPassword(HashMap<String, Object> params);
 	Member selectMemberByIdAndPasswordByEmail(HashMap<String, String> params);
 	Member selectMemberByIdAndPasswordByName(HashMap<String, String> params);
 }
