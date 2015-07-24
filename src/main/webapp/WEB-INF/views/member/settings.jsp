@@ -5,8 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+<link rel="stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/finalProject/resources/js/jquery.webui-popover.js"></script>
+
 
 <style>
 .tab-in {
@@ -29,6 +32,16 @@ display: inline;
 <script type="text/javascript">
 	$(function() {
 		$("#tabs-test").tabs();
+		$('#changename').webuiPopover({
+			constrains: 'horizontal', 
+            trigger:'click',
+            multi: true,
+            placement:'right-bottom',
+            width:100,
+			closeable: true,
+			title: 'Change Name',
+            content: '아아<br>마이크 테스트'
+		});
 	});
 </script>
 <title>Settings</title>
@@ -56,17 +69,26 @@ display: inline;
 			<h1>Account Details</h1>
 			<hr/>
 			<div>
-				<a href="#">Change Name, Initails</a>
-				<a href="#">Change Avatar</a>
-				<a href="#">Change Password</a>
+				<div>
+					<a href="" id="changename">Change Name, Initails</a>
+				</div>
+				<div>
+					<a href="#!" id="changeavatar">Change Avatar</a>
+				</div>
+				<div>
+					<a href="#!" id="changepass">Change Password</a>
+				</div>
 			</div>
 			<h1>Notification</h1>
 			<hr/>
 			<div>
-				<a href="#">Change Notification for Email</a>
+				<a href="#" id="changenotifi">Change Notification for Email</a>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="pop-over" style="left:1042px; top: 41px;">
+	
 </div>
 </body>
 </html>
