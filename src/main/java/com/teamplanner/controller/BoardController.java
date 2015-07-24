@@ -89,6 +89,8 @@ public class BoardController {
 	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		
+		int memberNo=1;
+		
 		
 		return boardLists;
 	}
