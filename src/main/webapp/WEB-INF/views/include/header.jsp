@@ -4,14 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<script>
+	$(document).ready(function(){
+		var a = ["aseqwe","asd","qwe","zxc"];
+		$(".searchtext").autocomplete({
+			source : a
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="searchName">
 		Search
 	</div>
 	<div class="search">
-		Search
+		<input class="searchtext" type="text"/>
 	</div>
 </body>
 </html>

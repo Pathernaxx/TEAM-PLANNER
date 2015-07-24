@@ -79,7 +79,7 @@ public class BoardController {
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public String BoardView(@RequestParam("boardno") int boardNo){
-		
+		System.out.println(boardNo);
 		return "board/boardview";
 		
 	}
@@ -88,9 +88,6 @@ public class BoardController {
 	@ResponseBody
 	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
-		
-		int memberNo=1;
-		
 		
 		return boardLists;
 	}

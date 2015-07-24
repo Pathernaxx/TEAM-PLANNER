@@ -99,6 +99,11 @@
 		$(".clickclosedlist").click(function(){
 			toggleEffect();
 		});
+		$(".board").click(function(){
+			var id = $(this).attr('id');
+			var url = '/finalProject/board/boardview.action?boardno='+id;
+			$(location).attr('href', url);
+		});
 		
 	});
 </script>
@@ -117,7 +122,7 @@
 			<% List<Board> boards = (List<Board>)request.getAttribute("boards");%>
 				<ul>
 			<%for(Board board : boards){ %>	
-				<li class="boardicon"><div class="board"><p><%=board.getName() %><p></div></li>	
+				<li class="boardicon"><div class="board" id="<%= board.getNo() %>"><p><%=board.getName() %><p></div></li>	
 			<%} %>
 				<li class="boardicon"><div class="createBoard"><p class="createBoardName">New Board.....</p></div></li>
 				</ul>
@@ -126,7 +131,7 @@
 	</div>
 	<div class="clickclosedboard">
 		<br/><br/>
-		<p class="clickclosedlist" >▼ Closed Board List</p>
+		<p class="clickclosedlist" >◎ Closed Board List</p>
 		<br/><br/>
 		<div class="getclosedboardlist">
 		</div>
