@@ -144,22 +144,106 @@ body {
   
 }
 
-.slider {
+.pollSlider {
 	position:fixed;
 	height:100%;
-	background:red;
-	width:200px;
+	background:#e7eaeb;
+	width:300px;
 	right:0px;
-	margin-right:-200px;
+	margin-right:-300px;
+	border-radius: 3px;
 }
 
-.sliderButton {
+#pollSlider-button {
 	position:fixed;
-	width:100px;
-	height:50px;
+	width:30px;
+	height:30px;
 	right:0px;
-	background:green;
-	top:300px;
+	top:50px;
+	border-radius: 3px;
+	background-color:black;
 }
 
+#scroller-header a {
+	text-decoration:none; 
+	color:#ab0c67; 
+	padding:0 2px;
+}
 
+#scroller-header a:hover {
+	text-decoration:none; 
+	color:#6b0741
+}
+
+a.selected {
+	text-decoration:underline !important; 
+	color:#6b0741 !important;
+}
+
+#scroller-header {
+	width:290px;
+	height:24px;
+	padding:22px 0 0 15px;
+	font-weight:700;
+}
+
+#scroller-body {
+	width:290px;
+	padding-bottom:30px;
+}
+
+#mask {
+	width:250px;
+	overflow:hidden;
+	margin:0 auto;
+}
+
+#panel {
+
+}
+
+#panel div {
+float:left;
+
+}
+
+.teamIcon{
+	background-color: #e7eaeb;
+  border-radius: 3px;
+  color: #4d4d4d;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 30px;
+  margin: 0 4px 4px 0;
+  overflow: hidden;
+  position: relative;
+  width: 30px;
+}
+
+.memberAddButton {
+  background: -webkit-linear-gradient(top,#fff 0,#f8f9f9 100%);
+  background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%);
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #e2e4e6;
+  border-bottom-color: #cdd2d4;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  height: 34px;
+  margin-top: 6px;
+  width: 300px;
+  overflow: hidden;
+  padding: 7px;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+	
+}

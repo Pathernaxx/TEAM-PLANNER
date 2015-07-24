@@ -42,12 +42,28 @@ public class MemberController {
 	
 
 
-		
 	
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)
-	public String MemberInfo()
+	public String MemberInfo(HttpSession session)
 	{
 		return "member/settings";
+	}
+	
+	@RequestMapping(value="changenameform.action", method = RequestMethod.GET)
+	public ModelAndView MemberChangeNameForm(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		
+		Member member = (Member)session.getAttribute("loginuser");
+		mav.addObject("member", member);
+		mav.setViewName("member/changenameform");
+		return mav;
+	}
+	
+	@RequestMapping(value="changepassform.action", method = RequestMethod.GET)
+	public String MemberChangePasswordForm(HttpSession session)
+	{
+		return "member/changepasswordform";
 	}
 	
 	@RequestMapping(value="activity.action", method = RequestMethod.GET)
