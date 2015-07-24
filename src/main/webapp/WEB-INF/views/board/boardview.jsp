@@ -18,9 +18,6 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	$(".list").sortable({
-		connectWith: ".list"
-	}).disableSelection();
 	
 	$('#mask').css({'height':$('#panel-1').height()});	
 	$('#panel').width(parseInt($('#mask').width() * $('#panel div').length));
@@ -59,6 +56,10 @@ $(document).ready(function() {
 				output += '<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>';
 				output += '</div>';
 				$(".canvas").append(output);
+				
+				$(".list").sortable({
+					connectWith: ".list"
+				}).disableSelection();
 			});
 			
 		},
