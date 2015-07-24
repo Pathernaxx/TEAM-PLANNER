@@ -8,6 +8,7 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
 
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -34,7 +35,7 @@ $(document).ready(function() {
 		url: "/finalProject/board/boardview.action",
 		async: true,
 		data: {
-			boardno : 1
+			boardno: 1
 		},
 		method: "post",
 		success: function(result) {
@@ -110,14 +111,15 @@ $(document).ready(function() {
 							<div id="scroller-body">
 								<div id="mask">
 								<div id="panel">
-									<div id="panel-1">액티비티</div>
+									<div id="panel-1"><%@include file="teamlist.jsp"%></div>
 									<div id="panel-2">멤버리스트</div>
 									<div id="panel-3">첨부파일</div>
 									<div id="panel-4">archived</div>
 								</div>
 							</div>
 						</div>
-						<div id="pollSlider-button"><span class="ui-icon"></span></div>	
+						<div id="pollSlider-button"></div>	
+						<!-- <span class="ui-icon ui-icon-transferthick-e-w"></span> -->
 					</div> 
 					
 				</div>
