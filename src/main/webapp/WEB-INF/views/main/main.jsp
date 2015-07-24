@@ -10,7 +10,6 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
-<!-- <link rel="Stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" /> -->
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 
@@ -71,21 +70,34 @@
 			dialog.dialog("open");
 			$(".createBoard").css("display","none");
 		});
+		
 		$(".getclosedboardlist").css("display","none");
-		$(".clickclosedlist").click(function(event){
+		function toggleEffect(event){
+			var selectedEffect = "blind";
+			var options = {};
 			$.ajax({
 				url:'/finalProject/board/closedboardview.action',
 				type: 'get',
-				success : function(){
-					if($(".getclosedboardlist").css("display","none")){
-						$(".getclosedboardlist").css("display","block");
+				success : function(boards){
+					var html = "<ul style='padding-left: 5%;list-style: none;height:100%;'>"
+					var div = $(".getclosedboardlist");
+					for(var key in boards){
+						html+="<li class='closedboard'>●&nbsp;&nbsp;<a class='closedboardlink' href='#'>" //"+boards[key].no+"
+						+ boards[key].name +"&nbsp;-&nbsp;&nbsp;" + boards[key].regdate + "</a></li>";
+					}
+					html +="</ul>";
+					if(boards.length>0){
+						div.html(html);
 					}else{
-						$(".getclosedboardlist").css("display","none");
+						alert('잠겨있는 보드가 없습니다.');
 					}
 				}
-				
 			});
-			event.preventDefault();
+		    $( ".getclosedboardlist" ).toggle( selectedEffect, options, 500 );
+		    event.preventDefault();
+		}
+		$(".clickclosedlist").click(function(){
+			toggleEffect();
 		});
 		
 	});
@@ -117,9 +129,6 @@
 		<p class="clickclosedlist" >▼ Closed Board List</p>
 		<br/><br/>
 		<div class="getclosedboardlist">
-			<ul>
-				<li class="closedboard"><div class="closedboardicon"></div></li>
-			</ul>
 		</div>
 	</div>
 <div id="dialog-form">
@@ -134,5 +143,6 @@
 
   </form>
 </div>
+
 </body>
 </html>

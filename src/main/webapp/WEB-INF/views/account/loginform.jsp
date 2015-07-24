@@ -41,7 +41,7 @@ textarea, input {
 				success : function(result) {
 					if(result=="complete")
 					{
-						var url = '/finalProject/home.action';
+						var url = '/finalProject/board/boardmain.action';
 						$(location).attr('href', url);
 					} else {
 						alert('Not User Find');

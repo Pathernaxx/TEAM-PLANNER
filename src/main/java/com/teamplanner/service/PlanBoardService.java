@@ -46,7 +46,7 @@ public class PlanBoardService implements BoardService{
 	}
 	@Override
 	public List<Board> selectClosedBoard(int memberNo) {
-		List<Board> boards = boardRepository.selectBoardbyTeamList(memberNo);
+		List<Board> boards = boardRepository.selectClosedBoard(memberNo);
 		return boards;
 	}
 
