@@ -126,7 +126,7 @@ $(document).ready(function() {
 				
 			</div>
 		</div>
-		
+		</div>
 	</div>	
 </body>
 </html>

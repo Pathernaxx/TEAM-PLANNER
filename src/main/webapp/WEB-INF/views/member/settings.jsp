@@ -12,6 +12,12 @@
 
 
 <style>
+#tabs-wrapper {
+	margin: 0 auto;
+	max-width: 850px;
+	padding: 32px;
+	position: relative;
+}
 .tab-in {
 	text-align: center;
 }
@@ -25,6 +31,17 @@
 	padding: 0;
 }
 
+.big-link {
+	border-radius: 3px;
+	display: block;
+	margin: 6px 0 6px 40px;
+	padding: 11px;
+	position: relative;
+	text-decoration: none;
+	font-size: 16px;
+	line-height: 20px;
+}
+
 .tabs li {
 display: inline;
 }
@@ -36,10 +53,10 @@ display: inline;
 			constrains: 'horizontal', 
             trigger:'click',
             multi: true,
-            placement:'right-bottom',
+            placement:'auto',
             width:100,
 			closeable: true,
-			title: 'Change Name',
+			title: 'ChangeName',
             content: '아아<br>마이크 테스트'
 		});
 	});
@@ -69,15 +86,15 @@ display: inline;
 			<h1>Account Details</h1>
 			<hr/>
 			<div>
-				<div>
-					<a href="" id="changename">Change Name, Initails</a>
-				</div>
-				<div>
-					<a href="#!" id="changeavatar">Change Avatar</a>
-				</div>
-				<div>
-					<a href="#!" id="changepass">Change Password</a>
-				</div>
+				<a href="#" id="changename" class="big-link js-change-name" style="text-decoration: none; cursor: auto">
+					<span class="text">Change Name, Initails</span>
+				</a>
+				<a href="#" id="changeavatar" class="big-link js-change-avatar">
+					<span class="text">Change Avatar</span>
+				</a>
+				<a href="#" id="changepass" class="big-link js-change-password">
+					<span class="text">Change Password</span>
+				</a>
 			</div>
 			<h1>Notification</h1>
 			<hr/>
