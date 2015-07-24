@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.MemberService;
@@ -40,12 +41,33 @@ public class MemberController {
 //		
 //		return "redirect:/member/memberView.action?memberNo="+no;
 //	}
-		
 	
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)
-	public String MemberInfo()
+	public String MemberInfo(HttpSession session)
 	{
+//		ModelAndView mav = new ModelAndView();
+//		
+//		Member member = (Member)session.getAttribute("loginuser");
+//		mav.addObject("member", member);
+//		mav.setViewName("member/settings");
 		return "member/settings";
+	}
+	
+	@RequestMapping(value="changenameform.action", method = RequestMethod.GET)
+	public ModelAndView MemberChangeNameForm(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		
+		Member member = (Member)session.getAttribute("loginuser");
+		mav.addObject("member", member);
+		mav.setViewName("member/changenameform");
+		return mav;
+	}
+	
+	@RequestMapping(value="changepassform.action", method = RequestMethod.GET)
+	public String MemberChangePasswordForm(HttpSession session)
+	{
+		return "member/changepasswordform";
 	}
 	
 	@RequestMapping(value="activity.action", method = RequestMethod.GET)

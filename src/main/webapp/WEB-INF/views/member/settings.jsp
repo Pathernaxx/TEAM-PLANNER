@@ -49,15 +49,51 @@ display: inline;
 <script type="text/javascript">
 	$(function() {
 		$("#tabs-test").tabs();
-		$('#changename').webuiPopover({
-			constrains: 'horizontal', 
-            trigger:'click',
-            multi: true,
-            placement:'auto',
-            width:100,
-			closeable: true,
-			title: 'ChangeName',
-            content: '아아<br>마이크 테스트'
+		$("#changename").click(function(event) {
+			$.ajax({
+				url: "/finalProject/member/changenameform.action",
+				type: "get",
+				success: function(result) {
+					$('#changename').webuiPopover({
+						constrains: 'horizontal', 
+			            trigger:'click',
+			            multi: true,
+			            placement:'bottom',
+			            width:300,
+						closeable: true,
+						title: 'ChangeName',
+			            content: result
+					});
+				},
+				error: function() {
+					alert('error');
+				}
+			});
+			
+			event.preventDefault();
+		});
+		
+		$("#changepass").click(function(event) {
+			$.ajax({
+				url: "/finalProject/member/changepassform.action",
+				type: "get",
+				success: function(result) {
+					$('#changepass').webuiPopover({
+						constrains: 'horizontal', 
+			            trigger:'click',
+			            multi: true,
+			            placement:'bottom',
+			            width:300,
+						closeable: true,
+						title: 'Change Password',
+			            content: result
+					});
+				},
+				error: function() {
+					alert('error');
+				}
+			});
+			event.preventDefault();
 		});
 	});
 </script>
@@ -86,7 +122,7 @@ display: inline;
 			<h1>Account Details</h1>
 			<hr/>
 			<div>
-				<a href="#" id="changename" class="big-link js-change-name" style="text-decoration: none; cursor: auto">
+				<a href="#" id="changename" class="big-link js-change-name">
 					<span class="text">Change Name, Initails</span>
 				</a>
 				<a href="#" id="changeavatar" class="big-link js-change-avatar">
