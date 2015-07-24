@@ -41,13 +41,40 @@
 			no = #{memberNo}
 	</select>
 	
-	<update id="updateMember" parameterType="Member">
+	<update id="updateMemberName" parameterType="hashMap">
 		UPDATE
 			member
 		SET
-			username=#{userName}, fullname=#{fullName}, notification=#{notification}, iconpath=#{iconPath}
+			username=#{userName}, fullname=#{fullName}
 		WHERE
 			no = #{no}
+	</update>
+	
+	<update id="updateMemberNotification" parameterType="hashMap">
+		UPDATE
+			member
+		SET
+			notification = #{notification}
+		WHERE
+			no = #{no}
+	</update>
+	
+	<update id="updateMemberIconPath" parameterType="hashMap">
+		UPDATE
+			member
+		SET
+			iconpath = #{iconpath}
+		WHERE
+			no = #{no}
+	</update>
+	
+	<update id="updateMemberPassword" parameterType="hashMap">
+		UPDATE
+			member
+		SET
+			password = #{password}
+		WHERE
+			no = #{memberNo}
 	</update>
 	
 	<select id="selectMemberByIdAndPasswordByEmail" parameterType="hashMap" resultType="Member">

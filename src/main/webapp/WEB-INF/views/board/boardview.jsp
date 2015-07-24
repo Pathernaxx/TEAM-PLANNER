@@ -25,11 +25,17 @@ $(document).ready(function() {
 			$.each(result, function(index, item) {
 				var output="";
 				output += '<div class="list">';
-				output += '<div class="list-name" style="background-color:white">' + item.name + '</div>';
+				output += '<div class="list-header u-clearfix">'; 
+				output += '<h2 class="list-header-name">' + item.name + '</h2>';
+				output += '</div>';
+				output += '<div class"list-cards u-clearfix">'
 				for(var card in item.cards) {
-					output += '<div class="list-card" style="background-color:blue">'+ item.cards[card].name +'</div>';
+					output += '<div class="list-card"><div class="list-card-details"><a class="list-card-title" href="#">'
+								+ item.cards[card].name +
+								'</a></div></div>';
 				};
-				output += '<div class="list-insert">리스트추가</div>';
+				output += '</div>'
+				output += '<div class="add-card"><a href="#">Add a card...</a></div>';
 				output += '</div>';
 				$(".canvas").append(output);
 			});
