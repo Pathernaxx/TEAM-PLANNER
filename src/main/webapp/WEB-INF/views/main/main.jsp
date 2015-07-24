@@ -71,13 +71,21 @@
 			dialog.dialog("open");
 			$(".createBoard").css("display","none");
 		});
-		
-		$("clickclosedlist").click(function(){
+		$(".getclosedboardlist").css("display","none");
+		$(".clickclosedlist").click(function(event){
 			$.ajax({
 				url:'/finalProject/board/closedboardview.action',
 				type: 'get',
+				success : function(){
+					if($(".getclosedboardlist").css("display","none")){
+						$(".getclosedboardlist").css("display","block");
+					}else{
+						$(".getclosedboardlist").css("display","none");
+					}
+				}
 				
 			});
+			event.preventDefault();
 		});
 		
 	});

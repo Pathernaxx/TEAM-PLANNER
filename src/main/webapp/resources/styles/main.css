@@ -63,7 +63,7 @@ li.closedboard{
 .board{
 	border-radius:20px;
 	border:none;
-	background: #cfb083;
+	background: #a50381;
 	width:270px;
 	height:140px;
 	overflow: hidden;
@@ -72,7 +72,7 @@ li.closedboard{
 	cursor:pointer;
 }
 .board:hover{
-	background: #f0e7d7;
+	background: #ee04ba;
 }
 .content{
 	height:600px;
