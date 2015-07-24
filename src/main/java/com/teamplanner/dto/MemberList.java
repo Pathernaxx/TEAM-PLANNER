@@ -6,6 +6,7 @@ public class MemberList {
 	private String listName;
 	private int memberNo;
 	private int myNo;
+	
 	public int getNo() {
 		return no;
 	}

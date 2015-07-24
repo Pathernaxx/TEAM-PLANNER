@@ -20,14 +20,14 @@
 	</div>
 
 	<div class="tabbed-pane-header-wrapper u-clearfix">
-		<a
-			class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "
-			href="#"> <span class="profile-image-initials">T</span> <span
-			class="profile-image-change-text">Change Avatar</span>
-		</a>
+
 
 		<div class="tabbed-pane-header-details">
-
+			<a
+				class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "href="#"> 
+				<span class="profile-image-initials">T</span>
+				<span class="profile-image-change-text">Change Avatar</span>
+			</a>
 
 			<div class="js-current-details hide">
 				<div class="tabbed-pane-header-details-name">
@@ -51,7 +51,8 @@
 				<label>Initials</label> <input type="text" name="initials" value="">
 				<label>Bio <span class="quiet">(optional)</span></label>
 				<textarea name="bio"></textarea>
-				</br> <input class="primary wide js-submit-profile" type="submit"
+			 
+				<input class="primary wide js-submit-profile" type="submit"
 					value="Save"> <input class="js-cancel-edit-profile"
 					type="button" value="Cancel">
 			</form>

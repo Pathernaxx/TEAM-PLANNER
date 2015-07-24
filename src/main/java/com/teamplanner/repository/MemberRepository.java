@@ -1,7 +1,5 @@
 package com.teamplanner.repository;
 
-import java.util.HashMap;
-
 import com.teamplanner.dto.Member;
 
 public interface MemberRepository {

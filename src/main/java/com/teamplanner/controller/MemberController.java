@@ -25,11 +25,22 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping(value="member.action", method = RequestMethod.GET)
-	public String MemberLink(){
+
+//	@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
+//	public String memberUpdate(Member member, HttpSession session){
+//		
+//		String pw = member.getPassword();
+////		pw=Util.getHashedString(pw, "SHA-1");
+////		
+////		memberRepository.updateMember(member);
+////		
+////		int no = member.getNo();
+////		memberRepository.updateMember(member);
+//		session.setAttribute("loginuser", member);
+//		
+//		return "redirect:/member/memberView.action?memberNo="+no;
+//	}
 		
-		return "member/memberedit";
-	}
 	
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)
 	public String MemberInfo()
