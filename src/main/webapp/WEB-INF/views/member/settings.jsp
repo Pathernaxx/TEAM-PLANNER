@@ -34,25 +34,37 @@ display: inline;
 <title>Settings</title>
 </head>
 <body>
-	<div>
+	<div id="">
 	</div>
 	<div id="tabs-test">
 		<div id="tabs" class="tabs">
 			<ul class="tab-in">
-				<li class="tab-nav-item"><a href="#tabs-1">Profile</a></li>
-				<li class="tab-nav-item"><a href="#tabs-2">Cards</a></li>
-				<li class="tab-nav-item"><a href="#tabs-3">Settings</a></li>
+				<li class="tab-nav-item"><a href="#profile">Profile</a></li>
+				<li class="tab-nav-item"><a href="#cards">Cards</a></li>
+				<li class="tab-nav-item"><a href="#settings">Settings</a></li>
 			</ul>
 		</div>
-	<div>
-		<div id="tabs-1">
+	<div id="tabs-wrapper">
+		<div id="profile">
 			<p>첫번째</p>
 		</div>
-		<div id="tabs-2">
+		<div id="cards">
 			<p>두번째</p>
 		</div>
-		<div id="tabs-3">
+		<div id="settings">
 			<p>세번째</p>
+			<h1>Account Details</h1>
+			<hr/>
+			<div>
+				<a href="#">Change Name, Initails</a>
+				<a href="#">Change Avatar</a>
+				<a href="#">Change Password</a>
+			</div>
+			<h1>Notification</h1>
+			<hr/>
+			<div>
+				<a href="#">Change Notification for Email</a>
+			</div>
 		</div>
 	</div>
 </div>

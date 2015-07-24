@@ -48,10 +48,46 @@ public class OracleMemberRepository implements MemberRepository{
 	}
 
 	@Override
-	public void updateMember(Member member) {
-		memberMapper.updateMember(member);
+	public void updateMemberName(Member member) {
+		memberMapper.updateMemberName(member);
+	}
+	
+
+	@Override
+	public void updateMemberNotification(int memberNo, boolean notification) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("notification", notification);
+		
+		memberMapper.updateMemberNotification(params);
 		
 	}
+
+
+	@Override
+	public void updateMemberIconPath(String iconpath, int memberNo) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("iconpath", iconpath);
+		
+		memberMapper.updateMemberIconPath(params);
+	}
+
+
+	@Override
+	public void updateMemberPassword(String password, int memberNo) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("password", password);
+		
+		memberMapper.updateMemberPassword(params);
+	}
+
 
 	@Override
 	public Member selectMemberByIdAndPasswordByEmail(String email, String password) {
