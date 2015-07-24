@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.MemberService;
@@ -25,21 +26,22 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
+/////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="updatememberview.action", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView updateMemberView(HttpSession session) {
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		Member member = memberService.updateMemberView(memberno);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/updatememberview");
+		mav.addObject("member", member);
+		
+		return mav;
+		
+	}
+	
 
-//	@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
-//	public String memberUpdate(Member member, HttpSession session){
-//		
-//		String pw = member.getPassword();
-////		pw=Util.getHashedString(pw, "SHA-1");
-////		
-////		memberRepository.updateMember(member);
-////		
-////		int no = member.getNo();
-////		memberRepository.updateMember(member);
-//		session.setAttribute("loginuser", member);
-//		
-//		return "redirect:/member/memberView.action?memberNo="+no;
-//	}
+
 		
 	
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)

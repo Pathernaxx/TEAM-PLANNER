@@ -47,10 +47,9 @@
 				<p class="error js-profile-form-error hide"></p>
 
 				<label>Full Name</label> <input type="text" name="fullName" value="">
-				<label> Username</label> <input type="text" name="username" value="">
-				<label>Initials</label> <input type="text" name="initials" value="">
-				<label>Bio <span class="quiet">(optional)</span></label>
-				<textarea name="bio"></textarea>
+				<label>Username</label> <input type="text" name="username" value="">
+			
+				
 			 
 				<input class="primary wide js-submit-profile" type="submit"
 					value="Save"> <input class="js-cancel-edit-profile"

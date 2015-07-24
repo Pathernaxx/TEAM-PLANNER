@@ -13,4 +13,7 @@ public interface MemberRepository {
 	void updateMemberPassword(String password, int memberNo);
 	Member selectMemberByIdAndPasswordByEmail(String email, String password);
 	Member selectMemberByIdAndPasswordByName(String name, String password);
+	
+	////////////////////////////////////////////////
+	Member updateMemberView(int memberNo);
 }

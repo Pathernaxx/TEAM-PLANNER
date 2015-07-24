@@ -94,4 +94,14 @@
 		WHERE
 			username=#{name} AND password=#{password}
 	</select>
+	
+	<select id="updateMemberView" parameterType="int" resultType="Member">
+		SELECT
+			<include refid="member"/>
+		FROM
+			member
+		WHERE
+			no = #{memberNo}
+	</select>
+	
 </mapper>
