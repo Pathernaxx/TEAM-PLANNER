@@ -5,10 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+<link rel="stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/finalProject/resources/js/jquery.webui-popover.js"></script>
+
 
 <style>
+#tabs-wrapper {
+	margin: 0 auto;
+	max-width: 850px;
+	padding: 32px;
+	position: relative;
+}
 .tab-in {
 	text-align: center;
 }
@@ -22,6 +31,17 @@
 	padding: 0;
 }
 
+.big-link {
+	border-radius: 3px;
+	display: block;
+	margin: 6px 0 6px 40px;
+	padding: 11px;
+	position: relative;
+	text-decoration: none;
+	font-size: 16px;
+	line-height: 20px;
+}
+
 .tabs li {
 display: inline;
 }
@@ -29,6 +49,52 @@ display: inline;
 <script type="text/javascript">
 	$(function() {
 		$("#tabs-test").tabs();
+		$("#changename").click(function(event) {
+			$.ajax({
+				url: "/finalProject/member/changenameform.action",
+				type: "get",
+				success: function(result) {
+					$('#changename').webuiPopover({
+						constrains: 'horizontal', 
+			            trigger:'click',
+			            multi: true,
+			            placement:'bottom',
+			            width:300,
+						closeable: true,
+						title: 'ChangeName',
+			            content: result
+					});
+				},
+				error: function() {
+					alert('error');
+				}
+			});
+			
+			event.preventDefault();
+		});
+		
+		$("#changepass").click(function(event) {
+			$.ajax({
+				url: "/finalProject/member/changepassform.action",
+				type: "get",
+				success: function(result) {
+					$('#changepass').webuiPopover({
+						constrains: 'horizontal', 
+			            trigger:'click',
+			            multi: true,
+			            placement:'bottom',
+			            width:300,
+						closeable: true,
+						title: 'Change Password',
+			            content: result
+					});
+				},
+				error: function() {
+					alert('error');
+				}
+			});
+			event.preventDefault();
+		});
 	});
 </script>
 <title>Settings</title>
@@ -56,17 +122,26 @@ display: inline;
 			<h1>Account Details</h1>
 			<hr/>
 			<div>
-				<a href="#">Change Name, Initails</a>
-				<a href="#">Change Avatar</a>
-				<a href="#">Change Password</a>
+				<a href="#" id="changename" class="big-link js-change-name">
+					<span class="text">Change Name, Initails</span>
+				</a>
+				<a href="#" id="changeavatar" class="big-link js-change-avatar">
+					<span class="text">Change Avatar</span>
+				</a>
+				<a href="#" id="changepass" class="big-link js-change-password">
+					<span class="text">Change Password</span>
+				</a>
 			</div>
 			<h1>Notification</h1>
 			<hr/>
 			<div>
-				<a href="#">Change Notification for Email</a>
+				<a href="#" id="changenotifi">Change Notification for Email</a>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="pop-over" style="left:1042px; top: 41px;">
+	
 </div>
 </body>
 </html>

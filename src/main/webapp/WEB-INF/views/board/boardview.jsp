@@ -12,12 +12,26 @@
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+<script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
 	$(".list").sortable({
 		connectWith: ".list"
 	}).disableSelection();
+	
+	$('#mask').css({'height':$('#panel-1').height()});	
+	$('#panel').width(parseInt($('#mask').width() * $('#panel div').length));
+	$('#panel div').width($('#mask').width());
+	$('a[rel=panel]').click(function () {
+		var panelheight = $($(this).attr('href')).height();
+		$('a[rel=panel]').removeClass('selected');
+		$(this).addClass('selected');
+		$('#mask').animate({'height':panelheight},{queue:false, duration:500});			
+		$('#mask').scrollTo($(this).attr('href'), 800);		
+		return false;
+	});
 	
 	$.ajax({
 		url: "/finalProject/board/boardview.action",
@@ -52,13 +66,13 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('#sliderButton').click(function() {
-		if($(this).css("margin-right")=="200px") {
-			$('.slider').animate({"margin-right":'-=200'});
-			$('#sliderButton').animate({"margin-right":'-=200'});
+	$('#pollSlider-button').click(function() {
+		if($(this).css("margin-right")=="300px") {
+			$('.pollSlider').animate({"margin-right":'-=300'});
+			$('#pollSlider-button').animate({"margin-right":'-=300'});
 		} else {
-			$('.slider').animate({"margin-right":'+=200'});
-			$('#sliderButton').animate({"margin-right":'+=200'});
+			$('.pollSlider').animate({"margin-right":'+=300'});
+			$('#pollSlider-button').animate({"margin-right":'+=300'});
 		}
 	});
 	
@@ -81,22 +95,38 @@ $(document).ready(function() {
 						<span class="header-btn-text">프로젝트명</span>
 					</a>
 					<div class="header-btns">
-						<a class="header-btn show-menu" href="#">
+						<!-- <a class="header-btn show-menu" href="#">
 							<span class="header-btn-icon"></span>
 							<span id="showMenu" class="header-btn-text">Show Menu</span>
-						</a>
+						</a> -->
+						<div class="pollSlider">
+							<div id="scroller-header">
+								<a href="#panel-1" rel="panel" class="selected">Activity</a>
+								<a href="#panel-2" rel="panel">Team List</a>
+								<a href="#panel-3" rel="panel">Files</a>
+								<a href="#panel-4" rel="panel">Archived</a>							
+							</div>
+							<div id="scroller-body">
+								<div id="mask">
+								<div id="panel">
+									<div id="panel-1">액티비티</div>
+									<div id="panel-2">멤버리스트</div>
+									<div id="panel-3">첨부파일</div>
+									<div id="panel-4">archived</div>
+								</div>
+							</div>
+						</div>
+						<div id="pollSlider-button"><span class="ui-icon"></span></div>	
 					</div> 
+					
 				</div>
 				
 				<div class="canvas">
 				</div>	
 				
-				<div class="slider"></div>
-				<div id="sliderButton"></div>	
-				
 			</div>
 		</div>
-		
+		</div>
 	</div>	
 </body>
 </html>
