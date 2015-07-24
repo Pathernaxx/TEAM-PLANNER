@@ -25,7 +25,7 @@
 			
 			if(checkTitle==false && title != ""){
 				$.ajax({
-					url:'/finalProject/board/insert.action',
+					url:'/finalProject/board/insertboard.action',
 					type: 'get',
 					data: {
 						title : title
@@ -72,7 +72,13 @@
 			$(".createBoard").css("display","none");
 		});
 		
-		
+		$("clickclosedlist").click(function(){
+			$.ajax({
+				url:'/finalProject/board/closedboardview.action',
+				type: 'get',
+				
+			});
+		});
 		
 	});
 </script>
@@ -91,15 +97,22 @@
 			<% List<Board> boards = (List<Board>)request.getAttribute("boards");%>
 				<ul>
 			<%for(Board board : boards){ %>	
-				<li><div class="board"><p><%=board.getName() %><p></div></li>	
+				<li class="boardicon"><div class="board"><p><%=board.getName() %><p></div></li>	
 			<%} %>
-				<li><div class="createBoard"><p class="createBoardName">New Board.....</p></div></li>
+				<li class="boardicon"><div class="createBoard"><p class="createBoardName">New Board.....</p></div></li>
 				</ul>
 			</div>			
 		</div>
 	</div>
 	<div class="clickclosedboard">
-		<a href="#">Closed List</a>
+		<br/><br/>
+		<p class="clickclosedlist" >▼ Closed Board List</p>
+		<br/><br/>
+		<div class="getclosedboardlist">
+			<ul>
+				<li class="closedboard"><div class="closedboardicon"></div></li>
+			</ul>
+		</div>
 	</div>
 <div id="dialog-form">
   <form>

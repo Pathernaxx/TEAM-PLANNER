@@ -44,7 +44,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="insert.action", method = RequestMethod.GET)
+	@RequestMapping(value="insertboard.action", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertBoard(String title, HttpSession session){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
@@ -65,6 +65,15 @@ public class BoardController {
 				
 		
 		return message;
+	}
+	
+	@RequestMapping(value="closedboardview.action", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Board> getClosedBoard(HttpSession session){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Board> boards = boardService.selectClosedBoard(memberNo);
+		
+		return boards;
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////

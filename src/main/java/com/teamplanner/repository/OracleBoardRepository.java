@@ -57,9 +57,11 @@ public class OracleBoardRepository implements BoardRepository{
 		return checkName;
 	}
 	@Override
-	public String selectClosedBoardName(int boardNo, int closed) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Board> selectClosedBoard(int memberNo){
+		
+		List<Board> boards = boardMapper.selectClosedBoard(memberNo);
+		
+		return boards;
 	}
 	
 	

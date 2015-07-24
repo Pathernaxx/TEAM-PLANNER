@@ -14,7 +14,7 @@ public interface BoardRepository {
 	void insertTeamList(int boardNo, int memberNo);
 	List<Board> selectBoardbyTeamList(int memberNo); //return boardNo
 	boolean checkBoardName(String title);
-	String selectClosedBoardName(int boardNo, int closed);//memberNo로 뽑힌
+	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음

@@ -45,9 +45,9 @@ public class PlanBoardService implements BoardService{
 		return check;
 	}
 	@Override
-	public String selectClosedBoardName(int boardNo, int closed) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Board> selectClosedBoard(int memberNo) {
+		List<Board> boards = boardRepository.selectBoardbyTeamList(memberNo);
+		return boards;
 	}
 
 

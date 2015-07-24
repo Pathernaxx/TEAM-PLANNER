@@ -89,6 +89,13 @@
  	<select id="checkBoardName" parameterType="String" resultType="String">
  		SELECT name FROM board WHERE name = #{title}
  	</select>
+ 	
+ 	<select id="selectClosedBoard" parameterType="Integer" resultType="Board">
+ 		SELECT b.* 
+ 		FROM teamlist t, board b 
+ 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '1' 
+ 		ORDER BY b.name
+ 	</select>
  </mapper>
  
  

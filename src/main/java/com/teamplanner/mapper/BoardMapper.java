@@ -14,7 +14,7 @@ public interface BoardMapper {
 	void insertTeamList(HashMap<Object, Object> params);
 	List<Board> selectBoardbyTeamList(int memberNo); //return boardNo
 	String checkBoardName(String title);
-	String selectClosedBoardName(int boardNo, int closed);//memberNo로 뽑힌
+	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
