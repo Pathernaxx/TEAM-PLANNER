@@ -25,6 +25,7 @@ body {
 .header-btn-text {
 	padding-right: 8px;
 	padding-left: 6px;
+	color: #ffffff;
 }
 
 .header-btns {
@@ -55,11 +56,12 @@ body {
 .list {
 	background: #e2e4e6;
 	border-radius: 3px;
-	margin: 0 5px;
+	margin: 0 10px;
 	max-height: 100%;
 	position: relative;
 	width:270px;
 	max-width: 270px;
+	float: left;
 }
 
 .list-header {
@@ -92,10 +94,16 @@ body {
 }
 
 .list-card {
-	margin: 3px;
-	border: 1px solid #ffffff;
-	background-color: #ffffff;
-	border-bottom-color: #c4c9cc;
+	margin: 5px;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-bottom: 6px;
+	max-width: 300px;
+	min-height: 20px;
+	position: relative;
+	z-index: 0
 	width: 260px
 }
 
@@ -117,13 +125,41 @@ body {
 }
 
 .add-card {
-	margin: 3px;
+	margin: 5px;
 	border: 1px solid #d6dadc;
 	background-color: #d6dadc;
 	border-bottom-color: #c4c9cc;
 	width: 260px;
-	height: 34px;
+	height: 25px;
 	
+}
+
+.open-card {
+	border-radius: 0 0 3px 3px;
+  color: #8c8c8c;
+  display: block;
+  border-radius: 0 0 3px 3px;
+  color: #8c8c8c;
+  display: block;
+  
+}
+
+.slider {
+	position:fixed;
+	height:100%;
+	background:red;
+	width:200px;
+	right:0px;
+	margin-right:-200px;
+}
+
+.sliderButton {
+	position:fixed;
+	width:100px;
+	height:50px;
+	right:0px;
+	background:green;
+	top:300px;
 }
 
 
