@@ -10,9 +10,15 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
 
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
+	$(".list").sortable({
+		connectWith: ".list"
+	}).disableSelection();
+	
 	$.ajax({
 		url: "/finalProject/board/boardview.action",
 		async: true,
@@ -35,7 +41,7 @@ $(document).ready(function() {
 								'</a></div></div>';
 				};
 				output += '</div>'
-				output += '<div class="add-card"><a href="#">Add a card...</a></div>';
+				output += '<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>';
 				output += '</div>';
 				$(".canvas").append(output);
 			});
@@ -46,6 +52,15 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#sliderButton').click(function() {
+		if($(this).css("margin-right")=="200px") {
+			$('.slider').animate({"margin-right":'-=200'});
+			$('#sliderButton').animate({"margin-right":'-=200'});
+		} else {
+			$('.slider').animate({"margin-right":'+=200'});
+			$('#sliderButton').animate({"margin-right":'+=200'});
+		}
+	});
 	
 });
 
@@ -68,13 +83,16 @@ $(document).ready(function() {
 					<div class="header-btns">
 						<a class="header-btn show-menu" href="#">
 							<span class="header-btn-icon"></span>
-							<span class="header-btn-text">Show Menu</span>
+							<span id="showMenu" class="header-btn-text">Show Menu</span>
 						</a>
 					</div> 
 				</div>
 				
 				<div class="canvas">
-				</div>		
+				</div>	
+				
+				<div class="slider"></div>
+				<div id="sliderButton"></div>	
 				
 			</div>
 		</div>
