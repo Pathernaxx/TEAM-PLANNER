@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,42 +33,95 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	var boardNo = ${boardno}; //번호 들어옴
+	
 	$.ajax({
 		url: "/finalProject/board/boardview.action",
 		async: true,
 		data: {
-			boardno: 1
+			boardno: boardNo
 		},
 		method: "post",
 		success: function(result) {
 			
-			$.each(result, function(index, item) {
+			if(result.length != 0) {
+				$.each(result, function(index, item) {
+					var output="";
+					output += '<div class="list">';
+					output += '<div class="list-header u-clearfix">'; 
+					output += '<h2 class="list-header-name">' + item.name + '</h2>';
+					output += '</div>';
+					output += '<div class"list-cards u-clearfix">';
+					for(var card in item.cards) {
+						output += '<div class="list-card"><div class="list-card-details"><a class="list-card-title" href="#">'
+									+ item.cards[card].name +
+									'</a></div></div>';
+					};
+					output += '</div>'
+					output += '<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>';
+					output += '</div>';
+					$(".canvas").append(output);
+					
+					$(".list").sortable({
+						connectWith: ".list"
+					}).disableSelection();
+				});
+			} else {
 				var output="";
 				output += '<div class="list">';
-				output += '<div class="list-header u-clearfix">'; 
-				output += '<h2 class="list-header-name">' + item.name + '</h2>';
-				output += '</div>';
-				output += '<div class"list-cards u-clearfix">'
-				for(var card in item.cards) {
-					output += '<div class="list-card"><div class="list-card-details"><a class="list-card-title" href="#">'
-								+ item.cards[card].name +
-								'</a></div></div>';
-				};
-				output += '</div>'
-				output += '<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>';
+					output += '<div class="add-list"><a class="open-list" href="#">Add a list...</a></div>';
 				output += '</div>';
 				$(".canvas").append(output);
-				
-				$(".list").sortable({
-					connectWith: ".list"
-				}).disableSelection();
-			});
-			
+			}
 		},
 		error: function() {
 			alert("error");
 		}
+		
 	});
+	
+
+	//////////////////////////////////////////////////리스트추가 다이얼로그
+	function addCard() {
+		var name = $("#name").val();
+		$.ajax({
+			url:'finalProject/board/insertlist.action',
+			type:'get',
+			data: {
+				name: name,
+				boardno: boardNo
+			},
+			success: function(message) {
+				if(message == "complete") {
+					$("#name").val("");
+					dialog.dialog("close");
+					var url = 'finalProject/board/boardview.action';
+					$(location).attr('href', url);
+				} else {
+					alert("등록실패");
+				}
+			}
+		});
+	}
+	
+	dialog = $(".addlist-dialog").dialog({
+		autoOpen: false,
+		height:100,
+		widht:300,
+		modal: true,
+		buttons: {
+			"Add": addCard,
+			Cancel: function() {
+				dialog.dialog("close");
+				$(".add-card").css("display","block");
+			}
+		}
+	});
+	$(".add-card").click(function() {
+		dialog.dialog("open");
+		
+	});
+	//////////////////////////////////////////////////
 	
 	$('#pollSlider-button').click(function() {
 		if($(this).css("margin-right")=="300px") {
@@ -97,10 +152,6 @@ $(document).ready(function() {
 						<span class="header-btn-text">프로젝트명</span>
 					</a>
 					<div class="header-btns">
-						<!-- <a class="header-btn show-menu" href="#">
-							<span class="header-btn-icon"></span>
-							<span id="showMenu" class="header-btn-text">Show Menu</span>
-						</a> -->
 						<div class="pollSlider">
 							<div id="scroller-header">
 								<a href="#panel-1" rel="panel" class="selected">Activity</a>
@@ -125,6 +176,12 @@ $(document).ready(function() {
 				</div>
 				
 				<div class="canvas">
+					<div class="addlist-dialog">
+						<form>
+							<input class="newlistname" type="text" name="name" id="name" value="Add a list..." />
+							<!-- <input id="position" type="hidden" value="1" /> -->
+						</form>
+					</div>
 				</div>	
 				
 			</div>

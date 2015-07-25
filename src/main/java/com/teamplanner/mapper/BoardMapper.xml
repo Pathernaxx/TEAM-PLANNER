@@ -64,6 +64,16 @@
  		INSERT INTO boardcard(no, name, listno, boardno, boardname, position)
  		VALUES (boardcard_sequence, #{name}, #{listno}, #{boardno}, #{boardname}, #{position})
  	</insert>
+ 	
+ 	<!-- <insert id="insertList" parameterType="hashMap">
+ 		INSERT INTO boardlist(no, boardno, name, position)
+ 		VALUES (boardlist_sequence.nextval, #{boardno}, #{listname}, #{position})
+ 	</insert> -->
+ 	<insert id="insertList" parameterType="BoardList">
+ 		INSERT INTO boardlist(no, boardno, name, position)
+ 		VALUES (boardlist_sequence.nextval, #{boardno}, #{name}, #{position})
+ 	</insert>
+ 	
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">
@@ -96,6 +106,7 @@
  		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '1' 
  		ORDER BY b.name
  	</select>
+ 	
  </mapper>
  
  

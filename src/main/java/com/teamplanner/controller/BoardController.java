@@ -78,9 +78,15 @@ public class BoardController {
 	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
-	public String BoardView(@RequestParam("boardno") int boardNo){
-		System.out.println(boardNo);
-		return "board/boardview";
+	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
+	
+		int boardno = boardNo;
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardno", boardno);
+		mav.setViewName("board/boardview");
+		
+		return mav;
 		
 	}
 	
@@ -90,6 +96,31 @@ public class BoardController {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		
 		return boardLists;
+	}
+	
+	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String insertBoardList(String name, int boardNo) {
+		
+//		String listname = name;
+//		int boardno = boardNo;
+		int position = 1;
+		
+		String message = "";
+		
+		BoardList boardlist = new BoardList();
+		boardlist.setBoardNo(boardNo);
+		boardlist.setName(name);
+		boardlist.setPosition(position);
+		
+		try {
+			boardService.insertBoardList(boardlist);
+			message = "complete";
+		} catch (Exception e) {
+			message = "error";
+		}
+		
+		return message;
 	}
 	
 }

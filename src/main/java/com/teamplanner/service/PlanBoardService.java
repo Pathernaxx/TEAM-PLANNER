@@ -63,5 +63,10 @@ public class PlanBoardService implements BoardService{
 		List<Card> cards = boardRepository.selectCard(listNo);
 		return cards;
 	}
+	@Override
+	public void insertBoardList(BoardList boardlist) {
+
+		boardRepository.insertBoardList(boardlist);
+	}
 	
 }

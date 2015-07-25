@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.teamplanner.dto.Board;
+import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
 import com.teamplanner.mapper.BoardMapper;
 
@@ -81,6 +82,12 @@ public class OracleBoardRepository implements BoardRepository{
 	public void insertCard(Card card) {
 		
 		boardMapper.insertCard(card);
+	}
+
+	@Override
+	public void insertBoardList(BoardList boardlist) {
+				
+		boardMapper.insertBoardList(boardlist);
 	}
 
 
