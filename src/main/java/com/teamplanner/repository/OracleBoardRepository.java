@@ -86,7 +86,7 @@ public class OracleBoardRepository implements BoardRepository{
 
 	@Override
 	public void insertBoardList(BoardList boardlist) {
-				
+		
 		boardMapper.insertBoardList(boardlist);
 	}
 

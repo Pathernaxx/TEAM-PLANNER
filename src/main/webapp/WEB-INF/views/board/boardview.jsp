@@ -72,6 +72,49 @@ $(document).ready(function() {
 					output += '<div class="add-list"><a class="open-list" href="#">Add a list...</a></div>';
 				output += '</div>';
 				$(".canvas").append(output);
+				
+				//////////////////////////////////////////////////리스트추가 다이얼로그
+				function addCard() {
+					var name = $("#name").val();
+					$.ajax({
+						url:'/finalProject/board/insertlist.action',
+						type:'get',
+						data: {
+							name: name,
+							boardno: boardNo
+						},	
+						success: function(message) {
+							if(message == "complete") {
+								$("#name").val("");
+								dialog.dialog("close");
+								var url = '/finalProject/board/boardview.action?boardno='+boardNo;
+								$(location).attr('href', url);
+							} else {
+								alert("등록실패");
+							}
+						}
+					});
+				}
+				
+				dialog = $(".addlist-dialog").dialog({
+					autoOpen: false,
+					height:100,
+					widht:300,
+					buttons: {
+						"Add": addCard,
+						Cancel: function() {
+							$("#name").val("");
+							dialog.dialog("close");
+							$(".add-list").css("display","block");
+						}
+					}
+				});
+				$(".add-list").click(function() {
+					dialog.dialog("open");
+					
+				});
+				//////////////////////////////////////////////////
+				
 			}
 		},
 		error: function() {
@@ -81,47 +124,7 @@ $(document).ready(function() {
 	});
 	
 
-	//////////////////////////////////////////////////리스트추가 다이얼로그
-	function addCard() {
-		var name = $("#name").val();
-		$.ajax({
-			url:'finalProject/board/insertlist.action',
-			type:'get',
-			data: {
-				name: name,
-				boardno: boardNo
-			},
-			success: function(message) {
-				if(message == "complete") {
-					$("#name").val("");
-					dialog.dialog("close");
-					var url = 'finalProject/board/boardview.action';
-					$(location).attr('href', url);
-				} else {
-					alert("등록실패");
-				}
-			}
-		});
-	}
 	
-	dialog = $(".addlist-dialog").dialog({
-		autoOpen: false,
-		height:100,
-		widht:300,
-		modal: true,
-		buttons: {
-			"Add": addCard,
-			Cancel: function() {
-				dialog.dialog("close");
-				$(".add-card").css("display","block");
-			}
-		}
-	});
-	$(".add-card").click(function() {
-		dialog.dialog("open");
-		
-	});
-	//////////////////////////////////////////////////
 	
 	$('#pollSlider-button').click(function() {
 		if($(this).css("margin-right")=="300px") {

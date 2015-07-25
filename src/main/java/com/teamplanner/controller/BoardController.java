@@ -100,7 +100,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String name, int boardNo) {
+	public String insertBoardList(String name, int boardno) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;
@@ -109,7 +109,7 @@ public class BoardController {
 		String message = "";
 		
 		BoardList boardlist = new BoardList();
-		boardlist.setBoardNo(boardNo);
+		boardlist.setBoardNo(boardno);
 		boardlist.setName(name);
 		boardlist.setPosition(position);
 		
