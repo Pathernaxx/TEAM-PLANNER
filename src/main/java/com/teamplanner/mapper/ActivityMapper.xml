@@ -13,34 +13,56 @@
 		<result column="typeno" property="typeNo"/>
 		<result column="backno" property="backNo"/>
 		<result column="backtitle" property="backTitle"/>
+		<result column="regdate" property="regDae" />
 		<result column="boardno" property="boardNo"/>
 		<result column="boardname" property="boardName"/>
-		<association column="targetno" property="target" select="selectResultTarget"/>
+		<association column="no" property="target" select="selectResultTarget"/>
 	</resultMap>
 	
-	<resultMap type="ActivityTarget" id="target">
-		<id column="targetno" property="no"/>
+	<resultMap type="ActivityTarget" id="resultTarget">
+		<id column="activityno" property="activityNo"/>
 		<result column="typeno" property="typeNo"/>
 		<result column="targetno" property="targetNo"/>
 		<result column="targetname" property="targetName"/>
-		<result column="activityno" property="ActivityNo"/>
 	</resultMap>
 	
-	<select id="selectResultTarget" resultMap="target">
+	<select id="selectResultTarget" resultMap="resultTarget">
 		SELECT
-			*
+			activityno, typeno, targetno, targetname
 		FROM
 			activitytarget
 		WHERE
-			no = #{targetno}
+			activityno = #{no}
 	</select>
 	
 	<insert id="insertActivity" parameterType="Activity">
-		INSERT INTO activity(no, userno, username, typeno, targetno, backno, backtitle, boardno, boardname)
-		VALUES(activity_sequence.nextVal, #{userNo}, #{userName}, #{target.typeNo}, #{targetNo}, #{backNo}, #{backTitle}, #{boardNo}, #{boardName})
+		<selectKey keyProperty="no" resultType="int" order="AFTER" >
+			SELECT activity_sequence.currval FROM dual
+		</selectKey>
+		INSERT INTO activity(no, userno, username, typeno, backno, backtitle, boardno, boardname)
+		VALUES(activity_sequence.nextVal, #{userNo}, #{userName}, #{typeNo}, #{backNo}, #{backTitle}, #{boardNo}, #{boardName})
 	</insert>
-	<select id="selectActivityByBoard">
+	
+	<insert id="insertActivityTarget" parameterType="ActivityTarget">
+		INSERT INTO activitytarget(typeno, targetno, targetname, activityno)
+		VALUES(#{typeNo}, #{targetNo}, #{targetName}, #{activityNo})
+	</insert>
+	
+	<select id="selectActivityByBoard" parameterType="int" resultMap="resultActivity">
+		SELECT
+			no, userno, username, typeno, regdate, backno, backtitle, boardno, boardname
+		FROM
+			activity
+		SELECT
+			no = #{boardNo}
 	</select>
-	<select id="selectActivityByUser">
+	
+	<select id="selectActivityByUser" parameterType="int" resultMap="resultActivity">
+		SELECT
+			no, userno, username, typeno, regdate, backno, backtitle, boardno, boardname
+		FROM
+			activity
+		SELECT
+			userno = #{userNo}
 	</select>
 </mapper>

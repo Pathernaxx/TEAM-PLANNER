@@ -1,17 +1,14 @@
 package com.teamplanner.dto;
 
-import java.util.Date;
-
 public class Activity {
 	private int no;
 	private int typeNo;
-	//private int targetNo;
 	private ActivityTarget target;
 	private int userNo;
 	private String userName;
-	private Date regDate;
+	private String regDate;
 	private int backNo; 
-	private String backaTitle;
+	private String backTitle;
 	private int boardNo;
 	private String boardName;
 	
@@ -45,10 +42,10 @@ public class Activity {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	public int getBackNo() {
@@ -57,11 +54,11 @@ public class Activity {
 	public void setBackNo(int backNo) {
 		this.backNo = backNo;
 	}
-	public String getBackaTitle() {
-		return backaTitle;
+	public String getBackTitle() {
+		return backTitle;
 	}
-	public void setBackaTitle(String backaTitle) {
-		this.backaTitle = backaTitle;
+	public void setBackTitle(String backTitle) {
+		this.backTitle = backTitle;
 	}
 	public int getBoardNo() {
 		return boardNo;
