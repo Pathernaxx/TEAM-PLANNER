@@ -187,7 +187,7 @@ $(document).ready(function() {
 							<%for(Card card : list.getCards()) { %>
 							<div class="list-card">
 								<div class="list-card-details">
-									<a class="list-card-title" href="#"><%=card.getName() %></a>
+									<a class="list-card-title" href="/finalProject/card/cardview.action"><%=card.getName() %></a>
 								</div>
 							</div>
 							<%} %>
