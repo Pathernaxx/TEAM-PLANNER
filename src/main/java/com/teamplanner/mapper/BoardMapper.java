@@ -22,4 +22,5 @@ public interface BoardMapper {
 	List<Card> selectCard(int listNo);
 	void insertCard(Card card);//boardno, listno 가지고 들어옴
 	void insertBoardList(BoardList boardlist);
+	String getBoardNameByNo(int boardno);
 }

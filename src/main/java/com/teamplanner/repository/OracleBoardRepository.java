@@ -90,5 +90,11 @@ public class OracleBoardRepository implements BoardRepository{
 		boardMapper.insertBoardList(boardlist);
 	}
 
+	@Override
+	public String getBoardNameByNo(int boardno) {
+		
+		return boardMapper.getBoardNameByNo(boardno);
+	}
+
 
 }

@@ -68,5 +68,15 @@ public class PlanBoardService implements BoardService{
 
 		boardRepository.insertBoardList(boardlist);
 	}
+	@Override
+	public String getBoardNameByNo(int boardno) {
+		String boardName = boardRepository.getBoardNameByNo(boardno);
+		return boardName;
+	}
+	@Override
+	public void insertCard(Card card) {
+		boardRepository.insertCard(card);
+		
+	}
 	
 }

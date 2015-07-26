@@ -62,7 +62,7 @@
  	
  	<insert id="insertCard" parameterType="Card">
  		INSERT INTO boardcard(no, name, listno, boardno, boardname, position)
- 		VALUES (boardcard_sequence, #{name}, #{listno}, #{boardno}, #{boardname}, #{position})
+ 		VALUES (boardcard_sequence.nextval, #{name}, #{listNo}, #{boardNo}, #{boardName}, #{position})
  	</insert>
  	
  	<!-- <insert id="insertList" parameterType="hashMap">
@@ -73,7 +73,9 @@
  		INSERT INTO boardlist(no, boardno, name, position)
  		VALUES (boardlist_sequence.nextval, #{boardNo}, #{name}, #{position})
  	</insert>
- 	
+ 	<select id="getBoardNameByNo" parameterType="int" resultType="String">
+ 		SELECT name FROM board WHERE no = #{boardno}
+ 	</select>
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">

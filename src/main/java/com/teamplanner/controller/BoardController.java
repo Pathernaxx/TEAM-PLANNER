@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
+import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
 
@@ -80,10 +81,15 @@ public class BoardController {
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
 	
-		int boardno = boardNo;
+//		int boardno = boardNo;
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("boardno", boardno);
+//		mav.setViewName("board/boardview");
 		
+		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardno", boardno);
+		mav.addObject("boardLists", boardLists);
 		mav.setViewName("board/boardview");
 		
 		return mav;
@@ -100,7 +106,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String name, int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, int boardno) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;
@@ -110,7 +116,7 @@ public class BoardController {
 		
 		BoardList boardlist = new BoardList();
 		boardlist.setBoardNo(boardno);
-		boardlist.setName(name);
+		boardlist.setName(listname);
 		boardlist.setPosition(position);
 		
 		try {
@@ -123,4 +129,37 @@ public class BoardController {
 		return message;
 	}
 	
+	@RequestMapping(value="insertcard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String insertCard(String cardname, int boardno, int listno) {
+		String boardName = boardService.getBoardNameByNo(boardno);
+		
+		Card card = new Card();
+		card.setName(cardname);
+		card.setListNo(listno);
+		card.setBoardNo(boardno);
+		card.setBoardName(boardName);
+		card.setPosition(1);
+		
+		String message = "";
+		
+		try {
+			boardService.insertCard(card);
+			message = "complete";
+		} catch (Exception e) {
+			message = "error";
+		}
+		
+		return message;
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
