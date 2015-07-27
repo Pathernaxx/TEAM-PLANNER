@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.Member;
 
 public interface BoardMapper {
 	
@@ -15,6 +16,7 @@ public interface BoardMapper {
 	List<Board> selectBoardbyTeamList(int memberNo); //return boardNo
 	String checkBoardName(String title);
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
+	List<Board> selectBoardbyBoardName(HashMap<Object, Object> params);
 	
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음

@@ -96,6 +96,11 @@
  		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '1' 
  		ORDER BY b.name
  	</select>
+ 	<select id="selectBoardbyBoardName" parameterType="hashMap" resultType="Board">
+ 		SELECT b.* 
+ 		FROM teamlist t, board b 
+ 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '0' AND b.name LIKE '%'||#{text}||'%'
+ 	</select>
  </mapper>
  
  

@@ -49,6 +49,7 @@ public class PlanBoardService implements BoardService{
 		List<Board> boards = boardRepository.selectClosedBoard(memberNo);
 		return boards;
 	}
+	
 
 
 	@Override

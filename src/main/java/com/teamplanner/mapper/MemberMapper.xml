@@ -94,4 +94,12 @@
 		WHERE
 			username=#{name} AND password=#{password}
 	</select>
+	<select id="selectMemberbyMemberName" parameterType="String" resultType="Member">
+		SELECT
+			* 
+		FROM
+			member 
+		WHERE
+			username LIKE '%'||#{text}||'%'
+	</select>
 </mapper>
