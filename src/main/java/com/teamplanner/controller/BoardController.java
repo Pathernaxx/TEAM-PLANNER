@@ -48,6 +48,7 @@ public class BoardController {
 	@RequestMapping(value="insertboard.action", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertBoard(String title, HttpSession session){
+		
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		boolean check = boardService.checkBoardName(title);
 		String message;

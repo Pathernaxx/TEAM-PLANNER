@@ -267,3 +267,51 @@ float:left;
   white-space: nowrap;
 	
 }
+
+.window-header {
+	margin: 4px 40px 4px 38px;
+	padding:12px 12px 0;
+	position: relative;
+	z-index: 1;
+}
+
+.window-main-middle {
+	float: left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: 0;
+	min-height: 20px;
+	padding: 8px 12px 12px;
+	position: relative;
+	width: 546px;
+	z-index: 0
+}
+
+.window-main-sidebar {
+		clear: both;
+		float: none;
+		margin: 8px;
+		padding: 0;
+		width: auto
+}
+
+.window {
+	background-color: #edeff0;
+	border-radius: 3px;
+	display: none;
+	margin: 48px 0 80px;
+	overflow: hidden;
+	position: relative;
+	width: 730px;
+	z-index: 25
+}
+
+.window-header {
+	margin: 4px 40px 4px 38px;
+	padding: 12px 12px 0;
+	position: relative;
+	z-index: 1
+}
+
+
+

@@ -60,7 +60,7 @@ $(document).ready(function() {
 			});
 		}
 		
-		dialog = $(".addlist-dialog").dialog({
+		var listdialog = $(".addlist-dialog").dialog({
 			autoOpen: false,
 			height:100,
 			widht:300,
@@ -74,14 +74,15 @@ $(document).ready(function() {
 			}
 		});
 		$(".add-list").click(function() {
-			dialog.dialog("open");
+			listdialog.dialog("open");
 			
 		});
 		//////////////////////////////////////////////////카드추가 다이얼로그
 		function addCard() {
 			var cardname = $("#cardname").val();
 			var boardNo = $("#boardNo").val();
-			var listNo = $("#listNo").val();
+			var listNo = $("#listno").val();
+			//alert(listNo);
 			$.ajax({
 				url: '/finalProject/board/insertcard.action',
 				type: 'get',
@@ -92,7 +93,7 @@ $(document).ready(function() {
 				},
 				success: function(message) {
 					if(message == "complete") {
-						$("#cardname").val();
+						$("#cardname").val("");
 						dialog.dialog("close");
 						var url = '/finalProject/board/boardview.action?boardno='+boardNo;
 						$(location).attr('href', url);
@@ -102,7 +103,7 @@ $(document).ready(function() {
 				}
 			});
 		}
-		dialog = $(".addcard-dialog").dialog({
+		var carddialog = $(".addcard-dialog").dialog({
 			autoOpen: false,
 			height:100,
 			widht:300,
@@ -116,11 +117,20 @@ $(document).ready(function() {
 			}
 		});
 		$(".add-card").click(function() {
-			dialog.dialog("open");
+			$("#listno").val($(this).children()[0].value);
+			carddialog.dialog("open");
 		});
 		
+		//////////////////////////////////////////////////cardview 다이얼로그
+		var cardviewdialog = $(".cardview-dialog").dialog({
+			autoOpen: false,
+			height:600,
+			width:730
+		});
+		$(".list-card-details").click(function() {
+			cardviewdialog.dialog("open");
+		});
 		//////////////////////////////////////////////////
-		
 		
 	$('#pollSlider-button').click(function() {
 		if($(this).css("margin-right")=="300px") {
@@ -130,10 +140,6 @@ $(document).ready(function() {
 			$('.pollSlider').animate({"margin-right":'+=300'});
 			$('#pollSlider-button').animate({"margin-right":'+=300'});
 		}
-	});
-		
-	$(".open-card").click(function() {
-		window.open("/finalProject/card/cardview.action")
 	});
 	
 });
@@ -190,16 +196,17 @@ $(document).ready(function() {
 							<div class="list-cards u-clearfix">
 							<%for(Card card : list.getCards()) { %>
 							<div class="list-card">
-								<div class="list-card-details">
-									<a class="list-card-title" href="/finalProject/card/cardview.action"><%=card.getName() %></a>
-								</div>
+								<div class="list-card-details"><a class="list-card-title"><%=card.getName() %></a></div>
 							</div>
 							<%} %>
 							</div>
 							<!-- <div class="list-card"> -->
 							<%int listNo = list.getNo(); %>
-							<input type="hidden" id="listNo" value=<%=listNo %> />
-								<div class="add-card"><a class="open-card">Add a card...</a></div>
+							
+								<div class="add-card">
+									<input type="hidden" value=<%=listNo %> />
+									<a class="open-card">Add a card...</a>
+								</div>
 							<!-- </div> -->
 						</div>
 						<%}%>
@@ -221,9 +228,16 @@ $(document).ready(function() {
 						<form>
 							<input class="newcardname" type="text" name="cardname" id="cardname" value="Add a card..." />
 							<input id="position" type="hidden" value="1" />
+							<input id="listno" type="hidden" value="" />
 						</form>
 					</div>
-				
+					
+					<!-- cardview 다이얼로그화면 -->
+					<div class="cardview-dialog">
+						<div>
+							<% pageContext.include("/WEB-INF/views/card/cardview.jsp"); %>
+						</div>
+					</div>
 			</div>
 		</div>
 		</div>
