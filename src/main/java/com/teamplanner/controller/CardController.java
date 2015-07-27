@@ -22,8 +22,8 @@ private CardService cardService;
 	}
 	
 	@RequestMapping(value="cardview.action", method=RequestMethod.GET)
-	public void CardView() {
-		
+	public String CardView() {
+		return "card/cardview";
 	}
 	
 }

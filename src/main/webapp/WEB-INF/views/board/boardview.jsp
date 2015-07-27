@@ -131,6 +131,10 @@ $(document).ready(function() {
 			$('#pollSlider-button').animate({"margin-right":'+=300'});
 		}
 	});
+		
+	$(".open-card").click(function() {
+		window.open("/finalProject/card/cardview.action")
+	});
 	
 });
 
@@ -195,7 +199,7 @@ $(document).ready(function() {
 							<!-- <div class="list-card"> -->
 							<%int listNo = list.getNo(); %>
 							<input type="hidden" id="listNo" value=<%=listNo %> />
-								<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>
+								<div class="add-card"><a class="open-card">Add a card...</a></div>
 							<!-- </div> -->
 						</div>
 						<%}%>
