@@ -64,6 +64,14 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		return boards;
 	}
+	public List<Board> selectBoardbyBoardName(int memberNo , String text){
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("text", text);
+		
+		return boardMapper.selectBoardbyBoardName(params);
+	}
 	
 	
 	////////////////////유정////////////////
@@ -88,6 +96,12 @@ public class OracleBoardRepository implements BoardRepository{
 	public void insertBoardList(BoardList boardlist) {
 		
 		boardMapper.insertBoardList(boardlist);
+	}
+
+	@Override
+	public String getBoardNameByNo(int boardno) {
+		
+		return boardMapper.getBoardNameByNo(boardno);
 	}
 
 

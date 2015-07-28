@@ -52,6 +52,7 @@ public class PlanBoardService implements BoardService{
 		List<Board> boards = boardRepository.selectClosedBoard(memberNo);
 		return boards;
 	}
+	
 
 
 	@Override
@@ -70,6 +71,16 @@ public class PlanBoardService implements BoardService{
 	public void insertBoardList(BoardList boardlist) {
 
 		boardRepository.insertBoardList(boardlist);
+	}
+	@Override
+	public String getBoardNameByNo(int boardno) {
+		String boardName = boardRepository.getBoardNameByNo(boardno);
+		return boardName;
+	}
+	@Override
+	public void insertCard(Card card) {
+		boardRepository.insertCard(card);
+		
 	}
 	
 }

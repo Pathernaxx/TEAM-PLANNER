@@ -13,9 +13,8 @@
 	color:rgba(255,255,255,.5);
 	float:left;
 	height:30px;
-	
 	margin:0;
-	margin-right:20px;
+	margin-right:10px;
 	min-height:30px;
 	padding-right:30px;
 	padding-left:8px;
@@ -25,8 +24,10 @@
 	z-index:1;
 	font-weight: bold;
 	font-size: 17px;
+
 }
 .searchtext{
+	
 	float:left;
 	width:110%;
 	height:70%;
@@ -35,6 +36,7 @@
 	margin-top:2%;
 	background-color:rgba(255,255,255,.0);
 	onBlur:off;
+
 }
 .searchtext:focus{
 	outline: none;
@@ -58,4 +60,63 @@
 	font-size: 20px;	
 	float:left;
 	border: 0;
+
+}
+.mainpage{
+	float:left;
+	width:300px;
+	text-align:center;
+	font-size: 20px;
+	font-weight: bold;
+	color:white;
+	margin-left: 15%;
+}
+.mainpageimg{
+
+	width:230px;
+	height: 40px;
+}
+.searchbutton{
+	border-radius:3px;
+	border:none;
+	float:left;
+	background-color:rgba(255,255,255,.3);
+	color:rgba(255,255,255,.5);
+	width:2%;
+	height:30px;
+	margin:0;
+	margin-right:1px;
+	padding-right:5px;
+	padding-left:8px;
+	line-height:19px;
+	font-weight: bold;
+	font-size: 30px;
+}
+.alarm{
+	border-radius:3px;
+	border:none;
+	float:right;
+	background-color:rgba(255,255,255,.3);
+	color:rgba(255,255,255,.5);
+	width:2%;
+	height:30px;
+	margin:0;
+	margin-right:1px;
+	padding-right:5px;
+	padding-left:8px;
+	line-height:19px;
+}
+.mypage{
+	border-radius:3px;
+	border:none;
+	float:right;
+	background-color:rgba(255,255,255,.3);
+	color:rgba(255,255,255,.5);
+	width:4%;
+	height:30px;
+	margin:0;
+	margin-right:10px;
+	padding-right:30px;
+	padding-left:8px;
+	line-height:19px;
 }

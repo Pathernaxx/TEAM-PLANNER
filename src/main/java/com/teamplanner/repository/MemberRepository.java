@@ -1,5 +1,8 @@
 package com.teamplanner.repository;
 
+import java.util.List;
+
+import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Member;
 
 public interface MemberRepository {
@@ -13,4 +16,5 @@ public interface MemberRepository {
 	void updateMemberPassword(String password, int memberNo);
 	Member selectMemberByIdAndPasswordByEmail(String email, String password);
 	Member selectMemberByIdAndPasswordByName(String name, String password);
+	List<Member> selectMemberbyMemberName(String text);
 }

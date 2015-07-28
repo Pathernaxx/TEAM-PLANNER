@@ -1,3 +1,6 @@
+<%@page import="com.teamplanner.dto.Card"%>
+<%@page import="com.teamplanner.dto.BoardList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -33,99 +36,102 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	var boardNo = ${boardno}; //번호 들어옴
-	
-	$.ajax({
-		url: "/finalProject/board/boardview.action",
-		async: true,
-		data: {
-			boardno: boardNo
-		},
-		method: "post",
-		success: function(result) {
-			
-			if(result.length != 0) {
-				$.each(result, function(index, item) {
-					var output="";
-					output += '<div class="list">';
-					output += '<div class="list-header u-clearfix">'; 
-					output += '<h2 class="list-header-name">' + item.name + '</h2>';
-					output += '</div>';
-					output += '<div class"list-cards u-clearfix">';
-					for(var card in item.cards) {
-						output += '<div class="list-card"><div class="list-card-details"><a class="list-card-title" href="#">'
-									+ item.cards[card].name +
-									'</a></div></div>';
-					};
-					output += '</div>'
-					output += '<div class="add-card"><a class="open-card" href="#">Add a card...</a></div>';
-					output += '</div>';
-					$(".canvas").append(output);
-					
-					$(".list").sortable({
-						connectWith: ".list"
-					}).disableSelection();
-				});
-			} else {
-				var output="";
-				output += '<div class="list">';
-					output += '<div class="add-list"><a class="open-list" href="#">Add a list...</a></div>';
-				output += '</div>';
-				$(".canvas").append(output);
-				
-				//////////////////////////////////////////////////리스트추가 다이얼로그
-				function addCard() {
-					var name = $("#name").val();
-					$.ajax({
-						url:'/finalProject/board/insertlist.action',
-						type:'get',
-						data: {
-							name: name,
-							boardno: boardNo
-						},	
-						success: function(message) {
-							if(message == "complete") {
-								$("#name").val("");
-								dialog.dialog("close");
-								var url = '/finalProject/board/boardview.action?boardno='+boardNo;
-								$(location).attr('href', url);
-							} else {
-								alert("등록실패");
-							}
-						}
-					});
-				}
-				
-				dialog = $(".addlist-dialog").dialog({
-					autoOpen: false,
-					height:100,
-					widht:300,
-					buttons: {
-						"Add": addCard,
-						Cancel: function() {
-							$("#name").val("");
-							dialog.dialog("close");
-							$(".add-list").css("display","block");
-						}
+	//////////////////////////////////////////////////리스트추가 다이얼로그
+	function addList() {
+			var listname = $("#listname").val();
+			var boardNo = $("#boardNo").val();
+			$.ajax({
+				url:'/finalProject/board/insertlist.action',
+				type:'get',
+				data: {
+					listname: listname,
+					boardno: boardNo
+				},	
+				success: function(message) {
+					if(message == "complete") {
+						$("#listname").val("");
+						dialog.dialog("close");
+						var url = '/finalProject/board/boardview.action?boardno='+boardNo;
+						$(location).attr('href', url);
+					} else {
+						alert("등록실패");
 					}
-				});
-				$(".add-list").click(function() {
-					dialog.dialog("open");
-					
-				});
-				//////////////////////////////////////////////////
-				
-			}
-		},
-		error: function() {
-			alert("error");
+				}
+			});
 		}
 		
-	});
-	
-
-	
-	
+		var listdialog = $(".addlist-dialog").dialog({
+			autoOpen: false,
+			height:100,
+			widht:300,
+			buttons: {
+				"Add": addList,
+				Cancel: function() {
+					$("#listname").val("");
+					dialog.dialog("close");
+					$(".add-list").css("display","block");
+				}
+			}
+		});
+		$(".add-list").click(function() {
+			listdialog.dialog("open");
+			
+		});
+		//////////////////////////////////////////////////카드추가 다이얼로그
+		function addCard() {
+			var cardname = $("#cardname").val();
+			var boardNo = $("#boardNo").val();
+			var listNo = $("#listno").val();
+			//alert(listNo);
+			$.ajax({
+				url: '/finalProject/board/insertcard.action',
+				type: 'get',
+				data: {
+					cardname: cardname,
+					boardno: boardNo,
+					listno: listNo
+				},
+				success: function(message) {
+					if(message == "complete") {
+						$("#cardname").val("");
+						dialog.dialog("close");
+						var url = '/finalProject/board/boardview.action?boardno='+boardNo;
+						$(location).attr('href', url);
+					} else {
+						alert("등록실패");
+					}
+				}
+			});
+		}
+		var carddialog = $(".addcard-dialog").dialog({
+			autoOpen: false,
+			height:100,
+			widht:300,
+			buttons: {
+				"Add": addCard,
+				Cancel: function() {
+					$("#cardname").val("");
+					dialog.dialog("close");
+					$(".add-card").css("display","block");
+				}
+			}
+		});
+		$(".add-card").click(function() {
+			$("#listno").val($(this).children()[0].value);
+			carddialog.dialog("open");
+		});
+		
+		//////////////////////////////////////////////////cardview 다이얼로그
+		var cardviewdialog = $(".cardview-dialog").dialog({
+			autoOpen: false,
+			height:600,
+			width:730
+		});
+		$(".list-card-details").click(function() {
+			cardviewdialog.dialog("open");
+		});
+		//////////////////////////////////////////////////
+		
 	$('#pollSlider-button').click(function() {
 		if($(this).css("margin-right")=="300px") {
 			$('.pollSlider').animate({"margin-right":'-=300'});
@@ -175,18 +181,63 @@ $(document).ready(function() {
 						<div id="pollSlider-button"></div>	
 						<!-- <span class="ui-icon ui-icon-transferthick-e-w"></span> -->
 					</div> 
-					
 				</div>
-				
+	
 				<div class="canvas">
+				<div>
+					<%List<BoardList> boardLists = (List<BoardList>)request.getAttribute("boardLists"); %>
+						<%for(BoardList list : boardLists) { %>
+						<%int boardNo = list.getBoardNo(); %>
+						<input type="hidden" id="boardNo" value=<%=boardNo %> />
+						<div class="list">
+							<div class="list-header u-clearfix">
+								<h2 class="list-header-name"><%=list.getName() %></h2>
+							</div>
+							<div class="list-cards u-clearfix">
+							<%for(Card card : list.getCards()) { %>
+							<div class="list-card">
+								<div class="list-card-details"><a class="list-card-title"><%=card.getName() %></a></div>
+							</div>
+							<%} %>
+							</div>
+							<!-- <div class="list-card"> -->
+							<%int listNo = list.getNo(); %>
+							
+								<div class="add-card">
+									<input type="hidden" value=<%=listNo %> />
+									<a class="open-card">Add a card...</a>
+								</div>
+							<!-- </div> -->
+						</div>
+						<%}%>
+					<div class="list">
+						<div class="add-list"><a class="open-list">Add a list...</a></div>
+					</div>
+				</div>
+				</div>
+					<!-- list 추가 -->
 					<div class="addlist-dialog">
 						<form>
-							<input class="newlistname" type="text" name="name" id="name" value="Add a list..." />
-							<!-- <input id="position" type="hidden" value="1" /> -->
+							<input class="newlistname" type="text" name="listname" id="listname" value="Add a list..." />
+							<input id="position" type="hidden" value="1" />
 						</form>
 					</div>
-				</div>	
-				
+					
+					<!-- card 추가 -->
+					<div class="addcard-dialog">
+						<form>
+							<input class="newcardname" type="text" name="cardname" id="cardname" value="Add a card..." />
+							<input id="position" type="hidden" value="1" />
+							<input id="listno" type="hidden" value="" />
+						</form>
+					</div>
+					
+					<!-- cardview 다이얼로그화면 -->
+					<div class="cardview-dialog">
+						<div class="window">
+							<% pageContext.include("/WEB-INF/views/card/cardview.jsp"); %>
+						</div>
+					</div>
 			</div>
 		</div>
 		</div>

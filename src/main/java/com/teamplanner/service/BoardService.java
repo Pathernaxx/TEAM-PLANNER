@@ -17,6 +17,8 @@ public interface BoardService {
 	
 	List<BoardList> BoardView(int boardNo);
 	List<Card> selectCard(int listNo);
+	void insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
+	String getBoardNameByNo(int boardno);
 	
 }

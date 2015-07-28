@@ -10,6 +10,7 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
+<link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 
@@ -136,10 +137,11 @@
 		<div class="getclosedboardlist">
 		</div>
 	</div>
-<div id="dialog-form">
+<div id="dialog-form" title="Create New Board">
   <form>
-
-      <label for="name" style="text-align: center">Title</label><br/>
+	  <br/>
+      <label for="name" style="text-align: center">Create Board Title...</label><br/>
+      <br/><br/>
       <input type="text" name="title" id="title">
      
  

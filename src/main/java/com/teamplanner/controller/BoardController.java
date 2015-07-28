@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
+import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.SearchService;
 
 @Controller
 @RequestMapping(value="board")
@@ -31,6 +33,13 @@ public class BoardController {
 	@Qualifier("boardService")
 	public void setBoardService(BoardService boardService) {
 		this.boardService = boardService;
+	}
+	
+	private SearchService searchService;	
+	@Autowired
+	@Qualifier("searchService")
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
 	}
 	
 	
@@ -57,6 +66,7 @@ public class BoardController {
 	@RequestMapping(value="insertboard.action", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertBoard(String title, HttpSession session){
+		
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		boolean check = boardService.checkBoardName(title);
 		String message;
@@ -94,14 +104,41 @@ public class BoardController {
 		return boards;
 	}
 	
+	@RequestMapping(value="searchview.action", method = RequestMethod.GET)
+	@ResponseBody
+	public List searchView(HttpSession session, String text){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		if(!text.startsWith("@") && !text.startsWith("#")){
+			return null;
+		}else if(text.length() < 2){
+			return null;
+		}
+		else if(text.startsWith("@") && !text.startsWith("#")){	//member 검색
+			String[] a = text.split("@");
+			List searchs = searchService.searchMember(a[1]);
+			
+						
+		}else if(!text.startsWith("@") && text.startsWith("#")){
+			String[] a = text.split("#");
+			
+		}
+		
+		return null;
+	}
+	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
 	
-		int boardno = boardNo;
+//		int boardno = boardNo;
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("boardno", boardno);
+//		mav.setViewName("board/boardview");
 		
+		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardno", boardno);
+		mav.addObject("boardLists", boardLists);
 		mav.setViewName("board/boardview");
 		
 		return mav;
@@ -118,7 +155,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String name, int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, int boardno) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;
@@ -128,7 +165,7 @@ public class BoardController {
 		
 		BoardList boardlist = new BoardList();
 		boardlist.setBoardNo(boardno);
-		boardlist.setName(name);
+		boardlist.setName(listname);
 		boardlist.setPosition(position);
 		
 		try {
@@ -141,4 +178,37 @@ public class BoardController {
 		return message;
 	}
 	
+	@RequestMapping(value="insertcard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String insertCard(String cardname, int boardno, int listno) {
+		String boardName = boardService.getBoardNameByNo(boardno);
+		
+		Card card = new Card();
+		card.setName(cardname);
+		card.setListNo(listno);
+		card.setBoardNo(boardno);
+		card.setBoardName(boardName);
+		card.setPosition(1);
+		
+		String message = "";
+		
+		try {
+			boardService.insertCard(card);
+			message = "complete";
+		} catch (Exception e) {
+			message = "error";
+		}
+		
+		return message;
+		
+	}
+	
 }
+
+
+
+
+
+
+
+

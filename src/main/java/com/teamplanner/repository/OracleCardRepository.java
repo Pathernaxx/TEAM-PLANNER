@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.CheckItem;
@@ -12,6 +13,7 @@ import com.teamplanner.dto.Comment;
 import com.teamplanner.dto.TagMember;
 import com.teamplanner.mapper.CardMapper;
 
+@Repository(value="cardRepository")
 public class OracleCardRepository implements CardRepository {
 	
 	private CardMapper cardMapper;

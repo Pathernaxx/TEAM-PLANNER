@@ -1,6 +1,7 @@
 package com.teamplanner.repository;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -107,5 +108,10 @@ public class OracleMemberRepository implements MemberRepository{
 		params.put("password", password);
 		
 		return memberMapper.selectMemberByIdAndPasswordByName(params);
+	}
+	
+	public List<Member> selectMemberbyMemberName(String text){
+		
+		return memberMapper.selectMemberbyMemberName(text);
 	}
 }

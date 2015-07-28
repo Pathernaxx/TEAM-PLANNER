@@ -1,6 +1,7 @@
 package com.teamplanner.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.teamplanner.dto.Member;
 
@@ -15,4 +16,5 @@ public interface MemberMapper {
 	void updateMemberPassword(HashMap<String, Object> params);
 	Member selectMemberByIdAndPasswordByEmail(HashMap<String, String> params);
 	Member selectMemberByIdAndPasswordByName(HashMap<String, String> params);
+	List<Member> selectMemberbyMemberName(String text);
 }
