@@ -48,7 +48,7 @@ public class AuthFilter implements Filter{
 		
 		if(!url.contains("/account/")){
 			if( member == null ) {
-				response.sendRedirect("/finalProject/account/signup.action?returnurl=" + url);
+				response.sendRedirect("/finalProject/account/login.action?returnurl=" + url);
 				return;
 			}
 		}
