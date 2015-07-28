@@ -298,7 +298,7 @@ float:left;
 .window {
 	background-color: #edeff0;
 	border-radius: 3px;
-	display: none;
+	/* display: none; */
 	margin: 48px 0 80px;
 	overflow: hidden;
 	position: relative;

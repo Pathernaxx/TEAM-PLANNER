@@ -234,7 +234,7 @@ $(document).ready(function() {
 					
 					<!-- cardview 다이얼로그화면 -->
 					<div class="cardview-dialog">
-						<div>
+						<div class="window">
 							<% pageContext.include("/WEB-INF/views/card/cardview.jsp"); %>
 						</div>
 					</div>
