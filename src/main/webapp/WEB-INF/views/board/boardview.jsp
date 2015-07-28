@@ -50,7 +50,7 @@ $(document).ready(function() {
 				success: function(message) {
 					if(message == "complete") {
 						$("#listname").val("");
-						dialog.dialog("close");
+						listdialog.dialog("close");
 						var url = '/finalProject/board/boardview.action?boardno='+boardNo;
 						$(location).attr('href', url);
 					} else {
@@ -68,7 +68,7 @@ $(document).ready(function() {
 				"Add": addList,
 				Cancel: function() {
 					$("#listname").val("");
-					dialog.dialog("close");
+					listdialog.dialog("close");
 					$(".add-list").css("display","block");
 				}
 			}
@@ -94,7 +94,7 @@ $(document).ready(function() {
 				success: function(message) {
 					if(message == "complete") {
 						$("#cardname").val("");
-						dialog.dialog("close");
+						carddialog.dialog("close");
 						var url = '/finalProject/board/boardview.action?boardno='+boardNo;
 						$(location).attr('href', url);
 					} else {
@@ -111,7 +111,7 @@ $(document).ready(function() {
 				"Add": addCard,
 				Cancel: function() {
 					$("#cardname").val("");
-					dialog.dialog("close");
+					carddialog.dialog("close");
 					$(".add-card").css("display","block");
 				}
 			}
@@ -122,13 +122,37 @@ $(document).ready(function() {
 		});
 		
 		//////////////////////////////////////////////////cardview 다이얼로그
+		var listname=$(".list-card-details").children()[0].value;
+		var cardname=$(".list-card-details").children()[1].value;
+		
 		var cardviewdialog = $(".cardview-dialog").dialog({
 			autoOpen: false,
 			height:600,
 			width:730
 		});
 		$(".list-card-details").click(function() {
+			//val($(this).children()[0].value);
+			//val($(this).children()[1].value);
+			$.ajax({
+				url:"/finalProject/card/cardview.action",
+				data:{
+					"listname": $(this).children()[0].value, 
+					"cardname" : $(this).children()[1].value
+				},
+				method: "get",
+				async: true,
+				success: function(result) {
+					$("#dlgresultview").html(result);
+				},
+				error: function(xhr, status, ex) {
+					alert(xhr+status+ex);
+				}
+			});
 			cardviewdialog.dialog("open");
+			//cardviewdialog.dialog({
+				
+				//title: $(this).children()[1].value + "  in list  " + $(this).children()[0].value
+			//});
 		});
 		//////////////////////////////////////////////////
 		
@@ -141,7 +165,7 @@ $(document).ready(function() {
 			$('#pollSlider-button').animate({"margin-right":'+=300'});
 		}
 	});
-	
+		
 });
 
 </script>
@@ -150,7 +174,7 @@ $(document).ready(function() {
 <body style="background-color: #ab0c67">
 	<div class="content">
 		<div class="headmenu">
-			<% pageContext.include("/WEB-INF/views/include/header.jsp"); %>
+			<c:import url="/WEB-INF/views/include/header.jsp" />
 		</div>
 		
 		<div id="content" class="clearfix">
@@ -179,37 +203,38 @@ $(document).ready(function() {
 							</div>
 						</div>
 						<div id="pollSlider-button"></div>	
-						<!-- <span class="ui-icon ui-icon-transferthick-e-w"></span> -->
 					</div> 
 				</div>
 	
 				<div class="canvas">
 				<div>
-					<%List<BoardList> boardLists = (List<BoardList>)request.getAttribute("boardLists"); %>
-						<%for(BoardList list : boardLists) { %>
-						<%int boardNo = list.getBoardNo(); %>
-						<input type="hidden" id="boardNo" value=<%=boardNo %> />
+					<input type="hidden" id="boardNo" value="${boardNo}" />
+					
+						<c:forEach var="list" items="${ boardLists }">
 						<div class="list">
 							<div class="list-header u-clearfix">
-								<h2 class="list-header-name"><%=list.getName() %></h2>
+								<h2 class="list-header-name">${ list.name }</h2>
 							</div>
 							<div class="list-cards u-clearfix">
-							<%for(Card card : list.getCards()) { %>
-							<div class="list-card">
-								<div class="list-card-details"><a class="list-card-title"><%=card.getName() %></a></div>
+							<c:forEach var="card" items="${ list.cards }">
+								<div class="list-card">
+									<div class="list-card-details">
+										<input type="hidden" id="hiddenln" value="${list.name }" />
+										<input type="hidden" id="hiddencn" value="${card.name }" />
+										<%-- <c:set var="cardname" value="${ card.name }" scope="request"/>
+										<c:set var="listname" value="${ list.name }" scope="request"/> --%>
+											<a class="list-card-title">${ card.name }</a>
+									</div>
+								</div>
+							</c:forEach>
 							</div>
-							<%} %>
-							</div>
-							<!-- <div class="list-card"> -->
-							<%int listNo = list.getNo(); %>
 							
 								<div class="add-card">
-									<input type="hidden" value=<%=listNo %> />
+									<input type="hidden" value="${list.no }" />
 									<a class="open-card">Add a card...</a>
 								</div>
-							<!-- </div> -->
 						</div>
-						<%}%>
+						</c:forEach>
 					<div class="list">
 						<div class="add-list"><a class="open-list">Add a list...</a></div>
 					</div>
@@ -233,13 +258,14 @@ $(document).ready(function() {
 					</div>
 					
 					<!-- cardview 다이얼로그화면 -->
-					<div class="cardview-dialog">
-						<div class="window">
-							<% pageContext.include("/WEB-INF/views/card/cardview.jsp"); %>
+						<div class="cardview-dialog">
+							<div id="dlgresultview" class="window">
+								
+								
+							</div>
 						</div>
 					</div>
 			</div>
-		</div>
 		</div>
 	</div>	
 </body>
