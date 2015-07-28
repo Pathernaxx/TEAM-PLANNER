@@ -94,6 +94,7 @@ public class BoardController {
 		}
 		else if(text.startsWith("@") && !text.startsWith("#")){	//member 검색
 			String[] a = text.split("@");
+			List searchs = searchService.searchMember(a[1]);
 			
 						
 		}else if(!text.startsWith("@") && text.startsWith("#")){
