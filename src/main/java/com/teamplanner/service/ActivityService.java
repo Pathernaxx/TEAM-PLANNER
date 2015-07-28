@@ -2,7 +2,7 @@ package com.teamplanner.service;
 
 import java.util.List;
 
-import com.teamplanner.dto.Activity;
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
@@ -22,7 +22,7 @@ public interface ActivityService {
 	void commentActivity(Member member, Card card, Comment comment, Board board); //on 코멘트 삭제
 	void moveActivity(Member member, Card card, String message, Board board);
 	void madeMemberActivity(Member member, Member teamMember, Board board);
-	void completeCheckActivity(Member member, CheckItem item, Board board);
+	void completeCheckActivity(Member member, CheckItem item, Card card, Board board);
 	void markCheckActivity(Member member, CheckItem item, Board board);
 	void deletedActivity(Member member, Attachment attachment, Card card, Board board);
 	void deletedActivity(Member member, Card card, BoardList list, Board board);
@@ -36,6 +36,6 @@ public interface ActivityService {
 	void copyActivity(Member member, Card card, String message, Board board);
 	void sentActivity(Member member, Card card, Board board);	// 카드 복귀
 	void sentActivity(Member member, BoardList list, Board board);	//리스트 복귀
-	List<Activity> activityListByMember(int memberNo);
-	List<Activity> activityListByBoard(int boardNo);
+	List<ActionPrint> activityListByMember(int memberNo);
+	List<ActionPrint> activityListByBoard(int boardNo);
 }

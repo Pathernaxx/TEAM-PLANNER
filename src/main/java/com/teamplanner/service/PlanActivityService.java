@@ -1,10 +1,14 @@
 package com.teamplanner.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Activity;
 import com.teamplanner.dto.ActivityTarget;
 import com.teamplanner.dto.Attachment;
@@ -50,6 +54,7 @@ interface TYPE {
  * @author Kre
  *
  */
+@Service(value="activityService")
 public class PlanActivityService implements ActivityService {
 	//private enum TYPE {NONE, ADDED, ON, CREATED, ATTACHED, MOVED, MADE, COMPLETED, RENAMED, REMOVED, MARKED, DELETED, ARCHIVED, COPIED, SENT};
 
@@ -70,6 +75,8 @@ public class PlanActivityService implements ActivityService {
 		activity.setUserNo(member.getNo());
 		activity.setUserName(member.getUserName());
 		activity.setTypeNo(TYPE.CREATED);
+		activity.setBackNo(board.getNo());
+		activity.setBackTitle(board.getName());
 		activity.setBoardNo(board.getNo());
 		activity.setBoardName(board.getName());
 		
@@ -110,7 +117,7 @@ public class PlanActivityService implements ActivityService {
 	/**
 	 * Card 추가
 	 * @author Nyung
-	 * @see None
+	 * @see sdf
 	 */
 	@Override
 	public void addActivity(Member member, Card card, BoardList list,
@@ -159,8 +166,8 @@ public class PlanActivityService implements ActivityService {
 		
 		actTarget.setActivityNo(activityno);
 		actTarget.setTypeNo(TARGET.CHECKLIST);
-//		actTarget.setTargetNo();
-//		actTarget.setTargetName();
+		actTarget.setTargetNo(checklist.getNo());
+		actTarget.setTargetName(checklist.getName());
 		
 		activityRepository.insertActivityTarget(actTarget);
 		
@@ -226,17 +233,17 @@ public class PlanActivityService implements ActivityService {
 		activity.setUserNo(member.getNo());
 		activity.setUserName(member.getUserName());
 		activity.setTypeNo(TYPE.ON);
-		activity.setBackNo(card.getNo());
-		activity.setBackTitle(card.getName());
+		activity.setBackNo(comment.getNo());
+		activity.setBackTitle(comment.getContent());
 		activity.setBoardNo(board.getNo());
 		activity.setBoardName(board.getName());
 		
 		int activityno = activityRepository.insertActivity(activity);
 		
 		actTarget.setActivityNo(activityno);
-		actTarget.setTypeNo(TARGET.COMMENT);
-//		actTarget.setTargetNo();
-//		actTarget.setTargetName();
+		actTarget.setTypeNo(TARGET.CARD);
+		actTarget.setTargetNo(card.getNo());
+		actTarget.setTargetName(card.getName());
 		
 		activityRepository.insertActivityTarget(actTarget);
 		
@@ -252,7 +259,7 @@ public class PlanActivityService implements ActivityService {
 		activity.setUserNo(member.getNo());
 		activity.setUserName(member.getUserName());
 		activity.setTypeNo(TYPE.MOVED);
-		//activity.setBackNo(card.getNo());
+		activity.setBackNo(0);
 		activity.setBackTitle(message);
 		activity.setBoardNo(board.getNo());
 		activity.setBoardName(board.getName());
@@ -294,24 +301,24 @@ public class PlanActivityService implements ActivityService {
 
 	// 수정 요망 후위 Card 필요
 	@Override
-	public void completeCheckActivity(Member member, CheckItem item, Board board) {
+	public void completeCheckActivity(Member member, CheckItem item, Card card, Board board) {
 		Activity activity = new Activity();
 		ActivityTarget actTarget = new ActivityTarget();
 		
 		activity.setUserNo(member.getNo());
 		activity.setUserName(member.getUserName());
 		activity.setTypeNo(TYPE.COMPLETED);
-//		activity.setBackNo(card.getNo());
-//		activity.setBackTitle(card.getName());
+		activity.setBackNo(card.getNo());
+		activity.setBackTitle(card.getName());
 		activity.setBoardNo(board.getNo());
 		activity.setBoardName(board.getName());
 		
 		int activityno = activityRepository.insertActivity(activity);
 		
 		actTarget.setActivityNo(activityno);
-//		actTarget.setTypeNo(TARGET.CHECKITEM);
-//		actTarget.setTargetNo();
-//		actTarget.setTargetName();
+		actTarget.setTypeNo(TARGET.CHECKLIST);
+		actTarget.setTargetNo(item.getNo());
+		actTarget.setTargetName(item.getName());
 		
 		activityRepository.insertActivityTarget(actTarget);
 		
@@ -655,15 +662,428 @@ public class PlanActivityService implements ActivityService {
 	}
 
 	@Override
-	public List<Activity> activityListByMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ActionPrint> activityListByMember(int memberNo) {
+		List<Activity> activity = activityRepository.selectActivityByMember(memberNo);
+		
+		Iterator<Activity> iter= activity.iterator();
+		List<ActionPrint> prints = new ArrayList<ActionPrint>();
+		
+		
+		while(iter.hasNext()) {
+			Activity temp = iter.next();
+			ActionPrint print = new ActionPrint();
+			switch(temp.getTypeNo()) {
+			case TYPE.ADDED:
+				
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ADDED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				//print.setBackLink("#");
+				print.setBackText("to " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ARCHIVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ARCHIVED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ATTACHED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ARCHIVED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("to " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.COMPLETED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("COMPLETED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("on " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.COPIED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("COPIED");
+				
+				print.setFrontLink("card");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.CREATED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("CREATED");
+				print.setFrontLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.DELETED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("DELETED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MADE:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MADE");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("an " + temp.getBackTitle() + " of " + temp.getBoardName());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MARKED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MARKED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("incomplete on " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MOVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MOVED");
+				
+				print.setFrontLink("card");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ON:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ON");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText(temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.REMOVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("REMOVED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.RENAMED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("RENAMED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("(from " + temp.getBackTitle() + ")");
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.SENT:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("SENT");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("to the board");
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			}
+		}
+		
+		return prints;
 	}
 
 	@Override
-	public List<Activity> activityListByBoard(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ActionPrint> activityListByBoard(int boardNo) {
+		List<Activity> activity = activityRepository.selectActivityByBoard(boardNo);
+		
+		Iterator<Activity> iter= activity.iterator();
+		List<ActionPrint> prints = new ArrayList<ActionPrint>();
+		
+		
+		while(iter.hasNext()) {
+			Activity temp = iter.next();
+			ActionPrint print = new ActionPrint();
+			switch(temp.getTypeNo()) {
+			case TYPE.ADDED:
+				
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ADDED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				//print.setBackLink("#");
+				print.setBackText("to " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ARCHIVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ARCHIVED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ATTACHED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ARCHIVED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("to " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.COMPLETED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("COMPLETED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("on " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.COPIED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("COPIED");
+				
+				print.setFrontLink("card");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.CREATED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("CREATED");
+				print.setFrontLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.DELETED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("DELETED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MADE:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MADE");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("an " + temp.getBackTitle() + " of " + temp.getBoardName());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MARKED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MARKED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("incomplete on " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.MOVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("MOVED");
+				
+				print.setFrontLink("card");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.ON:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("ON");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText(temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.REMOVED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("REMOVED");
+				
+				print.setFrontLink("#");
+				
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("from " + temp.getBackTitle());
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.RENAMED:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("RENAMED");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("(from " + temp.getBackTitle() + ")");
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			case TYPE.SENT:
+				print.setUserName(temp.getUserName());
+				print.setUserNo(temp.getUserNo());
+				print.setType("SENT");
+				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+					print.setFrontLink("#");
+				} else {
+					print.setFrontLink("#");
+				}
+				print.setFrontText(temp.getTarget().getTargetName());
+				print.setBackText("to the board");
+				print.setBoardLink("/finalProject/board/boardview.action?boardno="+ temp.getTarget().getTargetNo());
+				print.setBoardName(temp.getBoardName());
+				prints.add(print);
+				break;
+			}
+		}
+		return prints;
 	}
 	
 }

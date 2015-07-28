@@ -9,17 +9,20 @@ import org.springframework.stereotype.Service;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
+import com.teamplanner.repository.ActivityRepository;
 import com.teamplanner.repository.BoardRepository;
 
 @Service(value="boardService")
 public class PlanBoardService implements BoardService{
 	
-	private BoardRepository boardRepository; 
+	private BoardRepository boardRepository;
+	
 	@Autowired
 	@Qualifier("boardRepository")
 	public void setBoardRepository(BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
 	}
+
 	@Override
 	public void insertBoard(String boardName) {
 		boardRepository.insertBoard(boardName);

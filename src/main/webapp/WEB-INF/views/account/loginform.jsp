@@ -6,22 +6,61 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
 <style>
+html {
+	font-size: 20px;
+}
+.section-background-blue {
+	background-color: #e4f0f6;
+}
+
+.section-home-login {
+	padding: 2em 1em;
+	text-align: center;
+}
+
 .section-wrapper {
 	margin: 0 auto;
-	max-width: 890px;
+	max-width: 1300px;
 }
+
+.text-center {
+	text-align: center;
+}
+
+div {
+	display: block;
+}
+
+.login-form {
+	width: 400px;
+}
+
 .wrapper-signup {
-	margin: 0 auto;
+	display: block;
 	max-width: 585px;
+	margin: 0 auto;
+	position: relative;
+	text-align: left;
 }
 
 label {
 	display: block;
 }
 
-textarea, input {
-	display: block;
+textarea, input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+	background: #edeff0;
+	border-radius: 4px;
+	border: 1px solid #cdd2d4;
+	box-sizing: border-box;
+	padding: .5em;
+	max-width: 400px;
+	width: 100%;
 	margin: 0 0 1.2em;
+}
+
+button, input, select, textarea {
+	color: inherit;
+	font: inherit;
 }
 
 </style>
@@ -59,10 +98,12 @@ textarea, input {
 </script>
 </head>
 <body>
-	<section>
+	<section class="section-background-blue section-home-login">
 		<div class="section-wrapper">
-			<div class="wrapper-signup">
+			<div class="text-center">
 				<h1>Welcome back to Team Planner!</h1>
+			</div>
+			<div class="wrapper-signup login-form">
 				<label for="user">Email<span style="color:#999;">(or username)</span></label>
 				<input type="email" name="user" id="user" tabindex="1" placeholder="e.g., test@example.com">
 				<label for="password">Password</label>
@@ -70,9 +111,10 @@ textarea, input {
 				<input id="join" type="button" tabindex="3" value="Join">
 			</div>
 		</div>
+		<div>
+			<a href="/finalProject/account/signup.action">회원가입</a>
+		</div>
 	</section>
-	<div>
-		<a href="/finalProject/account/signup.action">회원가입</a>
-	</div>
+	
 </body>
 </html>

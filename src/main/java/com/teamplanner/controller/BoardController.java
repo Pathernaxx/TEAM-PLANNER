@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.Board;
-import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Member;
+import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
 
 @Controller
@@ -25,6 +25,7 @@ public class BoardController {
 	
 	
 	private BoardService boardService;
+	private ActivityService activityService;
 	
 	@Autowired
 	@Qualifier("boardService")
@@ -32,7 +33,16 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	
-////////////////////////// 동윤 /////////////////////////////////////////	
+	
+	@Autowired
+	@Qualifier("activityService")
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+
+
+
+	////////////////////////// 동윤 /////////////////////////////////////////	
 	@RequestMapping(value="boardmain.action", method = RequestMethod.GET)
 	public ModelAndView boardMain(HttpSession session){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
@@ -58,8 +68,16 @@ public class BoardController {
 			}else{
 				message = "complete";
 				boardService.insertBoard(title);
+				//activityService.createBoard(board, member);
 				int boardNo = boardService.getBoardNo(title);
 				boardService.insertTeamList(boardNo, memberNo);
+				
+				Board board = new Board();
+				board.setNo(boardNo);
+				board.setName(title);
+				
+				Member member = (Member)session.getAttribute("loginuser");
+				activityService.createBoard(board, member);
 			}
 		}
 				
