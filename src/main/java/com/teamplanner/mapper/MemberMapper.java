@@ -15,5 +15,7 @@ public interface MemberMapper {
 	void updateMemberPassword(HashMap<String, Object> params);
 	Member selectMemberByIdAndPasswordByEmail(HashMap<String, String> params);
 	Member selectMemberByIdAndPasswordByName(HashMap<String, String> params);
+	///////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
+	void updateMember(Member member);
 }

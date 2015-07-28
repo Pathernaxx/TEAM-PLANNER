@@ -60,4 +60,12 @@ public class PlanMemberService implements MemberService{
 		return memberRepository.updateMemberView(memberNo);
 	}
 
+	@Override
+	public void updateMember(Member member) {
+		
+		memberRepository.updateMember(member);
+	}
+
+
+
 }

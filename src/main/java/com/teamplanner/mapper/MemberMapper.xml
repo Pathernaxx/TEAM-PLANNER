@@ -95,6 +95,8 @@
 			username=#{name} AND password=#{password}
 	</select>
 	
+	
+	
 	<select id="updateMemberView" parameterType="int" resultType="Member">
 		SELECT
 			<include refid="member"/>
@@ -103,5 +105,16 @@
 		WHERE
 			no = #{memberNo}
 	</select>
+	
+	<update id="updateMember" parameterType="hashMap">
+		UPDATE
+			member
+		SET
+			username=#{userName}, fullname=#{fullName}
+		WHERE
+			no = #{no}
+	</update>
+	
+	
 	
 </mapper>

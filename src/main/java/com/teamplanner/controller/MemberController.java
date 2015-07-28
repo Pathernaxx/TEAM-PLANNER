@@ -2,6 +2,7 @@ package com.teamplanner.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.buf.UDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,20 @@ public class MemberController {
 		
 		return mav;
 		
+	}
+	
+	@RequestMapping(value="updatemember.action", method = RequestMethod.GET)
+	@ResponseBody
+	public void updateMember(HttpSession session,String username, String fullname) {
+		Member member = new Member();
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		member.setNo(memberno);
+		member.setFullName(fullname);
+		member.setUserName(username);
+		
+		memberService.updateMember(member);
+		
+/*		return "controller result";*/
 	}
 	
 
@@ -114,4 +129,5 @@ public class MemberController {
 		
 		return message;
 	}
+	
 }

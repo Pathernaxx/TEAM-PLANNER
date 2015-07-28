@@ -1,5 +1,7 @@
 package com.teamplanner.repository;
 
+import java.util.HashMap;
+
 import com.teamplanner.dto.Member;
 
 public interface MemberRepository {
@@ -16,4 +18,5 @@ public interface MemberRepository {
 	
 	////////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
+	void updateMember(Member member);
 }

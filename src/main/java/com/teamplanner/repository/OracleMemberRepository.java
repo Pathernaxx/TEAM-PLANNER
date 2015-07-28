@@ -119,4 +119,10 @@ public class OracleMemberRepository implements MemberRepository{
 		
 		return memberMapper.updateMemberView(memberNo);
 	}
+
+
+	@Override
+	public void updateMember(Member member) {
+		memberMapper.updateMember(member);
+	}
 }

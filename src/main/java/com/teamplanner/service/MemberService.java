@@ -9,4 +9,5 @@ public interface MemberService {
 	void changeNotification(int memberNo, boolean notification);
 	void changeIconPath(int memberNo, String iconpath);
 	Member updateMemberView(int memberNo);
+	void updateMember(Member member);
 }
