@@ -71,5 +71,8 @@ textarea, input {
 			</div>
 		</div>
 	</section>
+	<div>
+		<a href="/finalProject/account/signup.action">회원가입</a>
+	</div>
 </body>
 </html>

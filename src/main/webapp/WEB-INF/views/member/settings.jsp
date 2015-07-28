@@ -49,52 +49,52 @@ display: inline;
 <script type="text/javascript">
 	$(function() {
 		$("#tabs-test").tabs();
-		$("#changename").click(function(event) {
-			$.ajax({
-				url: "/finalProject/member/changenameform.action",
-				type: "get",
-				success: function(result) {
-					$('#changename').webuiPopover({
-						constrains: 'horizontal', 
-			            trigger:'click',
-			            multi: true,
-			            placement:'bottom',
-			            width:300,
-						closeable: true,
-						title: 'ChangeName',
-			            content: result
-					});
-				},
-				error: function() {
-					alert('error');
-				}
-			});
-			
-			event.preventDefault();
+		
+		$.ajax({
+			url: "/finalProject/member/changenameform.action",
+			type: "get",
+			success: function(result) {
+				$('#changename').webuiPopover({
+					constrains: 'horizontal', 
+		            trigger:'click',
+		            multi: false,
+		            placement:'bottom',
+		            width:300,
+					closeable: true,
+					arrow: false,
+					title: 'ChangeName',
+		            content: result
+				});
+			},
+			error: function() {
+				alert('error');
+			}
+		});
+
+
+		$.ajax({
+			url: "/finalProject/member/changepassform.action",
+			type: "get",
+			success: function(result) {
+				$('#changepass').webuiPopover({
+					constrains: 'horizontal', 
+		            trigger:'click',
+		            multi: false,
+		            placement:'bottom',
+		            width:300,
+					closeable: true,
+					arrow: false,
+					title: 'Change Password',
+		            content: result 
+				});
+			},
+			error: function() {
+				alert('error');
+			}
 		});
 		
-		$("#changepass").click(function(event) {
-			$.ajax({
-				url: "/finalProject/member/changepassform.action",
-				type: "get",
-				success: function(result) {
-					$('#changepass').webuiPopover({
-						constrains: 'horizontal', 
-			            trigger:'click',
-			            multi: true,
-			            placement:'bottom',
-			            width:300,
-						closeable: true,
-						title: 'Change Password',
-			            content: result
-					});
-				},
-				error: function() {
-					alert('error');
-				}
-			});
-			event.preventDefault();
-		});
+		
+			
 	});
 </script>
 <title>Settings</title>
