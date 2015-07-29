@@ -17,4 +17,6 @@ public interface CardMapper {
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
 	
+	void insertAttachment(int cardNo, int boardNo);
+	
 }

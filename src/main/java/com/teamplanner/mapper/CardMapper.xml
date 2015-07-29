@@ -32,6 +32,10 @@
  		FROM tagmember
  		WHERE checklistno = #{checklistNo}
  	</select>
+ 	
+ 	<!-- <insert>
+ 		INSERT INTO b
+ 	</insert> -->
 	
  	
  </mapper>
