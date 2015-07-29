@@ -296,14 +296,13 @@ float:left;
 	width: 60%;
 	z-index: 0;
 	margin-top: 0 */
-	    float: left;
     overflow-x: hidden;
     overflow-y: auto;
     margin: 0;
     min-height: 20px;
-    padding: 8px 12px 12px;
+    padding: 0px 0px 0px;
     position: relative;
-    width: 510px;
+    width: 720px;
     z-index: 0;
 }
 
@@ -315,7 +314,7 @@ float:left;
 	padding: 0;
 	width: 40% */
 	float: right;
-    padding: 8px 12px 12px 0;
+    padding: 0px 0px 0px 0;
     width: 170px;
     overflow: hidden;
     z-index: 10;
@@ -340,8 +339,8 @@ float:left;
 }
 
 .window-header {
-	margin: 4px 40px 4px 4px;
-	padding: 12px 12px 0;
+	margin: 4px 0px 4px 4px;
+	padding: 0px 0px 0px;
 	position: relative;
 	z-index: 1;
 }
@@ -356,9 +355,10 @@ float:left;
 	right: 0;
 	height: 30px;
 	overflow: hidden;
-	padding: 4px;
+	padding: 0px;
 	width: 30px;
 	z-index: 2;
+	text-align: right;
 }
 
 #ui-id-5 {
@@ -419,3 +419,92 @@ float:left;
 	/* left: -10px;
     position: absolute; */
 }
+
+.window-main-left {
+	width:540px;
+	padding: 5px;
+	float:left;
+}
+
+.window-attachment {
+	height: 115px;
+	
+}
+
+.window-table {
+	width:530px;
+	
+}
+
+.activity-comment {
+	border-radius: 3px;
+	background-color: #fff;
+	width:95%;
+	min-height: 70px;
+	text-align:left;
+	float: left;
+	color: #444;
+    border: 1px solid #ccc;
+    cursor: text;
+	
+}
+
+.attachment-thumnail {
+	border-radius: 3px;
+    min-height: 80px;
+    margin: 0 0 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.attachment-preview {
+	border: 1px solid #d6dadc;
+    background-color: #e2e4e6;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    height: 78px;
+    margin-top: -44px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    text-decoration: none;
+    z-index: 0;
+    width: 108px;
+}
+
+.attachment-preview-src {
+	color: #8c8c8c;
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    height: 100%;
+    line-height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 100%;
+}
+
+.attachment-details {
+	box-sizing: border-box;
+    cursor: pointer;
+    padding: 8px 8px 8px 120px;
+    min-height: 80px;
+}
+
+.attachment-details-title {
+	display: block;
+    text-decoration: none;
+    margin-bottom: 6px;
+    word-wrap: break-word;
+}
+
+.attachment-options {
+	color: #8c8c8c;
+}
+
+
+

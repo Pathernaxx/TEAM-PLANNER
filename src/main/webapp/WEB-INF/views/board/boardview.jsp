@@ -166,6 +166,8 @@ $(document).ready(function() {
 		}
 	});
 		
+	//attachment가 있을 경우 if
+	//////////////////////	
 });
 
 </script>
