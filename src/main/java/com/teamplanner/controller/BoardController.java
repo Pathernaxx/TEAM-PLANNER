@@ -122,6 +122,11 @@ public class BoardController {
 		return searchs;
 		
 	}
+	@RequestMapping(value="addFriend.action", method = RequestMethod.GET)
+	public void addFriend(HttpSession session, int friendNo){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		
+	}
 	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)

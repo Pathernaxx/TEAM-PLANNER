@@ -13,14 +13,22 @@
 		var list =[];
 		var dialog;
 		
-		
-		
 		dialog = $( "#dialogform" ).dialog({
 		      autoOpen: false,
-		      height: 300,
+		      height: 200,
 		      width: 350,
 		      buttons:{
-		    	  "CREATE" : {},
+		    	  "Add" : function(){
+		    		  var friendNo = $(this).data("friendNo");
+		    		  $.ajax({
+		    			 url : '/finalProject/board/addFriend.action', 
+		    			 type : 'get',
+		    			 data : {friendNo : friendNo},
+		    			 success : function(){
+		    				 
+		    			 }
+		    		  });
+		    	  },
 		    	  Cancel: function(){
 		    		  $("#title").val("");
 		    		  $(".searchtext").val("");
@@ -69,6 +77,7 @@
 								return {
 									label : list.userName,
 									value : list.userName,
+									hidden : list.no,
 									dialog : dialog
 								}
 							}));
@@ -80,7 +89,7 @@
 				if(ui.item.url != null){
 					window.location = ui.item.url;
 				}else{
-					ui.item.dialog.dialog("open")
+					ui.item.dialog.dialog("open").data("friendNo",ui.item.hidden);
 				}
 			},
 			minLength: 2
@@ -109,12 +118,9 @@
 		MyPage
 	</div> 
 	
-	<div id="dialogform" title="Create New Board">
+	<div id="dialogform" title="Add Member...">
 	  <form>
 		  <br/>
-	      <label for="name" style="text-align: center">Create Board Title...</label><br/>
-	      <br/><br/>
-	      <input type="text" name="title" id="title">
 	     
 	 
 	      <!-- Allow form submission with keyboard without duplicating the dialog button -->
