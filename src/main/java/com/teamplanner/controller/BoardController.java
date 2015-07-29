@@ -1,6 +1,7 @@
 package com.teamplanner.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -85,26 +85,47 @@ public class BoardController {
 		return boards;
 	}
 	
-	@RequestMapping(value="searchview.action", method = RequestMethod.GET)
+	@RequestMapping(value="searchmember.action", method = RequestMethod.GET)
 	@ResponseBody
-	public List searchView(HttpSession session, String text){
-		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-		if(!text.startsWith("@") && !text.startsWith("#")){
-			return null;
-		}else if(text.length() < 2){
-			return null;
-		}
-		else if(text.startsWith("@") && !text.startsWith("#")){	//member 검색
-			String[] a = text.split("@");
-			List searchs = searchService.searchMember(a[1]);
-			
-						
-		}else if(!text.startsWith("@") && text.startsWith("#")){
-			String[] a = text.split("#");
+	public List<Member> searchMember(String key){
+		List<Member> searchs = null;
+//		String[] list = null;
+		if(key.startsWith("@")){	//member 검색
+			String[] a = key.split("@");
+			searchs = searchService.searchMember(a[1]);		
+//			list = new String[searchs.size()];
+//			for(int i=0; i<searchs.size();i++){
+//				list[i]=searchs.get(i).getUserName();
+//			}
 			
 		}
 		
-		return null;
+		return searchs;
+		
+	}
+	@RequestMapping(value="searchboard.action", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Board> searchBoard(HttpSession session, String key){
+		List<Board> searchs = null;
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+//		String[] list = null;
+		if(key.startsWith("#")){
+			String[] a = key.split("#");
+			searchs = searchService.searchBoard(memberNo, a[1]);
+//			list = new String[searchs.size()];
+//			for(int i=0; i<searchs.size();i++){
+//				list[i]=searchs.get(i).getName();
+//			}
+			
+		}
+		
+		return searchs;
+		
+	}
+	@RequestMapping(value="addFriend.action", method = RequestMethod.GET)
+	public void addFriend(HttpSession session, int friendNo){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////
@@ -120,6 +141,7 @@ public class BoardController {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
+		mav.addObject("boardNo", boardNo);
 		mav.setViewName("board/boardview");
 		
 		return mav;
@@ -136,7 +158,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String listname, int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, @RequestParam("boardno") int boardno) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;

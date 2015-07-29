@@ -1,5 +1,6 @@
 package com.teamplanner.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,13 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public List<Attachment> selectAttachment(int cardNo) {
-		return cardMapper.selectAttachment(cardNo);
+	public List<Attachment> selectAttachment(int cardNo, int boardNo) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("cardNo", cardNo);
+		params.put("boardNo", boardNo);
+		
+		return cardMapper.selectAttachment(params);
 	}
 
 	@Override

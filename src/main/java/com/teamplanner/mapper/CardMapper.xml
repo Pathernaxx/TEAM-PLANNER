@@ -12,10 +12,10 @@
  		FROM boardcomment
  		WHERE cardno = #{cardNo}
  	</select>
- 	<select id="selectAttachment" parameterType="int" resultType="Attachment">
+ 	<select id="selectAttachment" parameterType="hashMap" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
- 		WHERE cardno = #{cardNo}
+ 		WHERE cardno = #{cardNo} AND bardno = #{boardNo}
  	</select>
  	<select id="selectCheckList" parameterType="int" resultType="CheckList">
  		SELECT no, name, cardno, regdate
@@ -32,6 +32,10 @@
  		FROM tagmember
  		WHERE checklistno = #{checklistNo}
  	</select>
-
+ 	
+ 	<!-- <insert>
+ 		INSERT INTO b
+ 	</insert> -->
+	
  	
  </mapper>
