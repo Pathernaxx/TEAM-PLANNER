@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<meta content="charset=utf-8">
 <div id="settings">
 	<h1>Account Details</h1>
 	<hr/>
@@ -60,28 +61,34 @@
 			
 			$(document).on('click', '#save', function(event) {
 				
+				if( $('form input[value=""]') > 0 ) {
+					event.preventDefault();
+					$(".error").html("WHY");
+					$(".error").css('display', 'block');
+					return;	
+				}
+				
 				var formData = $("form").serialize();
 				
 				$.ajax({
-					type : "post",
 					url : "/finalProject/member/change.action",
+					type : "post",
 					async: true,
 					data : formData,
 					success : function(result) {
-						if(result == "name") {
-							$(".error").attr('value', "using name")
-						} else if(result == "pass") {
-							alert("ERROR");
-						} else {
-							alert("false");
+						if(result != null) {
+							event.preventDefault();
+							$(".error").html(result);
+							$(".error").css('display', 'block');
+							return;
 						}
 					},
 					error: function() {
 						
 					}
 				})
-				
 				event.preventDefault();
+				
 			});
 		</script>
 	</div>

@@ -1,5 +1,6 @@
 <div id="pop-title">
 	<form>
+		<input type="hidden" name="state" value="name">
 		<p id="name-error" class="error"></p>
 		<label for="fullname">FullName</label>
 		<input type="text" name="fullname" id="fullname" tabindex="1" value="${ member.fullName }">

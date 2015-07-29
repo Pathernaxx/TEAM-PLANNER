@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Member;
+import com.teamplanner.service.AccountService;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.MemberService;
 
@@ -24,11 +25,18 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private ActivityService activityService;
+	private AccountService accountService;
 
 	@Autowired
 	@Qualifier(value="memberService")
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
+	}
+	
+	@Autowired
+	@Qualifier(value="accountService")
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
 	}
 	
 	@Autowired
@@ -110,11 +118,44 @@ public class MemberController {
 	@ResponseBody
 	public String MemberChange(HttpServletRequest request, HttpSession session)
 	{
-		String message = "false";
-		//int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		String message = null;
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		String state = request.getParameter("state");
 		
-		if( request.getParameter("fullname") != null ) {
-			message ="false";
+		if( state.equals("name") ) {
+			// Parameter를 받는다.
+			String userName = request.getParameter("username");
+			String fullName = request.getParameter("fullname");
+			
+			// userName은 Unique값이기 때문에 자신을 제외한 멤버 중 같은 이름이 있는지 검색
+			// return 값은 있으면 true, 없으면 false이다.
+			if( accountService.MeNotCheckName(memberno, userName) ) {
+				message = "중복되는 UserName입니다.";
+				return message;
+			} else {
+				memberService.changeName(memberno, userName, fullName);
+			}
+			
+		} else if( state.equals("password") ) {
+			// Parameter를 받는다
+			String oldpassword = request.getParameter("oldpassword");
+			String password1 = request.getParameter("password1");
+			String password2 = request.getParameter("password2");
+			
+			// password1과 password2의 일치 유무
+			if( !password1.equals(password2) ) {
+				message = "password가 일치하지 않습니다.";
+				return message;
+			}
+			
+			// OldPassword가 현재 Password와 일치하는지 검색
+			if( accountService.PasswordCheck(memberno, oldpassword) ) {
+				message = "password가 틀렸습니다.";
+				return message;
+			}
+			
+			// 패스워드를 수정한다.
+			memberService.changePassword(memberno, password1);
 		}
 		
 		return message;

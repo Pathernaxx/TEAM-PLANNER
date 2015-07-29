@@ -77,12 +77,17 @@ button, input, select, textarea {
 					email: $("#email").val(),
 					password : $("#password").val()
 				},
-				success : function() {
-					var url = "/finalProject/account/login.action";
-					$(location).attr('href', url);
+				success : function(result) {
+					if(result == null) {
+						var url = "/finalProject/account/login.action";
+						$(location).attr('href', url);
+					} else {
+						alert(result);
+						return;
+					}
 				},
 				error : function() {
-					alert('fail');
+					alert('이미 가입된 Email입니다.');
 				}
 			});	
 		});

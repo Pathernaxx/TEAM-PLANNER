@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <link rel="stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -13,6 +14,10 @@
 
 
 <style>
+.error {
+	color: #eb5a46;
+	margin: 0 0 8px;
+}
 #tabs-wrapper {
 	margin: 0 auto;
 	max-width: 850px;
@@ -71,7 +76,11 @@ display: inline;
 <title>Settings</title>
 </head>
 <body>
-	<div id="">
+	<div class="headmenu">
+		<c:import url="/WEB-INF/views/include/header.jsp"/>
+	</div>
+	<div class="user-profile">
+		<span></span>
 	</div>
 	<div id="tabs-test">
 		<div id="tabs" class="tabs">

@@ -22,6 +22,30 @@ public class OracleMemberRepository implements MemberRepository{
 		this.memberMapper=memberMapper;
 	}
 	
+	@Override
+	public int selectMeNotUserNameCheck(int memberNo, String userName) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("userName", userName);
+		
+		int result = memberMapper.selectMeNotUserNameCheck(params);
+		
+		return result;
+	}
+	
+	@Override
+	public int selectMemberByNoAndPassByPasswordCheck(int memberNo,
+			String password) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("password", password);
+		
+		int result = memberMapper.selectMemberByNoAndPassByPasswordCheck(params);
+		
+		return result;
+	}
 	
 	@Override
 	public void insertMember(Member member) {

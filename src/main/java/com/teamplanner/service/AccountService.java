@@ -9,4 +9,6 @@ public interface AccountService {
 	void joinWithUs(Member member);
 	boolean IdCheckForEmail(String email);
 	boolean IdCheckForUserName(String userName);
+	boolean MeNotCheckName(int memberNo, String userName);
+	boolean PasswordCheck(int memberNo, String password);
 }

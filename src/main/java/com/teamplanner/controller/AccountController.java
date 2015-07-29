@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,18 +43,29 @@ public class AccountController {
 		Member member = new Member();
 		member.setUserName(name);
 		member.setFullName(name);
-		member.setEmail(email);
+		
+		if( accountService.IdCheckForEmail(email)) {
+			member.setEmail(email);
+		} else {
+			return "가입된 Email 입니다.";
+		}
+		
 		member.setPassword(password);
 
 		accountService.joinWithUs(member);
 		// 차후 수정
-		return "redirect:/home.action";
+		return null;
 	}
 	
 	@RequestMapping(value="login.action", method= RequestMethod.GET)
-	public String locationlogin()
+	public ModelAndView locationlogin(@RequestParam(value="returnurl", defaultValue = "") String returnurl)
 	{
-		return "account/loginform";
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("returnurl", returnurl);
+		mav.setViewName("account/loginform");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="login.action", method= RequestMethod.POST)
