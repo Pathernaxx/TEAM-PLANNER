@@ -53,6 +53,7 @@ public class PlanBoardService implements BoardService{
 		return boards;
 	}
 	
+	
 
 
 	@Override
@@ -81,6 +82,10 @@ public class PlanBoardService implements BoardService{
 	public void insertCard(Card card) {
 		boardRepository.insertCard(card);
 		
+	}
+	@Override
+	public void addFriend(int memberNo, int friendNo) {
+		boardRepository.addFriend(memberNo, friendNo);
 	}
 	
 }

@@ -64,6 +64,7 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		return boards;
 	}
+	@Override
 	public List<Board> selectBoardbyBoardName(int memberNo , String text){
 		
 		HashMap<Object, Object> params = new HashMap<Object, Object>();
@@ -71,6 +72,14 @@ public class OracleBoardRepository implements BoardRepository{
 		params.put("text", text);
 		
 		return boardMapper.selectBoardbyBoardName(params);
+	}
+	@Override
+	public void addFriend(int memberNo, int friendNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("friendNo", friendNo);
+		
+		boardMapper.addFriend(params);
 	}
 	
 	
@@ -103,6 +112,8 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		return boardMapper.getBoardNameByNo(boardno);
 	}
+
+
 
 
 }

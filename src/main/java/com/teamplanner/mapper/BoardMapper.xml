@@ -114,6 +114,10 @@
  		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '0' AND b.name LIKE '%'||#{text}||'%' 
  		ORDER BY b.name
  	</select>
+ 	<insert id="addFriend" parameterType="hashMap">
+ 		INSERT INTO memberlist(no , memberno , myno)
+ 		VALUES (memberlist_sequence.nextval , #{friendNo} , #{memberNo})
+ 	</insert>
  </mapper>
  
  

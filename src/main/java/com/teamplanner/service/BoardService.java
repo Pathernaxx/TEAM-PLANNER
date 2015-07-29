@@ -14,11 +14,13 @@ public interface BoardService {
 	List<Board> selectBoardbyTeamList(int memberNo); //return boardNo
 	boolean checkBoardName(String title);
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
+	void addFriend(int memberNo , int friendNo);
+	String getBoardNameByNo(int boardno);
 	
 	List<BoardList> BoardView(int boardNo);
 	List<Card> selectCard(int listNo);
 	void insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
-	String getBoardNameByNo(int boardno);
+	
 	
 }
