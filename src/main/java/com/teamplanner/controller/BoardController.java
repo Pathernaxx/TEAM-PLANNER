@@ -1,6 +1,7 @@
 package com.teamplanner.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -104,26 +105,42 @@ public class BoardController {
 		return boards;
 	}
 	
-	@RequestMapping(value="searchview.action", method = RequestMethod.GET)
+	@RequestMapping(value="searchmember.action", method = RequestMethod.GET)
 	@ResponseBody
-	public List searchView(HttpSession session, String text){
-		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-		if(!text.startsWith("@") && !text.startsWith("#")){
-			return null;
-		}else if(text.length() < 2){
-			return null;
-		}
-		else if(text.startsWith("@") && !text.startsWith("#")){	//member 검색
-			String[] a = text.split("@");
-			List searchs = searchService.searchMember(a[1]);
-			
-						
-		}else if(!text.startsWith("@") && text.startsWith("#")){
-			String[] a = text.split("#");
+	public List<Member> searchMember(String key){
+		List<Member> searchs = null;
+//		String[] list = null;
+		if(key.startsWith("@")){	//member 검색
+			String[] a = key.split("@");
+			searchs = searchService.searchMember(a[1]);		
+//			list = new String[searchs.size()];
+//			for(int i=0; i<searchs.size();i++){
+//				list[i]=searchs.get(i).getUserName();
+//			}
 			
 		}
 		
-		return null;
+		return searchs;
+		
+	}
+	@RequestMapping(value="searchboard.action", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Board> searchBoard(HttpSession session, String key){
+		List<Board> searchs = null;
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+//		String[] list = null;
+		if(key.startsWith("#")){
+			String[] a = key.split("#");
+			searchs = searchService.searchBoard(memberNo, a[1]);
+//			list = new String[searchs.size()];
+//			for(int i=0; i<searchs.size();i++){
+//				list[i]=searchs.get(i).getName();
+//			}
+			
+		}
+		
+		return searchs;
+		
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////
