@@ -69,7 +69,7 @@ $(function() {
 	
 	<div class="tabbed-pane-header-wrapper u-clearfix">
 		<div class="tabbed-pane-header-details">
-			<a href="#" id="changeavatar" > 
+			<a href="#" id="changeavatar" class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "> 
 				<span class="profile-image-initials">A</span> 
 				<span class="profile-image-change-text">Change Avatar</span>
 			</a>
