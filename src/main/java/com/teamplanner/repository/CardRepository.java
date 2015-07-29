@@ -11,7 +11,7 @@ import com.teamplanner.dto.TagMember;
 public interface CardRepository {
 
 	List<Comment> selectComment(int cardNo);
-	List<Attachment> selectAttachment(int cardNo);
+	List<Attachment> selectAttachment(int cardNo, int boardNo);
 	List<CheckList> selectCheckList(int cardNo);
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
