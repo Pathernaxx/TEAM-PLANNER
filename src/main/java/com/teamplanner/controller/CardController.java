@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
@@ -22,8 +23,14 @@ private CardService cardService;
 	}
 	
 	@RequestMapping(value="cardview.action", method=RequestMethod.GET)
-	public String CardView() {
-		return "card/cardview";
+	public ModelAndView CardView(String listname, String cardname) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listname", listname);
+		mav.addObject("cardname", cardname);
+		
+		mav.setViewName("card/cardview");
+		
+		return mav;
 	}
 	
 }

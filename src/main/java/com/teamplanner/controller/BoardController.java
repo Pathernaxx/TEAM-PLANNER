@@ -139,6 +139,7 @@ public class BoardController {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
+		mav.addObject("boardNo", boardNo);
 		mav.setViewName("board/boardview");
 		
 		return mav;
@@ -155,7 +156,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String listname, int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, @RequestParam("boardno") int boardno) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;

@@ -1,5 +1,6 @@
 package com.teamplanner.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.teamplanner.dto.Attachment;
@@ -11,7 +12,7 @@ import com.teamplanner.dto.TagMember;
 public interface CardMapper {
 
 	List<Comment> selectComment(int cardNo);
-	List<Attachment> selectAttachment(int cardNo);
+	List<Attachment> selectAttachment(HashMap<Object, Object> params);//int cardNo, int boardNo
 	List<CheckList> selectCheckList(int cardNo);
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
