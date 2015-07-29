@@ -101,5 +101,7 @@
 			member 
 		WHERE
 			username LIKE '%'||#{text}||'%'
+		ORDER BY
+			username
 	</select>
 </mapper>

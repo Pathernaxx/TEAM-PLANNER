@@ -65,8 +65,7 @@
 		    		  $(".createBoard").css("display","block");
 		    	  }
 		      }
-		      
-		    });
+		});
 		$('.createBoard').click(function(){
 			dialog.dialog("open");
 			$(".createBoard").css("display","none");

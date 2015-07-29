@@ -23,7 +23,8 @@
 	width:3%;
 	z-index:1;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 88%;
+	text-align:center;
 
 }
 .searchtext{
@@ -91,6 +92,7 @@
 	line-height:19px;
 	font-weight: bold;
 	font-size: 30px;
+	text-align:center;
 }
 .alarm{
 	border-radius:3px;
@@ -105,6 +107,9 @@
 	padding-right:5px;
 	padding-left:8px;
 	line-height:19px;
+	font-weight: bold;
+	font-size: 15px;
+	text-align:center;
 }
 .mypage{
 	border-radius:3px;
@@ -112,11 +117,14 @@
 	float:right;
 	background-color:rgba(255,255,255,.3);
 	color:rgba(255,255,255,.5);
-	width:4%;
+	width:5%;
 	height:30px;
 	margin:0;
 	margin-right:10px;
 	padding-right:30px;
 	padding-left:8px;
 	line-height:19px;
+	font-weight: bold;
+	font-size: 15px;
+	text-align:center;
 }
