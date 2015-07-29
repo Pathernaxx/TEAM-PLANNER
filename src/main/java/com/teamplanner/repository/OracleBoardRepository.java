@@ -75,7 +75,11 @@ public class OracleBoardRepository implements BoardRepository{
 	}
 	@Override
 	public void addFriend(int memberNo, int friendNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("friendNo", friendNo);
 		
+		boardMapper.addFriend(params);
 	}
 	
 	

@@ -87,12 +87,13 @@ public class BoardController {
 	
 	@RequestMapping(value="searchmember.action", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Member> searchMember(String key){
+	public List<Member> searchMember(HttpSession session, String key){
 		List<Member> searchs = null;
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 //		String[] list = null;
 		if(key.startsWith("@")){	//member 검색
 			String[] a = key.split("@");
-			searchs = searchService.searchMember(a[1]);		
+			searchs = searchService.searchMember(memberNo, a[1]);		
 //			list = new String[searchs.size()];
 //			for(int i=0; i<searchs.size();i++){
 //				list[i]=searchs.get(i).getUserName();

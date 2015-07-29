@@ -16,5 +16,5 @@ public interface MemberRepository {
 	void updateMemberPassword(String password, int memberNo);
 	Member selectMemberByIdAndPasswordByEmail(String email, String password);
 	Member selectMemberByIdAndPasswordByName(String name, String password);
-	List<Member> selectMemberbyMemberName(String text);
+	List<Member> selectMemberbyMemberName(int memberNo , String text);
 }

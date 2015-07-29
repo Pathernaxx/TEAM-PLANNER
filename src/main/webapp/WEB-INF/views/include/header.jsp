@@ -25,7 +25,7 @@
 		    			 type : 'get',
 		    			 data : {friendNo : friendNo},
 		    			 success : function(){
-		    				 
+		    				 $(".searchtext").val("");
 		    			 }
 		    		  });
 		    	  },
@@ -94,6 +94,12 @@
 			},
 			minLength: 2
 		});
+		$(".mainpageimg").click(function(){
+			var url = "/finalProject/board/boardmain.action"
+				$(location).attr('href', url);
+		});
+			
+		
 	});
 </script>
 </head>
@@ -104,9 +110,6 @@
 	</div>
 	<div class="search">
 		<input class="searchtext" type="text"/>
-	</div>
-	<div class="searchbutton">
-		☜
 	</div>
 	<div class="mainpage">
 		<img class="mainpageimg" src="/finalProject/resources/images/mainpage.png">
@@ -121,7 +124,7 @@
 	<div id="dialogform" title="Add Member...">
 	  <form>
 		  <br/>
-	     
+	     <label for="name" style="text-align: center">Do you want to add this member?</label>
 	 
 	      <!-- Allow form submission with keyboard without duplicating the dialog button -->
 	      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
