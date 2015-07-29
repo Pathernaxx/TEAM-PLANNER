@@ -83,7 +83,7 @@ public class MemberController {
 		List<ActionPrint> prints = activityService.activityListByMember(member.getNo());
 		mav.addObject("prints", prints);
 		
-		mav.setViewName("member/profile");
+		mav.setViewName("include/activity");
 		
 		return mav;
 	}
@@ -161,10 +161,10 @@ public class MemberController {
 		return message;
 	}
 	
-	@RequestMapping(value="member.action", method=RequestMethod.GET)
-	public String profile() {
-		return "member/profile";
-	}
+//	@RequestMapping(value="member.action", method=RequestMethod.GET)
+//	public String profile() {
+//		return "member/profile";
+//	}
 	
 	@RequestMapping(value="settings.action", method=RequestMethod.POST)
 	public String settings() {

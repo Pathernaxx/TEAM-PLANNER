@@ -1,5 +1,5 @@
 <div id="pop-title">
-	<form id="changename">
+	<form>
 		<input type="hidden" name="state" value="password">
 		<label for="oldpassword">Old Password</label>
 		<input type="password" name="oldpassword" id="oldpassword" tabindex="1">

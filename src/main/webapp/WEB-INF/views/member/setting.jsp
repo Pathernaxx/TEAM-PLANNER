@@ -62,9 +62,9 @@
 			$(document).on('click', '#save', function(event) {
 				
 				if( $('form input[value=""]') > 0 ) {
-					event.preventDefault();
 					$(".error").html("WHY");
 					$(".error").css('display', 'block');
+					event.preventDefault();
 					return;	
 				}
 				
