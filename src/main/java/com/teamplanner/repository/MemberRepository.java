@@ -2,6 +2,9 @@ package com.teamplanner.repository;
 
 import java.util.HashMap;
 
+import java.util.List;
+
+import com.teamplanner.dto.Board;
 import com.teamplanner.dto.Member;
 
 public interface MemberRepository {
@@ -19,4 +22,5 @@ public interface MemberRepository {
 	////////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
+	List<Member> selectMemberbyMemberName(String text);
 }

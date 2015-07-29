@@ -8,9 +8,13 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/core.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/core2.css" />
 
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script> $(function () {
+
+<script>
+
+$(function () {
 	$("#memberupdate").click(function(event) {
 		/* alert($("#username").val()); */
 		$.ajax({
@@ -29,6 +33,31 @@
 	});
 });
 
+$(function() {
+	$("#changeavatar").tabs();
+	
+	$.ajax({
+		url: "/finalProject/member/changeavatarform.action",
+		type: "get",
+		success: function(result) {
+			$('#changeavatar').webuiPopover({
+				constrains: 'horizontal', 
+	            trigger:'click',
+	            multi: false,
+	            placement:'bottom',
+	            width:300,
+				closeable: true,
+				arrow: false,
+				title: 'changeavatar',
+	            content: result
+			});
+		},
+		error: function() {
+			alert('error');
+		}
+	});
+
+});
 </script>
 
 </head>
@@ -40,8 +69,7 @@
 	
 	<div class="tabbed-pane-header-wrapper u-clearfix">
 		<div class="tabbed-pane-header-details">
-			<a
-				class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "href="#"> 
+			<a href="#" id="changeavatar" > 
 				<span class="profile-image-initials">A</span> 
 				<span class="profile-image-change-text">Change Avatar</span>
 			</a>
@@ -64,6 +92,7 @@
 				<input id="memberupdate" type="submit" value="Save"> 
 				<input class="js-cancel-edit-profile" type="button" value="Cancel">
 			</form>
+			
 		</div>
 
 

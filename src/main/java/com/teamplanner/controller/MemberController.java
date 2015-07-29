@@ -55,8 +55,6 @@ public class MemberController {
 /*		return "controller result";*/
 	}
 	
-
-
 	
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)
 	public String MemberInfo(HttpSession session)

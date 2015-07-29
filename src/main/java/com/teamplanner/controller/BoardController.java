@@ -19,18 +19,25 @@ import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.SearchService;
 
 @Controller
 @RequestMapping(value="board")
 public class BoardController {
 	
 	
-	private BoardService boardService;
-	
+	private BoardService boardService;	
 	@Autowired
 	@Qualifier("boardService")
 	public void setBoardService(BoardService boardService) {
 		this.boardService = boardService;
+	}
+	
+	private SearchService searchService;	
+	@Autowired
+	@Qualifier("searchService")
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
 	}
 	
 ////////////////////////// 동윤 /////////////////////////////////////////	
@@ -76,6 +83,28 @@ public class BoardController {
 		List<Board> boards = boardService.selectClosedBoard(memberNo);
 		
 		return boards;
+	}
+	
+	@RequestMapping(value="searchview.action", method = RequestMethod.GET)
+	@ResponseBody
+	public List searchView(HttpSession session, String text){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		if(!text.startsWith("@") && !text.startsWith("#")){
+			return null;
+		}else if(text.length() < 2){
+			return null;
+		}
+		else if(text.startsWith("@") && !text.startsWith("#")){	//member 검색
+			String[] a = text.split("@");
+			List searchs = searchService.searchMember(a[1]);
+			
+						
+		}else if(!text.startsWith("@") && text.startsWith("#")){
+			String[] a = text.split("#");
+			
+		}
+		
+		return null;
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////

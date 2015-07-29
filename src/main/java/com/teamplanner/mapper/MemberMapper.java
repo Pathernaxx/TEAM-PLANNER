@@ -1,6 +1,7 @@
 package com.teamplanner.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.teamplanner.dto.Member;
 
@@ -18,4 +19,5 @@ public interface MemberMapper {
 	///////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
+	List<Member> selectMemberbyMemberName(String text);
 }
