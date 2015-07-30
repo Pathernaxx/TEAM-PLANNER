@@ -115,13 +115,18 @@
  	<select id="selectBoardbyBoardName" parameterType="hashMap" resultType="Board">
  		SELECT b.* 
  		FROM teamlist t, board b 
- 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '0' AND b.name LIKE '%'||#{text}||'%' 
+ 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '0' AND b.name LIKE #{text}||'%' 
  		ORDER BY b.name
  	</select>
  	<insert id="addFriend" parameterType="hashMap">
  		INSERT INTO memberlist(no , memberno , myno)
  		VALUES (memberlist_sequence.nextval , #{friendNo} , #{memberNo})
  	</insert>
+ 	<update id="openClosedBoardPage" parameterType="Integer">
+ 		UPDATE board
+ 		SET closed = '0'
+ 		WHERE no=#{boardNo}
+ 	</update>
  </mapper>
  
  

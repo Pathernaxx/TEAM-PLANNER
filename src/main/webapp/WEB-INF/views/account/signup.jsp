@@ -5,62 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
+<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 <style>
-
-.section-background-blue {
-	background-color: #e4f0f6;
-}
-
-.text-center {
-	text-align: center;
-}
-
 .section-signup {
 	padding: 2em 1em;
 	text-align: center;
 }
-
-.section-wrapper {
-	margin: 0 auto;
-	max-width: 890px;
-}
-
-.wrapper-signup {
-	dispaly:blcok;
-	margin: 0 auto;
-	max-width: 585px;
-	width: 400px;
-	text-align: left;
-}
-
-html {
-	font-size: 20px;
-}
-
-div {
-	display: block;
-}
-
-label {
-	display: block;
-}
-
-textarea, input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
-	background: #edeff0;
-	border-radius: 4px;
-	border: 1px solid #cdd2d4;
-	box-sizing: border-box;
-	padding: .5em;
-	max-width: 400px;
-	width: 100%;
-	margin: 0 0 1.2em;
-}
-
-button, input, select, textarea {
-	color: inherit;
-	font: inherit;
-}
-
 </style>
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript">

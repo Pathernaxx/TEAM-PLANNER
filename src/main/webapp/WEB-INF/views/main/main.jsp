@@ -82,7 +82,7 @@
 					var html = "<ul style='padding-left: 5%;list-style: none;height:100%;'>"
 					var div = $(".getclosedboardlist");
 					for(var key in boards){
-						html+="<li class='closedboard'>●&nbsp;&nbsp;<a class='closedboardlink' href='#'>" //"+boards[key].no+"
+						html+="<li class='closedboard'>●&nbsp;&nbsp;<a class='closedboardlink' href='/finalProject/board/closedBoardPage.action?boardNo="+boards[key].no+"'>"
 						+ boards[key].name +"&nbsp;-&nbsp;&nbsp;" + boards[key].regdate + "</a></li>";
 					}
 					html +="</ul>";

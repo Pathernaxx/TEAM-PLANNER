@@ -1,0 +1,18 @@
+#fontarea{
+	background-color: #dddddd;
+	text-align: center;
+	margin:auto;
+	height:100%;
+	width:10%;
+	border-radius:15px;
+	border:none;
+}
+#font{
+	font-size:250%;
+	font-weight: bold;
+	color: #00b02d;
+	cursor:pointer;
+}
+#font:hover{
+	color: #35ff35;
+}

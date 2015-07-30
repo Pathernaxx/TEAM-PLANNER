@@ -79,7 +79,7 @@ public class BoardController {
 			}else{
 				message = "complete";
 				boardService.insertBoard(title);
-				//activityService.createBoard(board, member);
+				//activityService.createBoard(board, member); 
 				int boardNo = boardService.getBoardNo(title);
 				boardService.insertTeamList(boardNo, memberNo);
 				
@@ -144,9 +144,24 @@ public class BoardController {
 		
 	}
 	@RequestMapping(value="addFriend.action", method = RequestMethod.GET)
-	public void addFriend(HttpSession session, int friendNo){
+	public String addFriend(HttpSession session, int friendNo){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boardService.addFriend(memberNo, friendNo);
 		
+		return "redirect:/board/boardmain.action";
+	}
+	@RequestMapping(value="closedBoardPage.action", method = RequestMethod.GET)
+	public ModelAndView closedBoardPage(int boardNo){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardNo",boardNo);
+		mav.setViewName("board/closedboardpage");
+		return mav;
+	}
+	@RequestMapping(value="openClosedBoardPage.action", method = RequestMethod.GET)
+	public String openClosedBoardPage(int boardNo){
+		boardService.openClosedBoardPage(boardNo);		
+		
+		return "redirect:/board/boardmain.action";
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////
