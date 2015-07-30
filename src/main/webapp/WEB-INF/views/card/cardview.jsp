@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script>
+function addBoard(){}
 $(function() {
+	
 	var boardno = $("#boardno").val();
 	var cardno = $("#cardno").val();
 	var cardinfo = $("#cardinfo").val();
