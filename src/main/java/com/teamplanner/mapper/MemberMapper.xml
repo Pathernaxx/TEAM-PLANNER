@@ -113,14 +113,14 @@
 			username=#{name} AND password=#{password}
 	</select>
 	
-	<select id="selectMemberbyMemberName" parameterType="String" resultType="Member">
+	<select id="selectMemberbyMemberName" parameterType="hashMap" resultType="Member">
 		SELECT
-			* 
+			m.* 
 		FROM
-			member 
+			member m
 		WHERE
-			username LIKE '%'||#{text}||'%'
+			m.username LIKE '%'||#{text}||'%' AND m.no != #{memberNo}
 		ORDER BY
-			username
+			m.username
 	</select>
 </mapper>
