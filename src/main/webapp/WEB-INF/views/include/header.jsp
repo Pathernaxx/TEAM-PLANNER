@@ -5,10 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
-<link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
-
-
-<script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
+<script src="//code.jquery.com/jquery-1.11.3.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
 	$(document).ready(function(){
 		var list =[];
@@ -47,6 +46,7 @@
 					
 				} else if(value[0] == '#'){
 					$.ajax({
+						height : 100,
 						url : '/finalProject/board/searchboard.action',
 						type : 'get',
 						dataType : "json",

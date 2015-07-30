@@ -190,4 +190,16 @@ $(function() {
 	
 	
 </div>
+<div id="member-dialog-form" title="Create New Board">
+  <form>
+	  <br/>
+      <label for="name" style="text-align: center">Create Board Title...</label><br/>
+      <br/><br/>
+      <input type="text" name="title" id="title">
+     
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 
+  </form>
+</div>

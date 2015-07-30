@@ -22,7 +22,9 @@
 <script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
 
 <script type="text/javascript">
-
+function addBoard() {
+	
+}
 $(document).ready(function() {
 	
 	$('#mask').css({'height':$('#panel-1').height()});	
