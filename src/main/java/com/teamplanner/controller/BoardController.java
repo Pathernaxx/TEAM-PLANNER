@@ -79,7 +79,7 @@ public class BoardController {
 			}else{
 				message = "complete";
 				boardService.insertBoard(title);
-				//activityService.createBoard(board, member);
+				//activityService.createBoard(board, member); 
 				int boardNo = boardService.getBoardNo(title);
 				boardService.insertTeamList(boardNo, memberNo);
 				

@@ -115,12 +115,39 @@ public class MemberController {
 		return "member/changepasswordform";
 	}
 	
+//	@RequestMapping(value="changename.action", produces="text/plain;charset=utf8", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String nameChange(HttpServletRequest request, HttpServletResponse resp,HttpSession session)
+//	{
+//		String message = null;
+//		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+//		String state = request.getParameter("state");
+//		
+//		if( state.equals("name") ) {
+//			// Parameter를 받는다.
+//			String userName = request.getParameter("username");
+//			String fullName = request.getParameter("fullname");
+//			
+//			// userName은 Unique값이기 때문에 자신을 제외한 멤버 중 같은 이름이 있는지 검색
+//			// return 값은 있으면 true, 없으면 false이다.
+//			if( accountService.MeNotCheckName(memberno, userName) ) {
+//				message = "중복되는 UserName입니다.";
+//				return message;
+//			} else {
+//				memberService.changeName(memberno, userName, fullName);
+//				message = null;
+//			}
+//		}
+//		
+//		return message;
+//	}
+	
 	@RequestMapping(value="change.action", produces="text/plain;charset=utf8", method = RequestMethod.POST)
 	@ResponseBody
 	public String MemberChange(HttpServletRequest request, HttpServletResponse resp,HttpSession session)
 	{
 		
-		String message = "한글";
+		String message = null;
 		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
 		String state = request.getParameter("state");
 		
@@ -135,7 +162,8 @@ public class MemberController {
 				message = "중복되는 UserName입니다.";
 				return message;
 			} else {
-				//memberService.changeName(memberno, userName, fullName);
+				memberService.changeName(memberno, userName, fullName);
+				//message = "name들어옴";
 			}
 			
 		} else if( state.equals("password") ) {
@@ -151,13 +179,14 @@ public class MemberController {
 			}
 			
 			// OldPassword가 현재 Password와 일치하는지 검색
-			if( accountService.PasswordCheck(memberno, oldpassword) ) {
+			if( !accountService.PasswordCheck(memberno, oldpassword) ) {
 				message = "password가 틀렸습니다.";
 				return message;
 			}
 			
 			// 패스워드를 수정한다.
-			//memberService.changePassword(memberno, password1);
+			memberService.changePassword(memberno, password1);
+			//message = "password 들어옴";
 		}
 		
 		return message;
