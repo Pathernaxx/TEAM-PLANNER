@@ -389,6 +389,14 @@ float:left;
     /* position: relative; */
     z-index: 0;
 }
+.window-sidebutton:hover{
+	background-color: #cdcdcd;
+}
+.window-sidebutton:active{
+	background-color: black;
+	color: white;
+}
+
 
 .close-button {
 	cursor: pointer;
@@ -544,6 +552,7 @@ float:left;
 	color: #444;
     border: 1px solid #ccc;
     cursor: text;
+    
 }
 
 

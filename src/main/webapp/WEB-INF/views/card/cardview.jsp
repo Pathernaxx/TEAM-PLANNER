@@ -32,6 +32,23 @@ $(function() {
 			alert('error');
 		}
 	});
+	/*///////////////////동윤/////////////////////////// */
+	var tagMemberDialog;
+	tagMemberDialog = $("#member-dialog-form").dialog({
+		      autoOpen: false,
+		      height: 300,
+		      width: 350,
+		      buttons:{
+		    	  "CREATE" : addBoard,
+		    	  Cancel: function(){
+		    		  
+		    	  }
+		      }
+		});
+	
+	$("#member-button").click(function(){
+		tagMemberDialog.dialog("open");
+	});
 });
 </script>
 <div class="window-wrapper">
@@ -39,6 +56,8 @@ $(function() {
 	<input type="hidden" id="cardno" value=${cardno } />
 	<input type="hidden" id="boardno" value=${boardno } />
 	<input type="hidden" id="cardinfo" value=${cardinfo } />
+	<inpyt type="hidden" id="listno" value=${listno } />
+	
 	
 	<div class="card-detail-window">
 	<a class="close-button">x</a>
@@ -61,7 +80,12 @@ $(function() {
 						<c:import url="/WEB-INF/views/card/information.jsp" />
 					</c:when>
 					<c:otherwise>
-						${ cardinfo}
+					<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
+					<span>
+						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+						Edit the Discription</a>
+					</span>
+						
 					</c:otherwise>
 				</c:choose>
 					
@@ -70,6 +94,12 @@ $(function() {
 					<div class="window-header">
 						<table class="window-table">
 						
+						<tr>
+							<td><img
+									src="/finalProject/resources/styles/images/icons/13.png"
+									class="window-icon2" /></td>
+							<td>Members</td>
+						</tr>
 						<!-- attachement -->
 						<tr>
 							<td><img
@@ -116,8 +146,8 @@ $(function() {
 			<div class="window-sidebar-add u-clearfix">
 					<h3>Add</h3>
 					<div class="u-clearfix">
-						<a class="window-sidebutton"> <span class="icon-sm"> <img
-								src="/finalProject/resources/styles/images/icons/2.png"
+						<a id="member-button" class="window-sidebutton"> <span class="icon-sm"> <img
+								src="/finalProject/resources/styles/images/icons/13.png"
 								class="window-icon2" /> Members
 						</span>
 						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
@@ -159,3 +189,4 @@ $(function() {
 	
 	
 </div>
+
