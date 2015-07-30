@@ -134,8 +134,10 @@ public class OracleMemberRepository implements MemberRepository{
 		return memberMapper.selectMemberByIdAndPasswordByName(params);
 	}
 	
-	public List<Member> selectMemberbyMemberName(String text){
-		
-		return memberMapper.selectMemberbyMemberName(text);
+	public List<Member> selectMemberbyMemberName(int memberNo , String text){
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("text", text);
+		return memberMapper.selectMemberbyMemberName(params);
 	}
 }

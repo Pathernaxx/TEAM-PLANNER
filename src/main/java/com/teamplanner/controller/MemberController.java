@@ -3,6 +3,7 @@ package com.teamplanner.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,11 +115,12 @@ public class MemberController {
 		return "member/changepasswordform";
 	}
 	
-	@RequestMapping(value="change.action", method = RequestMethod.POST)
+	@RequestMapping(value="change.action", produces="text/plain;charset=utf8", method = RequestMethod.POST)
 	@ResponseBody
-	public String MemberChange(HttpServletRequest request, HttpSession session)
+	public String MemberChange(HttpServletRequest request, HttpServletResponse resp,HttpSession session)
 	{
-		String message = null;
+		
+		String message = "한글";
 		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
 		String state = request.getParameter("state");
 		
@@ -133,7 +135,7 @@ public class MemberController {
 				message = "중복되는 UserName입니다.";
 				return message;
 			} else {
-				memberService.changeName(memberno, userName, fullName);
+				//memberService.changeName(memberno, userName, fullName);
 			}
 			
 		} else if( state.equals("password") ) {
@@ -155,7 +157,7 @@ public class MemberController {
 			}
 			
 			// 패스워드를 수정한다.
-			memberService.changePassword(memberno, password1);
+			//memberService.changePassword(memberno, password1);
 		}
 		
 		return message;
@@ -171,14 +173,30 @@ public class MemberController {
 		return "member/setting";
 	}
 	
+	@RequestMapping(value="settings.action", method=RequestMethod.GET)
+	public String settingsGet() {
+		return "member/settings";
+	}
+	
 	@RequestMapping(value="cards.action", method=RequestMethod.POST)
 	public String cards() {
 		//Attribute Card 조회
 		return "member/cards";
 	}
 	
+	@RequestMapping(value="cards.action", method=RequestMethod.GET)
+	public String cardsGet() {
+		//Attribute Card 조회
+		return "member/settings";
+	}
+	
 	@RequestMapping(value="list.action", method=RequestMethod.POST)
 	public String memberlist() {
 		return "member/memberlist";
+	}
+	
+	@RequestMapping(value="list.action", method=RequestMethod.GET)
+	public String memberlistGet() {
+		return "member/settings";
 	}
 }

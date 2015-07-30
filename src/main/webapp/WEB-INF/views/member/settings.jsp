@@ -77,7 +77,7 @@ display: inline;
 </head>
 <body>
 	<div class="headmenu">
-		<c:import url="/WEB-INF/views/include/header.jsp"/>
+		<%-- <c:import url="/WEB-INF/views/include/header.jsp"/> --%>
 	</div>
 	<div class="user-profile">
 		<span></span>
