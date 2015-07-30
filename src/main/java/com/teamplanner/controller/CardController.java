@@ -47,7 +47,13 @@ private BoardService boardService;
 									//String cardinfo) {
 		
 		String cardinfo = boardService.selectCardInfo(boardno, listno, cardno);
-		
+//		Card card = new Card();
+//		card.setNo(cardno);
+//		card.setBoardNo(boardno);
+//		card.setName(cardname);
+//		card.setInfo(cardinfo);
+//		card.setListNo(listno);
+//		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listname", listname);
 		mav.addObject("listno", listno);
@@ -55,7 +61,6 @@ private BoardService boardService;
 		mav.addObject("cardno", cardno);
 		mav.addObject("boardno", boardno);
 		mav.addObject("cardinfo", cardinfo);
-		//mav.addObject("cardinfo", cardinfo);
 		
 		mav.setViewName("card/cardview");
 		
@@ -104,6 +109,7 @@ private BoardService boardService;
 //	}
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
+	@ResponseBody
 	public String writeCardInfo(//HttpServletRequest request, HttpSession session,
 								@RequestParam("boardno") int boardno, 
 								@RequestParam("listno") int listno, 
@@ -114,6 +120,7 @@ private BoardService boardService;
 		//String information = request.getParameter("information");
 
 		String message="";
+		System.out.println(boardno + "/"+listno + "/"+cardno);
 		
 		Card card = new Card();
 		card.setBoardNo(boardno);

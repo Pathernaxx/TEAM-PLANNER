@@ -148,7 +148,7 @@ $(document).ready(function() {
 					//"cardinfo": $(this).children()[3].value
 				},
 				method: "get",
-				async: false,
+				async: true,
 				success: function(result) {
 					$("#dlgresultview").html(result);
 				},
