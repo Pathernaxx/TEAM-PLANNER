@@ -50,6 +50,7 @@ private BoardService boardService;
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listname", listname);
+		mav.addObject("listno", listno);
 		mav.addObject("cardname", cardname);
 		mav.addObject("cardno", cardno);
 		mav.addObject("boardno", boardno);
@@ -103,15 +104,33 @@ private BoardService boardService;
 //	}
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
-	public void writeCardInfo(HttpServletRequest request, HttpSession session) throws ServletException, IOException {
+	public String writeCardInfo(//HttpServletRequest request, HttpSession session,
+								@RequestParam("boardno") int boardno, 
+								@RequestParam("listno") int listno, 
+								@RequestParam("cardno") int cardno,
+								String information
+							  ){// throws ServletException, IOException 
 		
-		String information = request.getParameter("information");
+		//String information = request.getParameter("information");
+
+		System.out.println(boardno + listno + cardno + information);
 		
+		String message="";
 		
+		Card card = new Card();
+		card.setBoardNo(boardno);
+		card.setListNo(listno);
+		card.setNo(cardno);
+		card.setInfo(information);
 		
-		//dao 
+		try{
+			cardService.writeCardInfo(card);
+			message = "success";
+		} catch (Exception ex) {
+			message = "error";
+		}
 		
-		//response.sendRedirect("list.action");
+		return message;
 		
 	}
 }

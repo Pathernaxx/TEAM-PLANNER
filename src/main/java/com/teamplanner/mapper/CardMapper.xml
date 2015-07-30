@@ -37,9 +37,10 @@
  		INSERT INTO attachment(no, userfilename, cardno, boardno) 
  		VALUES (attachment_sequence.nextval, #{userFileName}, #{cardNo}, #{boardNo})
  	</insert>
- 	<insert id="writeCardInfo" parameterType="String">
+ 	<insert id="writeCardInfo" parameterType="Card">
  		INSERT INTO boardcard(info)
- 		VALUES (#{information});
+ 		VALUES (#{info})
+ 		WHERE no=#{no} AND listno=#{listNo} AND boardno=#{boardNo} 
  	</insert>
 	
  	

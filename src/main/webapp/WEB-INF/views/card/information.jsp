@@ -9,22 +9,57 @@ $(".editinfo").click(function() {
 	$(".editform").css("visibility", "visible");
 });
 
-</script>
+$("#cancel").click(function() {
+	$("#information").val("");
+	$(".editform").css("display", "none");
+	$(".editform").css("visibility", "hidden");
+	$(".editinfo").css("display", "block");
+	$(".editinfo").css("visibility", "visible");
+});
 
+$("#infosubmit").click(function(e) {
+	alert($("#listno").val());
+	$.ajax({
+		url: "/finalProject/card/writecardinfo.action",
+		async: true,
+		type: "post",
+		data: {
+			boardno: $("#boardno").val(),
+			listno: $("#listno").val(),
+			cardno: $("#cardno").val(),
+			information: $("#information").val()
+		},
+		success: function(message) {
+			if(message == "success") {
+				var url = "/finalProject/card/cardview.action";
+				$(location).attr('href', url);
+			} else {
+				alert("fail");
+			}
+		},
+		error: function(xhr, status, ex) {
+			alert(status + ex);
+		}
+	});
+	e.preventDefault();
+});
+
+</script>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a class="editinfo">
+<a class="editinfo" style="cursor: pointer;">
 	<img src="/finalProject/resources/styles/images/icons/234.png"
 	class="window-icon2" />&nbsp;
-	Edit the Discription
+	Write the Discription
 </a>
-${listno }
 <div class="editform">
-	<form action="writecardinfo.action" method="post" enctype="multipart/form-data">
-		<input name="information" type="text" class="edit-cardinfo"/>
-		<input type="hidden" value="${boardno }">
-		<input type="hidden" value="${cardno }">
-		<input type="hidden" value="${listno }">
+	<form id="editcontent" action="writecardinfo.action" method="post" enctype="multipart/form-data">
+		<input id="information" type="text" class="edit-cardinfo"/>
+		<input type="hidden" id="boardno" value="${boardno }">
+		<input type="hidden" id="cardno" value="${cardno }">
+		<input type="hidden" id="listno" value="${listno }">
 	</form><br/>
-	<input type="submit" value="save" class="window-sidebutton"
-			 style='float:right;text-align:center' onclick="document.forms[0].submit();"/>
+	<!-- <input id="infosubmit" type="submit" value="save" class="window-sidebutton"
+			 style='float:right;text-align:center'/> -->
+	<input type="button" value="save" id="infosubmit" class="window-sidebutton" style='float:right;text-align:center'/>
+	<input type="button" value="cancel" id="cancel" class="window-sidebutton" style='float:right;text-align:center' />
 </div>
