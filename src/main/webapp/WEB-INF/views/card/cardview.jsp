@@ -39,7 +39,7 @@ $(function() {
 	<input type="hidden" id="cardno" value=${cardno } />
 	<input type="hidden" id="boardno" value=${boardno } />
 	<input type="hidden" id="cardinfo" value=${cardinfo } />
-	<inpyt type="hidden" id="listno" value=${listno } />
+	<input type="hidden" id="listno" value=${listno } />
 	
 	
 	<div class="card-detail-window">
