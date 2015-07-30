@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+
 <script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 <script>
 	$(document).ready(function(){
@@ -25,7 +26,8 @@
 		    			 type : 'get',
 		    			 data : {friendNo : friendNo},
 		    			 success : function(){
-		    				 
+		    				 $(".searchtext").val("");
+		    				 dialog.dialog("close");
 		    			 }
 		    		  });
 		    	  },
@@ -94,6 +96,15 @@
 			},
 			minLength: 2
 		});
+		$(".mainpageimg").click(function(){
+			var url = "/finalProject/board/boardmain.action"
+				$(location).attr('href', url);
+		});
+		$(".mypage").click(function(){
+			var url = "/finalProject/member/"
+				$(location).attr('href', url);
+		});
+		
 	});
 </script>
 </head>
@@ -105,9 +116,6 @@
 	<div class="search">
 		<input class="searchtext" type="text"/>
 	</div>
-	<div class="searchbutton">
-		☜
-	</div>
 	<div class="mainpage">
 		<img class="mainpageimg" src="/finalProject/resources/images/mainpage.png">
 	</div>
@@ -115,13 +123,13 @@
 		♬
 	</div>
  	<div class="mypage">
-		MyPage
+		My Page
 	</div> 
 	
 	<div id="dialogform" title="Add Member...">
 	  <form>
 		  <br/>
-	     
+	     <label for="name" style="text-align: center">Do you want to add this member?</label>
 	 
 	      <!-- Allow form submission with keyboard without duplicating the dialog button -->
 	      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">

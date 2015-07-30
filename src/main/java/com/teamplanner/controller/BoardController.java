@@ -18,6 +18,7 @@ import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
+import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.SearchService;
 
@@ -26,7 +27,9 @@ import com.teamplanner.service.SearchService;
 public class BoardController {
 	
 	
-	private BoardService boardService;	
+	private BoardService boardService;
+	private ActivityService activityService;
+	
 	@Autowired
 	@Qualifier("boardService")
 	public void setBoardService(BoardService boardService) {
@@ -40,7 +43,16 @@ public class BoardController {
 		this.searchService = searchService;
 	}
 	
-////////////////////////// 동윤 /////////////////////////////////////////	
+	
+	@Autowired
+	@Qualifier("activityService")
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+
+
+
+	////////////////////////// 동윤 /////////////////////////////////////////	
 	@RequestMapping(value="boardmain.action", method = RequestMethod.GET)
 	public ModelAndView boardMain(HttpSession session){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
@@ -67,8 +79,16 @@ public class BoardController {
 			}else{
 				message = "complete";
 				boardService.insertBoard(title);
+				//activityService.createBoard(board, member); 
 				int boardNo = boardService.getBoardNo(title);
 				boardService.insertTeamList(boardNo, memberNo);
+				
+				Board board = new Board();
+				board.setNo(boardNo);
+				board.setName(title);
+				
+				Member member = (Member)session.getAttribute("loginuser");
+				activityService.createBoard(board, member);
 			}
 		}
 				
@@ -87,12 +107,13 @@ public class BoardController {
 	
 	@RequestMapping(value="searchmember.action", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Member> searchMember(String key){
+	public List<Member> searchMember(HttpSession session, String key){
 		List<Member> searchs = null;
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 //		String[] list = null;
 		if(key.startsWith("@")){	//member 검색
 			String[] a = key.split("@");
-			searchs = searchService.searchMember(a[1]);		
+			searchs = searchService.searchMember(memberNo, a[1]);		
 //			list = new String[searchs.size()];
 //			for(int i=0; i<searchs.size();i++){
 //				list[i]=searchs.get(i).getUserName();
@@ -123,9 +144,25 @@ public class BoardController {
 		
 	}
 	@RequestMapping(value="addFriend.action", method = RequestMethod.GET)
-	public void addFriend(HttpSession session, int friendNo){
+	public String addFriend(HttpSession session, int friendNo){
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boardService.addFriend(memberNo, friendNo);
 		
+		return "redirect:/board/boardmain.action";
+	}
+	
+	@RequestMapping(value="closedBoardPage.action", method = RequestMethod.GET)
+	public ModelAndView closedBoardPage(int boardNo){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardNo",boardNo);
+		mav.setViewName("board/closedboardpage");
+		return mav;
+	}
+	@RequestMapping(value="openClosedBoardPage.action", method = RequestMethod.GET)
+	public String openClosedBoardPage(int boardNo){
+		boardService.openClosedBoardPage(boardNo);		
+		
+		return "redirect:/board/boardmain.action";
 	}
 	
 //////////////////////// 유정 /////////////////////////////////////////
@@ -158,7 +195,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String listname, @RequestParam("boardno") int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, @RequestParam("boardno") int boardno, HttpSession session) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;
@@ -166,13 +203,18 @@ public class BoardController {
 		
 		String message = "";
 		
+		Member member = (Member)session.getAttribute("loginuser");
+		
 		BoardList boardlist = new BoardList();
 		boardlist.setBoardNo(boardno);
 		boardlist.setName(listname);
 		boardlist.setPosition(position);
 		
+		String boardname = boardService.getBoardNameByNo(boardno);
+		
 		try {
 			boardService.insertBoardList(boardlist);
+			activityService.addActivity(member, boardlist, new Board(boardno, boardname));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";
@@ -183,8 +225,9 @@ public class BoardController {
 	
 	@RequestMapping(value="insertcard.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertCard(String cardname, int boardno, int listno) {
+	public String insertCard(String cardname, int boardno, int listno, HttpSession session) {
 		String boardName = boardService.getBoardNameByNo(boardno);
+		Member member = (Member)session.getAttribute("loginuser");
 		
 		Card card = new Card();
 		card.setName(cardname);
@@ -196,7 +239,9 @@ public class BoardController {
 		String message = "";
 		
 		try {
+			BoardList list = boardService.selectBoardListBylistNo(listno);
 			boardService.insertCard(card);
+			activityService.addActivity(member, card, list, new Board(boardno, boardName));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";

@@ -9,17 +9,26 @@ import org.springframework.stereotype.Service;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
+import com.teamplanner.repository.ActivityRepository;
 import com.teamplanner.repository.BoardRepository;
 
 @Service(value="boardService")
 public class PlanBoardService implements BoardService{
 	
-	private BoardRepository boardRepository; 
+	private BoardRepository boardRepository;
+	
 	@Autowired
 	@Qualifier("boardRepository")
 	public void setBoardRepository(BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
 	}
+	
+	@Override
+	public BoardList selectBoardListBylistNo(int listno) {
+		
+		return boardRepository.selectBoardListBylistNo(listno);
+	}
+
 	@Override
 	public void insertBoard(String boardName) {
 		boardRepository.insertBoard(boardName);
@@ -50,6 +59,7 @@ public class PlanBoardService implements BoardService{
 		return boards;
 	}
 	
+	
 
 
 	@Override
@@ -79,5 +89,18 @@ public class PlanBoardService implements BoardService{
 		boardRepository.insertCard(card);
 		
 	}
-	
+
+	@Override
+	public String selectCardInfo(int boardNo, int listNo, int cardNo) {
+		return boardRepository.selectCardInfo(boardNo, listNo, cardNo);
+	}
+	@Override
+	public void addFriend(int memberNo, int friendNo) {
+		boardRepository.addFriend(memberNo, friendNo);
+	}
+	@Override
+	public void openClosedBoardPage(int boardNo) {
+		boardRepository.openClosedBoardPage(boardNo);
+		
+	}
 }

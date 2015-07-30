@@ -3,6 +3,7 @@ package com.teamplanner.repository;
 import java.util.List;
 
 import com.teamplanner.dto.Attachment;
+import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
@@ -15,4 +16,7 @@ public interface CardRepository {
 	List<CheckList> selectCheckList(int cardNo);
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
+	
+	void insertAttachment(Attachment attachment);
+	void writeCardInfo(Card card);
 }

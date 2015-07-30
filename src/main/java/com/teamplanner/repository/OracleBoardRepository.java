@@ -22,6 +22,12 @@ public class OracleBoardRepository implements BoardRepository{
 		this.boardMapper = boardMapper;
 	}
 	
+	@Override
+	public BoardList selectBoardListBylistNo(int listno) {
+		
+		return boardMapper.selectBoardListBylistNo(listno);
+	}
+	
   ////////////////////동윤////////////////
 	@Override
 	public void insertBoard(String boardName) {
@@ -75,9 +81,17 @@ public class OracleBoardRepository implements BoardRepository{
 	}
 	@Override
 	public void addFriend(int memberNo, int friendNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("friendNo", friendNo);
+		
+		boardMapper.addFriend(params);
+	}
+	@Override
+	public void openClosedBoardPage(int boardNo) {
+		boardMapper.openClosedBoardPage(boardNo);
 		
 	}
-	
 	
 	////////////////////유정////////////////
 	@Override
@@ -107,6 +121,17 @@ public class OracleBoardRepository implements BoardRepository{
 	public String getBoardNameByNo(int boardno) {
 		
 		return boardMapper.getBoardNameByNo(boardno);
+	}
+
+	@Override
+	public String selectCardInfo(int boardNo, int listNo, int cardNo) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardno", boardNo);
+		params.put("listno", listNo);
+		params.put("cardno", cardNo);
+		
+		return boardMapper.selectCardInfo(params);
 	}
 
 

@@ -1,5 +1,63 @@
+<%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<script>
+$(function() {
+	var boardno = $("#boardno").val();
+	var cardno = $("#cardno").val();
+	var cardinfo = $("#cardinfo").val();
+	
+	
+	$.ajax({
+		url: "/finalProject/card/insertAttachmentForm.action",
+		type: "get",
+		data: {
+			"cardno" : cardno,
+			"boardno" : boardno
+		},
+		success: function(result) { 
+			$('.attachmentbtn').webuiPopover({
+			constrains: 'horizontal',
+			trigger: 'click',
+			multi: false,
+			placement: 'bottom',
+			width: 300,
+			closeable: true,
+			arrow: false,
+			title: 'Attachment',
+			content: result
+			});
+		},
+		error: function() {
+			alert('error');
+		}
+	});
+	/*///////////////////동윤/////////////////////////// */
+	var tagMemberDialog;
+	tagMemberDialog = $("#member-dialog-form").dialog({
+		      autoOpen: false,
+		      height: 300,
+		      width: 350,
+		      buttons:{
+		    	  "CREATE" : addBoard,
+		    	  Cancel: function(){
+		    		  
+		    	  }
+		      }
+		});
+	
+	$("#member-button").click(function(){
+		tagMemberDialog.dialog("open");
+	});
+});
+</script>
 <div class="window-wrapper">
+	
+	<input type="hidden" id="cardno" value=${cardno } />
+	<input type="hidden" id="boardno" value=${boardno } />
+	<input type="hidden" id="cardinfo" value=${cardinfo } />
+	<inpyt type="hidden" id="listno" value=${listno } />
+	
 	
 	<div class="card-detail-window">
 	<a class="close-button">x</a>
@@ -16,14 +74,32 @@
 		
 		<div class="window-main-middle u-clearfix">
 			<div class="window-main-left">
-				<div class="window-attachment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="/finalProject/resources/styles/images/icons/234.png"
-						class="window-icon2" />&nbsp;<a href="#">Edit the Discription</a>
+				<div class="window-attachment">
+				<c:choose>
+					<c:when test="${ empty cardinfo }">
+						<c:import url="/WEB-INF/views/card/information.jsp" />
+					</c:when>
+					<c:otherwise>
+					<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
+					<span>
+						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+						Edit the Discription</a>
+					</span>
+						
+					</c:otherwise>
+				</c:choose>
+					
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
 						<table class="window-table">
 						
+						<tr>
+							<td><img
+									src="/finalProject/resources/styles/images/icons/13.png"
+									class="window-icon2" /></td>
+							<td>Members</td>
+						</tr>
 						<!-- attachement -->
 						<tr>
 							<td><img
@@ -70,8 +146,8 @@
 			<div class="window-sidebar-add u-clearfix">
 					<h3>Add</h3>
 					<div class="u-clearfix">
-						<a class="window-sidebutton"> <span class="icon-sm"> <img
-								src="/finalProject/resources/styles/images/icons/2.png"
+						<a id="member-button" class="window-sidebutton"> <span class="icon-sm"> <img
+								src="/finalProject/resources/styles/images/icons/13.png"
 								class="window-icon2" /> Members
 						</span>
 						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
@@ -82,7 +158,7 @@
 								src="/finalProject/resources/styles/images/icons/14.png"
 								class="window-icon2" /> DueDate
 						</span>
-						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
+						</a> <a class="window-sidebutton attachmentbtn"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/1.png"
 								class="window-icon2" /> Attachment
 						</span>
@@ -106,6 +182,11 @@
 					</span>
 					</a>
 				</div>
-		</div>
-	</div> 
+			</div>
+		</div> 
+	</div>
+	
+	
+	
 </div>
+

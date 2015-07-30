@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.teamplanner.dto.Attachment;
+import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
@@ -52,6 +53,16 @@ public class OracleCardRepository implements CardRepository {
 	@Override
 	public List<TagMember> selectTagMember(int cardNo) {
 		return cardMapper.selectTagMember(cardNo);
+	}
+
+	@Override
+	public void insertAttachment(Attachment attachment) {
+		cardMapper.insertAttachment(attachment);
+	}
+
+	@Override
+	public void writeCardInfo(Card card) {
+		cardMapper.writeCardInfo(card);
 	}
 
 }

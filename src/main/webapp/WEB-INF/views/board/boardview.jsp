@@ -14,11 +14,13 @@
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css" />
 
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
+<script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
 
 <script type="text/javascript">
 
@@ -122,25 +124,32 @@ $(document).ready(function() {
 		});
 		
 		//////////////////////////////////////////////////cardview 다이얼로그
-		var listname=$(".list-card-details").children()[0].value;
-		var cardname=$(".list-card-details").children()[1].value;
+		//var listname=$(".list-card-details").children()[0].value;
+		//var cardname=$(".list-card-details").children()[1].value;
+		
+		//var cardno = $(".list-card-details").children()[2].value;//$("#cardNo").val();
+		//var cardinfo = $(".list-card-details").children()[3].value;//$("#cardInfo").val();
+		//var boardno = $("#boardNo").val();
 		
 		var cardviewdialog = $(".cardview-dialog").dialog({
 			autoOpen: false,
 			height:600,
 			width:730
 		});
-		$(".list-card-details").click(function() {
-			//val($(this).children()[0].value);
-			//val($(this).children()[1].value);
+		$(".list-card-details").click(function(event) {
+			
 			$.ajax({
 				url:"/finalProject/card/cardview.action",
 				data:{
 					"listname": $(this).children()[0].value, 
-					"cardname" : $(this).children()[1].value
+					"cardname": $(this).children()[1].value,
+					"cardno": $(this).children()[2].value,
+					"listno": $(this).children()[3].value,
+					"boardno": $("#boardNo").val()
+					//"cardinfo": $(this).children()[3].value
 				},
 				method: "get",
-				async: true,
+				async: false,
 				success: function(result) {
 					$("#dlgresultview").html(result);
 				},
@@ -149,10 +158,10 @@ $(document).ready(function() {
 				}
 			});
 			cardviewdialog.dialog("open");
-			//cardviewdialog.dialog({
-				
-				//title: $(this).children()[1].value + "  in list  " + $(this).children()[0].value
-			//});
+			$("#cardno").val($(this).children()[2].value);
+			//$("#cardinfo").val($(this).children()[3].value);
+			$("#boardno").val($("#boardNo").val());
+			event.preventDefault();
 		});
 		//////////////////////////////////////////////////
 		
@@ -165,18 +174,14 @@ $(document).ready(function() {
 			$('#pollSlider-button').animate({"margin-right":'+=300'});
 		}
 	});
-		
-	//attachment가 있을 경우 if
-	//////////////////////	
 });
-
 </script>
 
 </head>
 <body style="background-color: #ab0c67">
 	<div class="content">
 		<div class="headmenu">
-			<c:import url="/WEB-INF/views/include/header.jsp" />
+			<%-- <c:import url="/WEB-INF/views/include/header.jsp" /> --%>
 		</div>
 		
 		<div id="content" class="clearfix">
@@ -223,8 +228,10 @@ $(document).ready(function() {
 									<div class="list-card-details">
 										<input type="hidden" id="hiddenln" value="${list.name }" />
 										<input type="hidden" id="hiddencn" value="${card.name }" />
-										<%-- <c:set var="cardname" value="${ card.name }" scope="request"/>
-										<c:set var="listname" value="${ list.name }" scope="request"/> --%>
+										<input type="hidden" id="cardNo" value="${card.no }" />
+										<input type="hidden" id="listNo" value="${list.no }" />
+										<%-- <input type="hidden" id="cardInfo" value="${card.info }" /> --%>
+										
 											<a class="list-card-title">${ card.name }</a>
 									</div>
 								</div>
@@ -262,7 +269,10 @@ $(document).ready(function() {
 					<!-- cardview 다이얼로그화면 -->
 						<div class="cardview-dialog">
 							<div id="dlgresultview" class="window">
-								
+							<input id="cardno" type="hidden" value="" />	
+							<!-- <input id="cardinfo" type="hidden" value="" />	 -->
+							<input id="boardno" type="hidden" value="" />	
+							<input id="listno" type="hidden" value="" />
 								
 							</div>
 						</div>

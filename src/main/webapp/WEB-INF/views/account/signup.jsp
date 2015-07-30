@@ -5,29 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
+<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 <style>
-.section-wrapper {
-	margin: 0 auto;
-	max-width: 890px;
+.section-signup {
+	padding: 2em 1em;
+	text-align: center;
 }
-.wrapper-signup {
-	margin: 0 auto;
-	max-width: 585px;
-}
-
-label {
-	display: block;
-}
-
-textarea, input {
-	display: block;
-	margin: 0 0 1.2em;
-}
-
 </style>
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
 		$("#create").click(function(evnet)
 		{
 			$.ajax({
@@ -39,12 +27,17 @@ textarea, input {
 					email: $("#email").val(),
 					password : $("#password").val()
 				},
-				success : function() {
-					var url = "/finalProject/account/login.action";
-					$(location).attr('href', url);
+				success : function(result) {
+					if(result == null) {
+						var url = "/finalProject/account/login.action";
+						$(location).attr('href', url);
+					} else {
+						alert(result);
+						return;
+					}
 				},
 				error : function() {
-					alert('fail');
+					alert('이미 가입된 Email입니다.');
 				}
 			});	
 		});
@@ -53,12 +46,14 @@ textarea, input {
 </script>
 </head>
 <body>
-	<section>
+	<section class="section-background-blue section-signup">
 		<div class="section-wrapper">
-			<div class="wrapper-signup">
+			<div class="text-center">
 				<h1>Create a Team Planner Account</h1>
+			</div>
+			<div class="wrapper-signup">
 				<label for="name">Name</label>
-				<input type="text" name="name" autocorrect="off" id="name" tabindex="1" placeholder="e.g., GuysSon">
+				<input type="text" name="name" id="name" tabindex="1" placeholder="e.g., GuysSon">
 				<label for="email">Email</label>
 				<input type="email" name="email" id="email" tabindex="2" placeholder="e.g., test@example.com">
 				<label for="password">Password</label>

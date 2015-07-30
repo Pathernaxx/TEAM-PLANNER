@@ -1,7 +1,6 @@
 package com.teamplanner.repository;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 import com.teamplanner.dto.Board;
@@ -9,6 +8,8 @@ import com.teamplanner.dto.Member;
 
 public interface MemberRepository {
 	void insertMember(Member member);
+	int selectMeNotUserNameCheck(int memberNo, String userName);
+	int selectMemberByNoAndPassByPasswordCheck(int memberNo, String password);
 	String selectMemberByUserNameCheck(String userName);
 	String selectMemberByEmailCheck(String email);
 	Member selectMemberByMemberNo(int memberNo);
@@ -22,5 +23,5 @@ public interface MemberRepository {
 	////////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
-	List<Member> selectMemberbyMemberName(String text);
+	List<Member> selectMemberbyMemberName(int memberNo , String text);
 }

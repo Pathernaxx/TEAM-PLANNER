@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
 <link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
@@ -82,7 +81,7 @@
 					var html = "<ul style='padding-left: 5%;list-style: none;height:100%;'>"
 					var div = $(".getclosedboardlist");
 					for(var key in boards){
-						html+="<li class='closedboard'>●&nbsp;&nbsp;<a class='closedboardlink' href='#'>" //"+boards[key].no+"
+						html+="<li class='closedboard'>●&nbsp;&nbsp;<a class='closedboardlink' href='/finalProject/board/closedBoardPage.action?boardNo="+boards[key].no+"'>"
 						+ boards[key].name +"&nbsp;-&nbsp;&nbsp;" + boards[key].regdate + "</a></li>";
 					}
 					html +="</ul>";

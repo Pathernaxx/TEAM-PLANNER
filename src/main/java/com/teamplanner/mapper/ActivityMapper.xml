@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamplanner.ActivityMapper">
+<mapper namespace="com.teamplanner.mapper.ActivityMapper">
 	
 	<resultMap type="Activity" id="resultActivity">
 		<id column="no" property="no"/>
@@ -13,7 +13,7 @@
 		<result column="typeno" property="typeNo"/>
 		<result column="backno" property="backNo"/>
 		<result column="backtitle" property="backTitle"/>
-		<result column="regdate" property="regDae" />
+		<result column="regdate" property="regDate" />
 		<result column="boardno" property="boardNo"/>
 		<result column="boardname" property="boardName"/>
 		<association column="no" property="target" select="selectResultTarget"/>
@@ -53,16 +53,16 @@
 			no, userno, username, typeno, regdate, backno, backtitle, boardno, boardname
 		FROM
 			activity
-		SELECT
+		WHERE
 			no = #{boardNo}
 	</select>
 	
-	<select id="selectActivityByUser" parameterType="int" resultMap="resultActivity">
+	<select id="selectActivityByMember" parameterType="int" resultMap="resultActivity">
 		SELECT
 			no, userno, username, typeno, regdate, backno, backtitle, boardno, boardname
 		FROM
 			activity
-		SELECT
-			userno = #{userNo}
+		WHERE
+			userno = #{memberNo}
 	</select>
 </mapper>

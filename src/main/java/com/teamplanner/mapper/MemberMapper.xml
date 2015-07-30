@@ -32,6 +32,15 @@
 			username = #{userName}
 	</select>
 	
+	<select id="selectMeNotUserNameCheck" parameterType="hashMap" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			username = #{userName} AND no != #{memberNo}
+	</select>
+	
 	<select id="selectMemberByMemberNo" parameterType="int">
 		SELECT
 			<include refid="member"/>
@@ -39,6 +48,15 @@
 			member
 		WHERE
 			no = #{memberNo}
+	</select>
+	
+	<select id="selectMemberByNoAndPassByPasswordCheck" parameterType="hashMap" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			no = #{memberNo} AND password=#{password}
 	</select>
 	
 	<update id="updateMemberName" parameterType="hashMap">
@@ -117,14 +135,14 @@
 	
 	
 	
-	<select id="selectMemberbyMemberName" parameterType="String" resultType="Member">
-		SELECT
-			* 
-		FROM
-			member 
-		WHERE
-			username LIKE '%'||#{text}||'%'
-		ORDER BY
-			username
+	
+	<select id="selectMemberbyMemberName" parameterType="hashMap" resultType="Member">
+		select *
+    	from member
+    	where no not in
+     		( select memberno
+        		from memberlist
+        		where myno = #{memberNo}
+        	) and no != #{memberNo} and userName like #{text}||'%'
 	</select>
 </mapper>

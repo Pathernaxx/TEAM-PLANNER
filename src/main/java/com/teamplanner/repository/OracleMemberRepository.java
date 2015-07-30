@@ -22,6 +22,30 @@ public class OracleMemberRepository implements MemberRepository{
 		this.memberMapper=memberMapper;
 	}
 	
+	@Override
+	public int selectMeNotUserNameCheck(int memberNo, String userName) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("userName", userName);
+		
+		int result = memberMapper.selectMeNotUserNameCheck(params);
+		
+		return result;
+	}
+	
+	@Override
+	public int selectMemberByNoAndPassByPasswordCheck(int memberNo,
+			String password) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("memberNo", memberNo);
+		params.put("password", password);
+		
+		int result = memberMapper.selectMemberByNoAndPassByPasswordCheck(params);
+		
+		return result;
+	}
 	
 	@Override
 	public void insertMember(Member member) {
@@ -127,8 +151,10 @@ public class OracleMemberRepository implements MemberRepository{
 		memberMapper.updateMember(member);
 	}
 	
-	public List<Member> selectMemberbyMemberName(String text){
-		
-		return memberMapper.selectMemberbyMemberName(text);
+	public List<Member> selectMemberbyMemberName(int memberNo , String text){
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("text", text);
+		return memberMapper.selectMemberbyMemberName(params);
 	}
 }

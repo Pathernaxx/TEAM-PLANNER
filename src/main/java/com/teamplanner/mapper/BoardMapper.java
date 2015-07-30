@@ -18,7 +18,9 @@ public interface BoardMapper {
 	String checkBoardName(String title);
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	List<Board> selectBoardbyBoardName(HashMap<Object, Object> params);
+	BoardList selectBoardListBylistNo(int listno);
 	void addFriend(HashMap<Object, Object> params);
+	void openClosedBoardPage(int boardNo);
 	
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
@@ -26,4 +28,5 @@ public interface BoardMapper {
 	void insertCard(Card card);//boardno, listno 가지고 들어옴
 	void insertBoardList(BoardList boardlist);
 	String getBoardNameByNo(int boardno);
+	String selectCardInfo(HashMap<Object, Object> params);
 }

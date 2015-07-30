@@ -18,6 +18,8 @@ public interface BoardRepository {
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	List<Board> selectBoardbyBoardName(int memberNo , String text);
 	void addFriend(int memberNo , int friendNo);
+	void openClosedBoardPage(int boardNo);
+	BoardList selectBoardListBylistNo(int listno);
 	
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
@@ -25,4 +27,5 @@ public interface BoardRepository {
 	void insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
 	String getBoardNameByNo(int boardno);
+	String selectCardInfo(int boardNo, int listNo, int cardNo);
 }

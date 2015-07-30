@@ -34,11 +34,38 @@ private MemberRepository memberRepository;
 		
 		return member;
 	}
+	
+	@Override
+	public boolean PasswordCheck(int memberNo, String password) {
+		
+		boolean check = false;
+		
+		password = Util.getHashedString(password, "SHA-1");
+		
+		if( memberRepository.selectMemberByNoAndPassByPasswordCheck(memberNo, password) > 0 ) {
+			check = true;
+		}
+		
+		return check;
+	}
 
 	@Override
 	public void AccountLogout() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean MeNotCheckName(int memberNo, String userName) {
+
+		int count = memberRepository.selectMeNotUserNameCheck(memberNo, userName);
+		boolean check = false;
+		
+		if( count > 0 ) {
+			check = true;
+		}
+		
+		return check;
 	}
 	
 	@Override

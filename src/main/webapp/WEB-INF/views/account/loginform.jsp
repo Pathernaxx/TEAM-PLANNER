@@ -5,25 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
+<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 <style>
-.section-wrapper {
-	margin: 0 auto;
-	max-width: 890px;
+.section-home-login {
+	padding: 2em 1em;
+	text-align: center;
 }
-.wrapper-signup {
-	margin: 0 auto;
-	max-width: 585px;
-}
-
-label {
-	display: block;
-}
-
-textarea, input {
-	display: block;
-	margin: 0 0 1.2em;
-}
-
 </style>
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript">
@@ -41,8 +28,13 @@ textarea, input {
 				success : function(result) {
 					if(result=="complete")
 					{
-						var url = '/finalProject/board/boardmain.action';
-						$(location).attr('href', url);
+						var returnurl = '${returnurl}';
+						
+						if( returnurl == null || returnurl.length == 0) {
+							returnurl = '/finalProject/board/boardmain.action';
+						}
+						
+						$(location).attr('href', returnurl);
 					} else {
 						alert('Not User Find');
 					}
@@ -59,10 +51,13 @@ textarea, input {
 </script>
 </head>
 <body>
-	<section>
+	<section class="section-background-blue section-home-login">
 		<div class="section-wrapper">
-			<div class="wrapper-signup">
+			<div class="text-center">
 				<h1>Welcome back to Team Planner!</h1>
+			</div>
+			<div class="wrapper-signup login-form">
+				<input type="hidden" name="returnurl" value="${ returnurl != '' || returnurl ne null ? returnurl : '' }"/>
 				<label for="user">Email<span style="color:#999;">(or username)</span></label>
 				<input type="email" name="user" id="user" tabindex="1" placeholder="e.g., test@example.com">
 				<label for="password">Password</label>
@@ -70,9 +65,10 @@ textarea, input {
 				<input id="join" type="button" tabindex="3" value="Join">
 			</div>
 		</div>
+		<div>
+			<a href="/finalProject/account/signup.action">회원가입</a>
+		</div>
 	</section>
-	<div>
-		<a href="/finalProject/account/signup.action">회원가입</a>
-	</div>
+	
 </body>
 </html>
