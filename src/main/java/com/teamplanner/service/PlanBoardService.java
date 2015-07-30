@@ -87,5 +87,10 @@ public class PlanBoardService implements BoardService{
 	public void addFriend(int memberNo, int friendNo) {
 		boardRepository.addFriend(memberNo, friendNo);
 	}
+	@Override
+	public void openClosedBoardPage(int boardNo) {
+		boardRepository.openClosedBoardPage(boardNo);
+		
+	}
 	
 }

@@ -81,7 +81,11 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		boardMapper.addFriend(params);
 	}
-	
+	@Override
+	public void openClosedBoardPage(int boardNo) {
+		boardMapper.openClosedBoardPage(boardNo);
+		
+	}
 	
 	////////////////////유정////////////////
 	@Override
