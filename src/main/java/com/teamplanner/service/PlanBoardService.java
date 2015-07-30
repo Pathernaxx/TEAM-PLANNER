@@ -97,5 +97,4 @@ public class PlanBoardService implements BoardService{
 		boardRepository.openClosedBoardPage(boardNo);
 		
 	}
-	
 }
