@@ -132,6 +132,23 @@ public class OracleMemberRepository implements MemberRepository{
 		params.put("password", password);
 		
 		return memberMapper.selectMemberByIdAndPasswordByName(params);
+		
+	
+		
+	}
+
+
+	@Override
+	public Member updateMemberView(int memberNo) {
+		// TODO Auto-generated method stub
+		
+		return memberMapper.updateMemberView(memberNo);
+	}
+
+
+	@Override
+	public void updateMember(Member member) {
+		memberMapper.updateMember(member);
 	}
 	
 	public List<Member> selectMemberbyMemberName(int memberNo , String text){

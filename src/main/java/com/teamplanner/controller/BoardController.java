@@ -150,6 +150,7 @@ public class BoardController {
 		
 		return "redirect:/board/boardmain.action";
 	}
+	
 	@RequestMapping(value="closedBoardPage.action", method = RequestMethod.GET)
 	public ModelAndView closedBoardPage(int boardNo){
 		ModelAndView mav = new ModelAndView();
@@ -194,7 +195,7 @@ public class BoardController {
 	
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertBoardList(String listname, @RequestParam("boardno") int boardno) {//@RequestParam("boardno") int boardNo
+	public String insertBoardList(String listname, @RequestParam("boardno") int boardno, HttpSession session) {//@RequestParam("boardno") int boardNo
 		
 //		String listname = name;
 //		int boardno = boardNo;
@@ -202,13 +203,18 @@ public class BoardController {
 		
 		String message = "";
 		
+		Member member = (Member)session.getAttribute("loginuser");
+		
 		BoardList boardlist = new BoardList();
 		boardlist.setBoardNo(boardno);
 		boardlist.setName(listname);
 		boardlist.setPosition(position);
 		
+		String boardname = boardService.getBoardNameByNo(boardno);
+		
 		try {
 			boardService.insertBoardList(boardlist);
+			activityService.addActivity(member, boardlist, new Board(boardno, boardname));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";
@@ -219,8 +225,9 @@ public class BoardController {
 	
 	@RequestMapping(value="insertcard.action", method=RequestMethod.GET)
 	@ResponseBody
-	public String insertCard(String cardname, int boardno, int listno) {
+	public String insertCard(String cardname, int boardno, int listno, HttpSession session) {
 		String boardName = boardService.getBoardNameByNo(boardno);
+		Member member = (Member)session.getAttribute("loginuser");
 		
 		Card card = new Card();
 		card.setName(cardname);
@@ -232,7 +239,9 @@ public class BoardController {
 		String message = "";
 		
 		try {
+			BoardList list = boardService.selectBoardListBylistNo(listno);
 			boardService.insertCard(card);
+			activityService.addActivity(member, card, list, new Board(boardno, boardName));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";

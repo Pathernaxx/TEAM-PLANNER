@@ -12,11 +12,12 @@
 
 </head>
 <body >
+
 	<a href="/finalProject/board/boardmain.action">main</a>
 	<a href="/finalProject/board/boardview.action?boardno=1">보드자세히 보기</a>
 	<a href="/finalProject/account/signup.action">signup</a>
 	<a href="/finalProject/account/login.action">login</a>
-	<a href="/finalProject/member/member.action">member</a>
+	<a href="/finalProject/member/updatememberview.action">member</a>
 	<a href="/finalProject/member/">memberinfo</a>
 </body>
 </html>

@@ -22,6 +22,12 @@ public class PlanBoardService implements BoardService{
 	public void setBoardRepository(BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
 	}
+	
+	@Override
+	public BoardList selectBoardListBylistNo(int listno) {
+		
+		return boardRepository.selectBoardListBylistNo(listno);
+	}
 
 	@Override
 	public void insertBoard(String boardName) {

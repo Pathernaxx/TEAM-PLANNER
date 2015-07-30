@@ -19,6 +19,7 @@ public interface BoardRepository {
 	List<Board> selectBoardbyBoardName(int memberNo , String text);
 	void addFriend(int memberNo , int friendNo);
 	void openClosedBoardPage(int boardNo);
+	BoardList selectBoardListBylistNo(int listno);
 	
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
