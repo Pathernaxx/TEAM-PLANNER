@@ -9,9 +9,13 @@
 <title>Insert title here</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/main.css" />
-<link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css" />
+<script src="//code.jquery.com/jquery-1.11.3.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
+<script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
 
 
 <script>
