@@ -18,14 +18,13 @@ $("#cancel").click(function() {
 });
 
 $("#infosubmit").click(function(e) {
-	alert($("#listno").val());
 	$.ajax({
 		url: "/finalProject/card/writecardinfo.action",
 		async: true,
 		type: "post",
 		data: {
 			boardno: $("#boardno").val(),
-			listno: $("#listno").val(),
+			listno: '${listno}',
 			cardno: $("#cardno").val(),
 			information: $("#information").val()
 		},

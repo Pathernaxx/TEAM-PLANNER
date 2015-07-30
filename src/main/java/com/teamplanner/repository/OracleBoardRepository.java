@@ -22,6 +22,12 @@ public class OracleBoardRepository implements BoardRepository{
 		this.boardMapper = boardMapper;
 	}
 	
+	@Override
+	public BoardList selectBoardListBylistNo(int listno) {
+		
+		return boardMapper.selectBoardListBylistNo(listno);
+	}
+	
   ////////////////////동윤////////////////
 	@Override
 	public void insertBoard(String boardName) {

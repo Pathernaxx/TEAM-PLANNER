@@ -18,6 +18,7 @@ public interface BoardMapper {
 	String checkBoardName(String title);
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	List<Board> selectBoardbyBoardName(HashMap<Object, Object> params);
+	BoardList selectBoardListBylistNo(int listno);
 	void addFriend(HashMap<Object, Object> params);
 	void openClosedBoardPage(int boardNo);
 	

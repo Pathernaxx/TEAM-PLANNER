@@ -111,11 +111,11 @@
 						</c:choose>
 						<c:if test="${ action.backLink != null || action.backText != null}">
 							<c:choose>
-								<c:when test="${ action.backLink != '#' || action.backLink != null}">
-									<a href="${ action.frontLink }">${ action.frontText }</a>
+								<c:when test="${ action.backLink != '#' && action.backLink != null}">
+									<a href="${ action.backLink }">${ action.backText }</a>
 								</c:when>
 								<c:otherwise>
-									<span>${ action.frontText }</span>
+									<span>${ action.backText }</span>
 								</c:otherwise>
 							</c:choose>
 						</c:if>

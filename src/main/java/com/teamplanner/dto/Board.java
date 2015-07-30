@@ -12,6 +12,15 @@ public class Board {
 	
 	private List<BoardList> boardlists;
 	
+	public Board() {
+		
+	}
+	
+	public Board(int no, String name) {
+		this.no = no;
+		this.name = name;
+	}
+	
 	public List<BoardList> getBoardlists() {
 		return boardlists;
 	}

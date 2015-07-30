@@ -127,6 +127,15 @@
  		SET closed = '0'
  		WHERE no=#{boardNo}
  	</update>
+ 	
+ 	<select id="selectBoardListBylistNo" parameterType="int" resultType="BoardList">
+ 		SELECT
+ 			*
+ 		FROM
+ 			boardlist
+ 		WHERE
+ 			no = #{listno}
+ 	</select>
  </mapper>
  
  
