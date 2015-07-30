@@ -13,6 +13,7 @@ public class Card {
 	private int position;
 	private boolean archived;
 	private boolean deleted;
+	private String info;
 	
 	public int getNo() {
 		return no;
@@ -73,5 +74,11 @@ public class Card {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
 	}
 }

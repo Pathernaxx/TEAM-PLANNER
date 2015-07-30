@@ -54,4 +54,9 @@ public class OracleCardRepository implements CardRepository {
 		return cardMapper.selectTagMember(cardNo);
 	}
 
+	@Override
+	public void insertAttachment(Attachment attachment) {
+		cardMapper.insertAttachment(attachment);
+	}
+
 }

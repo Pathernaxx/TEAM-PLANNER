@@ -1,5 +1,44 @@
+<%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<script>
+$(function() {
+	var boardno = $("#boardno").val();
+	var cardno = $("#cardno").val();
+	var cardinfo = $("#cardinfo").val();
+	
+	
+	$.ajax({
+		url: "/finalProject/card/insertAttachmentForm.action",
+		type: "get",
+		data: {
+			"cardno" : cardno,
+			"boardno" : boardno
+		},
+		success: function(result) { 
+			$('.attachmentbtn').webuiPopover({
+			constrains: 'horizontal',
+			trigger: 'click',
+			multi: false,
+			placement: 'bottom',
+			width: 300,
+			closeable: true,
+			arrow: false,
+			title: 'Attachment',
+			content: result
+			});
+		},
+		error: function() {
+			alert('error');
+		}
+	});
+});
+</script>
 <div class="window-wrapper">
+	
+	<input type="hidden" id="cardno" value=${cardno } />
+	<input type="hidden" id="boardno" value=${boardno } />
+	<input type="hidden" id="cardinfo" value=${cardinfo } />
 	
 	<div class="card-detail-window">
 	<a class="close-button">x</a>
@@ -16,9 +55,16 @@
 		
 		<div class="window-main-middle u-clearfix">
 			<div class="window-main-left">
-				<div class="window-attachment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="/finalProject/resources/styles/images/icons/234.png"
-						class="window-icon2" />&nbsp;<a href="#">Edit the Discription</a>
+				<div class="window-attachment">
+				<c:choose>
+					<c:when test="${ empty cardinfo }">
+						<c:import url="/WEB-INF/views/card/information.jsp" />
+					</c:when>
+					<c:otherwise>
+						${ cardinfo}
+					</c:otherwise>
+				</c:choose>
+					
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
@@ -82,7 +128,7 @@
 								src="/finalProject/resources/styles/images/icons/14.png"
 								class="window-icon2" /> DueDate
 						</span>
-						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
+						</a> <a class="window-sidebutton attachmentbtn"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/1.png"
 								class="window-icon2" /> Attachment
 						</span>
@@ -106,6 +152,10 @@
 					</span>
 					</a>
 				</div>
-		</div>
-	</div> 
+			</div>
+		</div> 
+	</div>
+	
+	
+	
 </div>

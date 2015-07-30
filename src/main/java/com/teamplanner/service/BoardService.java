@@ -20,5 +20,5 @@ public interface BoardService {
 	void insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
 	String getBoardNameByNo(int boardno);
-	
+	String selectCardInfo(int boardNo, int listNo, int cardNo);
 }
