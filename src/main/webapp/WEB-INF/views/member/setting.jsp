@@ -59,7 +59,76 @@
 				});
 			});
 			
-			$(document).on('click', '#save', function(event) {
+			$(document).on('click', '#save-name', function(event) {
+					if( $('form#changename input[value=""]') > 0 ) {
+						$(".error").html("WHY");
+						$(".error").css('display', 'block');
+						event.preventDefault();
+						return;	
+					}
+					
+					var formData = $('form#changename').serializa();
+					
+					$.ajax({
+						url : "/finalProject/member/change.action",
+						type : "post",
+						async: true,
+						data : formData,
+						success : function(result) {
+							//alert(result);
+							if(result != null) {
+								event.preventDefault();
+								$(".error").html(result);
+								$(".error").css('display', 'block');
+								
+								return;
+							}
+							
+						},
+						error: function(xhr, state, e) {
+							//alert(state + "/" + e);
+						}
+					})
+					event.preventDefault();
+				});
+				
+		
+			$(document).on('click', '#save-pass', function(event) {
+				//$('#save-pass').click(function(event) {
+					if( $('form#changepass input[value=""]') > 0 ) {
+						$(".error").html("WHY");
+						$(".error").css('display', 'block');
+						event.preventDefault();
+						return;	
+					}
+					
+					var formData = $('form#changepass').serializa();
+					
+					$.ajax({
+						url : "/finalProject/member/change.action",
+						type : "post",
+						async: true,
+						data : formData,
+						success : function(result) {
+							alert(result);
+							if(result != null) {
+								event.preventDefault();
+								$(".error").html(result);
+								$(".error").css('display', 'block');
+								
+								return;
+							}
+							
+						},
+						error: function(xhr, state, e) {
+							//alert(state + "/" + e);
+						}
+					})
+					event.preventDefault();
+			});
+			//});
+			
+			/* $(document).on('click', '#save', function(event) {
 				
 				if( $('form input[value=""]') > 0 ) {
 					$(".error").html("WHY");
@@ -68,7 +137,7 @@
 					return;	
 				}
 				
-				var formData = $("form").serialize();
+				var formData = $("form#changepass").serialize();
 				
 				$.ajax({
 					url : "/finalProject/member/change.action",
@@ -76,20 +145,25 @@
 					async: true,
 					data : formData,
 					success : function(result) {
+						alert(result);
 						if(result != null) {
 							event.preventDefault();
 							$(".error").html(result);
 							$(".error").css('display', 'block');
+							
 							return;
 						}
-					},
-					error: function() {
 						
+					},
+					error: function(xhr, state, e) {
+						alert(state + "/" + e);
 					}
 				})
 				event.preventDefault();
 				
-			});
+			}); */
+			
+			
 		</script>
 	</div>
 	<h1>Notification</h1>

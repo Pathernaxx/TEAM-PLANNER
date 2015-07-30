@@ -7,5 +7,5 @@ import com.teamplanner.dto.Member;
 
 public interface SearchService {
 	List<Board> searchBoard(int memberNo , String text);
-	List<Member> searchMember(String text);
+	List<Member> searchMember(int memberNo , String text);
 }

@@ -34,9 +34,9 @@ public class PlanSearchService implements SearchService{
 	}
 
 	@Override
-	public List<Member> searchMember(String text) {
+	public List<Member> searchMember(int memberNo , String text) {
 		
-		return memberRepository.selectMemberbyMemberName(text);
+		return memberRepository.selectMemberbyMemberName(memberNo , text);
 	}
 	
 }
