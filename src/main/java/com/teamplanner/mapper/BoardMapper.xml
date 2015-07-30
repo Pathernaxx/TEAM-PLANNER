@@ -39,6 +39,7 @@
  	<result column="duedate" property="dueDate" />
  	<result column="archived" property="archived" />
  	<result column="deleted" property="deleted" />
+ 	<result column="info" property="info" />
  </resultMap>
  
  <!-- 유정 -->
@@ -55,9 +56,15 @@
  	</select>
  	
  	<select id="selectCard" parameterType="int" resultMap="CardResult">
- 		SELECT no, name, listno, boardno, boardname, position, duedate, archived, deleted
+ 		SELECT no, name, listno, boardno, boardname, position, duedate, archived, deleted, info
  		FROM boardcard
  		WHERE listno = #{listno}
+ 	</select>
+ 	
+ 	<select id="selectCardInfo" parameterType="hashMap" resultType="String">
+ 		SELECT info
+ 		FROM boardcard
+ 		WHERE boardno = #{boardno} AND listno = #{listno} AND no = #{cardno}
  	</select>
  	
  	<insert id="insertCard" parameterType="Card">
@@ -65,14 +72,11 @@
  		VALUES (boardcard_sequence.nextval, #{name}, #{listNo}, #{boardNo}, #{boardName}, #{position})
  	</insert>
  	
- 	<!-- <insert id="insertList" parameterType="hashMap">
- 		INSERT INTO boardlist(no, boardno, name, position)
- 		VALUES (boardlist_sequence.nextval, #{boardno}, #{listname}, #{position})
- 	</insert> -->
  	<insert id="insertBoardList" parameterType="BoardList">
  		INSERT INTO boardlist(no, boardno, name, position)
  		VALUES (boardlist_sequence.nextval, #{boardNo}, #{name}, #{position})
  	</insert>
+ 	
  	<select id="getBoardNameByNo" parameterType="int" resultType="String">
  		SELECT name FROM board WHERE no = #{boardno}
  	</select>

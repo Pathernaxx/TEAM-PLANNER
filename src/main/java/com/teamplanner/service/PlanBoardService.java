@@ -83,6 +83,11 @@ public class PlanBoardService implements BoardService{
 		boardRepository.insertCard(card);
 		
 	}
+
+	@Override
+	public String selectCardInfo(int boardNo, int listNo, int cardNo) {
+		return boardRepository.selectCardInfo(boardNo, listNo, cardNo);
+	}
 	@Override
 	public void addFriend(int memberNo, int friendNo) {
 		boardRepository.addFriend(memberNo, friendNo);

@@ -15,4 +15,6 @@ public interface CardRepository {
 	List<CheckList> selectCheckList(int cardNo);
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
+	
+	void insertAttachment(Attachment attachment);
 }
