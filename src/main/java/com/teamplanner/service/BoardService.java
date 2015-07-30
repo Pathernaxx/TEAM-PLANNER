@@ -17,6 +17,7 @@ public interface BoardService {
 	void addFriend(int memberNo , int friendNo);
 	String getBoardNameByNo(int boardno);
 	void openClosedBoardPage(int boardNo);
+	BoardList selectBoardListBylistNo(int listno);
 	
 	List<BoardList> BoardView(int boardNo);
 	List<Card> selectCard(int listNo);

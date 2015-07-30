@@ -13,6 +13,15 @@ public class BoardList {
 	
 	private List<Card> cards;
 	
+	public BoardList() {
+		
+	}
+	
+	public BoardList(int no, String name) {
+		this.no = no;
+		this.name = name;
+	}
+	
 	public List<Card> getCards() {
 		return cards;
 	}
