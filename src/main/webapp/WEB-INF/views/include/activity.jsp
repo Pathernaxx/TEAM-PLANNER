@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div id="profile">
+		<div id="profile">
 			<div class="js-activity">
 				<h2>Activity</h2>
 			</div>
