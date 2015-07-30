@@ -8,6 +8,7 @@
 <link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
 
 
+<script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 <script>
 	$(document).ready(function(){
 		var list =[];
@@ -26,6 +27,7 @@
 		    			 data : {friendNo : friendNo},
 		    			 success : function(){
 		    				 $(".searchtext").val("");
+		    				 dialog.dialog("close");
 		    			 }
 		    		  });
 		    	  },
@@ -98,7 +100,10 @@
 			var url = "/finalProject/board/boardmain.action"
 				$(location).attr('href', url);
 		});
-			
+		$(".mypage").click(function(){
+			var url = "/finalProject/member/"
+				$(location).attr('href', url);
+		});
 		
 	});
 </script>
@@ -118,7 +123,7 @@
 		♬
 	</div>
  	<div class="mypage">
-		MyPage
+		My Page
 	</div> 
 	
 	<div id="dialogform" title="Add Member...">

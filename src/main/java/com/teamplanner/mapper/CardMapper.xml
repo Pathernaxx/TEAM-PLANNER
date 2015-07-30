@@ -33,9 +33,14 @@
  		WHERE checklistno = #{checklistNo}
  	</select>
  	
- 	<!-- <insert>
- 		INSERT INTO b
- 	</insert> -->
+ 	<insert id="insertAttachment" parameterType="Attachment">
+ 		INSERT INTO attachment(no, userfilename, cardno, boardno) 
+ 		VALUES (attachment_sequence.nextval, #{userFileName}, #{cardNo}, #{boardNo})
+ 	</insert>
+ 	<insert id="writeCardInfo" parameterType="String">
+ 		INSERT INTO boardcard(info)
+ 		VALUES (#{information});
+ 	</insert>
 	
  	
  </mapper>

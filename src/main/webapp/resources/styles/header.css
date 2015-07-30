@@ -7,10 +7,10 @@
   z-index: 0;
 }
 .searchName{
-	background-color:rgba(255,255,255,.3);
+	background-color:#64024e;
 	border-radius:3px;
 	border:none;
-	color:rgba(255,255,255,.5);
+	color:#ffffff;
 	float:left;
 	height:30px;
 	margin:0;
@@ -23,7 +23,7 @@
 	width:3%;
 	z-index:1;
 	font-weight: bold;
-	font-size: 80%;
+	font-size:120%;
 	text-align:center;
 
 }
@@ -65,16 +65,17 @@
 }
 .mainpage{
 	float:left;
-	width:300px;
+	width:30%;
 	text-align:center;
 	font-size: 20px;
 	font-weight: bold;
 	color:white;
-	margin-left: 15%;
+	margin-left: 11%;
+	
 }
 .mainpageimg{
 
-	width:230px;
+	width:50%;
 	height: 40px;
 	cursor:pointer;
 }
@@ -85,8 +86,8 @@
 	border-radius:3px;
 	border:none;
 	float:right;
-	background-color:rgba(255,255,255,.3);
-	color:rgba(255,255,255,.5);
+	background-color:#64024e;
+	color:#ffffff;
 	width:2%;
 	height:30px;
 	margin:0;
@@ -95,16 +96,20 @@
 	padding-left:8px;
 	line-height:19px;
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 120%;
 	text-align:center;
+	cursor:pointer;
+}
+.alarm:hover{
+	color:#ffb9ff;
 }
 .mypage{
 	border-radius:3px;
 	border:none;
 	float:right;
-	background-color:rgba(255,255,255,.3);
-	color:rgba(255,255,255,.5);
-	width:5%;
+	background-color:#64024e;
+	color:#ffffff;
+	width:6%;
 	height:30px;
 	margin:0;
 	margin-right:10px;
@@ -112,6 +117,10 @@
 	padding-left:8px;
 	line-height:19px;
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 120%;
 	text-align:center;
+	cursor:pointer;
+}
+.mypage:hover{
+	color:#ffb9ff;
 }

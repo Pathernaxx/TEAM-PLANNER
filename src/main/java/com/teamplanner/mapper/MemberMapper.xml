@@ -114,13 +114,12 @@
 	</select>
 	
 	<select id="selectMemberbyMemberName" parameterType="hashMap" resultType="Member">
-		SELECT
-			m.* 
-		FROM
-			member m
-		WHERE
-			m.username LIKE '%'||#{text}||'%' AND m.no != #{memberNo}
-		ORDER BY
-			m.username
+		select *
+    	from member
+    	where no not in
+     		( select memberno
+        		from memberlist
+        		where myno = #{memberNo}
+        	) and no != #{memberNo} and userName like #{text}||'%'
 	</select>
 </mapper>

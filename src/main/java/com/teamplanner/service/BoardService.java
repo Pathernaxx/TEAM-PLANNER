@@ -16,11 +16,12 @@ public interface BoardService {
 	List<Board> selectClosedBoard(int memberNo);//memberNo로 뽑힌
 	void addFriend(int memberNo , int friendNo);
 	String getBoardNameByNo(int boardno);
+	void openClosedBoardPage(int boardNo);
 	
 	List<BoardList> BoardView(int boardNo);
 	List<Card> selectCard(int listNo);
 	void insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
 	
-	
+	String selectCardInfo(int boardNo, int listNo, int cardNo);
 }
