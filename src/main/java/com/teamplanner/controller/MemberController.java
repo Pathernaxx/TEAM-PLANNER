@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.buf.UDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -46,21 +47,34 @@ public class MemberController {
 		this.activityService = activityService;
 	}
 
-
-//	@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
-//	public String memberUpdate(Member member, HttpSession session){
-//		
-//		String pw = member.getPassword();
-////		pw=Util.getHashedString(pw, "SHA-1");
-////		
-////		memberRepository.updateMember(member);
-////		
-////		int no = member.getNo();
-////		memberRepository.updateMember(member);
-//		session.setAttribute("loginuser", member);
-//		
-//		return "redirect:/member/memberView.action?memberNo="+no;
-//	}
+/////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="updatememberview.action", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView updateMemberView(HttpSession session) {
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		Member member = memberService.updateMemberView(memberno);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/updatememberview");
+		mav.addObject("member", member);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="updatemember.action", method = RequestMethod.GET)
+	@ResponseBody
+	public void updateMember(HttpSession session,String username, String fullname) {
+		Member member = new Member();
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		member.setNo(memberno);
+		member.setFullName(fullname);
+		member.setUserName(username);
+		
+		memberService.updateMember(member);
+		
+/*		return "controller result";*/
+	}
+	
 	@RequestMapping(value={ "", "/" }, method=RequestMethod.GET)
 	public ModelAndView defaultPage(HttpSession session) {
 		
@@ -92,6 +106,7 @@ public class MemberController {
 	@RequestMapping(value="memberinfo.action", method = RequestMethod.GET)
 	public ModelAndView MemberInfo()
 	{
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/settings");
 		
@@ -191,6 +206,7 @@ public class MemberController {
 		
 		return message;
 	}
+	
 	
 //	@RequestMapping(value="member.action", method=RequestMethod.GET)
 //	public String profile() {

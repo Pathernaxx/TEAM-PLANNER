@@ -113,8 +113,6 @@ private BoardService boardService;
 		
 		//String information = request.getParameter("information");
 
-		System.out.println(boardno + listno + cardno + information);
-		
 		String message="";
 		
 		Card card = new Card();

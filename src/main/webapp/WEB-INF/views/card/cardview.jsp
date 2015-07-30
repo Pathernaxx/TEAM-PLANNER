@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script>
+function addBoard(){}
 $(function() {
+	
 	var boardno = $("#boardno").val();
 	var cardno = $("#cardno").val();
 	var cardinfo = $("#cardinfo").val();
@@ -56,7 +58,7 @@ $(function() {
 	<input type="hidden" id="cardno" value=${cardno } />
 	<input type="hidden" id="boardno" value=${boardno } />
 	<input type="hidden" id="cardinfo" value=${cardinfo } />
-	<inpyt type="hidden" id="listno" value=${listno } />
+	<input type="hidden" id="listno" value=${listno } />
 	
 	
 	<div class="card-detail-window">
@@ -189,4 +191,16 @@ $(function() {
 	
 	
 </div>
+<div id="member-dialog-form" title="Create New Board">
+  <form>
+	  <br/>
+      <label for="name" style="text-align: center">Create Board Title...</label><br/>
+      <br/><br/>
+      <input type="text" name="title" id="title">
+     
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 
+  </form>
+</div>
