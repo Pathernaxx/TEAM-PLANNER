@@ -32,6 +32,23 @@ $(function() {
 			alert('error');
 		}
 	});
+	/*///////////////////동윤/////////////////////////// */
+	var tagMemberDialog;
+	tagMemberDialog = $("#member-dialog-form").dialog({
+		      autoOpen: false,
+		      height: 300,
+		      width: 350,
+		      buttons:{
+		    	  "CREATE" : addBoard,
+		    	  Cancel: function(){
+		    		  
+		    	  }
+		      }
+		});
+	
+	$("#member-button").click(function(){
+		tagMemberDialog.dialog("open");
+	});
 });
 </script>
 <div class="window-wrapper">
@@ -77,6 +94,12 @@ $(function() {
 					<div class="window-header">
 						<table class="window-table">
 						
+						<tr>
+							<td><img
+									src="/finalProject/resources/styles/images/icons/13.png"
+									class="window-icon2" /></td>
+							<td>Members</td>
+						</tr>
 						<!-- attachement -->
 						<tr>
 							<td><img
@@ -123,8 +146,8 @@ $(function() {
 			<div class="window-sidebar-add u-clearfix">
 					<h3>Add</h3>
 					<div class="u-clearfix">
-						<a class="window-sidebutton"> <span class="icon-sm"> <img
-								src="/finalProject/resources/styles/images/icons/2.png"
+						<a id="member-button" class="window-sidebutton"> <span class="icon-sm"> <img
+								src="/finalProject/resources/styles/images/icons/13.png"
 								class="window-icon2" /> Members
 						</span>
 						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
@@ -166,3 +189,4 @@ $(function() {
 	
 	
 </div>
+

@@ -131,6 +131,8 @@ private BoardService boardService;
 		return message;
 		
 	}
+	
+	//동윤's Area///////////////////////////////////////////////////////////
 }
 
 
