@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.teamplanner.dto.Attachment;
+import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
@@ -58,6 +59,11 @@ public class PlanCardService implements CardService {
 	public void insertAttachment(Attachment attachment) {
 		cardRepository.insertAttachment(attachment);
 		
+	}
+
+	@Override
+	public void writeCardInfo(Card card) {
+		cardRepository.writeCardInfo(card);
 	}
 
 }

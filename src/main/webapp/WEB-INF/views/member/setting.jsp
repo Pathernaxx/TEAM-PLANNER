@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<meta content="charset=utf-8">
+<meta content="text/plain; charset=utf-8">
 <div id="settings">
 	<h1>Account Details</h1>
 	<hr/>
@@ -24,7 +24,7 @@
 							constrains: 'horizontal', 
 				            trigger:'click',
 				            multi: false,
-				            placement:'bottom',
+				            placement:'bottom-right',
 				            width:300,
 							closeable: true,
 							arrow: false,
@@ -45,7 +45,7 @@
 							constrains: 'horizontal', 
 				            trigger:'click',
 				            multi: false,
-				            placement:'bottom',
+				            placement:'bottom-right',
 				            width:300,
 							closeable: true,
 							arrow: false,
@@ -60,14 +60,63 @@
 			});
 			
 			$(document).on('click', '#save-name', function(event) {
-					if( $('form#changename input[value=""]') > 0 ) {
-						$(".error").html("WHY");
-						$(".error").css('display', 'block');
+				
+				var check = true;
+				
+				$('form#changename input[type=text]').each(function() {
+					if($(this).attr('value') == "") {
 						event.preventDefault();
+						$("#name-error").html("input please");
+						$("#name-error").css('display', 'block');
+						check = false;
 						return;	
 					}
-					
-					var formData = $('form#changename').serializa();
+				});
+				
+				if(check) {
+					var formData2 = $('form#changename').serialize();
+				
+					$.ajax({
+						url : "/finalProject/member/change.action",
+						type : "post",
+						async: true,
+						data : formData2,
+						success : function(result) {
+							//alert(result);
+							if(result != null) {
+								event.preventDefault();
+								$("#name-error").html(result);
+								$("#name-error").css('display', 'block');
+								
+								return;
+							}
+							
+						},
+						error: function(xhr, state, e) {
+							//alert(state + "/" + e);
+						}
+					});
+				}
+				
+				event.preventDefault();
+			});
+				
+		
+			$(document).on('click', '#save-pass', function(event) {
+				var check = true;
+				
+				$('form#changepass input[type=password]').each(function() {
+					if($(this).attr('value') == "") {
+						event.preventDefault();
+						$("#password-error").html("input please");
+						$("#password-error").css('display', 'block');
+						check = false;
+						return;	
+					}
+				});
+				
+				if(check) {
+					var formData = $('form#changepass').serialize();
 					
 					$.ajax({
 						url : "/finalProject/member/change.action",
@@ -78,8 +127,8 @@
 							//alert(result);
 							if(result != null) {
 								event.preventDefault();
-								$(".error").html(result);
-								$(".error").css('display', 'block');
+								$("#password-error").html(result);
+								$("#password-error").css('display', 'block');
 								
 								return;
 							}
@@ -88,81 +137,10 @@
 						error: function(xhr, state, e) {
 							//alert(state + "/" + e);
 						}
-					})
-					event.preventDefault();
-				});
-				
-		
-			$(document).on('click', '#save-pass', function(event) {
-				//$('#save-pass').click(function(event) {
-					if( $('form#changepass input[value=""]') > 0 ) {
-						$(".error").html("WHY");
-						$(".error").css('display', 'block');
-						event.preventDefault();
-						return;	
-					}
-					
-					var formData = $('form#changepass').serializa();
-					
-					$.ajax({
-						url : "/finalProject/member/change.action",
-						type : "post",
-						async: true,
-						data : formData,
-						success : function(result) {
-							alert(result);
-							if(result != null) {
-								event.preventDefault();
-								$(".error").html(result);
-								$(".error").css('display', 'block');
-								
-								return;
-							}
-							
-						},
-						error: function(xhr, state, e) {
-							//alert(state + "/" + e);
-						}
-					})
-					event.preventDefault();
-			});
-			//});
-			
-			/* $(document).on('click', '#save', function(event) {
-				
-				if( $('form input[value=""]') > 0 ) {
-					$(".error").html("WHY");
-					$(".error").css('display', 'block');
-					event.preventDefault();
-					return;	
+					});
 				}
-				
-				var formData = $("form#changepass").serialize();
-				
-				$.ajax({
-					url : "/finalProject/member/change.action",
-					type : "post",
-					async: true,
-					data : formData,
-					success : function(result) {
-						alert(result);
-						if(result != null) {
-							event.preventDefault();
-							$(".error").html(result);
-							$(".error").css('display', 'block');
-							
-							return;
-						}
-						
-					},
-					error: function(xhr, state, e) {
-						alert(state + "/" + e);
-					}
-				})
 				event.preventDefault();
-				
-			}); */
-			
+			});			
 			
 		</script>
 	</div>

@@ -56,6 +56,8 @@ $(function() {
 	<input type="hidden" id="cardno" value=${cardno } />
 	<input type="hidden" id="boardno" value=${boardno } />
 	<input type="hidden" id="cardinfo" value=${cardinfo } />
+	<inpyt type="hidden" id="listno" value=${listno } />
+	
 	
 	<div class="card-detail-window">
 	<a class="close-button">x</a>
@@ -78,7 +80,12 @@ $(function() {
 						<c:import url="/WEB-INF/views/card/information.jsp" />
 					</c:when>
 					<c:otherwise>
-						${ cardinfo}
+					<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
+					<span>
+						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+						Edit the Discription</a>
+					</span>
+						
 					</c:otherwise>
 				</c:choose>
 					

@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.css" />
+
+
 <script src="/finalProject/resources/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 <script>
 	$(document).ready(function(){
