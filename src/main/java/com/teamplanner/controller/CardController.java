@@ -114,6 +114,8 @@ private BoardService boardService;
 		//response.sendRedirect("list.action");
 		
 	}
+	
+	//동윤's Area///////////////////////////////////////////////////////////
 }
 
 
