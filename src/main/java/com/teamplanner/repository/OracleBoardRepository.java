@@ -139,6 +139,16 @@ public class OracleBoardRepository implements BoardRepository{
 		return boardMapper.getBoardName(boardNo);
 	}
 
+	@Override
+	public String getListName(int boardno, int listno) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardNo", boardno);
+		params.put("listNo", listno);
+		
+		return boardMapper.getListName(params);
+	}
+
 
 
 
