@@ -130,15 +130,9 @@ public class BoardController {
 	public List<Board> searchBoard(HttpSession session, String key){
 		List<Board> searchs = null;
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-//		String[] list = null;
 		if(key.startsWith("#")){
 			String[] a = key.split("#");
 			searchs = searchService.searchBoard(memberNo, a[1]);
-//			list = new String[searchs.size()];
-//			for(int i=0; i<searchs.size();i++){
-//				list[i]=searchs.get(i).getName();
-//			}
-			
 		}
 		
 		return searchs;
@@ -256,6 +250,29 @@ public class BoardController {
 		
 		return message;
 		
+	}
+	
+	/////동윤 tagmember전용//////////////////
+	@RequestMapping(value="tagAllMemberForm.action", method=RequestMethod.GET)
+	public ModelAndView tagMemberForm(@RequestParam("boardno") int boardno) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardno", boardno);
+		mav.setViewName("board/tagMemberForm");
+		
+		return mav;
+	}
+	@RequestMapping(value="searchTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> searchTagMember(HttpSession session, String key, int boardno) {
+		System.out.println(key);
+		System.out.println(boardno);
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members = searchService.searchTagAllMember(key, memberNo, boardno);
+		System.out.println(members.get(0).getUserName());
+		
+		
+		return members;
 	}
 	
 }

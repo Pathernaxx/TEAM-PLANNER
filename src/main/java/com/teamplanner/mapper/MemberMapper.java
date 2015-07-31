@@ -22,4 +22,5 @@ public interface MemberMapper {
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
 	List<Member> selectMemberbyMemberName(HashMap<Object, Object> params);
+	List<Member> searchTagAllMember(HashMap<Object, Object> params);
 }

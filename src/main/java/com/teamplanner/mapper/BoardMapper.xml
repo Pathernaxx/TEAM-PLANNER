@@ -100,7 +100,7 @@
  	
  	<insert id="insertTeamList" parameterType="hashMap">
  		INSERT INTO teamlist(no, memberno, boardno, usertype) 
- 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , 0 )
+ 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , '1' )
  	</insert>
  	
  	<select id="selectBoardbyTeamList" parameterType="Integer" resultType="Board">

@@ -208,8 +208,8 @@ $(document).ready(function() {
 							<div id="scroller-body">
 								<div id="mask">
 								<div id="panel">
-									<div id="panel-1"><%@include file="teamlist.jsp"%></div>
-									<div id="panel-2"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
+									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
+									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
 									<div id="panel-3">첨부파일</div>
 									<div id="panel-4">archived</div>
 								</div>
