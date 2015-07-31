@@ -14,7 +14,14 @@ public class Card {
 	private boolean archived;
 	private boolean deleted;
 	private String info;
+	private String listName;
 	
+	public String getListName() {
+		return listName;
+	}
+	public void setListName(String listName) {
+		this.listName = listName;
+	}
 	public int getNo() {
 		return no;
 	}

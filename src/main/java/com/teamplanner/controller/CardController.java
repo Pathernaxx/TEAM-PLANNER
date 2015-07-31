@@ -1,9 +1,11 @@
 package com.teamplanner.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.teamplanner.commons.Util;
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
@@ -78,35 +84,48 @@ private BoardService boardService;
 		return mav;
 	}
 	
-//	@RequestMapping(value="insertAttachment.action", method=RequestMethod.POST)
-//	public String insertAttachment(MultipartHttpServletRequest req,
-//								@RequestParam("cardno") int cardno, 
-//								@RequestParam("boardno") int boardno) {
-//		
-//		ServletContext application = req.getSession().getServletContext();
-//		
-//		String path = application.getRealPath("/WEB-INF/uploadfiles/");
-//		
-//		Attachment attachment = new Attachment();
-//		attachment.setCardNo(cardno);
-//		attachment.setBoardNo(boardno);
-//		
-//		MultipartFile file = req.getFile("file");
-//		if(file != null && file.getSize() > 0) {
-//			String fileName = file.getOriginalFilename();
-//			if(fileName.contains("\\")) {
-//				fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
-//				
-//			}
-//			
-//			attachment.setUserFileName(fileName);
-//			
-//			cardService.insertAttachment(attachment);
-//			
-//		}
-//		
-//		return "redirect:/card/cardview.action";
-//	}
+	@RequestMapping(value="insertAttachment.action", method=RequestMethod.POST)
+	public void insertAttachment(@RequestParam("cardno") int cardno, 
+									@RequestParam("boardno") int boardno,
+									@RequestParam("file") MultipartFile uploadfile,
+									MultipartHttpServletRequest req) {
+		
+		ServletContext application = req.getSession().getServletContext();
+		
+		if(uploadfile != null) {
+			String filename = uploadfile.getOriginalFilename();
+			
+			if (filename.contains("\\")) {//IE일 경우 전체 경로에서 파일이름만 추출
+				//C:\ABC\DEF\xyz.txt -> xyz.txt
+				filename = filename.substring(filename.lastIndexOf("\\") + 1);
+			}
+			
+			Attachment attachment = new Attachment();
+			attachment.setBoardNo(boardno);
+			attachment.setCardNo(cardno);
+			attachment.setUserFileName(filename);
+			
+			int originNo = cardService.insertAttachment(attachment);
+			
+			String path = application.getRealPath("/finalProject/resources/uploadfiles/");
+			String savedName = Util.getUniqueFileName(path, originNo+filename);
+			
+			try {
+				FileOutputStream ostream = 
+					new FileOutputStream(new File(path, savedName));
+				InputStream istream = uploadfile.getInputStream();
+				while (true) {
+					int data = istream.read();
+					if (data == -1) break;
+					ostream.write(data);
+				}
+				istream.close();
+				ostream.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
 	@ResponseBody
@@ -120,7 +139,6 @@ private BoardService boardService;
 		//String information = request.getParameter("information");
 
 		String message="";
-		System.out.println(boardno + "/"+listno + "/"+cardno);
 		
 		Card card = new Card();
 		card.setBoardNo(boardno);

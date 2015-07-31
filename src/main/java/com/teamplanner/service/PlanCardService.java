@@ -56,9 +56,9 @@ public class PlanCardService implements CardService {
 	}
 
 	@Override
-	public void insertAttachment(Attachment attachment) {
-		cardRepository.insertAttachment(attachment);
-		
+	public int insertAttachment(Attachment attachment) {
+		int originNo = cardRepository.insertAttachment(attachment);
+		return originNo;
 	}
 
 	@Override

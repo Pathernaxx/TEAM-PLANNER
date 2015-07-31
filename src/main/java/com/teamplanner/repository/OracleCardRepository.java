@@ -56,8 +56,10 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public void insertAttachment(Attachment attachment) {
+	public int insertAttachment(Attachment attachment) {
 		cardMapper.insertAttachment(attachment);
+		
+		return attachment.getNo();
 	}
 
 	@Override

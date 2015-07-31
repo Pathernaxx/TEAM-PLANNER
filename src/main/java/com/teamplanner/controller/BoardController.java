@@ -233,12 +233,15 @@ public class BoardController {
 		String boardName = boardService.getBoardNameByNo(boardno);
 		Member member = (Member)session.getAttribute("loginuser");
 		
+		String listname = boardService.getListName(boardno, listno);
+		
 		Card card = new Card();
 		card.setName(cardname);
 		card.setListNo(listno);
 		card.setBoardNo(boardno);
 		card.setBoardName(boardName);
 		card.setPosition(1);
+		card.setListName(listname);
 		
 		String message = "";
 		

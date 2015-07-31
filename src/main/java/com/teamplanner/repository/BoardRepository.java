@@ -29,4 +29,5 @@ public interface BoardRepository {
 	String getBoardNameByNo(int boardno);
 	String selectCardInfo(int boardNo, int listNo, int cardNo);
 	String getBoardName(int boardNo);
+	String getListName(int boardno, int listno);
 }

@@ -108,4 +108,9 @@ public class PlanBoardService implements BoardService{
 	public String getBoardName(int boardNo) {
 		return boardRepository.getBoardName(boardNo);
 	}
+
+	@Override
+	public String getListName(int boardno, int listno) {
+		return boardRepository.getListName(boardno, listno);
+	}
 }

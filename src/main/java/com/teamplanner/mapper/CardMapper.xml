@@ -34,6 +34,9 @@
  	</select>
  	
  	<insert id="insertAttachment" parameterType="Attachment">
+ 		<selectKey keyProperty="no" resultType="int" order="AFTER" >
+			SELECT attachment_sequence.currval FROM dual
+		</selectKey>
  		INSERT INTO attachment(no, userfilename, cardno, boardno) 
  		VALUES (attachment_sequence.nextval, #{userFileName}, #{cardNo}, #{boardNo})
  	</insert>
@@ -42,6 +45,5 @@
  		SET info = #{info}
  		WHERE no=#{no} AND listno = #{listNo} AND boardno = #{boardNo} 
  	</update>
-	
  	
  </mapper>
