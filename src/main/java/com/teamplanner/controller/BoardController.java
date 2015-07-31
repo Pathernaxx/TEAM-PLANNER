@@ -1,7 +1,6 @@
 package com.teamplanner.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -175,10 +175,13 @@ public class BoardController {
 //		mav.addObject("boardno", boardno);
 //		mav.setViewName("board/boardview");
 		
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
 		mav.addObject("boardNo", boardNo);
+		mav.addObject("prints", prints);
 		mav.setViewName("board/boardview");
 		
 		return mav;
