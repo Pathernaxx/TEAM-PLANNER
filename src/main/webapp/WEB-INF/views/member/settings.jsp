@@ -48,8 +48,7 @@
 
 </style>
 
- <link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
-
+<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/settings.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
