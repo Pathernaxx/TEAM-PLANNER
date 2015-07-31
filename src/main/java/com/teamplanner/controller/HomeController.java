@@ -13,7 +13,7 @@ public class HomeController {
 	
 	@RequestMapping(value ={"/" , "home.action"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "index";
+		return "account/loginform";
 	}
 	
 }
