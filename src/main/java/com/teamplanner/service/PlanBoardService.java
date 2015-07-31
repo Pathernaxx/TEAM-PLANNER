@@ -103,4 +103,9 @@ public class PlanBoardService implements BoardService{
 		boardRepository.openClosedBoardPage(boardNo);
 		
 	}
+
+	@Override
+	public String getBoardName(int boardNo) {
+		return boardRepository.getBoardName(boardNo);
+	}
 }
