@@ -54,13 +54,12 @@
 <script src="/finalProject/resources/js/jquery.webui-popover.js"></script>
 <script type="text/javascript">
 	$(function() {
-		
-		$('.tabs a[href]').click(function(e) {
-			var url = $(this);
-
+		function tabEvent(uri) {
 			$.ajax({
-				url: url.attr('href') + ".action",
+				url: uri.attr('href') + ".action",
 				type: "post",
+				cache: false,
+				async: true,
 				success: function(result) {
 					$("#tabs-wrapper").html(result);
 				},
@@ -68,6 +67,13 @@
 					alert(status + e2)
 				}
 			});
+		}
+		//setInterval(intervalAsync, 100);
+		
+		$('.tabs a[href]').click(function(e) {
+			var url = $(this);
+			
+			tabEvent(url);
 			e.preventDefault();
 		});		
 		

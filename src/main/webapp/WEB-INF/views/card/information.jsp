@@ -23,15 +23,28 @@ $("#infosubmit").click(function(e) {
 		async: true,
 		type: "post",
 		data: {
-			boardno: $("#boardno").val(),
+			boardno: '${boardno}',
 			listno: '${listno}',
-			cardno: $("#cardno").val(),
+			cardno: '${cardno}',
 			information: $("#information").val()
 		},
 		success: function(message) {
 			if(message == "success") {
-				var url = "/finalProject/card/cardview.action";
-				$(location).attr('href', url);
+				//var url = "/finalProject/card/cardview.action";
+				//$(location).attr('href', url);
+				
+				var information = $("#information").val();
+				
+				$('.editinfo').css('visibility', 'hidden');
+				$('.editinfo').css('display', 'none');
+				
+				$('.savedinfo').css('visibility', 'visible');
+				$('.savedinfo').css('display', 'block');
+				$(".savedinfodata").html(information);
+				//$('.savedinfo').append(string);
+				
+				$('.editform').css('visibility', 'hidden');
+				$('.editinfo').css('display', 'none');
 			} else {
 				alert("fail");
 			}
@@ -44,12 +57,19 @@ $("#infosubmit").click(function(e) {
 });
 
 </script>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a class="editinfo" style="cursor: pointer;">
-	<img src="/finalProject/resources/styles/images/icons/234.png"
-	class="window-icon2" />&nbsp;
-	Write the Discription
-</a>
+<div class="savedinfo" style="display:none;visibility:visible">
+	&nbsp;&nbsp;&nbsp;<span class="savedinfodata"></span><br/>
+	<span>
+		<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+		Edit the Discription</a>
+	</span>
+</div>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a class="editinfo" style="cursor: pointer;">
+		<img src="/finalProject/resources/styles/images/icons/234.png"
+		class="window-icon2" />&nbsp;
+		Write the Discription
+	</a>
 <div class="editform">
 	<form id="editcontent" action="writecardinfo.action" method="post" enctype="multipart/form-data">
 		<input id="information" type="text" class="edit-cardinfo"/>

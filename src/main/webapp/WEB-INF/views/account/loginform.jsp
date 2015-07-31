@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
-<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
+<link rel="stylesheet" href="/finalProject/resources/styles/account.css" />
 <style>
 .section-home-login {
 	padding: 2em 1em;

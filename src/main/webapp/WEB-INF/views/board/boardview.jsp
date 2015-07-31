@@ -22,7 +22,9 @@
 <script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
 
 <script type="text/javascript">
-
+function addBoard() {
+	
+}
 $(document).ready(function() {
 	
 	$('#mask').css({'height':$('#panel-1').height()});	
@@ -148,7 +150,7 @@ $(document).ready(function() {
 					//"cardinfo": $(this).children()[3].value
 				},
 				method: "get",
-				async: false,
+				async: true,
 				success: function(result) {
 					$("#dlgresultview").html(result);
 				},

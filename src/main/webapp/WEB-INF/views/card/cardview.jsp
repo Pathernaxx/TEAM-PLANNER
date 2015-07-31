@@ -97,7 +97,6 @@ $(function() {
 						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
 						Edit the Discription</a>
 					</span>
-						
 					</c:otherwise>
 				</c:choose>
 					
