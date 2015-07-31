@@ -148,7 +148,7 @@
 			
 		<div class="tabbed-pane-header-details"> 
 		
-		 &nbsp;&nbsp;	<h1 class="u-inline">${ member.userName }</h1>
+		 &nbsp;&nbsp;	<h1 class="u-inline">${ member.fullName }</h1>
 		 <span> @${ member.userName }</span>
 			<a href="#" id="button_open_dialog" class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "> 
 				<img src="/finalProject/resources/images/TinyTacoTalking.png" />
