@@ -80,6 +80,10 @@
  	<select id="getBoardNameByNo" parameterType="int" resultType="String">
  		SELECT name FROM board WHERE no = #{boardno}
  	</select>
+ 	
+ 	<select id="getBoardName" parameterType="int" resultType="String">
+ 		SELECT name FROM board WHERE no = #{boardNo}
+ 	</select> 
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">

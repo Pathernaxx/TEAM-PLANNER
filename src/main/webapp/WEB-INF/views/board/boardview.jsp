@@ -135,7 +135,12 @@ $(document).ready(function() {
 		var cardviewdialog = $(".cardview-dialog").dialog({
 			autoOpen: false,
 			height:600,
-			width:730
+			width:730,
+			buttons: {
+				"x" : function() {
+					$(this).dialog("close");
+				}
+			}
 		});
 		$(".list-card-details").click(function(event) {
 			
@@ -185,12 +190,12 @@ $(document).ready(function() {
 			<c:import url="/WEB-INF/views/include/header.jsp" />
 		</div>
 		
-		<div id="content" class="clearfix">
+		<div id="content" class="board u-fancy-scrollbar" style="height: 600px;">
 			<div class="wrapper">
 			
 				<div class="header">
 					<a class="header-btn header-btn-name" href="#">
-						<span class="header-btn-text">프로젝트명</span>
+						<span class="header-btn-text" style="font-size: x-large;">${boardname }</span>
 					</a>
 					<div class="header-btns">
 						<div class="pollSlider">
@@ -203,7 +208,7 @@ $(document).ready(function() {
 							<div id="scroller-body">
 								<div id="mask">
 								<div id="panel">
-									<div id="panel-1">Activity</div>
+									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
 									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
 									<div id="panel-3">첨부파일</div>
 									<div id="panel-4">archived</div>

@@ -35,6 +35,11 @@ $(function() {
 			alert('error');
 		}
 	});
+	
+	//$(".close-button").click(function() {
+	//dialog.
+	//});
+	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
 		url: "/finalProject/card/tagMemberForm.action",
@@ -72,7 +77,7 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
-	<a class="close-button">x</a>
+	<!-- <a class="close-button">x</a> -->
 		<div class="window-header u-clearfix">
 			<table>
 				<tr>
@@ -152,6 +157,7 @@ $(function() {
 					<div class="window-checklist">checklist</div>
 					<div class="window-activity">activity</div>
 				</div>
+				
 			</div>
 			<div class="window-main-sidebar" style="position:relative;">
 			<div class="window-sidebar-add u-clearfix">

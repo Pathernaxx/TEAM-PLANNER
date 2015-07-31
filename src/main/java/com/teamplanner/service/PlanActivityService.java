@@ -1083,6 +1083,7 @@ public class PlanActivityService implements ActivityService {
 				break;
 			}
 		}
+		
 		return prints;
 	}
 	

@@ -1,12 +1,23 @@
 package com.teamplanner.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class CheckList {
 	private int no;
 	private int cardNo;
 	private Date regDate;
 	private String name;
+	
+	private List<CheckItem> checkItems;
+	
+	public List<CheckItem> getCheckItems() {
+		return checkItems;
+	}
+	
+	public void setCheckItems(List<CheckItem> checkItems) {
+		this.checkItems = checkItems;
+	}
 	
 	public int getNo() {
 		return no;

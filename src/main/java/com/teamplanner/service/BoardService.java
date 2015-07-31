@@ -25,4 +25,5 @@ public interface BoardService {
 	void insertBoardList(BoardList boardlist);
 	
 	String selectCardInfo(int boardNo, int listNo, int cardNo);
+	String getBoardName(int boardNo);
 }

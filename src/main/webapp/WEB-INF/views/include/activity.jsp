@@ -7,25 +7,25 @@
 				<c:if test="${ prints != null }">
 					<c:forEach var="action" items="${ prints }">
 						<div>
-						<span><span class="action-user">${ action.userName }</span></span>&nbsp;${ action.type }
-						<c:choose>
-							<c:when test="${ action.frontLink != '#' }">
-								<a href="${ action.frontLink }">${ action.frontText }</a>
-							</c:when>
-							<c:otherwise>
-								<span>${ action.frontText }</span>
-							</c:otherwise>
-						</c:choose>
-						<c:if test="${ action.backLink != null || action.backText != null}">
+							<span><span class="action-user">${ action.userName }</span></span>&nbsp;${ action.type }
 							<c:choose>
-								<c:when test="${ action.backLink != '#' && action.backLink != null}">
-									<a href="${ action.backLink }">${ action.backText }</a>
+								<c:when test="${ action.frontLink != '#' }">
+									<a href="${ action.frontLink }">${ action.frontText }</a>
 								</c:when>
 								<c:otherwise>
-									<span>${ action.backText }</span>
+									<span>${ action.frontText }</span>
 								</c:otherwise>
 							</c:choose>
-						</c:if>
+							<c:if test="${ action.backLink != null || action.backText != null}">
+								<c:choose>
+									<c:when test="${ action.backLink != '#' && action.backLink != null}">
+										<a href="${ action.backLink }">${ action.backText }</a>
+									</c:when>
+									<c:otherwise>
+										<span>${ action.backText }</span>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
 						</div>
 					</c:forEach>
 				</c:if>
