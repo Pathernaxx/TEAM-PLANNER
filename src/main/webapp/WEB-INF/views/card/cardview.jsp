@@ -3,12 +3,13 @@
 
 <script>
 function addBoard(){}
+	
 $(function() {
 	
 	var boardno = $("#boardno").val();
 	var cardno = $("#cardno").val();
 	var cardinfo = $("#cardinfo").val();
-	
+
 	
 	$.ajax({
 		url: "/finalProject/card/insertAttachmentForm.action",
@@ -35,21 +36,30 @@ $(function() {
 		}
 	});
 	/*///////////////////동윤/////////////////////////// */
-	var tagMemberDialog;
-	tagMemberDialog = $("#member-dialog-form").dialog({
-		      autoOpen: false,
-		      height: 300,
-		      width: 350,
-		      buttons:{
-		    	  "CREATE" : addBoard,
-		    	  Cancel: function(){
-		    		  
-		    	  }
-		      }
-		});
-	
-	$("#member-button").click(function(){
-		tagMemberDialog.dialog("open");
+	$.ajax({
+		url: "/finalProject/card/tagMemberForm.action",
+		type: "get",
+		data: {
+			"cardno" : cardno,
+			"listno" : "${listno}",
+			"boardno" : boardno
+		},
+		success: function(result) { 
+			$('#tagMemberbtn').webuiPopover({
+				constrains: 'horizontal',
+				trigger: 'click',
+				multi: false,
+				placement: 'bottom',
+				width: 300,
+				closeable: true,
+				arrow: false,
+				title: 'Tag Member',
+				content: result
+			});
+		},
+		error: function() {
+			alert("tag error");
+		}
 	});
 });
 </script>
@@ -87,7 +97,6 @@ $(function() {
 						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
 						Edit the Discription</a>
 					</span>
-						
 					</c:otherwise>
 				</c:choose>
 					
@@ -148,7 +157,7 @@ $(function() {
 			<div class="window-sidebar-add u-clearfix">
 					<h3>Add</h3>
 					<div class="u-clearfix">
-						<a id="member-button" class="window-sidebutton"> <span class="icon-sm"> <img
+						<a id="tagMemberbtn" class="window-sidebutton"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/13.png"
 								class="window-icon2" /> Members
 						</span>
@@ -190,17 +199,4 @@ $(function() {
 	
 	
 	
-</div>
-<div id="member-dialog-form" title="Create New Board">
-  <form>
-	  <br/>
-      <label for="name" style="text-align: center">Create Board Title...</label><br/>
-      <br/><br/>
-      <input type="text" name="title" id="title">
-     
- 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-
-  </form>
 </div>
