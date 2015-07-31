@@ -46,7 +46,7 @@ public class AuthFilter implements Filter{
 			member = (Member)request.getSession().getAttribute("loginuser");
 		}
 		
-		if(!url.contains("/account/")){
+		if(!url.contains("/account/") && !url.equals("/finalProject/")){
 			if( member == null ) {
 				response.sendRedirect("/finalProject/account/login.action?returnurl=" + url);
 				return;

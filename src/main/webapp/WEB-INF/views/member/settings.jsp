@@ -50,6 +50,8 @@
 
  <link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 
+<link rel="Stylesheet" href="/finalProject/resources/styles/settings.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <link rel="stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css">
 
@@ -60,13 +62,12 @@
 
 <script type="text/javascript">
 	$(function() {
-		
-		$('.tabs a[href]').click(function(e) {
-			var url = $(this);
-
+		function tabEvent(uri) {
 			$.ajax({
-				url: url.attr('href') + ".action",
+				url: uri.attr('href') + ".action",
 				type: "post",
+				cache: false,
+				async: true,
 				success: function(result) {
 					$("#tabs-wrapper").html(result);
 				},
@@ -74,6 +75,13 @@
 					alert(status + e2)
 				}
 			});
+		}
+		//setInterval(intervalAsync, 100);
+		
+		$('.tabs a[href]').click(function(e) {
+			var url = $(this);
+			
+			tabEvent(url);
 			e.preventDefault();
 		});		
 		

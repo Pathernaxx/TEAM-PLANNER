@@ -54,7 +54,7 @@
 		FROM
 			activity
 		WHERE
-			no = #{boardNo}
+			boardno = #{boardNo}
 	</select>
 	
 	<select id="selectActivityByMember" parameterType="int" resultMap="resultActivity">

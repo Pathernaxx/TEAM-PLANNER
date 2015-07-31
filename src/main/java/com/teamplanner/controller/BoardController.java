@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -175,10 +176,13 @@ public class BoardController {
 //		mav.addObject("boardno", boardno);
 //		mav.setViewName("board/boardview");
 		
+		String boardname = boardService.getBoardName(boardNo);
+		
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
 		mav.addObject("boardNo", boardNo);
+		mav.addObject("boardname", boardname);
 		mav.setViewName("board/boardview");
 		
 		return mav;
