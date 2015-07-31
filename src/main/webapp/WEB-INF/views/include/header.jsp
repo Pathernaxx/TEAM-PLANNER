@@ -6,8 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
-<script src="//code.jquery.com/jquery-1.11.3.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <script>
 	$(document).ready(function(){
 		var list =[];
@@ -46,7 +45,6 @@
 					
 				} else if(value[0] == '#'){
 					$.ajax({
-						height : 100,
 						url : '/finalProject/board/searchboard.action',
 						type : 'get',
 						dataType : "json",
@@ -114,7 +112,7 @@
 		SEARCH
 	</div>
 	<div class="search">
-		<input class="searchtext" type="text"/>
+		<input class="searchtext" type="text" value="Search...@Member / #Board" onfocus="this.value=''"/>
 	</div>
 	<div class="mainpage">
 		<img class="mainpageimg" src="/finalProject/resources/images/mainpage.png">
