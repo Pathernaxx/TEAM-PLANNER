@@ -39,4 +39,9 @@ public class PlanSearchService implements SearchService{
 		return memberRepository.selectMemberbyMemberName(memberNo , text);
 	}
 	
+	@Override
+	public List<Member> searchTagAllMember(String key, int memberNo, int boardno) {
+		
+		return memberRepository.searchTagAllMember(key, memberNo, boardno);
+	}
 }

@@ -150,11 +150,20 @@ public class OracleMemberRepository implements MemberRepository{
 	public void updateMember(Member member) {
 		memberMapper.updateMember(member);
 	}
-	
+	@Override
 	public List<Member> selectMemberbyMemberName(int memberNo , String text){
 		HashMap<Object, Object> params = new HashMap<Object, Object>();
 		params.put("memberNo", memberNo);
 		params.put("text", text);
 		return memberMapper.selectMemberbyMemberName(params);
+	}
+	@Override
+	public List<Member> searchTagAllMember(String key, int memberNo, int boardno) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("key", key);
+		params.put("memberNo", memberNo);
+		params.put("boardNo", boardno);
+
+		return memberMapper.searchTagAllMember(params);
 	}
 }
