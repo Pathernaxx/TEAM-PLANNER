@@ -21,4 +21,5 @@ public interface CardMapper {
 	void insertAttachment(Attachment attachment);
 	void writeCardInfo(Card card);
 	
+	
 }

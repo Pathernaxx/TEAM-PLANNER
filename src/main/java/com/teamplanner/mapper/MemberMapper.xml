@@ -145,4 +145,10 @@
         		where myno = #{memberNo}
         	) and no != #{memberNo} and userName like #{text}||'%'
 	</select>
+	
+	<select id="searchTagAllMember" parameterType="hashMap" resultType="Member">
+		select distinct m.* 
+		from member m , teamlist t 
+		where m.no != #{memberNo} AND t.boardno != #{boardNo} AND m.username like #{key}||'%'
+	</select>
 </mapper>

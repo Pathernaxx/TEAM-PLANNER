@@ -52,13 +52,13 @@
  	<select id="selectBoardList" parameterType="int" resultMap="BoardListResult">
  		SELECT no, boardno, name, regdate, position, archived
  		FROM boardlist
- 		WHERE boardno = #{no}
+ 		WHERE boardno = #{no} AND archived = 0
  	</select>
  	
  	<select id="selectCard" parameterType="int" resultMap="CardResult">
  		SELECT no, name, listno, boardno, boardname, position, duedate, archived, deleted, info
  		FROM boardcard
- 		WHERE listno = #{listno}
+ 		WHERE listno = #{listno} AND archived = 0
  	</select>
  	
  	<select id="selectCardInfo" parameterType="hashMap" resultType="String">
@@ -68,8 +68,8 @@
  	</select>
  	
  	<insert id="insertCard" parameterType="Card">
- 		INSERT INTO boardcard(no, name, listno, boardno, boardname, position)
- 		VALUES (boardcard_sequence.nextval, #{name}, #{listNo}, #{boardNo}, #{boardName}, #{position})
+ 		INSERT INTO boardcard(no, name, listno, boardno, boardname, position, listname)
+ 		VALUES (boardcard_sequence.nextval, #{name}, #{listNo}, #{boardNo}, #{boardName}, #{position}, #{listName})
  	</insert>
  	
  	<insert id="insertBoardList" parameterType="BoardList">
@@ -84,6 +84,10 @@
  	<select id="getBoardName" parameterType="int" resultType="String">
  		SELECT name FROM board WHERE no = #{boardNo}
  	</select> 
+ 	
+ 	<select id="getListName" parameterType="hashMap" resultType="String">
+ 		SELECT name FROM boardlist WHERE no = #{listNo} AND boardno = #{boardNo}
+ 	</select>
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">
@@ -96,7 +100,7 @@
  	
  	<insert id="insertTeamList" parameterType="hashMap">
  		INSERT INTO teamlist(no, memberno, boardno, usertype) 
- 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , 0 )
+ 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , '1' )
  	</insert>
  	
  	<select id="selectBoardbyTeamList" parameterType="Integer" resultType="Board">

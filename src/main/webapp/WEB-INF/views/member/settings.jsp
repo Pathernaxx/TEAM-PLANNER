@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 <style>
 .error {
 	color: #eb5a46;
@@ -45,13 +47,18 @@
 }
 
 </style>
+
+<link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/settings.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/header.css" />
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <link rel="stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css">
+
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="/finalProject/resources/js/jquery.webui-popover.js"></script>
+<link rel="Stylesheet" href="/finalProject/resources/styles/core2.css" />
+
 <script type="text/javascript">
 	$(function() {
 		function tabEvent(uri) {
@@ -78,7 +85,56 @@
 		});		
 		
 	});
+	
+	$(function () {
+		$("#memberupdate").click(function(event) {
+			/* alert($("#username").val()); */
+			$.ajax({
+				url: "/finalProject/member/updatemember.action",
+				type: "get",
+				data: {"username" : $("#username").val(), "fullname" : $("#fullName").val()},
+				success: function(result) {
+					$('#dialog2').dialog('close');
+					var url = "/finalProject/member/"
+					$(location).attr("href", url);
+				},
+				error: function() {
+					alert('error  20자 이하로 변경 가능');
+				}
+			});
+			event.preventDefault();
+		});
+	});
+	
+	$(function() {
+		$('#dialog').dialog({
+			autoOpen: false,
+			resizable: false,
+		});
+		$('#button_open_dialog').click( function(){
+			$('#dialog').dialog('open');
+		});
+	});
+
+	$(function() {
+		$('#dialog2').dialog({
+			autoOpen: false,
+			resizable: false,
+		});
+		$('#button_open_dialog2').click( function(){
+			$('#dialog2').dialog('open');
+		});
+	});
+	
+	$(function() {
+	$("#cancel").click(function() {
+		$('#dialog2').dialog('close');
+		
+		});
+	});
+	
 </script>
+
 <title>Settings</title>
 </head>
 <body>
@@ -86,7 +142,71 @@
 		<c:import url="/WEB-INF/views/include/header.jsp"/>
 	</div>
 	<div class="user-profile">
-		<span></span>
+	<!--       ------------------------------- 석운 ---------------------------------------------- -->
+	<div class="tabbed-pane-header-wrapper u-clearfix">
+			
+			
+		<div class="tabbed-pane-header-details"> 
+		
+		 &nbsp;&nbsp;	<h1 class="u-inline">${ member.fullName }</h1>
+		 <span> @${ member.userName }</span>
+			<a href="#" id="button_open_dialog" class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "> 
+				<img src="/finalProject/resources/images/TinyTacoTalking.png" />
+				<span  class="profile-image-change-text">Change Avatar</span>
+			</a>
+<!--        ---------------------- avatarchange 구문------------------------------------      -->
+			<div id="dialog" title="Change Avatar">	
+				
+				<div>
+					<a class="avatar-option js-use-uploaded-avatar active" href="#">
+						<img class="pic" src="/finalProject/resources/images/TinyTacoTalking.png">
+							<span class="text">Uploaded Picture
+								<span class="icon-sm icon-check"></span>
+							</span>
+					</a>
+					<hr>
+					
+					<a class="avatar-option js-no-avatar " href="#">
+						
+							<img class="pic" src="/finalProject/resources/images/TinyTacoTalking.png">
+								<span class="member-initials"></span>
+								
+							<span class="text">Initials (no avatar)
+								<span class="icon-sm icon-check"></span>
+							</span>
+					</a>
+					<hr>
+						<!-- <div class="uploader"> -->
+						  <!-- <form class="realfile" action="" method="post" enctype="multipart/form-data">
+							  <input type="hidden" name="token" value="">
+					 		  <input type="hidden" name="format" value="http">
+					          <input class="js-upload-avatar" type="file" name="file" 
+					          		 style="margin-bottom: 0;" tabindex="-1" accept="image/*;capture=camera">
+				 		 </form> -->
+							  <a class="button-link fakefile">
+								  <span class="icon-sm icon-attachment"></span> Upload a new picture
+					 		  </a>
+				  	  <!--  </div> -->
+				</div>
+			</div>
+<!--         ----------------------------avatarchange 구문 끝------------------------------         -->
+  			</br>	
+			<div>
+				 <a class="button-link tabbed-pane-header-details-edit js-edit-profile"  id="button_open_dialog2" href="#">
+				 <span class="icon-sm icon-edit">
+				 </span> Edit profile</a>
+				<div class="webui-popover-title" id="dialog2" title="Edit profile">	
+					<form class="memberupdate">
+						<label>Full Name</label> <input class="big-link js-change" type="text" id="fullName" value="${ member.fullName }">
+						<label>Username</label> <input class="big-link js-change"type="text" id="username" value="${ member.userName }">
+						<input class="primary js-save-chagne" id="memberupdate" type="submit" value="Save"> 
+						<input class="js-cancel-edit-profile" type="button" id="cancel" value="Cancel">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--       ------------------------------- 석운 끝 ---------------------------------------------- -->
 	</div>
 	<div id="tabs-test">
 		<div id="tabs" class="tabs">

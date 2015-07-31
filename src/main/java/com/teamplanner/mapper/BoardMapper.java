@@ -30,4 +30,5 @@ public interface BoardMapper {
 	String getBoardNameByNo(int boardno);
 	String selectCardInfo(HashMap<Object, Object> params);
 	String getBoardName(int boardNo);
+	String getListName(HashMap<Object, Object> params);
 }

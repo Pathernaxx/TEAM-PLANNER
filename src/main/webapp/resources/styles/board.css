@@ -258,7 +258,6 @@ float:left;
 .memberAddButton {
   background: -webkit-linear-gradient(top,#fff 0,#f8f9f9 100%);
   background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%);
-  border-radius: 3px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #e2e4e6;
@@ -268,7 +267,7 @@ float:left;
   font-weight: 700;
   height: 34px;
   margin-top: 6px;
-  width: 300px;
+  width: 100%;
   overflow: hidden;
   padding: 7px;
   position: relative;
@@ -277,11 +276,20 @@ float:left;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
   white-space: nowrap;
-	
+  border-radius:3px;
+  border:none;
+  text-align: center;
 }
-
+.memberAddButton:hover{
+	background: #9aa5a9;
+}
+.memberAddButton.close{
+	background: #00dd00;
+}
+.memberAddButton.close:hover{
+	background: #008c00;
+}
 .window-header {
 	margin: 0 0 0 0;
 	padding:7px 7px 0;
@@ -562,5 +570,6 @@ float:left;
     cursor: text;
     
 }
-
-
+.teamList-addMember.close {
+	margin-top: 20%;
+}

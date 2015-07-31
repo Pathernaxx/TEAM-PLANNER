@@ -10,7 +10,6 @@ $(function() {
 	var cardno = $("#cardno").val();
 	var cardinfo = $("#cardinfo").val();
 
-	
 	$.ajax({
 		url: "/finalProject/card/insertAttachmentForm.action",
 		type: "get",
@@ -36,9 +35,6 @@ $(function() {
 		}
 	});
 	
-	//$(".close-button").click(function() {
-	//dialog.
-	//});
 	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
