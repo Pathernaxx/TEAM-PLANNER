@@ -48,19 +48,7 @@ public class MemberController {
 	}
 
 /////////////////////////////////////////////////////////////////////////
-	@RequestMapping(value="updatememberview.action", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView updateMemberView(HttpSession session) {
-		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
-		Member member = memberService.updateMemberView(memberno);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("member/updatememberview");
-		mav.addObject("member", member);
-		
-		return mav;
-		
-	}
-	
+
 	@RequestMapping(value="updatemember.action", method = RequestMethod.GET)
 	@ResponseBody
 	public void updateMember(HttpSession session,String username, String fullname) {
@@ -79,11 +67,16 @@ public class MemberController {
 	public ModelAndView defaultPage(HttpSession session) {
 		
 		Member member = (Member)session.getAttribute("loginuser");
-		
+	
 		ModelAndView mav = new ModelAndView();
 		List<ActionPrint> prints = activityService.activityListByMember(member.getNo());
 		mav.addObject("prints", prints);
-		
+		//////////////////////////////////////////////////suk
+		int memberno = ((Member)session.getAttribute("loginuser")).getNo();
+		Member member2 = memberService.updateMemberView(memberno);
+		mav.setViewName("member/updatememberview");
+		mav.addObject("member", member2);	
+		/////////////////////////////////////////////////
 		mav.setViewName("member/settings");
 		
 		return mav;

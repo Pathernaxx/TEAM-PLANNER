@@ -7,26 +7,51 @@
  <mapper namespace="com.teamplanner.mapper.CardMapper">
  	
 
+	 <resultMap type="CheckList" id="resultCheckList">
+		<id column="no" property="no"/>
+		<result column="name" property="name"/>
+		<result column="cardno" property="cardNo"/>
+		<result column="regdate" property="regDate"/>
+		<collection column="no" property="checkItems" ofType="CheckItem" select="selectCheckItem"/>
+	</resultMap>
+	
+	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
+		SELECT
+			no, name, checked
+		FROM
+			checklist
+		WHERE
+			checklist = #{no}
+	</select>
+	
+	<insert id="insertCheckList" parameterType="CheckList">
+		INSERT INTO checklist(no, name, cardno)
+		VALUES(checklist_sequence.nextval, #{name}, #{cardNo})
+	</insert>
+	
+	<insert id="insertCheckItem" parameterType="CheckItem">
+		INSERT INTO checkitem(no, name, checklistno)
+		VALUES(checkitem_sequence.nextval, #{name}, #{checklistno})
+	</insert>
+	
  	<select id="selectComment" parameterType="int" resultType="Comment">
  		SELECT  no, regdate, cardno, content
  		FROM boardcomment
  		WHERE cardno = #{cardNo}
  	</select>
+ 	
  	<select id="selectAttachment" parameterType="hashMap" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
  		WHERE cardno = #{cardNo} AND bardno = #{boardNo}
  	</select>
+ 	
  	<select id="selectCheckList" parameterType="int" resultType="CheckList">
  		SELECT no, name, cardno, regdate
  		FROM checklist
  		WHERE cardno = #{cardNo}
  	</select>
- 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
- 		SELECT no, name, checked, checklistno
- 		FROM checkitem
- 		WHERE checklistno = #{checklistNo}
- 	</select>
+ 	
  	<select id="selectTagMember" parameterType="int" resultType="TagMember">
  		SELECT cardno, teamno
  		FROM tagmember
