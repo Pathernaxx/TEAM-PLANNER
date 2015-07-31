@@ -195,11 +195,11 @@
 				 <a class="button-link tabbed-pane-header-details-edit js-edit-profile"  id="button_open_dialog2" href="#">
 				 <span class="icon-sm icon-edit">
 				 </span> Edit profile</a>
-				<div id="dialog2" title="Change Avatar">	
+				<div class="webui-popover-title" id="dialog2" title="Edit profile">	
 					<form class="memberupdate">
-						<label>Full Name</label> <input type="text" id="fullName" value="${ member.fullName }">
-						<label>Username</label> <input type="text" id="username" value="${ member.userName }">
-						<input id="memberupdate" type="submit" value="Save"> 
+						<label>Full Name</label> <input class="big-link js-change" type="text" id="fullName" value="${ member.fullName }">
+						<label>Username</label> <input class="big-link js-change"type="text" id="username" value="${ member.userName }">
+						<input class="primary js-save-chagne" id="memberupdate" type="submit" value="Save"> 
 						<input class="js-cancel-edit-profile" type="button" id="cancel" value="Cancel">
 					</form>
 				</div>
