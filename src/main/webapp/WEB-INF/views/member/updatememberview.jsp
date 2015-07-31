@@ -26,7 +26,7 @@ $(function () {
 				
 			},
 			error: function() {
-				alert('error');
+				alert('error  20자 이하로 변경 가능');
 			}
 		});
 		event.preventDefault();
@@ -43,6 +43,18 @@ $(function() {
 		$('#dialog').dialog('open');
 	});
 });
+
+$(function() {
+	$('#dialog2').dialog({
+		autoOpen: false,
+		resizable: false,
+	
+	});
+	$('#button_open_dialog').click( function(){
+		$('#dialog2').dialog('open');
+	});
+});
+
 
 </script>
 
@@ -100,16 +112,19 @@ $(function() {
 <!--         ----------------------------avatarchange 구문 끝------------------------------         -->
   				
 			</br>	
-			<form class="memberupdate">
 			
-				<label>Full Name</label> <input type="text" id="fullName" value="${ member.fullName }">
+			<div id="dialog2" title="Change Avatar">	
 				
-				<label>Username</label> <input type="text" id="username" value="${ member.userName }">
-			
-				<input id="memberupdate" type="submit" value="Save"> 
-				<input class="js-cancel-edit-profile" type="button" value="Cancel">
-			</form>
-			
+				<form class="memberupdate">
+				
+					<label>Full Name</label> <input type="text" id="fullName" value="${ member.fullName }">
+					
+					<label>Username</label> <input type="text" id="username" value="${ member.userName }">
+				
+					<input id="memberupdate" type="submit" value="Save"> 
+					<input class="js-cancel-edit-profile" type="button" value="Cancel">
+				</form>
+			</div>
 		</div>
 
 
