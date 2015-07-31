@@ -37,6 +37,7 @@ $("#infosubmit").click(function(e) {
 				
 				$('.editinfo').css('visibility', 'hidden');
 				$('.editinfo').css('display', 'none');
+				$('.editinfo').css('height', '0px');
 				
 				$('.savedinfo').css('visibility', 'visible');
 				$('.savedinfo').css('display', 'block');
@@ -45,6 +46,7 @@ $("#infosubmit").click(function(e) {
 				
 				$('.editform').css('visibility', 'hidden');
 				$('.editinfo').css('display', 'none');
+				$('.editinfo').css('height', '0px');
 			} else {
 				alert("fail");
 			}
