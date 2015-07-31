@@ -133,6 +133,19 @@ private BoardService boardService;
 	}
 	
 	//동윤's Area///////////////////////////////////////////////////////////
+	
+	@RequestMapping(value="tagMemberForm.action", method=RequestMethod.GET)
+	public ModelAndView popupTagMemberForm(@RequestParam("cardno") int cardno, @RequestParam("boardno") int boardno
+											,@RequestParam("listno") int listno) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("cardno", cardno);
+		mav.addObject("listno", listno);
+		mav.addObject("boardno", boardno);
+		mav.setViewName("card/tagMemberForm");
+		
+		return mav;
+	}
 }
 
 
