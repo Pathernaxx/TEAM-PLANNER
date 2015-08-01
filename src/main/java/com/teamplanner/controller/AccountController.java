@@ -35,6 +35,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="signup.action", method=RequestMethod.POST)
+	@ResponseBody
 	public String createTeamPlanner(String name, String email, String password)
 	{
 		
@@ -54,7 +55,7 @@ public class AccountController {
 
 		accountService.joinWithUs(member);
 		// 차후 수정
-		return null;
+		return "success";
 	}
 	
 	@RequestMapping(value="login.action", method= RequestMethod.GET)
