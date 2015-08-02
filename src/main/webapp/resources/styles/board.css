@@ -477,7 +477,7 @@ float:left;
 .attachment-thumnail {
 	border-radius: 3px;
     min-height: 80px;
-    margin: 0 0 8px;
+    margin: 0 0 2px;
     overflow: hidden;
     position: relative;
 }

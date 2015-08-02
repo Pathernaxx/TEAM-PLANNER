@@ -18,8 +18,11 @@
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+
+
 <script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
 <script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
+<!-- <script type="text/javascript" src="/finalProject/resources/js/jquery.form.min.js"></script> -->
 
 <script type="text/javascript">
 function addBoard() {
@@ -135,7 +138,7 @@ $(document).ready(function() {
 		var cardviewdialog = $(".cardview-dialog").dialog({
 			autoOpen: false,
 			height:600,
-			width:730,
+			width:750,
 			buttons: {
 				"x" : function() {
 					$(this).dialog("close");

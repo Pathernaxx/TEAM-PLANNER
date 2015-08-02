@@ -31,16 +31,6 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public List<Attachment> selectAttachment(int cardNo, int boardNo) {
-		
-		HashMap<Object, Object> params = new HashMap<Object, Object>();
-		params.put("cardNo", cardNo);
-		params.put("boardNo", boardNo);
-		
-		return cardMapper.selectAttachment(params);
-	}
-
-	@Override
 	public List<CheckList> selectCheckList(int cardNo) {
 		return cardMapper.selectCheckList(cardNo);
 	}
@@ -65,6 +55,26 @@ public class OracleCardRepository implements CardRepository {
 	@Override
 	public void writeCardInfo(Card card) {
 		cardMapper.writeCardInfo(card);
+	}
+
+	@Override
+	public List<Attachment> selectAttachmentList(int cardno, int boardno) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("cardno", cardno);
+		params.put("boardno", boardno);
+		
+		return cardMapper.selectAttachmentList(params);
+	}
+
+	@Override
+	public Attachment selectAttachment(int attachmentno) {
+		return cardMapper.selectAttachment(attachmentno);
+	}
+
+	@Override
+	public void deleteAttachment(int attachmentno) {
+		cardMapper.deleteAttachment(attachmentno);
 	}
 
 }

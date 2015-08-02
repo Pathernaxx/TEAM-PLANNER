@@ -20,6 +20,7 @@ public interface CardMapper {
 	
 	void insertAttachment(Attachment attachment);
 	void writeCardInfo(Card card);
-	
-	
+	List<Attachment> selectAttachmentList(HashMap<Object, Object> params);
+	Attachment selectAttachment(int attachmentno);
+	void deleteAttachment(int attachmentno);
 }

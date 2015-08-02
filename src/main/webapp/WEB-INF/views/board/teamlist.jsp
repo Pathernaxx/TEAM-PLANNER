@@ -1,7 +1,7 @@
 <script>
 	$(document).ready(function(){
 		var boardno = '${boardNo}';
-		$.ajax({
+		 $.ajax({
 			url: "/finalProject/board/tagAllMemberForm.action",
 			type: "get",
 			data: {

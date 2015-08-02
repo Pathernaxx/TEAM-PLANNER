@@ -9,7 +9,21 @@ public class Attachment {
 	private int boardNo;
 	private Date regDate;
 	private boolean archive;
+	private String fileType;
+	private String fileName;
 	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 	public int getNo() {
 		return no;
 	}
