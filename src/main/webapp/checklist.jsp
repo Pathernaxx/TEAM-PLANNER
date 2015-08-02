@@ -63,6 +63,16 @@ h3 {
     display: block;
 }
 
+.checklist-new-item.focus .checklist-new-item-text, .checklist-new-item.focus .checklist-new-item-text:focus, .checklist-new-item.focus .checklist-new-item-text:hover {
+    background: #fff;
+    border-color: #298fca;
+    box-shadow: 0 0 2px #298fca;
+    color: #4d4d4d;
+    cursor: text;
+    max-height: none;
+    resize: vertical;
+}
+
 .checklist-new-item-text, .checklist-new-item-text:hover {
     background: 0 0;
     border-color: transparent;
@@ -70,7 +80,7 @@ h3 {
     color: #8c8c8c;
     cursor: pointer;
     margin-bottom: 4px;
-    max-height: 32px;
+    max-height: 32px;z
     overflow: hidden;
     resize: none;
     text-decoration: none;
@@ -274,8 +284,21 @@ a {
 }
 </style>
 <script type="text/javascript">
-	$(function(){
-		$('.check').click(function() {
+	
+	function removeControls() {
+		$('.focus').removeClass('focus');
+		$('.inline-edit').append($('.add-controls'));
+		$('.editing').removeClass('editing');
+		$('.inline-edit').append($('.edit-controls'));
+	}
+	
+	$(document).ready(function(){
+		//removeControls();
+		//$(this).parents('.focus').removeClass('focus');
+		//$('.inline-edit').append($('.add-controls'));
+		//body는 카드 다이얼로그
+		$('body #check').on('click', function(event) {
+			removeControls();
 			$('.activity').before('<div class="checklist-list window-module">'+ 
 					'<div class="checklist">' +
 						'<div class="window-module-title window-module-title-no-divider">' +
@@ -290,18 +313,16 @@ a {
 							'</div>' +
 						'</div>' +
 						'<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable"></div>' +
-						'<div class="checklist-new-item u-gutter js-new-checklist-item">' +
+						'<div class="checklist-new-item u-gutter js-new-checklist-item focus">' +
 							'<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>'+
-							'<div class="add-controls u-clearfix">' +
-								'<input class="primary confirm js-add-checklist-item" type="submit" value="Add" />' +
-								'<a class="icon-lg icon-close dark-hover cancle js-cancle-checklist-item" href="#"></a>' +
-							'</div>' +
 						'</div>' +
 					'</div>');
+			
+			$('.focus .js-new-checklist-item-input').after($('.add-controls'));
 		});
 		
-		$('.checklist-item-checkbox').click(function(event) {
-			
+		$("body").on("click", '.js-toggle-checklist-item', function(event) {
+			//event.preventDefault();
 			if($(this).parents('.checklist-item').hasClass('complete-checklist')) {
 				$(this).parents('.checklist-item').removeClass('complete-checklist');
 			} else {
@@ -311,30 +332,72 @@ a {
 		});
 		
 		var text = "";
-		$('.js-checkitem-name').click(function(event) {
+		
+		$('body').on('click', '.js-new-checklist-item-input', function(event) {
+			removeControls();
+			
+			$(this).parents('.js-new-checklist-item').addClass('focus');
+			
+			$(this).after($('.add-controls'));
+		});
+		
+		$('body').on('click', '.js-checkitem-name', function(event) {
+			removeControls();
+			//$('.editable.editing').removeClass('editing');
+			//$('.inline-edit').append($('.edit-controls'));
+			//event.preventDefault();
 			//$(this).addClass('editing');
 			$(this).parents('.editable').addClass('editing');
 			//var text = $(this).find('.js-checkitem-name')[0].innerHTML;
 			text = $(this)[0].innerHTML;
-			$(this).parents().find('textarea').val(text);
+			$(this).parents().find('.js-checkitem-input').val(text);
 			//alert($(this).find('.js-checkitem-name').innerHTML);
-			$(this).parents().find('.editing textarea').after($('div.edit-controls'));
+			$(this).parents().find('.editing .js-checkitem-input').after($('.edit-controls'));
 			//$(this).find('textarea').after('<div></div>').addClass('edit-controls').addClass('u-clearfix');
 		});
 		
-		$('.js-save-edit').click(function() {
-			var message = $(this).parents('.editing .options-menu').find('textarea').val();
+		$('body').on('click', '.js-save-edit', function(event) {
+			//event.preventDefault();
+			var message = $(this).parents('.editing').find('.js-checkitem-input').val();
+			
+			// null Check
+			
 			alert(message);
 			
 			if( text == message ) {
 				alert('변경 없음');
 			} else {
 				alert('변경 있음');
-				$('.editing .checklist-item-details-text').text(message);
+				$('.editing .js-checkitem-name').text(message);
 				// ajax 요청
 			}
 			$('.editable.editing').removeClass('editing');
-			$('.inline-edit .comp').after($('.edit-controls'));
+			$('.inline-edit').append($('.edit-controls'));
+		});
+		
+		$('body').on('click', '.js-save-add', function(event) {
+			//event.preventDefault();
+			var message = $(this).parents('.focus').find('textarea.js-new-checklist-item-input');
+			
+			// null Check
+			
+			alert(message.val());
+			var checklist = $(this).parents('.checklist').find('.checklist-items-list');
+			checklist.append('<div class="checklist-item">' +
+								'<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">' + 
+									'<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>' +
+								'</div>' +
+								'<div class="checklist-item-details non-empty editable">' +
+									'<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">'+ message.val() +'</p>' +
+									'<div class="edit delete convert options-menu">' +
+										'<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>' +
+									'</div>' +
+								'</div>' +
+							'</div>'
+							);
+			message.val("");
+			$(this).parents('.focus').removeClass('focus');
+			$('.inline-edit').append($('.add-controls'));
 		});
 	});
 </script>
@@ -347,7 +410,7 @@ a {
 		<div class="checklist">
 			<div style="min-height: 8px">
 				<div class="checklist-item">
-					<div class="checklist-item-checkbox ui-icon-check">
+					<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">
 						<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
 					</div>
 					<div class="checklist-item-details non-empty editable">
@@ -358,7 +421,7 @@ a {
 					</div>
 				</div>
 				<div class="checklist-item">
-					<div class="checklist-item-checkbox ui-iconcheck">
+					<div class="checklist-item-checkbox ui-iconcheck js-toggle-checklist-item">
 						<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
 					</div>
 					<div class="checklist-item-details non-empty editable">
@@ -382,6 +445,6 @@ a {
 			<a class="ui-icon ui-icon-closethick" href="#"></a>
 		</div>
 	</div>
-	<input type="button" class="check" value="테스트" />
+	<input type="button" id="check" value="테스트" />
 </body>
 </html>
