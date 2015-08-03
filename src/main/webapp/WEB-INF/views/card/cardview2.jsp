@@ -185,24 +185,29 @@ $(function() {
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
-						<div class="card-elements">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/13.png" class="window-icon2" /></span>
-							<span class="content-space">Members</span>
-						</div>
-						<!-- choose -->
+						<table class="window-table">
+						<tr>
+							<td><img
+									src="/finalProject/resources/styles/images/icons/13.png"
+									class="window-icon2" /></td>
+							<td>Members</td>
+						</tr>
+						<!-- attachement -->
 						<c:choose>
 							<c:when test="${ empty attachments }">
+								
 							</c:when>
 							<c:otherwise>
-								<div class="atttr card-elements">
-									<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></span>
-									<span class="content-space">Attachment</span>
-								</div>
+								<tr class="atttr">
+									<td><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></td>
+									<td>Attachment</td>
+								</tr>
 								<c:forEach var="attlist" items="${attachments }">
-									<div class="atttr card-elements" >
-										<span class="icon-space"></span>
-										<span class="content-space u-clearfix">
-											<!-- <div class="u-clearfix attachment-list"> -->
+									<tr class="atttr">
+										<td></td>
+										<td>
+											<%-- <c:import url="/WEB-INF/views/card/attachment.jsp" /> --%>
+											<div class="u-clearfix attachment-list">
 												<div class="attachment-thumnail">
 													<a class="attachment-preview">
 														<span class="attachment-preview-src">${attlist.fileType }</span>
@@ -220,30 +225,36 @@ $(function() {
 														</span>
 													</p>
 												</div>
-											<!-- </div> -->
-										</span>
-									</div>
+											</div>
+										</td>
+									</tr>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-						<div class="card-elements">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/133.png" class="window-icon2" /></span>
-							<span class="content-space">CheckList</span>
-						</div>
-						<div class="card-elements">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
-							<span class="content-space">Activity</span>
-						</div>
-						<div class="card-elements">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
-							<span class="content-space"><input class="activity-comment" type="text" /></span>	
-						</div>
-						
+						<!-- checklist -->
+						<tr>
+							<td><img
+									src="/finalProject/resources/styles/images/icons/133.png"
+									class="window-icon2" /></td>
+							<td>CheckList</td>
+						</tr>
+							<tr>
+								<td><img
+									src="/finalProject/resources/styles/images/icons/199.png"
+									class="window-icon2" /></td>
+								<td>Activity</td>
+							</tr>
+							<tr>
+								<td><img src="/finalProject/resources/styles/images/icons/2.png" 
+								class="window-icon2" /></td>
+								<td>
+									<input class="activity-comment" type="text"  />
+								</td>
+							</tr>
+						</table>
 					</div>
-					<div class="card-elements">
-						<span class="icon-space"></span>
-						<span class="content-space">누적 activity</span>
-					</div>
+					<div class="window-checklist">checklist</div>
+					<div class="window-activity">activity</div>
 				</div>
 				
 			</div>
