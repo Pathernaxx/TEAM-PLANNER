@@ -18,9 +18,12 @@ public interface MemberMapper {
 	void updateMemberPassword(HashMap<String, Object> params);
 	Member selectMemberByIdAndPasswordByEmail(HashMap<String, String> params);
 	Member selectMemberByIdAndPasswordByName(HashMap<String, String> params);
+	
 	///////////////////////////////////////////////
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
 	List<Member> selectMemberbyMemberName(HashMap<Object, Object> params);
 	List<Member> searchTagAllMember(HashMap<Object, Object> params);
+	List<Member> memberlist(int memberNo);
+	
 }

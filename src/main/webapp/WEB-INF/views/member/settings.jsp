@@ -241,6 +241,7 @@
 									<a href="${ action.backLink }">${ action.backText }</a>
 								</c:when>
 								<c:otherwise>
+								
 									<span>${ action.backText }</span>
 								</c:otherwise>
 							</c:choose>
@@ -248,6 +249,7 @@
 						</div>
 					</c:forEach>
 				</c:if>
+				
 			</div>
 		</div>
 	</div>

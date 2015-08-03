@@ -5,6 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.teamplanner.mapper.MemberMapper">
+
 	<sql id="member">
 		no, username, fullname, regdate, email, notification, iconpath
 	</sql>
@@ -134,8 +135,6 @@
 	</update>
 	
 	
-	
-	
 	<select id="selectMemberbyMemberName" parameterType="hashMap" resultType="Member">
 		select *
     	from member
@@ -151,4 +150,14 @@
 		from member m , teamlist t 
 		where m.no != #{memberNo} AND t.boardno != #{boardNo} AND m.username like #{key}||'%'
 	</select>
+	
+	 <select id="memberlist" parameterType="int" resultType="Member">
+		SELECT
+			m.no, m.username, m.fullname, m.regdate, m.email, m.notification, m.iconpath
+		FROM
+			member m , memberlist ml
+		WHERE
+			 #{ memberNo } = ml.myno AND m.no = ml.memberno
+	</select> 
+	
 </mapper>
