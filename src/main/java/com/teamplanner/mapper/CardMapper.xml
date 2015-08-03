@@ -69,18 +69,19 @@
  	<select id="selectAttachmentList" parameterType="hashMap" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
- 		WHERE cardno = #{cardno} AND boardno = #{boardno}
+ 		WHERE cardno = #{cardno} AND boardno = #{boardno} AND archived = 0
  	</select>
  	
  	<select id="selectAttachment" parameterType="int" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
- 		WHERE no = #{attachmentno}
+ 		WHERE no = #{attachmentno} 
  	</select>
  	
  	<delete id="deleteAttachment" parameterType="int">
  		DELETE FROM attachment WHERE no = #{attachmentno}
  	</delete>
+ 	
  	
  	
  </mapper>

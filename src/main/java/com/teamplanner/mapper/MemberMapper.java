@@ -26,4 +26,5 @@ public interface MemberMapper {
 	List<Member> searchTagAllMember(HashMap<Object, Object> params);
 	List<Member> memberlist(int memberNo);
 	
+	List<Member> selectTagFriend(HashMap<Object, Object> params);
 }

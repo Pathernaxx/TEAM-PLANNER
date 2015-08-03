@@ -174,4 +174,12 @@ public class OracleMemberRepository implements MemberRepository{
 		
 		return memberMapper.memberlist(memberNo);
 	}
+	
+	@Override
+	public List<Member> selectTagFriend(int boardNo, int memberNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardNo", boardNo);
+		params.put("memberNo", memberNo);
+		return memberMapper.selectTagFriend(params);
+	}
 }

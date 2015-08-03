@@ -444,6 +444,16 @@ float:left;
     position: absolute; */
 }
 
+.card-elements {
+	margin-bottom: 7px;
+}
+
+.icon-space {
+	width:18px;
+	height:15px;
+	margin-right: 5px;
+}
+
 .window-main-left {
 	width:540px;
 	float:left;
@@ -455,7 +465,7 @@ float:left;
 	
 }
 
-.window-table {
+.content-space {
 	width:530px;
 	
 }
@@ -463,10 +473,10 @@ float:left;
 .activity-comment {
 	border-radius: 3px;
 	background-color: #fff;
-	width:95%;
+	width:500px;
 	min-height: 70px;
 	text-align:left;
-	float: left;
+	/* float: right; */
 	color: #444;
     border: 1px solid #ccc;
     cursor: text;
@@ -480,6 +490,26 @@ float:left;
     margin: 0 0 2px;
     overflow: hidden;
     position: relative;
+}
+
+.attachment-icon {
+	border: 1px solid #d6dadc;
+    background-color: #e2e4e6;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+	color: #8c8c8c;
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    height:50px;
+    line-height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 50px;
+    margin: 5px;
 }
 
 .attachment-preview {
@@ -498,6 +528,24 @@ float:left;
     text-decoration: none;
     z-index: 0;
     width: 108px;
+}
+
+.attachment-preview2 {
+	border: 1px solid #d6dadc;
+    background-color: #e2e4e6;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    height: 60px;
+    margin-top: -44px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    text-decoration: none;
+    z-index: 0;
+    width: 60px;
 }
 
 .attachment-preview-src {

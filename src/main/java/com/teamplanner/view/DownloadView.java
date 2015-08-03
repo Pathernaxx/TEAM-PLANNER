@@ -21,7 +21,9 @@ public class DownloadView extends AbstractView {
 		Map<String, Object> model,
 		HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		Attachment file = (Attachment)model.get("uploadfile");
+		Attachment file = (Attachment)model.get("attachment");
+		int fileno = (int)model.get("fileno");
+		
 		
 		//다운로드 처리
 		//1. 브라우저에게 처리할 수 없는 컨텐츠로 알려주어서 다운로드 처리하도록 지정
@@ -36,8 +38,9 @@ public class DownloadView extends AbstractView {
 
 		//3. 파일을 응답스트림에 기록
 		ServletContext application = request.getSession().getServletContext();
+		String filesavedname = fileno+encodedFileName;
 		String file2 = application.getRealPath(
-			"/resources/uploadfiles/" + file.getUserFileName());
+			"/resources/uploadfiles/" + filesavedname);
 		BufferedInputStream istream = 
 			new BufferedInputStream(new FileInputStream(file2));
 		BufferedOutputStream ostream = 
@@ -51,9 +54,8 @@ public class DownloadView extends AbstractView {
 		}
 		istream.close();
 		ostream.close();
-		
 	}
-
+	
 }
 
 

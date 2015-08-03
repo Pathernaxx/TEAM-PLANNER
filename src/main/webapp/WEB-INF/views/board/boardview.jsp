@@ -136,6 +136,7 @@ $(document).ready(function() {
 		//var boardno = $("#boardNo").val();
 		
 		var cardviewdialog = $(".cardview-dialog").dialog({
+			stack: false,
 			autoOpen: false,
 			height:600,
 			width:750,
@@ -145,6 +146,7 @@ $(document).ready(function() {
 				}
 			}
 		});
+		
 		$(".list-card-details").click(function(event) {
 			
 			$.ajax({
@@ -166,7 +168,9 @@ $(document).ready(function() {
 					alert(xhr+status+ex);
 				}
 			});
+			
 			cardviewdialog.dialog("open");
+			
 			$("#cardno").val($(this).children()[2].value);
 			//$("#cardinfo").val($(this).children()[3].value);
 			$("#boardno").val($("#boardNo").val());
@@ -213,7 +217,7 @@ $(document).ready(function() {
 								<div id="panel">
 									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
 									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
-									<div id="panel-3">첨부파일</div>
+									<div id="panel-3"><c:import url="/WEB-INF/views/card/attachment.jsp"/></div>
 									<div id="panel-4">archived</div>
 								</div>
 							</div>

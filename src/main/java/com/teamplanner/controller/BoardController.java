@@ -1,5 +1,6 @@
 package com.teamplanner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.ActionPrint;
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -173,24 +175,37 @@ public class BoardController {
 		String boardname = boardService.getBoardName(boardNo);
 		
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
+		List<Attachment> attachments = boardService.selectAttachmentListByBoardno(boardNo);
+		
+		for(int i=0;i<attachments.size();i++) {
+			int pos = attachments.get(i).getUserFileName().lastIndexOf(".");
+			String ext = attachments.get(i).getUserFileName().substring(pos+1);
+			String filename = attachments.get(i).getUserFileName().substring(0, pos);
+			attachments.get(i).setFileType(ext);
+			attachments.get(i).setFileName(filename);
+		}
+		
+		//System.out.println(attchments.get(0).getUserFileName());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
 		mav.addObject("boardNo", boardNo);
 		mav.addObject("boardname", boardname);
+		mav.addObject("attachments", attachments);
 		mav.setViewName("board/boardview");
 		
 		return mav;
 		
 	}
 	
-	@RequestMapping(value="boardview.action", method = RequestMethod.POST)
+	/*@RequestMapping(value="boardview.action", method = RequestMethod.POST)
 	@ResponseBody
 	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		
 		return boardLists;
 	}
-	
+	*/
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
 	public String insertBoardList(String listname, @RequestParam("boardno") int boardno, HttpSession session) {//@RequestParam("boardno") int boardNo
@@ -253,23 +268,60 @@ public class BoardController {
 	}
 	
 	/////동윤 tagmember전용//////////////////
-	@RequestMapping(value="tagAllMemberForm.action", method=RequestMethod.GET)
-	public ModelAndView tagMemberForm(@RequestParam("boardno") int boardno) {
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardno", boardno);
-		mav.setViewName("board/tagMemberForm");
-		
-		return mav;
-	}
 	@RequestMapping(value="searchTagMember.action", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Member> searchTagMember(HttpSession session, String key, int boardno) {
-		System.out.println(key);
-		System.out.println(boardno);
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = searchService.searchTagAllMember(key, memberNo, boardno);
-		System.out.println(members.get(0).getUserName());
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	
+	@RequestMapping(value="selectTagFriend.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> selectTagFriend(HttpSession session, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		
+		List<Member> members = boardService.selectTagFriend(boardNo, memberNo);
+		
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	@RequestMapping(value="addTagFriend.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> addTagFriend(HttpSession session, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members = null;
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	@RequestMapping(value="addTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> addTagMember(HttpSession session, int tagMemberNo, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boardService.addTagMember(tagMemberNo, boardNo);
+		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
 		
 		
 		return members;

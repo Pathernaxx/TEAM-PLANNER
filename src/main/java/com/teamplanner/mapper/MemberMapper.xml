@@ -148,7 +148,8 @@
 	<select id="searchTagAllMember" parameterType="hashMap" resultType="Member">
 		select distinct m.* 
 		from member m , teamlist t 
-		where m.no != #{memberNo} AND t.boardno != #{boardNo} AND m.username like #{key}||'%'
+		where m.no != #{memberNo} AND t.boardno != #{boardNo} AND m.username like #{key}||'%' 
+		order by m.username
 	</select>
 	
 	 <select id="memberlist" parameterType="int" resultType="Member">
@@ -160,4 +161,10 @@
 			 #{ memberNo } = ml.myno AND m.no = ml.memberno
 	</select> 
 	
+	
+	<!-- <select id="selectTagFriend" parameterType="hashMap" resultType="Member">
+		select m.* 
+		from member m , memberlist l , teamlist t 
+		where l.myno = #{memberNo} AND 
+	</select> -->
 </mapper>

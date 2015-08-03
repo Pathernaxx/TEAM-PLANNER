@@ -136,7 +136,8 @@ private BoardService boardService;
 			
 			String path = application.getRealPath("/resources/uploadfiles/");
 //			String savedName = Util.getUniqueFileName(path, originNo+filename);
-			String savedName = Util.getUniqueFileName(path, filename);
+//			String savedName = Util.getUniqueFileName(path, filename);
+			String savedName = originNo+filename;
 			
 			
 			try {
@@ -147,12 +148,14 @@ private BoardService boardService;
 					int data = istream.read();
 					if (data == -1) break;
 					ostream.write(data);
+					
 					message = "success";
 				}
 				istream.close();
 				ostream.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				
 				message = "error";
 			}
 		}
@@ -197,15 +200,16 @@ private BoardService boardService;
 		
 		ModelAndView mav = new ModelAndView();
 		if (attachment != null) {
-			//다운로드 증가 - 여기서는 생략
 			mav.setView(new DownloadView());
-			mav.addObject("uploadfile", attachment);
+			mav.addObject("attachment", attachment);
+			mav.addObject("fileno", fileno);
 		}
 		
 		return mav;
 	}
 	
 	@RequestMapping(value="deleteAttachment.action", method=RequestMethod.GET)
+	@ResponseBody
 	public String deleteAttachment(@RequestParam("fileno") int attachmentno) {
 		
 		String message = "";
