@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.Member;
 import com.teamplanner.repository.ActivityRepository;
 import com.teamplanner.repository.BoardRepository;
 
@@ -112,5 +113,20 @@ public class PlanBoardService implements BoardService{
 	@Override
 	public String getListName(int boardno, int listno) {
 		return boardRepository.getListName(boardno, listno);
+	}
+	
+	@Override
+	public void addTagMember(int tagMemberNo, int boardNo) {
+		boardRepository.addTagMember(tagMemberNo, boardNo);
+	}
+	
+	@Override
+	public List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo) {
+		
+		return boardRepository.selectTeamlistByBoardNo(boardNo, memberNo);
+	}
+	@Override
+	public List<Member> selectTagFriend(int boardNo, int memberNo) {
+		return boardRepository.selectTagFriend(boardNo, memberNo);
 	}
 }

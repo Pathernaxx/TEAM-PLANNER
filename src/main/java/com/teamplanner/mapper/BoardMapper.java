@@ -21,6 +21,9 @@ public interface BoardMapper {
 	BoardList selectBoardListBylistNo(int listno);
 	void addFriend(HashMap<Object, Object> params);
 	void openClosedBoardPage(int boardNo);
+	void addTagMember(HashMap<Object, Object> params);
+	List<Member> selectTeamlistByBoardNo(HashMap<Object, Object> params);
+	List<Member> selectTagFriend(HashMap<Object, Object> params);
 	
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음

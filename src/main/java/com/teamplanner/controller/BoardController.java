@@ -253,23 +253,60 @@ public class BoardController {
 	}
 	
 	/////동윤 tagmember전용//////////////////
-	@RequestMapping(value="tagAllMemberForm.action", method=RequestMethod.GET)
-	public ModelAndView tagMemberForm(@RequestParam("boardno") int boardno) {
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardno", boardno);
-		mav.setViewName("board/tagMemberForm");
-		
-		return mav;
-	}
 	@RequestMapping(value="searchTagMember.action", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Member> searchTagMember(HttpSession session, String key, int boardno) {
-		System.out.println(key);
-		System.out.println(boardno);
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = searchService.searchTagAllMember(key, memberNo, boardno);
-		System.out.println(members.get(0).getUserName());
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	
+	@RequestMapping(value="selectTagFriend.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> selectTagFriend(HttpSession session, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		
+		List<Member> members = boardService.selectTagFriend(boardNo, memberNo);
+		
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	@RequestMapping(value="addTagFriend.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> addTagFriend(HttpSession session, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members = null;
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
+		
+		
+		return members;
+	}
+	
+	@RequestMapping(value="addTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> addTagMember(HttpSession session, int tagMemberNo, int boardNo) {
+
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boardService.addTagMember(tagMemberNo, boardNo);
+		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
+		if(members.size() <=0 || members== null){
+			members = null;
+		}
 		
 		
 		return members;

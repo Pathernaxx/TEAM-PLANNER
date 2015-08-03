@@ -100,7 +100,7 @@
  	
  	<insert id="insertTeamList" parameterType="hashMap">
  		INSERT INTO teamlist(no, memberno, boardno, usertype) 
- 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , '1' )
+ 		VALUES (teamlist_sequence.nextval , #{memberNo} , #{boardNo} , '0' )
  	</insert>
  	
  	<select id="selectBoardbyTeamList" parameterType="Integer" resultType="Board">
@@ -143,6 +143,20 @@
  			boardlist
  		WHERE
  			no = #{listno}
+ 	</select>
+ 	<insert id="addTagMember" parameterType="hashMap">
+ 		INSERT INTO teamlist(no, memberno , boardno, usertype) 
+ 		VALUES (teamlist_sequence.nextval , #{tagMemberNo} , #{boardNo} , 1)
+ 	</insert>
+ 	<select id="selectTeamlistByBoardNo" parameterType="hashMap" resultType="Member">
+ 		SELECT m.* 
+ 		from member m , teamlist t 
+ 		where m.no = t.memberno and t.memberno != #{memberNo} and t.boardno = #{boardNo}
+ 	</select>
+ 	<select id="selectTagFriend"  parameterType="hashMap" resultType="Member">
+ 		select m.* 
+ 		from memberlist l, member m, teamlist t 
+ 		where l.memberno = m.no and l.myno = #{memberNo} and l.memberno = t.memberno and t.boardno != #{boardNo};
  	</select>
  </mapper>
  
