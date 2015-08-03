@@ -12,7 +12,6 @@ import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
 import com.teamplanner.dto.TagMember;
-import com.teamplanner.mapper.CardMapper;
 import com.teamplanner.repository.CardRepository;
 
 @Service(value="cardService")
@@ -27,12 +26,6 @@ public class PlanCardService implements CardService {
 
 	@Override
 	public List<Comment> selectComment(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Attachment> selectAttachment(int cardNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -64,6 +57,21 @@ public class PlanCardService implements CardService {
 	@Override
 	public void writeCardInfo(Card card) {
 		cardRepository.writeCardInfo(card);
+	}
+
+	@Override
+	public List<Attachment> selectAttachmentList(int cardno, int boardno) {
+		return cardRepository.selectAttachmentList(cardno, boardno);
+	}
+
+	@Override
+	public Attachment selectAttachment(int attachmentno) {
+		return cardRepository.selectAttachment(attachmentno);
+	}
+
+	@Override
+	public void deleteAttachment(int attachmentno) {
+		cardRepository.deleteAttachment(attachmentno);
 	}
 
 }

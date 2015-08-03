@@ -18,8 +18,11 @@
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+
+
 <script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
 <script type="text/javascript" src="/finalProject/resources/js/jquery.webui-popover.js"></script>
+<!-- <script type="text/javascript" src="/finalProject/resources/js/jquery.form.min.js"></script> -->
 
 <script type="text/javascript">
 function addBoard() {
@@ -65,7 +68,7 @@ $(document).ready(function() {
 		
 		var listdialog = $(".addlist-dialog").dialog({
 			autoOpen: false,
-			height:100,
+			height:130,
 			widht:300,
 			buttons: {
 				"Add": addList,
@@ -108,7 +111,7 @@ $(document).ready(function() {
 		}
 		var carddialog = $(".addcard-dialog").dialog({
 			autoOpen: false,
-			height:100,
+			height:130,
 			widht:300,
 			buttons: {
 				"Add": addCard,
@@ -136,7 +139,7 @@ $(document).ready(function() {
 			stack: false,
 			autoOpen: false,
 			height:600,
-			width:730,
+			width:750,
 			buttons: {
 				"x" : function() {
 					$(this).dialog("close");
@@ -214,7 +217,7 @@ $(document).ready(function() {
 								<div id="panel">
 									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
 									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
-									<div id="panel-3">첨부파일</div>
+									<div id="panel-3"><c:import url="/WEB-INF/views/card/attachment.jsp"/></div>
 									<div id="panel-4">archived</div>
 								</div>
 							</div>
@@ -262,7 +265,7 @@ $(document).ready(function() {
 					<!-- list 추가 -->
 					<div class="addlist-dialog">
 						<form>
-							<input class="newlistname" type="text" name="listname" id="listname" value="Add a list..." />
+							<input class="newlistname" type="text" name="listname" id="listname" value="Add a list..."  onfocus='this.value=""'/>
 							<input id="position" type="hidden" value="1" />
 						</form>
 					</div>
@@ -270,7 +273,7 @@ $(document).ready(function() {
 					<!-- card 추가 -->
 					<div class="addcard-dialog">
 						<form>
-							<input class="newcardname" type="text" name="cardname" id="cardname" value="Add a card..." />
+							<input class="newcardname" type="text" name="cardname" id="cardname" value="Add a card..."  onfocus='this.value=""'/>
 							<input id="position" type="hidden" value="1" />
 							<input id="listno" type="hidden" value="" />
 						</form>

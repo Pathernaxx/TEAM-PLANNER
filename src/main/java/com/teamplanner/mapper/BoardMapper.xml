@@ -88,6 +88,7 @@
  	<select id="getListName" parameterType="hashMap" resultType="String">
  		SELECT name FROM boardlist WHERE no = #{listNo} AND boardno = #{boardNo}
  	</select>
+ 	
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">

@@ -39,13 +39,7 @@
  		FROM boardcomment
  		WHERE cardno = #{cardNo}
  	</select>
- 	
- 	<select id="selectAttachment" parameterType="hashMap" resultType="Attachment">
- 		SELECT no, userfilename, cardno, boardno, regdate, archived
- 		FROM attachment
- 		WHERE cardno = #{cardNo} AND bardno = #{boardNo}
- 	</select>
- 	
+ 
  	<select id="selectCheckList" parameterType="int" resultType="CheckList">
  		SELECT no, name, cardno, regdate
  		FROM checklist
@@ -70,5 +64,23 @@
  		SET info = #{info}
  		WHERE no=#{no} AND listno = #{listNo} AND boardno = #{boardNo} 
  	</update>
+ 	
+ 	
+ 	<select id="selectAttachmentList" parameterType="hashMap" resultType="Attachment">
+ 		SELECT no, userfilename, cardno, boardno, regdate, archived
+ 		FROM attachment
+ 		WHERE cardno = #{cardno} AND boardno = #{boardno} AND archived = 0
+ 	</select>
+ 	
+ 	<select id="selectAttachment" parameterType="int" resultType="Attachment">
+ 		SELECT no, userfilename, cardno, boardno, regdate, archived
+ 		FROM attachment
+ 		WHERE no = #{attachmentno} 
+ 	</select>
+ 	
+ 	<delete id="deleteAttachment" parameterType="int">
+ 		DELETE FROM attachment WHERE no = #{attachmentno}
+ 	</delete>
+ 	
  	
  </mapper>

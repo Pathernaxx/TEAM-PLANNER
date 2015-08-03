@@ -444,6 +444,16 @@ float:left;
     position: absolute; */
 }
 
+.card-elements {
+	margin-bottom: 7px;
+}
+
+.icon-space {
+	width:18px;
+	height:15px;
+	margin-right: 5px;
+}
+
 .window-main-left {
 	width:540px;
 	float:left;
@@ -455,7 +465,7 @@ float:left;
 	
 }
 
-.window-table {
+.content-space {
 	width:530px;
 	
 }
@@ -463,10 +473,10 @@ float:left;
 .activity-comment {
 	border-radius: 3px;
 	background-color: #fff;
-	width:95%;
+	width:500px;
 	min-height: 70px;
 	text-align:left;
-	float: left;
+	/* float: right; */
 	color: #444;
     border: 1px solid #ccc;
     cursor: text;
@@ -477,7 +487,7 @@ float:left;
 .attachment-thumnail {
 	border-radius: 3px;
     min-height: 80px;
-    margin: 0 0 8px;
+    margin: 0 0 2px;
     overflow: hidden;
     position: relative;
 }
