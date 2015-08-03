@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -112,5 +113,10 @@ public class PlanBoardService implements BoardService{
 	@Override
 	public String getListName(int boardno, int listno) {
 		return boardRepository.getListName(boardno, listno);
+	}
+
+	@Override
+	public List<Attachment> selectAttachmentListByBoardno(int boardno) {
+		return boardRepository.selectAttachmentListByBoardno(boardno);
 	}
 }

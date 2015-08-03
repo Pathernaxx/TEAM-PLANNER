@@ -3,6 +3,7 @@ package com.teamplanner.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -31,4 +32,5 @@ public interface BoardMapper {
 	String selectCardInfo(HashMap<Object, Object> params);
 	String getBoardName(int boardNo);
 	String getListName(HashMap<Object, Object> params);
+	List<Attachment> selectAttachmentListByBoardno(int boardno);
 }

@@ -76,10 +76,7 @@ $(function() {
 		
 	}); 
 	
-	$('.window-table').on('click', "#filedownload", function() {
-		//alert($(this).parents(".attachment-options").find('input').val());
-		//var fileno = $(".attachment-options").children()[0].value;
-		
+	$('.window-header').on('click', "#filedownload", function() {
 		$.ajax({
 			url: '/finalProject/card/filedownload.action',
 			type: 'GET',
@@ -96,7 +93,7 @@ $(function() {
 		});
 	});
 	
-	$('.window-table').on('click', "#filedelete", function() {
+	$('.window-header').on('click', "#filedelete", function() {
 		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
 		//alert($(this).parents(".attachment-options").find('input').val());
 		var tempthis = $(this);

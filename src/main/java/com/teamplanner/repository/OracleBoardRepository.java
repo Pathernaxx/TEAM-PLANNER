@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -147,6 +148,11 @@ public class OracleBoardRepository implements BoardRepository{
 		params.put("listNo", listno);
 		
 		return boardMapper.getListName(params);
+	}
+
+	@Override
+	public List<Attachment> selectAttachmentListByBoardno(int boardno) {
+		return boardMapper.selectAttachmentListByBoardno(boardno);
 	}
 
 
