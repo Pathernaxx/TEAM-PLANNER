@@ -44,4 +44,9 @@ public class PlanSearchService implements SearchService{
 		
 		return memberRepository.searchTagAllMember(key, memberNo, boardno);
 	}
+	@Override
+	public List<Member> selectTagFriend(int boardNo, int memberNo) {
+		
+		return memberRepository.selectTagFriend(boardNo, memberNo);
+	}
 }

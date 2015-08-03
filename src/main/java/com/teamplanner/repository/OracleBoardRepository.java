@@ -11,6 +11,7 @@ import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.Member;
 import com.teamplanner.mapper.BoardMapper;
 
 @Repository(value="boardRepository")
@@ -94,6 +95,35 @@ public class OracleBoardRepository implements BoardRepository{
 		
 	}
 	
+	@Override
+	public void addTagMember(int tagMemberNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("tagMemberNo", tagMemberNo);
+		params.put("boardNo", boardNo);
+		
+		boardMapper.addTagMember(params);
+		
+	}
+	
+	@Override
+	public List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardNo", boardNo);
+		params.put("memberNo", memberNo);
+		
+		return boardMapper.selectTeamlistByBoardNo(params);
+	}
+	
+	@Override
+	public List<Member> selectTagFriend(int boardNo, int memberNo) {
+		
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("boardNo", boardNo);
+		params.put("memberNo", memberNo);
+		
+		return boardMapper.selectTagFriend(params);
+	}
 	////////////////////유정////////////////
 	@Override
 	public Board selectBoardByList(int boardNo) {

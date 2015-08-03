@@ -3,7 +3,7 @@
 
 <script>
 function addBoard(){}
-	
+
 $(function() {
 	
 	var boardno = $("#boardno").val();
@@ -20,17 +20,20 @@ $(function() {
 			"boardno" : boardno
 		},
 		success: function(result) { 
-			$('.attachmentbtn').webuiPopover({
+			b=$('.attachmentbtn').webuiPopover({
 			constrains: 'horizontal',
 			trigger: 'click',
 			multi: false,
-			placement: 'bottom',
+			placement: 'right',
 			width: 300,
 			closeable: true,
 			arrow: false,
 			title: 'Attachment',
-			content: result
+			content: result,
+			cache : false
 			});
+			b.zIndex(10001);
+
 		},
 		error: function() {
 			alert('error');
@@ -124,17 +127,19 @@ $(function() {
 			"boardno" : boardno
 		},
 		success: function(result) { 
-			$('#tagMemberbtn').webuiPopover({
+			c = $('#tagMemberbtn').webuiPopover({
 				constrains: 'horizontal',
 				trigger: 'click',
 				multi: false,
-				placement: 'bottom',
+				placement: 'right',
 				width: 300,
 				closeable: true,
 				arrow: false,
 				title: 'Tag Member',
-				content: result
+				content: result,
+
 			});
+
 		},
 		error: function() {
 			alert("tag error");
