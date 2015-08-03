@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/checklist.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css" />
 

@@ -21,7 +21,16 @@
 		FROM
 			checklist
 		WHERE
-			checklist = #{no}
+			checklistno = #{no}
+	</select>
+	
+	<select id="selectCheckItemCount" parameterType="int" resultType="int">
+		SELECT
+			count(no)
+		FROM
+			checkitem
+		WHERE
+			checklistno = #{checklistno}
 	</select>
 	
 	<insert id="insertCheckList" parameterType="CheckList">
@@ -34,13 +43,54 @@
 		VALUES(checkitem_sequence.nextval, #{name}, #{checklistno})
 	</insert>
 	
+	<delete id="deleteCheckList" parameterType="int">
+		DELETE FROM
+			checklist
+		WHERE
+			no = #{checklistno}
+	</delete>
+	
+	<delete id="deleteCheckItem" parameterType="int">
+		DELETE FROM
+			checkitem
+		WHERE
+			no = #{checkitemno}
+	</delete>
+	
+	<update id="updateCheckListName" parameterType="hashMap">
+		UPDATE
+			checklist
+		SET
+			name = #{name}
+		WHERE
+			no = #{checklistno}
+	</update>
+	
+	<update id="updateCheckItem" parameterType="hashMap">
+		UPDATE
+			checkitem
+		SET
+			checked = #{checked}
+		WHERE
+			no = #{checkitemno}
+	</update>
+	
+	<update id="updateCheckItemName" parameterType="hashMap">
+		UPDATE
+			checkitem
+		SET
+			name = #{name}
+		WHERE
+			no = #{checkitemno}
+	</update>
+	
  	<select id="selectComment" parameterType="int" resultType="Comment">
  		SELECT  no, regdate, cardno, content
  		FROM boardcomment
  		WHERE cardno = #{cardNo}
  	</select>
  
- 	<select id="selectCheckList" parameterType="int" resultType="CheckList">
+ 	<select id="selectCheckList" parameterType="int" resultMap="resultCheckList">
  		SELECT no, name, cardno, regdate
  		FROM checklist
  		WHERE cardno = #{cardNo}
@@ -59,6 +109,7 @@
  		INSERT INTO attachment(no, userfilename, cardno, boardno) 
  		VALUES (attachment_sequence.nextval, #{userFileName}, #{cardNo}, #{boardNo})
  	</insert>
+ 	
  	<update id="writeCardInfo" parameterType="Card">
  		UPDATE boardcard
  		SET info = #{info}

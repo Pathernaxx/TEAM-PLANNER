@@ -1,6 +1,5 @@
 package com.teamplanner.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.teamplanner.dto.Attachment;
@@ -12,9 +11,18 @@ import com.teamplanner.dto.TagMember;
 
 public interface CardRepository {
 
+	void insertCheckList(CheckList checklist);
+	void insertCheckItem(CheckItem checkitem);
+	void deleteCheckList(int checklistno);
+	void deleteCheckItem(int checkitemno);
+	void updateCheckListName(String name, int checklistno);
+	void updateCheckItem(boolean checked, int checkitemno);
+	void updateCheckItemName(String name, int checkitemno);
+	int selectCheckItemCount(int checklistno);
+	
 	List<Comment> selectComment(int cardNo);
 	List<CheckList> selectCheckList(int cardNo);
-	List<CheckItem> selectCheckItem(int checklistNo);
+	//List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
 	
 	int insertAttachment(Attachment attachment);
