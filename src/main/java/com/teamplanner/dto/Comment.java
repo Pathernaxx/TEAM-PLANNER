@@ -7,7 +7,14 @@ public class Comment {
 	private int cardNo;
 	private String content;
 	private Date regDate;
+	private String writer;
 	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public int getNo() {
 		return no;
 	}

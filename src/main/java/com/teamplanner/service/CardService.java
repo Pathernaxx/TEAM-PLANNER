@@ -30,4 +30,5 @@ public interface CardService {
 	List<Attachment> selectAttachmentList(int cardno, int boardno);
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
+	void insertComment(Comment comment);
 }

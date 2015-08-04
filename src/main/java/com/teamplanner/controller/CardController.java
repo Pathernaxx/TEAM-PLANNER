@@ -1,9 +1,13 @@
 package com.teamplanner.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,11 +29,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.view.DownloadView;
+import com.teamplanner.commons.Util;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
+import com.teamplanner.dto.Comment;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
 import com.teamplanner.view.DownloadView;
@@ -309,6 +316,23 @@ public class CardController {
 			message = "error";
 		} 
 		return message;
+		
+	}
+	
+	@RequestMapping(value="insertComment.action", method=RequestMethod.POST)
+	@ResponseBody
+	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
+		
+		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		
+		Comment comment = new Comment();
+		comment.setCardNo(cardno);
+		comment.setContent(content);
+		comment.setWriter(writer);
+		
+		String message = "";
+		
+		cardService.insertComment(comment);
 		
 	}
 	

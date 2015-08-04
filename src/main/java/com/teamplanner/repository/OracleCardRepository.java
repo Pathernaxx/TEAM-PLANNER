@@ -146,4 +146,10 @@ public class OracleCardRepository implements CardRepository {
 		return count;
 	}
 
+	@Override
+	public void insertComment(Comment comment) {
+		cardMapper.insertComment(comment);
+		
+	}
+
 }

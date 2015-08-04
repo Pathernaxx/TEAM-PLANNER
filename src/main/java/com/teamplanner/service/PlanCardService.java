@@ -152,4 +152,9 @@ public class PlanCardService implements CardService {
 		cardRepository.deleteAttachment(attachmentno);
 	}
 
+	@Override
+	public void insertComment(Comment comment) {
+		cardRepository.insertComment(comment);
+	}
+
 }

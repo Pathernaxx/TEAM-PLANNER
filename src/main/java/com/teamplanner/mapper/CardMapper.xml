@@ -146,6 +146,10 @@
  		DELETE FROM attachment WHERE no = #{attachmentno}
  	</delete>
  	
+ 	<insert id="insertComment" parameterType="comment">
+ 		INSERT INTO boardcomment(no, cardno, content, writer)
+ 		VALUES (comment_sequence.nextval, #{cardNo}, #{content}, #{writer} )
+ 	</insert>
  	
  	
  </mapper>
