@@ -66,23 +66,6 @@ $(function() {
 		});
 		
 	}); 
-
-	/* $('.window-header').on('click', "#filedownload", function() {
-		$.ajax({
-			url: '/finalProject/card/filedownload.action',
-			type: 'GET',
-			data: {
-				fileno : $(this).parents(".attachment-options").find('input').val()
-			},
-			success: function() {
-				alert("다운로드완료")
-			},
-			error: function(xhr,status,ex) {
-				//alert("다운로드실패")
-				alert(status+ex)
-			}
-		});
-	}); */
 	
 	$('.window-header').on('click', "#filedelete", function() {
 		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
@@ -109,62 +92,51 @@ $(function() {
 		attachmentdialog.dialog("close");
 	});
 	
+	$('body .window-attachment').on("click", ".js-save-edit", function() {
+		
+		var text = $(".js-cardinfo-input").val();
+		$.ajax({
+			url: "/finalProject/card/writecardinfo.action",
+			async: true,
+			type: "post",
+			data: {
+				boardno: '${boardno}',
+				listno: '${listno}',
+				cardno: '${cardno}',
+				information: text
+			},
+			success: function() {
+				$(".js-cardinfo-name").text(text);
+				$(".js-cardinfo-input").val("");
+			},
+			error: function(xhr, status, ex) {
+				alert(status + ex);
+			}
+		});
+		
+		$(this).parents(".card-info-details").removeClass('editing');
+		$('.inline-edit').append($('.edit-controls'));
+		
+		return false;
+	});
+	
+	$('.window-attachment').on("click", ".js-cardinfo-input", function() {
+		return false;
+	});
 
-	//$('#cardinfo').on('click', ".updateinfo", function() {
-	$(".updateinfo").click(function() {
 	
-		$('.editinfo').css('visibility', 'visible');
-		$('.editinfo').css('display', 'block');
+	$("body").on("click", ".js-cardinfo-name", function() {
+		var text = $(this)[0].innerHTML;
 		
-		$('#information').css('onfocus', 'this.value=""');
+		$(this).parents(".card-info-details").find(".js-cardinfo-input").val(text);
 		
+		$(this).parents(".card-info-details").addClass('editing');
+		
+		$(this).parents(".card-info-details").find(".js-cardinfo-input").after($(".edit-controls"));
+		
+		return false;
 	});
 	
-	$(".editinfo").click(function() {
-		$(".window-attachment").html(' ');
-		$(".window-attachment").append('<div class="editform">');
-		$(".window-attachment").append('<form id="editcontent" action="writecardinfo.action" method="post" enctype="multipart/form-data">');
-		$(".window-attachment").append('<input id="information" type="text" class="edit-cardinfo"/>');
-		$(".window-attachment").append('<input type="hidden" id="boardno" value="${boardno }">');
-		$(".window-attachment").append('<input type="hidden" id="cardno" value="${cardno }">');
-		$(".window-attachment").append('<input type="hidden" id="listno" value="${listno }">');
-		$(".window-attachment").append('</form><br/>');
-		$(".window-attachment").append('<input type="button" value="save" id="infosubmit" class="window-sidebutton" style="float:right;text-align:center"/>');
-		$(".window-attachment").append('<input type="button" value="cancel" id="cancel" class="window-sidebutton" style="float:right;text-align:center" />');
-		$(".window-attachment").append('</div>');
-		
-		$("#infosubmit").click(function(e) {
-			$.ajax({
-				url: "/finalProject/card/writecardinfo.action",
-				async: true,
-				type: "post",
-				data: {
-					boardno: '${boardno}',
-					listno: '${listno}',
-					cardno: '${cardno}',
-					information: $("#information").val()
-				},
-				success: function(result) {
-					$(".window-attachment").html(' ');
-					$(".window-attachment").append(result);
-				},
-				error: function(xhr, status, ex) {
-					alert(status + ex);
-				}
-			});
-			e.preventDefault();
-		});
-		
-		$("#cancel").click(function() {
-			$(".window-attachment").html(' ');
-			$(".window-attachment").append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-			$(".window-attachment").append('<span id="cardinfo">');
-			$(".window-attachment").append('<a class="editinfo" style="cursor: pointer;">');
-			$(".window-attachment").append('<img src="/finalProject/resources/styles/images/icons/234.png" class="window-icon2" />&nbsp;');
-			$(".window-attachment").append('Write the Discription</a></span>');
-		});
-		
-	});
 	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({

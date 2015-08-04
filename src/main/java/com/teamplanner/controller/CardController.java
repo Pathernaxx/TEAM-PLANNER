@@ -259,13 +259,13 @@ public class CardController {
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView writeCardInfo(//HttpServletRequest request, HttpSession session,
+	public String writeCardInfo(//HttpServletRequest request, HttpSession session,
 								@RequestParam("boardno") int boardno, 
 								@RequestParam("listno") int listno, 
 								@RequestParam("cardno") int cardno,
 								String information
 							  ){
-		//String message="";
+		String message="";
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -277,15 +277,11 @@ public class CardController {
 		
 		try{
 			cardService.writeCardInfo(card);
-			//message = "success";
+			message = "success";
 		} catch (Exception ex) {
-			//message = "error";
+			message = "error";
 		}
-		
-		mav.addObject("card", card);
-		mav.setViewName("card/information");
-		return mav;
-		
+		return message;
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
