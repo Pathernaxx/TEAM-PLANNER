@@ -23,6 +23,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.CardService;
 import com.teamplanner.service.MemberService;
 import com.teamplanner.service.SearchService;
 
@@ -34,6 +35,7 @@ public class BoardController {
 	private BoardService boardService;
 	private ActivityService activityService;
 	private MemberService memberService;
+	private CardService cardService;
 	
 	@Autowired
 	@Qualifier("boardService")
@@ -59,6 +61,12 @@ public class BoardController {
 	@Qualifier("memberService")
 	public void setMemberService(MemberService memberService) {
 		this.memberService=memberService;
+	}
+	
+	@Autowired
+	@Qualifier("cardService")
+	public void setCardService(CardService cardService) {
+		this.cardService=cardService;
 	}
 
 
@@ -359,6 +367,24 @@ public class BoardController {
 		return "redirect:/board/boardmain.action";
 	}
 	
+	@RequestMapping(value="searchCardTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> searchCardTagMember(HttpSession session, String text, int boardNo) {
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members =cardService.searchCardTagMember(text, memberNo, boardNo);
+		
+		
+		return members;
+	}
+	
+	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> selectCardMemberInCard(int tagNo, int cardNo){
+		cardService.setTagMemberInCard(tagNo, cardNo);
+		List<Member> members =cardService.selectCardMemberInCard(cardNo);
+		
+		return members;
+	}
 }
 
 

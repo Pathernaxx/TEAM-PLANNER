@@ -8,6 +8,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.dto.TagMember;
 
 public interface CardService {
@@ -31,4 +32,9 @@ public interface CardService {
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
 	void insertComment(Comment comment);
+	
+	List<Member> searchCardTagMember(String text , int memberNo , int boardNo);
+	
+	void setTagMemberInCard(int tagNo, int cardNo);
+	List<Member> selectCardMemberInCard(int cardNo);
 }

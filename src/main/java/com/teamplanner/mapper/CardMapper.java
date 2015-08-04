@@ -8,6 +8,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.dto.TagMember;
 
 public interface CardMapper {
@@ -34,4 +35,8 @@ public interface CardMapper {
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
 	void insertComment(Comment comment);
+	
+	List<Member> searchCardTagMember(HashMap<Object, Object> params);
+	void setTagMemberInCard(HashMap<Object, Object> params);
+	List<Member> selectCardMemberInCard(int cardNo);
 }

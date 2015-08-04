@@ -11,6 +11,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.dto.TagMember;
 import com.teamplanner.repository.CardRepository;
 
@@ -156,5 +157,24 @@ public class PlanCardService implements CardService {
 	public void insertComment(Comment comment) {
 		cardRepository.insertComment(comment);
 	}
-
+	
+	
+	@Override
+	public List<Member> searchCardTagMember(String text, int memberNo,
+			int boardNo) {
+		
+		return cardRepository.searchCardTagMember(text, memberNo, boardNo);
+	}
+	
+	@Override
+	public void setTagMemberInCard(int tagNo, int cardNo) {
+		cardRepository.setTagMemberInCard(tagNo, cardNo);
+		
+	}
+	
+	@Override
+	public List<Member> selectCardMemberInCard(int cardNo) {
+		
+		return cardRepository.selectCardMemberInCard(cardNo);
+	}
 }

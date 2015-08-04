@@ -128,33 +128,73 @@ $(function() {
 	
 	
 	/*///////////////////동윤/////////////////////////// */
-	$.ajax({
-		url: "/finalProject/card/tagMemberForm.action",
-		type: "get",
-		data: {
-			"cardno" : cardno,
-			"listno" : "${listno}",
-			"boardno" : boardno
-		},
-		success: function(result) { 
-			c = $('#tagMemberbtn').webuiPopover({
-				constrains: 'horizontal',
-				trigger: 'click',
-				multi: false,
-				placement: 'right',
-				width: 300,
-				closeable: true,
-				arrow: false,
-				title: 'Tag Member',
-				content: result,
 
-			});
-
-		},
-		error: function() {
-			alert("tag error");
-		}
+	
+	var target = $("#tagMemberbtn");
+	var tagdialog = $( "#tagMemberForm" ).dialog({
+	      autoOpen: false,
+	      height: 200,
+	      width: 250,
+	      position: { my: 'left', at: 'right' ,of : target},
+	      buttons:{
+	    	  Cancel: function(){
+	    		  $("#tagmemberlist").val("");
+	    		  tagdialog.dialog("close");
+	    	  }
+	      }
 	});
+	$("#tagMemberbtn").click(function(){
+		tagdialog.dialog("open");
+	
+	});
+	$("#searchmember").keydown(function(){
+		var text = $("#searchmember").val();
+		if(text == "") {
+			return;
+		}
+		$.ajax({
+			url: "/finalProject/board/searchCardTagMember.action",
+			type: "get",
+			data: {
+				text : text,
+				boardNo : boardno
+			},
+			success : function(members){
+				var html;
+				var div = $("#tagmemberlist");
+				/* for(var key in members){
+					html+="<div class='tagonemember'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+					+ "&nbsp;&nbsp;" + members[key].userName+ "</div>";
+				}
+				div.html(html); */
+				div.html('');
+				$.each(members, function(index, member) {
+					div.append("<div class='tagonemember' id='"+member.no+"'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+							+ "&nbsp;&nbsp;" + member.userName+ "</div>");
+				});
+				
+			}
+		});
+		
+		
+	});
+	$('body').on('click', '.tagonemember', function() {
+		var id = $(this).attr('id');
+		$.ajax({
+			url : '/finalProject/board/selectCardMemberInCard.action',
+			type: "get",
+			data : {
+				tagNo : id,
+				cardNo : cardno
+			},
+			success : function(members){
+				alert("야호");
+			}
+		
+		}) 
+	
+	});
+	
 	
 	
 	//////////////////////////// 녕수 ////////////////////////////
@@ -690,5 +730,19 @@ $(function() {
 				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
 			</form>
 		</div>
+		
+		<!-- tagdialog -->
+		<div id='tagMemberForm'>
+			<form>
+
+				<input type="text" id="searchmember" value="tag a member..." onfocus="this.value=''" style="width: 90%;" />
+				<br/><br/>
+				<div id="tagmemberlist"><br/>
+					
+				</div>
+
+			</form>
+		</div>
+		
 	</div>	
 </div>

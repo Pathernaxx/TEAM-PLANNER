@@ -151,5 +151,18 @@
  		VALUES (comment_sequence.nextval, #{cardNo}, #{content}, #{writer} )
  	</insert>
  	
- 	
+ 	<select id="searchCardTagMember" parameterType="hashMap" resultType="Member">
+ 		select m.* 
+ 		from member m , teamlist t 
+ 		where m.no = t.memberno and t.boardno = #{boardNo} and t.memberno != #{memberNo} and m.username like #{text}||'%'
+ 	</select>
+ 	<insert id="setTagMemberInCard" parameterType="hashMap">
+ 		INSERT INTO tagmember(cardno ,teamno)
+ 		VALUES (#{cardNo} , #{tagNo})
+ 	</insert>
+ 	<select id="selectCardMemberInCard" parameterType="int" resultType="Member">
+ 		select m.* 
+ 		from member m ,tagmember t 
+ 		where m.no=t.teamno and t.cardno=#{cardNo};
+ 	</select>
  </mapper>

@@ -117,7 +117,11 @@ body, button, html, input, select, textarea {
 	min-height: 20px;
 	position: relative;
 	z-index: 0;
-	width: 260px
+	width: 260px;
+	height:50px;
+}
+.list-card:hover{
+	background-color: #dbdbdb;
 }
 
 .list-card-details {
@@ -134,7 +138,8 @@ body, button, html, input, select, textarea {
 	margin: 0 0 4px;
 	overflow: hidden;
 	text-decoration: none;
-	word-wrap: break-word
+	word-wrap: break-word;
+	cursor: pointer;
 }
 
 .add-card {
@@ -144,9 +149,11 @@ body, button, html, input, select, textarea {
 	border-bottom-color: #c4c9cc;
 	width: 260px;
 	height: 25px;
-	
+	cursor: pointer;
 }
-
+.add-card:hover{
+	background-color: #fff;
+}
 .open-card {
 	border-radius: 0 0 3px 3px;
   color: #8c8c8c;
@@ -154,9 +161,12 @@ body, button, html, input, select, textarea {
   border-radius: 0 0 3px 3px;
   color: #8c8c8c;
   display: block;
-  
+  text-decoration: none;
+  cursor: pointer;
 }
-
+.open-card:hover{
+	background-color: #fff;
+}
 .add-list {
 	margin: 5px;
 	border: 1px solid #d6dadc;
@@ -164,7 +174,10 @@ body, button, html, input, select, textarea {
 	border-bottom-color: #c4c9cc;
 	width: 260px;
 	height: 25px;
-	
+	cursor: pointer;
+}
+.add-list:hover{
+	background-color: #fff;
 }
 
 .open-list {
@@ -174,7 +187,8 @@ body, button, html, input, select, textarea {
   border-radius: 0 0 3px 3px;
   color: #8c8c8c;
   display: block;
-  
+  cursor: pointer;
+	text-decoration: none;
 }
 
 .pollSlider {
@@ -384,6 +398,7 @@ float:left;
     margin-bottom: 6px;
     /* position: relative; */
     z-index: 0;
+    text-decoration: none;
 }
 .window-sidebutton:hover{
 	background-color: #cdcdcd;
@@ -669,4 +684,10 @@ float:left;
   border:none;
   text-align: center;
   width: 200px;
+}
+.tagonemember{
+	cursor: pointer;
+}
+.tagonemember:hover{
+	background-color: #005fbd;
 }
