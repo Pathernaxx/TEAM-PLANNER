@@ -137,6 +137,40 @@ $(function() {
 		return false;
 	});
 	
+	$("#archivebtn").click(function() {
+		$.ajax({
+			url: "/finalProject/card/archiveCard.action",
+			typd: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//alert("aaa");
+				//카드다이얼로그 꼭대기에 "this card is archived" 띄우고 archive버튼 아래에 "return to board" 버튼 삽입
+				$("#dialog-header").before("<div id='notice'><h2 style='color:red;'>THIS CARD IS ARCHIVED</h2></div>");
+				$("#returnbtn").css("visibility", "visible");
+				$("#returnbtn").css("display", "block");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
+	});
+	
+	$("#returnbtn").click(function() {
+		$.ajax({
+			url: "/finalProject/card/returnCard.action",
+			typd: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//alert("aaa");
+				$(".window-wrapper").find("#notice").remove();
+				$("#returnbtn").css("visibility", "hidden");
+				$("#returnbtn").css("display", "none");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
+	});
 	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
@@ -478,7 +512,7 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
-		<div class="window-header u-clearfix">
+		<div class="window-header u-clearfix" id="dialog-header">
 			<table>
 				<tr>
 				<td style="text-align: justify"><img src="/finalProject/resources/styles/images/icons/12.png" class="window-icon" /></td>
@@ -652,11 +686,14 @@ $(function() {
 							<img src="/finalProject/resources/styles/images/icons/122.png"
 							class="window-icon2" /> Copy
 					</span>
-					</a> <a class="window-sidebutton"> <span class="icon-sm">
-							<img src="/finalProject/resources/styles/images/icons/111.png"
-							class="window-icon2" /> Archived
+					</a> <a class="window-sidebutton" id="archivebtn"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/111.png" class="window-icon2" /> Archived
+					</span>
+					</a> <a class="window-sidebutton" id="returnbtn" style="visibility:visible;display:none"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/9.png" class="window-icon2" /> Return
 					</span>
 					</a>
+					
 				</div>
 			</div>
 		</div>

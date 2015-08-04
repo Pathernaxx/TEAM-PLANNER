@@ -153,8 +153,19 @@ public class PlanCardService implements CardService {
 	}
 
 	@Override
-	public void insertComment(Comment comment) {
-		cardRepository.insertComment(comment);
+	public int insertComment(Comment comment) {
+		int commentno = cardRepository.insertComment(comment);
+		return commentno;
+	}
+
+	@Override
+	public void archiveCard(int cardno) {
+		cardRepository.archiveCard(cardno);
+	}
+
+	@Override
+	public void returnCard(int cardno) {
+		cardRepository.returnCard(cardno);
 	}
 
 }

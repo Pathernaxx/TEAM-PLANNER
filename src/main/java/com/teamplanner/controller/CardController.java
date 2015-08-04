@@ -329,9 +329,22 @@ public class CardController {
 		
 		String message = "";
 		
-		cardService.insertComment(comment);
+		int commentno = cardService.insertComment(comment);
 		
 	}
+	
+	@RequestMapping(value="archiveCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void archiveCard(@RequestParam("cardno") int cardno) {
+		cardService.archiveCard(cardno);
+	}
+	
+	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void returnCard(@RequestParam("cardno") int cardno) {
+		cardService.returnCard(cardno);
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
 	
@@ -347,7 +360,6 @@ public class CardController {
 		
 		return mav;
 	}
-	
 	
 }
 
