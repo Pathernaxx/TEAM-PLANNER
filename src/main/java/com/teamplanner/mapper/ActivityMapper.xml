@@ -65,4 +65,13 @@
 		WHERE
 			userno = #{memberNo}
 	</select>
+	
+	<select id="selectCard" parameterType="int" resultType="Card">
+		SELECT
+			no, name, boardno, boardname, listno, listname
+		FROM
+			boardcard
+		WHERE
+			no = #{cardNo}
+	</select>
 </mapper>

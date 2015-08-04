@@ -148,9 +148,9 @@ public class PlanActivityService implements ActivityService {
 	 * CheckList 추가
 	 */
 	@Override
-	public void addActivity(Member member, CheckList checklist, Card card,
-			Board board) {
+	public void addActivity(Member member, CheckList checklist, int cardno) {
 		
+		Card card = activityRepository.selectCard(cardno);
 		Activity activity = new Activity();
 		ActivityTarget actTarget = new ActivityTarget();
 		
@@ -159,8 +159,8 @@ public class PlanActivityService implements ActivityService {
 		activity.setTypeNo(TYPE.ADDED);
 		activity.setBackNo(card.getNo());
 		activity.setBackTitle(card.getName());
-		activity.setBoardNo(board.getNo());
-		activity.setBoardName(board.getName());
+		activity.setBoardNo(card.getBoardNo());
+		activity.setBoardName(card.getBoardName());
 		
 		int activityno = activityRepository.insertActivity(activity);
 		
@@ -198,8 +198,9 @@ public class PlanActivityService implements ActivityService {
 	}
 
 	@Override
-	public void attachmentActivity(Member member, Attachment attachment,
-			Card card, Board board) {
+	public void attachmentActivity(Member member, Attachment attachment, int cardno) {
+		
+		Card card = activityRepository.selectCard(cardno);
 		
 		Activity activity = new Activity();
 		ActivityTarget actTarget = new ActivityTarget();
@@ -209,8 +210,8 @@ public class PlanActivityService implements ActivityService {
 		activity.setTypeNo(TYPE.ATTACHED);
 		activity.setBackNo(card.getNo());
 		activity.setBackTitle(card.getName());
-		activity.setBoardNo(board.getNo());
-		activity.setBoardName(board.getName());
+		activity.setBoardNo(card.getBoardNo());
+		activity.setBoardName(card.getBoardName());
 		
 		int activityno = activityRepository.insertActivity(activity);
 		
@@ -224,19 +225,20 @@ public class PlanActivityService implements ActivityService {
 	}
 
 	@Override
-	public void commentActivity(Member member, Card card, Comment comment,
-			Board board) {
+	public void commentActivity(Member member,int cardno, Comment comment) {
 		
 		Activity activity = new Activity();
 		ActivityTarget actTarget = new ActivityTarget();
+		
+		Card card = activityRepository.selectCard(cardno);
 		
 		activity.setUserNo(member.getNo());
 		activity.setUserName(member.getUserName());
 		activity.setTypeNo(TYPE.ON);
 		activity.setBackNo(comment.getNo());
 		activity.setBackTitle(comment.getContent());
-		activity.setBoardNo(board.getNo());
-		activity.setBoardName(board.getName());
+		activity.setBoardNo(card.getBoardNo());
+		activity.setBoardName(card.getBoardName());
 		
 		int activityno = activityRepository.insertActivity(activity);
 		

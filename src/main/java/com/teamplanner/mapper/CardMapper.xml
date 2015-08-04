@@ -12,14 +12,14 @@
 		<result column="name" property="name"/>
 		<result column="cardno" property="cardNo"/>
 		<result column="regdate" property="regDate"/>
-		<collection column="no" property="checkItems" ofType="CheckItem" select="selectCheckItem"/>
+		<collection column="no" property="checkItems" select="selectCheckItem"/>
 	</resultMap>
 	
 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
 		SELECT
 			no, name, checked
 		FROM
-			checklist
+			checkitem
 		WHERE
 			checklistno = #{no}
 	</select>
@@ -34,11 +34,17 @@
 	</select>
 	
 	<insert id="insertCheckList" parameterType="CheckList">
+		<selectKey keyProperty="no" order="AFTER" resultType="int">
+			SELECT checklist_sequence.currval from dual
+		</selectKey>
 		INSERT INTO checklist(no, name, cardno)
 		VALUES(checklist_sequence.nextval, #{name}, #{cardNo})
 	</insert>
 	
 	<insert id="insertCheckItem" parameterType="CheckItem">
+		<selectKey keyProperty="no" order="AFTER" resultType="int">
+			SELECT checkitem_sequence.currval from dual
+		</selectKey>
 		INSERT INTO checkitem(no, name, checklistno)
 		VALUES(checkitem_sequence.nextval, #{name}, #{checklistno})
 	</insert>
@@ -55,6 +61,13 @@
 			checkitem
 		WHERE
 			no = #{checkitemno}
+	</delete>
+	
+	<delete id="deleteCheckItemByChecklist" parameterType="int">
+		DELETE FROM
+			checkitem
+		WHERE
+			checklistno = #{checklistno}
 	</delete>
 	
 	<update id="updateCheckListName" parameterType="hashMap">
@@ -120,13 +133,13 @@
  	<select id="selectAttachmentList" parameterType="hashMap" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
- 		WHERE cardno = #{cardno} AND boardno = #{boardno}
+ 		WHERE cardno = #{cardno} AND boardno = #{boardno} AND archived = 0
  	</select>
  	
  	<select id="selectAttachment" parameterType="int" resultType="Attachment">
  		SELECT no, userfilename, cardno, boardno, regdate, archived
  		FROM attachment
- 		WHERE no = #{attachmentno}
+ 		WHERE no = #{attachmentno} 
  	</select>
  	
  	<delete id="deleteAttachment" parameterType="int">

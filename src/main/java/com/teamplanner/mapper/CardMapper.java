@@ -16,6 +16,7 @@ public interface CardMapper {
 	void insertCheckItem(CheckItem checkitem);
 	void deleteCheckList(int checklistno);
 	void deleteCheckItem(int checkitemno);
+	void deleteCheckItemByChecklist(int checklistno);
 	void updateCheckListName(HashMap<String, Object> params);
 	void updateCheckItem(HashMap<String, Object> params);
 	void updateCheckItemName(HashMap<String, Object> params);

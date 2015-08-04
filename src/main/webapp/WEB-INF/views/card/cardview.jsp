@@ -51,60 +51,65 @@ $(function() {
 	
 	$("#uploadForm").submit(function(event) {
 		event.preventDefault();
-		var formData = new FormData(this);//$(this).serialize();
+		var formData = new FormData(this);
 		
 		$.ajax({
 			url: '/finalProject/card/insertAttachment.action',
 			type: 'POST',
 			data: formData,
-			dataType:'json',
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(message) {
 				if(message == "success") {
+					//$(".atttr").reload();
 					alert("success");
 					attachmentdialog.dialog("close");
 				} else {
 					alert("error");
 				}
-				
+			},
+			error: function(xhr, status, ex) {
+				alert(status+ex);
 			}
 		});
-		//return false;
 		
 	}); 
 	
-	$("#filedownload").click(function() {
-		//alert($(".attachment-options").children()[0].value);
+	$('.window-table').on('click', "#filedownload", function() {
+		//alert($(this).parents(".attachment-options").find('input').val());
 		//var fileno = $(".attachment-options").children()[0].value;
+		
 		$.ajax({
 			url: '/finalProject/card/filedownload.action',
 			type: 'GET',
 			data: {
-				fileno : $(".attachment-options").children()[0].value
+				fileno : $(this).parents(".attachment-options").find('input').val()
 			},
-			success: function(message) {
-				if(message == "success") {
-					alert("다운로드완료")
-				} else {
-					alert("다운로드실패")
-				}
+			success: function() {
+				alert("다운로드완료")
+			},
+			error: function(xhr,status,ex) {
+				//alert("다운로드실패")
+				alert(status+ex)
 			}
 		});
 	});
 	
-	$("#filedelete").click(function() {
+	$('.window-table').on('click', "#filedelete", function() {
+		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
+		//alert($(this).parents(".attachment-options").find('input').val());
+		var tempthis = $(this);
 		$.ajax({
 			url: '/finalProject/card/deleteAttachment.action',
 			type: 'GET',
 			data: {
-				fileno : $(".attachment-options").children()[0].value
+				fileno : $(this).parents(".attachment-options").find('input').val()//$(this).parent(".attachment-options").children()[0].value
 			},
 			success: function(message) {
 				if(message == "success") {
+					tempthis.parents(".atttr").remove();
 					alert("삭제완료")
-					
 				} else {
 					alert("삭제실패")
 				}
@@ -147,8 +152,8 @@ $(function() {
 		width: 280
 	});	
 	
-	$('#attachmentbtn').click(function() {
-		attachmentdialog.dialog("open");
+	$('.js-checklist-add-btn').click(function() {
+		checklistdialog.dialog("open");
 	});
 	
 	function removeControls() {
@@ -171,20 +176,36 @@ $(function() {
 		});
 		
 		//body는 카드 다이얼로그
-		$('body #check').on('click', function(event) {
+		$('body .js-add-checklist').on('click', function(event) {
 			removeControls();
-			$('.activity').before(
+			
+			var title = $('#title').val();
+			
+			if( title == "") {
+				return;
+			}
+			var no;
+			$.ajax({
+				url: '/finalProject/card/insertchecklist.action',
+				type: 'post',
+				async: 'false',
+				data : {
+					name: title,
+					cardno: cardno
+				},
+				success: function(data) {
+					$('.js-activity-view').before(
 					'<div class="checklist-list window-module">'+ 
-						'<div class="checklist">' +
+						'<div class="checklist" id="' + data + '">' +
 							'<div class="window-module-title window-module-title-no-divider">' +
 								'<span class="window-module-title-icon icon-lg icon-checklist"></span>' +
 								'<div class="editable non-empty checklist-title">' +
-									'<h3 class="current hide-on-edit">' + 'Tile Name' + '</h3>' +
+									'<h3 class="current hide-on-edit">' + title + '</h3>' +
 									'<div class="window-module-title-options">' +
 										'<a class="hide-on-edit js-confirm-delete">Delete...</a>' +
-										'<div class="edit edit-heavy">' +
-											'<textarea class="field full single-line" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px"></textarea>' +
-										'</div>' +
+									'</div>' +
+									'<div class="edit edit-heavy">' +
+										'<textarea class="field full single-line" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px"></textarea>' +
 									'</div>' +
 								'</div>' +
 							'</div>' +
@@ -200,8 +221,15 @@ $(function() {
 							'</div>' +
 						'</div>' +
 					'</div>');
+					//alert('checklist insert complete');
+				},
+				error: function() {
+					//alert('checklist insert error');
+				}
+			});		
 			
 			$('.focus .js-new-checklist-item-input').after($('.add-controls'));
+			$('#title').val("");
 			event.stopPropagation();
 		});
 		
@@ -215,13 +243,36 @@ $(function() {
 		
 		$("body").on("click", '.js-toggle-checklist-item', function(event) {
 			//event.preventDefault();
+			var id = $(this).parents('.checklist-item').attr('id');
+			var check;
 			if($(this).parents('.checklist-item').hasClass('complete-checklist')) {
+				
+				check = false;
+				
 				$(this).parents('.checklist-item').removeClass('complete-checklist');
 				progressPercent($(this));
 			} else {
 				$(this).parents('.checklist-item').addClass('complete-checklist');
+				
+				check = true;
+				
 				progressPercent($(this));
 			}
+			//alert(id);
+			$.ajax({
+				url: '/finalProject/card/updatecheckitembycheck.action',
+				type: 'post',
+				data: {
+					checkitemno : id,
+					checked : check
+				},
+				success: function() {
+					//alert('toggle complete');
+				},
+				error: function() {
+					//alert('toggle error');
+				}
+			});
 			//event.stopPropagation();
 		});
 		
@@ -239,6 +290,8 @@ $(function() {
 		$('body').on('click', '.js-checkitem-name', function(event) {
 			removeControls();
 			
+			//var id = $(this).parents('.checklist-item').attr('id');
+			
 			$(this).parents('.editable').addClass('editing');
 			
 			text = $(this)[0].innerHTML;
@@ -248,19 +301,83 @@ $(function() {
 			event.stopPropagation();
 		});
 		
+		$('body').on('click', '.js-checkitem-input', function(event) {
+			//event.preventDefault();
+			//event.stopPropagation();
+			return false;
+		});
+		
+		$('body').on('click', '.js-delete-item', function(event){
+			var id = $(this).parents('.checklist-item').attr('id');
+			var currentitem = $(this).parents('.checklist-item');
+			$.ajax({
+				url: '/finalProject/card/deletecheckitem.action',
+				type: 'post',
+				data: {
+					checkitemno : id
+				},
+				success: function() {
+					removeControls();
+					currentitem.remove();
+				},
+				error: function() {
+					
+				}
+			})
+		});
+		
+		$('body').on('click', '.js-confirm-delete', function(event){
+			var id = $(this).parents('.checklist').attr('id');
+			var currentlist = $(this).parents('.checklist');
+			$.ajax({
+				url: '/finalProject/card/deletechecklist.action',
+				type: 'post',
+				data: {
+					checklistno : id
+				},
+				success: function() {
+					currentlist.remove();
+				},
+				error: function() {
+					
+				}
+			});
+		});
+		
 		$('body').on('click', '.js-save-edit', function(event) {
 			var message = $(this).parents('.editing').find('.js-checkitem-input').val();
 			
 			// null Check
+			if(message == "") {
+				alert('입력 해주세요.');
+				return;
+			}
 			
-			alert(message);
+			//alert(message);
 			
 			if( text == message ) {
-				alert('변경 없음');
+				//alert('변경 없음');
 			} else {
-				alert('변경 있음');
+				//alert('변경 있음');
 				$('.editing .js-checkitem-name').text(message);
+				
 				// ajax 요청
+				var id = $(this).parents('.checklist-item').attr('id');
+				
+				$.ajax({
+					url: '/finalProject/card/updatecheckitemname.action',
+					type: 'post',
+					data: {
+						checkitemno : id,
+						name : message
+					},
+					success: function() {
+						//alert('itemName complete');
+					},
+					error: function() {
+						//alert('toggle error');
+					}
+				});
 			}
 			$('.editable.editing').removeClass('editing');
 			$('.inline-edit').append($('.edit-controls'));
@@ -270,31 +387,52 @@ $(function() {
 		$('body').on('click', '.js-save-add', function(event) {
 			//event.preventDefault();
 			var message = $(this).parents('.focus').find('textarea.js-new-checklist-item-input');
-			
+			var id = $(this).parents('.checklist').attr('id');
+			//alert(id);
 			// null Check
-			
-			alert(message.val());
+			if(message == "") {
+				alert('입력해주세요.');
+				return;
+			}
+			//alert(message.val());
 			var checklist = $(this).parents('.checklist').find('.checklist-items-list');
-			checklist.append('<div class="checklist-item">' +
-								'<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">' + 
-									'<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>' +
+			
+			$.ajax({
+				url: '/finalProject/card/insertcheckitem.action',
+				type: 'post',
+				async: false,
+				data: {
+					checklistno : id,
+					name : message.val()
+				},
+				success: function(result) {
+					checklist.append('<div class="checklist-item" id="' + result + '">' +
+							'<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">' + 
+								'<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>' +
+							'</div>' +
+							'<div class="checklist-item-details non-empty editable">' +
+								'<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">'+ message.val() +'</p>' +
+								'<div class="edit delete convert options-menu">' +
+									'<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>' +
 								'</div>' +
-								'<div class="checklist-item-details non-empty editable">' +
-									'<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">'+ message.val() +'</p>' +
-									'<div class="edit delete convert options-menu">' +
-										'<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>' +
-									'</div>' +
-								'</div>' +
-							'</div>'
-							);
+							'</div>' +
+						'</div>'
+						);
+					//alert('item insert complete');
+				},
+				error: function() {
+					//alert('item insert error');
+				}
+			});
+			
 			message.val("");
-			//progressPercent($(this));
-			var current = $(this).parents('.window-module-title');
+			
+			var current = $(this).parents('.checklist');
 			var a = current.find('.checklist-items-list').find('.checklist-item');
 			var b = current.find('.checklist-items-list').find('.complete-checklist');
 			var c = $.percentage(b.length , a.length) + '%';
-			current.parents('.checklist').find('.checklist-progress').find('.js-checklist-progress-percent').text(c);
-			current.parents('.checklist').find('.checklist-progress').find('.js-checklist-progress-bar').css('width', c);
+			current.find('.checklist-progress').find('.js-checklist-progress-percent').text(c);
+			current.find('.checklist-progress').find('.js-checklist-progress-bar').css('width', c);
 			$(this).parents('.focus').removeClass('focus');
 			$('.inline-edit').append($('.add-controls'));
 		});
@@ -338,36 +476,27 @@ $(function() {
 					</span>
 					</c:otherwise>
 				</c:choose>
-					
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
-						<table class="window-table">
-						
-						<tr>
-							<td><img
-									src="/finalProject/resources/styles/images/icons/13.png"
-									class="window-icon2" /></td>
-							<td>Members</td>
-						</tr>
-						<!-- attachement -->
+						<div class="card-elements">
+							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/13.png" class="window-icon2" /></span>
+							<span class="content-space">Members</span>
+						</div>
+						<!-- choose -->
 						<c:choose>
 							<c:when test="${ empty attachments }">
-								
 							</c:when>
 							<c:otherwise>
-								<tr>
-									<td><img
-											src="/finalProject/resources/styles/images/icons/1.png"
-											class="window-icon2" /></td>
-									<td>Attachment</td>
-								</tr>
+								<div class="atttr card-elements">
+									<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></span>
+									<span class="content-space">Attachment</span>
+								</div>
 								<c:forEach var="attlist" items="${attachments }">
-									<tr>
-										<td></td>
-										<td>
-											<%-- <c:import url="/WEB-INF/views/card/attachment.jsp" /> --%>
-											<div class="u-clearfix attachment-list">
+									<div class="atttr card-elements" >
+										<span class="icon-space"></span>
+										<span class="content-space u-clearfix">
+											<!-- <div class="u-clearfix attachment-list"> -->
 												<div class="attachment-thumnail">
 													<a class="attachment-preview">
 														<span class="attachment-preview-src">${attlist.fileType }</span>
@@ -385,84 +514,77 @@ $(function() {
 														</span>
 													</p>
 												</div>
-											</div>
-										</td>
-									</tr>
+											<!-- </div> -->
+										</span>
+									</div>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-						<!-- checklist -->
-						<tr>
-							<td><img
-									src="/finalProject/resources/styles/images/icons/133.png"
-									class="window-icon2" /></td>
-							<td>CheckList</td>
-						</tr>
-						<!--  -->
-						
-							<tr>
-								<td><img
-									src="/finalProject/resources/styles/images/icons/199.png"
-									class="window-icon2" /></td>
-								<td>Activity</td>
-							</tr>
-							<tr>
-								<td><img src="/finalProject/resources/styles/images/icons/2.png" 
-								class="window-icon2" /></td>
-								<td>
-									<input class="activity-comment" type="text"  />
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div class="checklist-list window-module">
-						<c:if test="${ checklists ne null }">
-						<c:forEach var="checklist" items="${ checklists }">
-						<div class="checklist" id="${ checklist.no }">
-							<div class="window-module-title window-module-title-no-divider">
-								<span class="window-module-title-icon icon-lg icon-checklist"></span>
-								<div class="editable non-empty checklist-title">
-									<h3 class="current hide-on-edit">${ checklist.name }</h3>
-									<div class="window-module-title-options">
-										<a class="hide-on-edit js-confirm-delete">Delete...</a>
+						<div class="card-elements">
+							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/133.png" class="window-icon2" /></span>
+							<span class="content-space">CheckList</span>
+						</div>
+						<div class="checklist-list window-module">
+							<c:if test="${ checklists ne null }">
+							<c:forEach var="checklist" items="${ checklists }">
+							<div class="checklist" id="${ checklist.no }">
+								<div class="window-module-title window-module-title-no-divider">
+									<span class="window-module-title-icon icon-lg icon-checklist"></span>
+									<div class="editable non-empty checklist-title">
+										<h3 class="current hide-on-edit">${ checklist.name }</h3>
+										<div class="window-module-title-options">
+											<a class="hide-on-edit js-confirm-delete">Delete...</a>
+										</div>
 										<div class="edit edit-heavy">
 											<textarea class="field full single-line" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px"></textarea>
 										</div>
 									</div>
-								</div>
-								<div class="checklist-progress">
-									<span class="checklist-progress-percentage js-checklist-progress-percent">0%</span>
-									<div class="checklist-progress-bar">
-										<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: 0%;"></div>
 									</div>
-								</div>
-								<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable">
-									<c:if test="${ checkItems }" >
-									<c:forEach var="checkitem" items="${ checkItems }">
-									<div class="checklist-item ${ checkitem.checked ? 'complete-checklist' : '' }" id="${ checkitem.no }">
-										<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">
-											<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
+									<div class="checklist-progress">
+										<span class="checklist-progress-percentage js-checklist-progress-percent">0%</span>
+										<div class="checklist-progress-bar">
+											<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: 0%;"></div>
 										</div>
-										<div class="checklist-item-details non-empty editable">
-											<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">${ checkitem.name }</p>
-											<div class="edit delete convert options-menu">
-												<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+									</div>
+									<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable">
+										<c:if test="${ checklist.checkItems ne null }" >
+										<c:forEach var="checkitem" items="${ checklist.checkItems }">
+										<div class="checklist-item ${ checkitem.checked == true ? 'complete-checklist' : '' }" id="${ checkitem.no }">
+											<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">
+												<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
+											</div>
+											<div class="checklist-item-details non-empty editable">
+												<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">${ checkitem.name }</p>
+												<div class="edit delete convert options-menu">
+													<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+												</div>
 											</div>
 										</div>
+										</c:forEach>
+										</c:if>
 									</div>
-									</c:forEach>
-									</c:if>
-								</div>
-								<div class="checklist-new-item u-gutter js-new-checklist-item">
-									<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
-								</div>
+									<div class="checklist-new-item u-gutter js-new-checklist-item">
+										<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+									</div>
+								
 							</div>
+							</c:forEach>
+							</c:if> 
 						</div>
-						</c:forEach>
-						</c:if> 
+						<div class="card-elements js-activity-view">
+							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
+							<span class="content-space">Activity</span>
+						</div>
+						<div class="card-elements">
+							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
+							<span class="content-space"><input class="activity-comment" type="text" /></span>	
+						</div>
+						
 					</div>
-					<div class="window-checklist">checklist</div>
-					<div class="window-activity">activity</div>
+					<div class="card-elements">
+						<span class="icon-space"></span>
+						<span class="content-space">누적 activity</span>
+					</div>
 				</div>
 				
 			</div>
@@ -474,7 +596,7 @@ $(function() {
 								src="/finalProject/resources/styles/images/icons/13.png"
 								class="window-icon2" /> Members
 						</span>
-						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
+						</a> <a class="window-sidebutton js-checklist-add-btn"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/133.png"
 								class="window-icon2" /> CheckList
 						</span>
@@ -511,11 +633,12 @@ $(function() {
 		
 		<div class="inline-edit">
 			<!-- <div class="comp"></div> -->
-			<div class="edit-controls u-clearfix">
+			<div class="edit-controls">
 				<input class="primary confirm js-save-edit" type="submit" value="save" />
 				<a class="ui-icon ui-icon-closethick" href="#"></a>
+				<a class="option delete js-delete-item">Delete</a>
 			</div>
-			<div class="add-controls u-clearfix">
+			<div class="add-controls">
 				<input class="primary confirm js-save-add" type="submit" value="add" />
 				<a class="ui-icon ui-icon-closethick" href="#"></a>
 			</div>
@@ -533,6 +656,17 @@ $(function() {
 			</form>
 		</div>
 			<%-- <c:import  url="/WEB-INF/views/card/upload.jsp"/> --%>
+		</div>
+		
+		<!-- Checklistdialog  -->
+		<div id="checklistdialog">
+			<form id="checklistForm">
+				<label for=""></label>
+				<input type="hidden" name="cardno" value="${ cardno }"/>
+				<label for="title">Title</label>
+				<input type="text" name="title" id="title" tabindex="1" placeholder="Checklist">
+				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
+			</form>
 		</div>
 	</div>
 	

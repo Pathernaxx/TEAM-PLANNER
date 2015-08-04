@@ -11,10 +11,11 @@ import com.teamplanner.dto.TagMember;
 
 public interface CardRepository {
 
-	void insertCheckList(CheckList checklist);
-	void insertCheckItem(CheckItem checkitem);
+	int insertCheckList(CheckList checklist);
+	int insertCheckItem(CheckItem checkitem);
 	void deleteCheckList(int checklistno);
 	void deleteCheckItem(int checkitemno);
+	void deleteCheckItemByChecklist(int checklistno);
 	void updateCheckListName(String name, int checklistno);
 	void updateCheckItem(boolean checked, int checkitemno);
 	void updateCheckItemName(String name, int checkitemno);

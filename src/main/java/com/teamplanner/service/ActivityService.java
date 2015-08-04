@@ -16,10 +16,10 @@ public interface ActivityService {
 	void createBoard(Board board, Member member);
 	void addActivity(Member member, BoardList list, Board board);
 	void addActivity(Member member, Card card, BoardList list, Board board);
-	void addActivity(Member member, CheckList checklist, Card card, Board board);
+	void addActivity(Member member, CheckList checklist, int cardno);
 	void addActivity(Member member, Member addMember, Board board);
-	void attachmentActivity(Member member, Attachment attachment, Card card, Board board);
-	void commentActivity(Member member, Card card, Comment comment, Board board); //on 코멘트 삭제
+	void attachmentActivity(Member member, Attachment attachment, int cardno);
+	void commentActivity(Member member, int cardno, Comment comment); //on 코멘트 등록
 	void moveActivity(Member member, Card card, String message, Board board);
 	void madeMemberActivity(Member member, Member teamMember, Board board);
 	void completeCheckActivity(Member member, CheckItem item, Card card, Board board);

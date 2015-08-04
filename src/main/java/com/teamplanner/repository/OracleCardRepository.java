@@ -73,15 +73,18 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public void insertCheckList(CheckList checklist) {
+	public int insertCheckList(CheckList checklist) {
 		cardMapper.insertCheckList(checklist);
 		
+		return checklist.getNo();
 	}
 
 	@Override
-	public void insertCheckItem(CheckItem checkitem) {
+	public int insertCheckItem(CheckItem checkitem) {
 		
 		cardMapper.insertCheckItem(checkitem);
+		
+		return checkitem.getNo();
 	}
 
 	@Override
@@ -95,6 +98,13 @@ public class OracleCardRepository implements CardRepository {
 	public void deleteCheckItem(int checkitemno) {
 		
 		cardMapper.deleteCheckItem(checkitemno);
+		
+	}
+
+	@Override
+	public void deleteCheckItemByChecklist(int checklistno) {
+		
+		cardMapper.deleteCheckItemByChecklist(checklistno);
 		
 	}
 
@@ -114,7 +124,7 @@ public class OracleCardRepository implements CardRepository {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("checked", checked);
-		params.put("checklistno", checkitemno);
+		params.put("checkitemno", checkitemno);
 		
 		cardMapper.updateCheckItem(params);
 		
