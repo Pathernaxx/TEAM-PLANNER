@@ -25,6 +25,83 @@ public class PlanCardService implements CardService {
 	}
 
 	@Override
+	public int insertCheckList(String name, int cardNo) {
+		CheckList checklist = new CheckList();
+		
+		checklist.setCardNo(cardNo);
+		checklist.setName(name);
+		
+		int checklistno = cardRepository.insertCheckList(checklist);
+		
+		return checklistno;
+	}
+
+
+	@Override
+	public int insertCheckItem(String name, int checkListNo) {
+		
+		CheckItem checkitem = new CheckItem();
+		
+		checkitem.setName(name);
+		checkitem.setChecklistno(checkListNo);
+		
+		int checkitemno = cardRepository.insertCheckItem(checkitem);
+		
+		return checkitemno;
+	}
+
+
+	@Override
+	public void deleteCheckList(int checklistno) {
+		
+		if( cardRepository.selectCheckItemCount(checklistno) > 0) {
+			cardRepository.deleteCheckList(checklistno);
+		} else {
+			cardRepository.deleteCheckItemByChecklist(checklistno);
+			cardRepository.deleteCheckList(checklistno);
+		}
+		
+	}
+
+
+	@Override
+	public void deleteCheckItem(int checkitemno) {
+
+		cardRepository.deleteCheckItem(checkitemno);
+		
+	}
+
+
+	@Override
+	public void updateCheckListName(String name, int checklistno) {
+		
+		cardRepository.updateCheckListName(name, checklistno);
+		
+	}
+
+	@Override
+	public void updateCheckItem(boolean checked, int checkitemno) {
+		// TODO Auto-generated method stub
+		cardRepository.updateCheckItem(checked, checkitemno);
+	}
+
+
+	@Override
+	public void updateCheckItemName(String name, int checkitemno) {
+		
+		cardRepository.updateCheckItemName(name, checkitemno);
+		
+	}
+
+
+	@Override
+	public int selectCheckItemCount(int checklistno) {
+
+		return cardRepository.selectCheckItemCount(checklistno);
+	}
+
+
+	@Override
 	public List<Comment> selectComment(int cardNo) {
 		// TODO Auto-generated method stub
 		return null;
@@ -32,8 +109,9 @@ public class PlanCardService implements CardService {
 
 	@Override
 	public List<CheckList> selectCheckList(int cardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		return cardRepository.selectCheckList(cardNo);
 	}
 
 	@Override

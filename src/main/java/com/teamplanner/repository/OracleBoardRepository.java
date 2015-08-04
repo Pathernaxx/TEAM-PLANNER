@@ -104,6 +104,14 @@ public class OracleBoardRepository implements BoardRepository{
 		boardMapper.addTagMember(params);
 		
 	}
+	@Override
+	public void addTagFriend(int friendNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("friendNo", friendNo);
+		params.put("boardNo", boardNo);
+		
+		boardMapper.addTagFriend(params);
+	}
 	
 	@Override
 	public List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo) {
@@ -124,6 +132,31 @@ public class OracleBoardRepository implements BoardRepository{
 		
 		return boardMapper.selectTagFriend(params);
 	}
+	
+	@Override
+	public int selectUserType(int memberNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("boardNo", boardNo);
+		
+		return boardMapper.selectUserType(params);
+	}
+	
+	@Override
+	public void closedBoard(int boardNo) {
+		boardMapper.closedBoard(boardNo);
+	}
+	
+	@Override
+	public void exitBoard(int memberNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("memberNo", memberNo);
+		params.put("boardNo", boardNo);
+		
+		boardMapper.exitBoard(params);
+		
+	}
+	
 	////////////////////유정////////////////
 	@Override
 	public Board selectBoardByList(int boardNo) {
@@ -180,12 +213,11 @@ public class OracleBoardRepository implements BoardRepository{
 		return boardMapper.getListName(params);
 	}
 
+	
 	@Override
 	public List<Attachment> selectAttachmentListByBoardno(int boardno) {
 		return boardMapper.selectAttachmentListByBoardno(boardno);
 	}
-
-
 
 
 }

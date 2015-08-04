@@ -16,6 +16,15 @@ public interface CardService {
 	List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
 	
+	int insertCheckList(String name, int cardNo);
+	int insertCheckItem(String name, int checkListNo);
+	void deleteCheckList(int checklistno);
+	void deleteCheckItem(int checkitemno);
+	void updateCheckListName(String name, int checklistno);
+	void updateCheckItem(boolean checked, int checkitemno);
+	void updateCheckItemName(String name, int checkitemno);
+	int selectCheckItemCount(int checklistno);
+	
 	int insertAttachment(Attachment attachment);
 	void writeCardInfo(Card card);
 	List<Attachment> selectAttachmentList(int cardno, int boardno);

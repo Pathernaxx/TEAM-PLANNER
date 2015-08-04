@@ -11,11 +11,22 @@ import com.teamplanner.dto.Comment;
 import com.teamplanner.dto.TagMember;
 
 public interface CardMapper {
-
+	
+	void insertCheckList(CheckList checklist);
+	void insertCheckItem(CheckItem checkitem);
+	int selectCheckListPercent(int no);
+	void deleteCheckList(int checklistno);
+	void deleteCheckItem(int checkitemno);
+	void deleteCheckItemByChecklist(int checklistno);
+	void updateCheckListName(HashMap<String, Object> params);
+	void updateCheckItem(HashMap<String, Object> params);
+	void updateCheckItemName(HashMap<String, Object> params);
+	int selectCheckItemCount(int checklistno);
+	
 	List<Comment> selectComment(int cardNo);
 	//List<Attachment> selectAttachment(HashMap<Object, Object> params);//int cardNo, int boardNo
 	List<CheckList> selectCheckList(int cardNo);
-	List<CheckItem> selectCheckItem(int checklistNo);
+	//List<CheckItem> selectCheckItem(int checklistNo);
 	List<TagMember> selectTagMember(int cardNo);
 	
 	void insertAttachment(Attachment attachment);
