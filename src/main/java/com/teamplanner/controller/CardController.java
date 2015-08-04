@@ -33,6 +33,8 @@ import com.teamplanner.view.DownloadView;
 import com.teamplanner.commons.Util;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
 
@@ -232,6 +234,23 @@ private BoardService boardService;
 			message = "error";
 		} 
 		return message;
+		
+	}
+	
+	@RequestMapping(value="insertComment.action", method=RequestMethod.POST)
+	@ResponseBody
+	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
+		
+		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		
+		Comment comment = new Comment();
+		comment.setCardNo(cardno);
+		comment.setContent(content);
+		comment.setWriter(writer);
+		
+		String message = "";
+		
+		cardService.insertComment(comment);
 		
 	}
 	

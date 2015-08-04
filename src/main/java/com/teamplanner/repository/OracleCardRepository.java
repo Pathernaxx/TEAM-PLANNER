@@ -77,4 +77,9 @@ public class OracleCardRepository implements CardRepository {
 		cardMapper.deleteAttachment(attachmentno);
 	}
 
+	@Override
+	public void insertComment(Comment comment) {
+		cardMapper.insertComment(comment);
+	}
+
 }

@@ -58,20 +58,39 @@ $("#infosubmit").click(function(e) {
 	e.preventDefault();
 });
 
+$('#cardinfo').on('click', ".updateinfo", function() {
+//$(".updateinfo").click(function() {
+	//alert("aaa");
+	$('.savedinfo').css('visibility', 'hidden');
+	$('.savedinfo').css('display', 'none');
+	$('.savedinfo').css('height', '0px');
+	$('.editform').css('visibility', 'visible');
+	$('.editform').css('display', 'block');
+	
+	$('#information').css('onfocus', 'this.value=""');
+	
+});
+
 </script>
-<div class="savedinfo" style="display:none;visibility:visible">
-	&nbsp;&nbsp;&nbsp;<span class="savedinfodata"></span><br/>
-	<span>
-		<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
-		Edit the Discription</a>
-	</span>
+<div id="cardinfo">
+	<div class="savedinfo" style="display:none;visibility:visible">
+		&nbsp;&nbsp;&nbsp;<span class="savedinfodata"></span><br/>
+		<span>
+			<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+			Edit the Discription</a>
+		</span>
+	</div>
 </div>
+
+<div id="cardinfo">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<a class="editinfo" style="cursor: pointer;">
 		<img src="/finalProject/resources/styles/images/icons/234.png"
 		class="window-icon2" />&nbsp;
 		Write the Discription
 	</a>
+</div>
+	
 <div class="editform">
 	<form id="editcontent" action="writecardinfo.action" method="post" enctype="multipart/form-data">
 		<input id="information" type="text" class="edit-cardinfo"/>

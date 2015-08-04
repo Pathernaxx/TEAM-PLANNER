@@ -42,17 +42,22 @@ public class DownloadView extends AbstractView {
 		String file2 = application.getRealPath("/resources/uploadfiles/" + filesavedname);
 		
 		BufferedInputStream istream = new BufferedInputStream(new FileInputStream(file2));
-		BufferedOutputStream ostream = new BufferedOutputStream(response.getOutputStream());
 		
-		while (true) {
-			int data = istream.read();
-			if (data != -1) 
-				ostream.write(data);
-			else
-				break;
+		if( istream != null ) {
+			BufferedOutputStream ostream = new BufferedOutputStream(response.getOutputStream());
+			while (true) {
+				int data = istream.read();
+				if (data != -1) 
+					ostream.write(data);
+				else
+					break;
+			}
+			istream.close();
+			ostream.close();
+		} else {
+			System.out.println("no file");
 		}
-		istream.close();
-		ostream.close();
+		
 	}
 	
 }
