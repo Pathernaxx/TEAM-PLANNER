@@ -3,9 +3,11 @@ package com.teamplanner.repository;
 import java.util.HashMap;
 import java.util.List;
 
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.Member;
 
 public interface BoardRepository {
 	
@@ -21,6 +23,10 @@ public interface BoardRepository {
 	void openClosedBoardPage(int boardNo);
 	BoardList selectBoardListBylistNo(int listno);
 	
+	void addTagMember(int tagMemberNo, int boardNo);
+	List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo);
+	List<Member> selectTagFriend(int boardNo, int memberNo);
+	
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);
@@ -30,4 +36,5 @@ public interface BoardRepository {
 	String selectCardInfo(int boardNo, int listNo, int cardNo);
 	String getBoardName(int boardNo);
 	String getListName(int boardno, int listno);
+	List<Attachment> selectAttachmentListByBoardno(int boardno);
 }

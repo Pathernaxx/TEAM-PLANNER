@@ -25,4 +25,6 @@ public interface MemberRepository {
 	void updateMember(Member member);
 	List<Member> selectMemberbyMemberName(int memberNo , String text);
 	List<Member> searchTagAllMember(String key , int memberNo, int boardno);
+	List<Member> memberlist(int memberNo);
+	List<Member> selectTagFriend(int boardNo, int memberNo);
 }

@@ -9,4 +9,5 @@ public interface SearchService {
 	List<Board> searchBoard(int memberNo , String text);
 	List<Member> searchMember(int memberNo , String text);
 	List<Member> searchTagAllMember(String key , int memberNo, int boardno);
+	List<Member> selectTagFriend(int boardNo , int memberNo);
 }

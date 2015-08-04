@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -187,12 +188,12 @@ public class CardController {
 	
 	@RequestMapping(value="insertAttachment.action", method=RequestMethod.POST)
 	@ResponseBody
-	public String insertAttachment(@RequestParam("cardno") int cardno, 
+	public ModelAndView insertAttachment(@RequestParam("cardno") int cardno, 
 									@RequestParam("boardno") int boardno,
 									@RequestParam("file") MultipartFile uploadfile,
 									MultipartHttpServletRequest req) {
 		
-		String message="";
+		ModelAndView mav = new ModelAndView();
 		
 		ServletContext application = req.getSession().getServletContext();
 		
@@ -211,11 +212,22 @@ public class CardController {
 			
 			int originNo = cardService.insertAttachment(attachment);
 			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			String date = sdf.format(new Date());
+			
+			int pos = attachment.getUserFileName().lastIndexOf(".");
+			String ext = attachment.getUserFileName().substring(pos+1);
+			String filename2 = attachment.getUserFileName().substring(0, pos);
+			
+			mav.addObject("date", date);
+			mav.addObject("no", originNo);
+			mav.addObject("type", ext);
+			mav.addObject("name", filename2);
+			
 			String path = application.getRealPath("/resources/uploadfiles/");
 //			String savedName = Util.getUniqueFileName(path, originNo+filename);
 //			String savedName = Util.getUniqueFileName(path, filename);
 			String savedName = originNo+filename;
-			
 			
 			try {
 				FileOutputStream ostream = 
@@ -225,18 +237,17 @@ public class CardController {
 					int data = istream.read();
 					if (data == -1) break;
 					ostream.write(data);
-					
-					message = "success";
 				}
 				istream.close();
 				ostream.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				
-				message = "error";
 			}
 		}
-		return message;
+		
+		mav.setViewName("card/att1");
+		return mav;
+		//return message;
 	}
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)

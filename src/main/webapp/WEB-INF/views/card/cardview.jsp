@@ -3,7 +3,7 @@
 
 <script>
 function addBoard(){}
-	
+
 $(function() {
 	
 	var boardno = $("#boardno").val();
@@ -20,17 +20,20 @@ $(function() {
 			"boardno" : boardno
 		},
 		success: function(result) { 
-			$('.attachmentbtn').webuiPopover({
+			b=$('.attachmentbtn').webuiPopover({
 			constrains: 'horizontal',
 			trigger: 'click',
 			multi: false,
-			placement: 'bottom',
+			placement: 'right',
 			width: 300,
 			closeable: true,
 			arrow: false,
 			title: 'Attachment',
-			content: result
+			content: result,
+			cache : false
 			});
+			b.zIndex(10001);
+
 		},
 		error: function() {
 			alert('error');
@@ -41,7 +44,7 @@ $(function() {
 
 	var attachmentdialog = $('#attachmentdialog').dialog({
 		autoOpen: false,
-		height: 130,
+		height: 160,
 		width: 280
 	});	
 	$('#attachmentbtn').click(function() {
@@ -49,37 +52,8 @@ $(function() {
 	});
 	///////////////////////////////////////////
 	
-	$("#uploadForm").submit(function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		
-		$.ajax({
-			url: '/finalProject/card/insertAttachment.action',
-			type: 'POST',
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function(message) {
-				if(message == "success") {
-					//$(".atttr").reload();
-					alert("success");
-					attachmentdialog.dialog("close");
-				} else {
-					alert("error");
-				}
-			},
-			error: function(xhr, status, ex) {
-				alert(status+ex);
-			}
-		});
-		
-	}); 
 	
-	$('.window-table').on('click', "#filedownload", function() {
-		//alert($(this).parents(".attachment-options").find('input').val());
-		//var fileno = $(".attachment-options").children()[0].value;
-		
+	/* $('.window-header').on('click', "#filedownload", function() {
 		$.ajax({
 			url: '/finalProject/card/filedownload.action',
 			type: 'GET',
@@ -94,9 +68,9 @@ $(function() {
 				alert(status+ex)
 			}
 		});
-	});
+	}); */
 	
-	$('.window-table').on('click', "#filedelete", function() {
+	$('.window-header').on('click', "#filedelete", function() {
 		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
 		//alert($(this).parents(".attachment-options").find('input').val());
 		var tempthis = $(this);
@@ -117,6 +91,41 @@ $(function() {
 		});
 	});
 	
+	$("#uploadForm").submit(function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		var string = "<div class='atttr attachment-title'>" +
+						"<span class='icon-space'><img src='/finalProject/resources/styles/images/icons/1.png' class='window-icon2' /></span>" +
+						"<span class='content-space'>Attachment</span>" +
+					 "</div>";
+		$.ajax({
+			url: '/finalProject/card/insertAttachment.action',
+			type: 'POST',
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(result) {
+				 if($("#last-attachment") != null && $("#last-attachment").length > 0 ) {
+					$("#last-attachment").before(result);
+				} else {
+					$(".window-attachment").after(result).after(string);
+					//$(".window-attachment").append(result);
+				}
+				attachmentdialog.dialog("close");
+			},
+			error: function(xhr, status, ex) {
+				alert(status+ex);
+			}
+		});
+		
+	}); 
+	
+	
+	$("#cancelbtn").click(function() {
+		attachmentdialog.dialog("close");
+	});
+	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
 		url: "/finalProject/card/tagMemberForm.action",
@@ -127,17 +136,19 @@ $(function() {
 			"boardno" : boardno
 		},
 		success: function(result) { 
-			$('#tagMemberbtn').webuiPopover({
+			c = $('#tagMemberbtn').webuiPopover({
 				constrains: 'horizontal',
 				trigger: 'click',
 				multi: false,
-				placement: 'bottom',
+				placement: 'right',
 				width: 300,
 				closeable: true,
 				arrow: false,
 				title: 'Tag Member',
-				content: result
+				content: result,
+
 			});
+
 		},
 		error: function() {
 			alert("tag error");
@@ -479,7 +490,7 @@ $(function() {
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
-						<div class="card-elements">
+						<div id="attachment-title" class="attachment-title">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/13.png" class="window-icon2" /></span>
 							<span class="content-space">Members</span>
 						</div>
@@ -488,39 +499,37 @@ $(function() {
 							<c:when test="${ empty attachments }">
 							</c:when>
 							<c:otherwise>
-								<div class="atttr card-elements">
+								<div class="atttr attachment-title">
 									<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></span>
 									<span class="content-space">Attachment</span>
 								</div>
-								<c:forEach var="attlist" items="${attachments }">
-									<div class="atttr card-elements" >
-										<span class="icon-space"></span>
-										<span class="content-space u-clearfix">
-											<!-- <div class="u-clearfix attachment-list"> -->
-												<div class="attachment-thumnail">
-													<a class="attachment-preview">
-														<span class="attachment-preview-src">${attlist.fileType }</span>
+							<c:forEach var="attlist" items="${attachments }">
+								<div id="last-attachment" class="atttr card-elements" >
+									<span class="icon-space"></span>
+									<span class="content-space u-clearfix">
+											<div class="attachment-thumnail">
+												<a class="attachment-preview">
+													<span class="attachment-preview-src">${attlist.fileType }</span>
+												</a>
+												<p class="attachment-details">
+													<a class="attachment-details-title">${attlist.fileName }<br/>
+														<span class="attachment-date" style="font-size: x-small;">${uploadDate }</span>
 													</a>
-													<p class="attachment-details">
-														<a class="attachment-details-title">${attlist.fileName }<br/>
-															<span class="attachment-date" style="font-size: x-small;">${uploadDate }</span>
-														</a>
-														<span class="attachment-options" style="font-size: small;">
-															<input type="hidden" value="${attlist.no }" />
-															<a id="filedownload" style="text-decoration: underline">
-																Download</a>
-															&nbsp;&nbsp;
-															<a id="filedelete" style="text-decoration: underline">Delete</a>
-														</span>
-													</p>
-												</div>
-											<!-- </div> -->
-										</span>
-									</div>
-								</c:forEach>
+													<span class="attachment-options" style="font-size: small;">
+														<input type="hidden" value="${attlist.no }" />
+														<a id="filedownload" href="/finalProject/card/filedownload.action?fileno=${attlist.no }" style="text-decoration: underline">
+															Download</a>
+														&nbsp;&nbsp;
+														<a id="filedelete" style="text-decoration: underline">Delete</a>
+													</span>
+												</p>
+											</div>
+									</span>
+								</div>
+							</c:forEach>
 							</c:otherwise>
 						</c:choose>
-						<div class="card-elements">
+						<div class="attachment-title">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/133.png" class="window-icon2" /></span>
 							<span class="content-space">CheckList</span>
 						</div>
@@ -572,6 +581,7 @@ $(function() {
 							</c:if> 
 						</div>
 						<div class="card-elements js-activity-view">
+						<div class="attachment-title">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
 							<span class="content-space">Activity</span>
 						</div>
@@ -653,6 +663,8 @@ $(function() {
 				<br/>
 				&nbsp;&nbsp;
 				<input class="window-uploadbutton" type='submit' name="submit" id="submitbtn" value='Upload' /> <!--  onclick="javascript:Upload();" -->
+				<br/>&nbsp;&nbsp;
+				<input class="window-uploadbutton" type='button' id="cancelbtn" value='Cancel' />
 			</form>
 		</div>
 			<%-- <c:import  url="/WEB-INF/views/card/upload.jsp"/> --%>

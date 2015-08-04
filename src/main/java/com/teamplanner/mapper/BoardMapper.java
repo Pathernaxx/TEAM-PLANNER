@@ -3,6 +3,7 @@ package com.teamplanner.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -21,6 +22,9 @@ public interface BoardMapper {
 	BoardList selectBoardListBylistNo(int listno);
 	void addFriend(HashMap<Object, Object> params);
 	void openClosedBoardPage(int boardNo);
+	void addTagMember(HashMap<Object, Object> params);
+	List<Member> selectTeamlistByBoardNo(HashMap<Object, Object> params);
+	List<Member> selectTagFriend(HashMap<Object, Object> params);
 	
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
@@ -31,4 +35,5 @@ public interface BoardMapper {
 	String selectCardInfo(HashMap<Object, Object> params);
 	String getBoardName(int boardNo);
 	String getListName(HashMap<Object, Object> params);
+	List<Attachment> selectAttachmentListByBoardno(int boardno);
 }

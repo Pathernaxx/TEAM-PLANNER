@@ -137,6 +137,7 @@ $(document).ready(function() {
 		//var boardno = $("#boardNo").val();
 		
 		var cardviewdialog = $(".cardview-dialog").dialog({
+			stack: false,
 			autoOpen: false,
 			height:600,
 			width:750,
@@ -146,6 +147,7 @@ $(document).ready(function() {
 				}
 			}
 		});
+		
 		$(".list-card-details").click(function(event) {
 			
 			$.ajax({
@@ -167,7 +169,9 @@ $(document).ready(function() {
 					alert(xhr+status+ex);
 				}
 			});
+			
 			cardviewdialog.dialog("open");
+			
 			$("#cardno").val($(this).children()[2].value);
 			//$("#cardinfo").val($(this).children()[3].value);
 			$("#boardno").val($("#boardNo").val());
@@ -219,7 +223,9 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						<div id="pollSlider-button"></div>	
+						<div id="pollSlider-button">
+						<img src="/finalProject/resources/styles/images/icons/6.png">
+						</div>	
 					</div> 
 				</div>
 	

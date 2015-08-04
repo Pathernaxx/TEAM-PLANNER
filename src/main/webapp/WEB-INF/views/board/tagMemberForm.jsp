@@ -1,3 +1,8 @@
+<style>
+	.ui-front{
+		z-index: 10000;
+	}
+</style>
 <script>
 	$(document).ready(function(){
 		var boardno = '${boardno}';
@@ -39,7 +44,7 @@
 </script>
 
 <div class='tagMemberForm'>
-	<form action="insertTagMember.action" id="tagMemberForm" method="post" enctype="multipart/form-data">
+	<form action="insertTagMember.action" id="tagMemberForm" method="post">
 		<input type="hidden" id="boardno" value=${boardno } />
 		<input type="hidden" id="tagmemberno" value="" />
 		<input type="text" id="searchtag" value="tag a member..." onfocus="this.value=''" style="width: 80%;" />
