@@ -42,7 +42,7 @@
 			username = #{userName} AND no != #{memberNo}
 	</select>
 	
-	<select id="selectMemberByMemberNo" parameterType="int">
+	<select id="selectMemberByMemberNo" parameterType="int" resultType="Member">
 		SELECT
 			<include refid="member"/>
 		FROM
@@ -146,10 +146,15 @@
 	</select>
 	
 	<select id="searchTagAllMember" parameterType="hashMap" resultType="Member">
-		select distinct m.* 
-		from member m , teamlist t 
-		where m.no != #{memberNo} AND t.boardno != #{boardNo} AND m.username like #{key}||'%' 
-		order by m.username
+		select DISTINCT * 
+		from member
+		where no not in
+			(
+				 select memberno 
+				 from teamlist 
+				 where boardno = #{boardNo}
+			) and username like #{key}||'%' and no != #{memberNo} 
+		order by username
 	</select>
 	
 	 <select id="memberlist" parameterType="int" resultType="Member">
@@ -162,9 +167,15 @@
 	</select> 
 	
 	
-	<!-- <select id="selectTagFriend" parameterType="hashMap" resultType="Member">
-		select m.* 
-		from member m , memberlist l , teamlist t 
-		where l.myno = #{memberNo} AND 
-	</select> -->
+	<select id="selectTagFriend" parameterType="hashMap" resultType="Member">
+		select DISTINCT m.* 
+		from member m , memberlist l
+		where m.no not in
+			(
+				 select memberno 
+				 from teamlist 
+				 where boardno = #{boardNo}
+			) and l.myno = #{memberNo} and m.no = l.memberno
+		order by username
+	</select>
 </mapper>

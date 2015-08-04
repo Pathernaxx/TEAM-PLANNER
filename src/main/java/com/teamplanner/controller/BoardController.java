@@ -23,6 +23,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.MemberService;
 import com.teamplanner.service.SearchService;
 
 @Controller
@@ -32,6 +33,7 @@ public class BoardController {
 	
 	private BoardService boardService;
 	private ActivityService activityService;
+	private MemberService memberService;
 	
 	@Autowired
 	@Qualifier("boardService")
@@ -51,6 +53,12 @@ public class BoardController {
 	@Qualifier("activityService")
 	public void setActivityService(ActivityService activityService) {
 		this.activityService = activityService;
+	}
+	
+	@Autowired
+	@Qualifier("memberService")
+	public void setMemberService(MemberService memberService) {
+		this.memberService=memberService;
 	}
 
 
@@ -164,16 +172,18 @@ public class BoardController {
 	
 //////////////////////// 유정 /////////////////////////////////////////
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
-	public ModelAndView BoardView(@RequestParam("boardno") int boardNo){
+	public ModelAndView BoardView(@RequestParam("boardno") int boardNo, HttpSession session){
 	
 //		int boardno = boardNo;
 //		
 //		ModelAndView mav = new ModelAndView();
 //		mav.addObject("boardno", boardno);
 //		mav.setViewName("board/boardview");
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
+		int userType = boardService.selectUserType(memberNo, boardNo);
 		
 		String boardname = boardService.getBoardName(boardNo);
-		
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		List<Attachment> attachments = boardService.selectAttachmentListByBoardno(boardNo);
 		
@@ -198,6 +208,8 @@ public class BoardController {
 		mav.addObject("boardLists", boardLists);
 		mav.addObject("boardNo", boardNo);
 		mav.addObject("boardname", boardname);
+		mav.addObject("members", members);
+		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
 		mav.setViewName("board/boardview");
 		
@@ -295,8 +307,7 @@ public class BoardController {
 
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		
-		List<Member> members = boardService.selectTagFriend(boardNo, memberNo);
-		
+		List<Member> members = searchService.selectTagFriend(boardNo, memberNo);
 		if(members.size() <=0 || members== null){
 			members = null;
 		}
@@ -307,31 +318,45 @@ public class BoardController {
 	
 	@RequestMapping(value="addTagFriend.action", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Member> addTagFriend(HttpSession session, int boardNo) {
-
-		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-		List<Member> members = null;
-		if(members.size() <=0 || members== null){
-			members = null;
+	public Member addTagFriend(HttpSession session, int boardNo , int friendNo) {
+		
+		boardService.addTagFriend(friendNo, boardNo);
+		Member member = boardService.selectMemberByMemberNo(friendNo);
+		if(member== null){
+			member = null;
 		}
 		
-		
-		return members;
+		return member;
 	}
 	
 	@RequestMapping(value="addTagMember.action", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Member> addTagMember(HttpSession session, int tagMemberNo, int boardNo) {
+	public Member addTagMember(int tagMemberNo, int boardNo) {
 
-		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		boardService.addTagMember(tagMemberNo, boardNo);
-		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
-		if(members.size() <=0 || members== null){
-			members = null;
+		Member member = boardService.selectMemberByMemberNo(tagMemberNo);
+		if(member== null){
+			member = null;
 		}
 		
 		
-		return members;
+		return member;
+	}
+	
+	@RequestMapping(value="closedBoard.action", method=RequestMethod.GET)
+	public String closedBoard(int boardNo){
+		
+		boardService.closedBoard(boardNo);
+		
+		return "redirect:/board/boardmain.action";
+	}
+	
+	@RequestMapping(value="exitBoard.action", method=RequestMethod.GET)
+	public String exitBoard(int boardNo , HttpSession session){
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		boardService.exitBoard(memberNo, boardNo);
+		
+		return "redirect:/board/boardmain.action";
 	}
 	
 }
