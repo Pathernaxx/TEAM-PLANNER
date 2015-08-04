@@ -222,7 +222,9 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						<div id="pollSlider-button"></div>	
+						<div id="pollSlider-button">
+						<img src="/finalProject/resources/styles/images/icons/6.png">
+						</div>	
 					</div> 
 				</div>
 	

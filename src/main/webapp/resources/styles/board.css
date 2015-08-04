@@ -190,12 +190,11 @@ body, button, html, input, select, textarea {
 
 #pollSlider-button {
 	position:fixed;
-	width:30px;
+	width:35px;
 	height:30px;
 	right:0px;
 	top:50px;
 	border-radius: 3px;
-	background-color:black;
 }
 
 #scroller-header a {
@@ -445,6 +444,10 @@ float:left;
 }
 
 .card-elements {
+	margin-bottom: 7px;
+}
+
+.attachment-title {
 	margin-bottom: 7px;
 }
 

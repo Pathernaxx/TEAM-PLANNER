@@ -177,10 +177,17 @@ public class BoardController {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		List<Attachment> attachments = boardService.selectAttachmentListByBoardno(boardNo);
 		
+		String ext="";
+		String filename="";
+		
 		for(int i=0;i<attachments.size();i++) {
 			int pos = attachments.get(i).getUserFileName().lastIndexOf(".");
-			String ext = attachments.get(i).getUserFileName().substring(pos+1);
-			String filename = attachments.get(i).getUserFileName().substring(0, pos);
+			if(pos != 0) {
+				ext = attachments.get(i).getUserFileName().substring(pos+1);
+				filename = attachments.get(i).getUserFileName().substring(0, pos);
+			} else {
+				filename = attachments.get(i).getUserFileName();
+			}
 			attachments.get(i).setFileType(ext);
 			attachments.get(i).setFileName(filename);
 		}
