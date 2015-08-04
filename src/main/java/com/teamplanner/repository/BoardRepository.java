@@ -23,9 +23,12 @@ public interface BoardRepository {
 	BoardList selectBoardListBylistNo(int listno);
 	
 	void addTagMember(int tagMemberNo, int boardNo);
+	void addTagFriend(int friendNo, int boardNo);
 	List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo);
 	List<Member> selectTagFriend(int boardNo, int memberNo);
-	
+	int selectUserType(int memberNo, int boardNo);
+	void closedBoard(int boardNo);
+	void exitBoard(int memberNo , int boardNo);
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);

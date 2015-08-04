@@ -29,6 +29,12 @@ public interface BoardService {
 	String getListName(int boardno, int listno);
 	
 	void addTagMember(int tagMemberNo, int boardNo);
+	void addTagFriend(int friendNo, int boardNo);
 	List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo);
 	List<Member> selectTagFriend(int boardNo, int memberNo);
+	
+	Member selectMemberByMemberNo(int memberNo);
+	int selectUserType(int memberNo, int boardNo);
+	void closedBoard(int boardNo);
+	void exitBoard(int memberNo , int boardNo);
 }
