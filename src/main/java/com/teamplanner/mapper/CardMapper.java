@@ -23,4 +23,5 @@ public interface CardMapper {
 	List<Attachment> selectAttachmentList(HashMap<Object, Object> params);
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
+	void insertComment(Comment comment);
 }

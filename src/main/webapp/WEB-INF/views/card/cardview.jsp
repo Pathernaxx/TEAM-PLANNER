@@ -52,7 +52,55 @@ $(function() {
 	});
 	///////////////////////////////////////////
 	
+	$("#comment-save").click(function() {
+		var content = $(".activity-comment").val();
+		var cardno = ${cardno}
+		$.ajax({
+			url: '/finalProject/card/insertComment.action',
+			type: 'POST',
+			data: {
+				content: content,
+				cardno: cardno
+			},
+			success: function(message) {
+				$(".activity-comment").val(" ");
+			},
+			error: function() {
+				alert("error")
+			}
+		});
+	});
 	
+	$("#uploadForm").submit(function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		var string = "<div class='atttr attachment-title'>" +
+						"<span class='icon-space'><img src='/finalProject/resources/styles/images/icons/1.png' class='window-icon2' /></span>" +
+						"<span class='content-space'>Attachment</span>" +
+					 "</div>";
+		$.ajax({
+			url: '/finalProject/card/insertAttachment.action',
+			type: 'POST',
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(result) {
+				 if($("#last-attachment") != null && $("#last-attachment").length > 0 ) {
+					$("#last-attachment").before(result);
+				} else {
+					$(".window-attachment").after(result).after(string);
+					//$(".window-attachment").append(result);
+				}
+				attachmentdialog.dialog("close");
+			},
+			error: function(xhr, status, ex) {
+				alert(status+ex);
+			}
+		});
+		
+	}); 
+
 	/* $('.window-header').on('click', "#filedownload", function() {
 		$.ajax({
 			url: '/finalProject/card/filedownload.action',
@@ -91,39 +139,20 @@ $(function() {
 		});
 	});
 	
-	$("#uploadForm").submit(function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var string = "<div class='atttr attachment-title'>" +
-						"<span class='icon-space'><img src='/finalProject/resources/styles/images/icons/1.png' class='window-icon2' /></span>" +
-						"<span class='content-space'>Attachment</span>" +
-					 "</div>";
-		$.ajax({
-			url: '/finalProject/card/insertAttachment.action',
-			type: 'POST',
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function(result) {
-				 if($("#last-attachment") != null && $("#last-attachment").length > 0 ) {
-					$("#last-attachment").before(result);
-				} else {
-					$(".window-attachment").after(result).after(string);
-					//$(".window-attachment").append(result);
-				}
-				attachmentdialog.dialog("close");
-			},
-			error: function(xhr, status, ex) {
-				alert(status+ex);
-			}
-		});
-		
-	}); 
-	
-	
 	$("#cancelbtn").click(function() {
 		attachmentdialog.dialog("close");
+	});
+	
+
+	//$('#cardinfo').on('click', ".updateinfo", function() {
+	$(".updateinfo").click(function() {
+		//alert("aaa");
+	
+		$('.editinfo').css('visibility', 'visible');
+		$('.editinfo').css('display', 'block');
+		
+		$('#information').css('onfocus', 'this.value=""');
+		
 	});
 	
 	/*///////////////////동윤/////////////////////////// */
@@ -156,6 +185,8 @@ $(function() {
 	});
 	
 });
+
+
 </script>
 <div class="window-wrapper">
 	
@@ -181,18 +212,20 @@ $(function() {
 		<div class="window-main-middle u-clearfix">
 			<div class="window-main-left">
 				<div class="window-attachment">
-				<c:choose>
-					<c:when test="${ empty cardinfo }">
-						<c:import url="/WEB-INF/views/card/information.jsp" />
-					</c:when>
-					<c:otherwise>
-					<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
-					<span>
-						<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
-						Edit the Discription</a>
-					</span>
-					</c:otherwise>
-				</c:choose>
+					<div id="cardinfo">
+						<c:choose>
+							<c:when test="${ empty cardinfo }">
+								<c:import url="/WEB-INF/views/card/information.jsp" />
+							</c:when>
+							<c:otherwise>
+							<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
+							<span>
+								<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+								Edit the Discription</a>
+							</span>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
@@ -235,17 +268,21 @@ $(function() {
 							</c:forEach>
 							</c:otherwise>
 						</c:choose>
+						
 						<div class="attachment-title">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/133.png" class="window-icon2" /></span>
 							<span class="content-space">CheckList</span>
 						</div>
+						
 						<div class="attachment-title">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
 							<span class="content-space">Activity</span>
 						</div>
+						
 						<div class="card-elements">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
-							<span class="content-space"><input class="activity-comment" type="text" /></span>	
+							<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
+							<button id="comment-save">save</button><br/>
 						</div>
 						
 					</div>
