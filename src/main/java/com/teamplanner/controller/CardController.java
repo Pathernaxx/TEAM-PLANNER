@@ -264,11 +264,10 @@ public class CardController {
 								@RequestParam("listno") int listno, 
 								@RequestParam("cardno") int cardno,
 								String information
-							  ){// throws ServletException, IOException 
-		
-		//String information = request.getParameter("information");
-
+							  ){
 		String message="";
+		
+		ModelAndView mav = new ModelAndView();
 		
 		Card card = new Card();
 		card.setBoardNo(boardno);
@@ -282,9 +281,7 @@ public class CardController {
 		} catch (Exception ex) {
 			message = "error";
 		}
-		
 		return message;
-		
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
@@ -332,9 +329,22 @@ public class CardController {
 		
 		String message = "";
 		
-		cardService.insertComment(comment);
+		int commentno = cardService.insertComment(comment);
 		
 	}
+	
+	@RequestMapping(value="archiveCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void archiveCard(@RequestParam("cardno") int cardno) {
+		cardService.archiveCard(cardno);
+	}
+	
+	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void returnCard(@RequestParam("cardno") int cardno) {
+		cardService.returnCard(cardno);
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
 	
@@ -350,7 +360,6 @@ public class CardController {
 		
 		return mav;
 	}
-	
 	
 }
 

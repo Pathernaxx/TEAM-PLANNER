@@ -147,15 +147,25 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public void insertComment(Comment comment) {
+	public int insertComment(Comment comment) {
 		cardMapper.insertComment(comment);
-		
+		return comment.getNo();
 	}
 
 	@Override
 	public int selectCheckListPercent(int checklistno) {
 		
 		return cardMapper.selectCheckListPercent(checklistno);
+	}
+
+	@Override
+	public void archiveCard(int cardno) {
+		cardMapper.archiveCard(cardno);
+	}
+
+	@Override
+	public void returnCard(int cardno) {
+		cardMapper.returnCard(cardno);
 	}
 
 }

@@ -164,9 +164,24 @@
  	</delete>
  	
  	<insert id="insertComment" parameterType="comment">
+ 		<selectKey keyProperty="no" resultType="int" order="AFTER" >
+			SELECT comment_sequence.currval FROM dual
+		</selectKey>
  		INSERT INTO boardcomment(no, cardno, content, writer)
  		VALUES (comment_sequence.nextval, #{cardNo}, #{content}, #{writer} )
  	</insert>
+ 	
+ 	<update id="archiveCard" parameterType="int">
+ 		UPDATE boardcard
+ 		SET archived = '1'
+ 		WHERE no = #{cardno}
+ 	</update>
+ 	
+ 	<update id="returnCard" parameterType="int">
+ 		UPDATE boardcard
+ 		SET archived = '0'
+ 		WHERE no = #{cardno}
+ 	</update>
  	
  	
  </mapper>

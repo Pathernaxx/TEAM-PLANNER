@@ -235,7 +235,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = memberService.memberlist(memberNo);
-		System.out.println(members);
+	
 		mav.addObject("members", members);
 		mav.setViewName("member/memberlist");
 		return mav;
