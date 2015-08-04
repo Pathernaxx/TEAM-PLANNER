@@ -177,16 +177,15 @@ private BoardService boardService;
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
 	@ResponseBody
-	public String writeCardInfo(//HttpServletRequest request, HttpSession session,
+	public ModelAndView writeCardInfo(//HttpServletRequest request, HttpSession session,
 								@RequestParam("boardno") int boardno, 
 								@RequestParam("listno") int listno, 
 								@RequestParam("cardno") int cardno,
 								String information
-							  ){// throws ServletException, IOException 
+							  ){
+		//String message="";
 		
-		//String information = request.getParameter("information");
-
-		String message="";
+		ModelAndView mav = new ModelAndView();
 		
 		Card card = new Card();
 		card.setBoardNo(boardno);
@@ -196,12 +195,14 @@ private BoardService boardService;
 		
 		try{
 			cardService.writeCardInfo(card);
-			message = "success";
+			//message = "success";
 		} catch (Exception ex) {
-			message = "error";
+			//message = "error";
 		}
 		
-		return message;
+		mav.addObject("card", card);
+		mav.setViewName("card/information");
+		return mav;
 		
 	}
 	

@@ -66,23 +66,6 @@ $(function() {
 		});
 		
 	}); 
-
-	/* $('.window-header').on('click', "#filedownload", function() {
-		$.ajax({
-			url: '/finalProject/card/filedownload.action',
-			type: 'GET',
-			data: {
-				fileno : $(this).parents(".attachment-options").find('input').val()
-			},
-			success: function() {
-				alert("다운로드완료")
-			},
-			error: function(xhr,status,ex) {
-				//alert("다운로드실패")
-				alert(status+ex)
-			}
-		});
-	}); */
 	
 	$('.window-header').on('click', "#filedelete", function() {
 		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
@@ -121,11 +104,50 @@ $(function() {
 	});
 	
 	$(".editinfo").click(function() {
+		$(".window-attachment").html(' ');
+		$(".window-attachment").append('<div class="editform">');
+		$(".window-attachment").append('<form id="editcontent" action="writecardinfo.action" method="post" enctype="multipart/form-data">');
+		$(".window-attachment").append('<input id="information" type="text" class="edit-cardinfo"/>');
+		$(".window-attachment").append('<input type="hidden" id="boardno" value="${boardno }">');
+		$(".window-attachment").append('<input type="hidden" id="cardno" value="${cardno }">');
+		$(".window-attachment").append('<input type="hidden" id="listno" value="${listno }">');
+		$(".window-attachment").append('</form><br/>');
+		$(".window-attachment").append('<input type="button" value="save" id="infosubmit" class="window-sidebutton" style="float:right;text-align:center"/>');
+		$(".window-attachment").append('<input type="button" value="cancel" id="cancel" class="window-sidebutton" style="float:right;text-align:center" />');
+		$(".window-attachment").append('</div>');
 		
-		$(".window-attachment").html('card/information');
-	
+		$("#infosubmit").click(function(e) {
+			$.ajax({
+				url: "/finalProject/card/writecardinfo.action",
+				async: true,
+				type: "post",
+				data: {
+					boardno: '${boardno}',
+					listno: '${listno}',
+					cardno: '${cardno}',
+					information: $("#information").val()
+				},
+				success: function(result) {
+					$(".window-attachment").html(' ');
+					$(".window-attachment").append(result);
+				},
+				error: function(xhr, status, ex) {
+					alert(status + ex);
+				}
+			});
+			e.preventDefault();
+		});
+		
+		$("#cancel").click(function() {
+			$(".window-attachment").html(' ');
+			$(".window-attachment").append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+			$(".window-attachment").append('<span id="cardinfo">');
+			$(".window-attachment").append('<a class="editinfo" style="cursor: pointer;">');
+			$(".window-attachment").append('<img src="/finalProject/resources/styles/images/icons/234.png" class="window-icon2" />&nbsp;');
+			$(".window-attachment").append('Write the Discription</a></span>');
+		});
+		
 	});
-	
 	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
@@ -156,10 +178,36 @@ $(function() {
 		}
 	});
 	
+	$('.cardinfo-text').click(function() {
+	
+		$(this).parents(".cardinfo-edittable").addClass("editing");
+	});
+	
 });
 
 
 </script>
+
+<style>
+.cardinfo-edittable {
+	
+}
+
+.info-edit{
+	display: none;
+	
+}
+
+.editing .info-edit{
+	display: block;
+}
+
+.editing .cardinfo-text{
+	display: none;
+}
+
+</style>
+
 <div class="window-wrapper">
 	
 	<input type="hidden" id="cardno" value=${cardno } />
@@ -186,18 +234,26 @@ $(function() {
 					<!-- <div id="cardinfo"> -->
 						<c:choose>
 							<c:when test="${ empty cardinfo }">
-								<%-- <c:import url="/WEB-INF/views/card/information.jsp" /> --%>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a class="editinfo" style="cursor: pointer;">
-									<img src="/finalProject/resources/styles/images/icons/234.png"
-									class="window-icon2" />&nbsp;
-									Write the Discription
-								</a>
+								<span id="cardinfo">
+									<a class="editinfo" style="cursor: pointer;">
+										<img src="/finalProject/resources/styles/images/icons/234.png"
+										class="window-icon2" />&nbsp;
+										Write the Discription
+									</a>
+								</span>
+								<span><img src="/finalProject/resources/styles/images/icons/234.png" class="window-icon2" /></span>
+								<span class="cardinfo-edittable">
+									<span><p class="cardinfo-text">Write the Discription</p></span>
+									<span class="info-edit">
+										<textarea class="js-info-input" style="overflow:hidden;resize:none;word-wrap:break-word;height:60px"></textarea>
+									</span>
+								</span>
 							</c:when>
 							<c:otherwise>
 							<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
 							<span>
-								<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+								<a class="editinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
 								Edit the Discription</a>
 							</span>
 							</c:otherwise>
