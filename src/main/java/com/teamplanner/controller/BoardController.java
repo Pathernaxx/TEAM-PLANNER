@@ -275,8 +275,8 @@ public class BoardController {
 		
 		try {
 			BoardList list = boardService.selectBoardListBylistNo(listno);
-			boardService.insertCard(card);
-			activityService.addActivity(member, card, list, new Board(boardno, boardName));
+			int cardno = boardService.insertCard(card);
+			activityService.addActivity(member, cardno, list, new Board(boardno, boardName));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";
