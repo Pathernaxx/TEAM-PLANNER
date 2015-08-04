@@ -12,27 +12,107 @@
 		<result column="name" property="name"/>
 		<result column="cardno" property="cardNo"/>
 		<result column="regdate" property="regDate"/>
-		<collection column="no" property="checkItems" ofType="CheckItem" select="selectCheckItem"/>
+		<association column="no" property="percentage" select="selectCheckListPercent"/>
+		<collection column="no" property="checkItems" select="selectCheckItem"/>
 	</resultMap>
+	
+	<select id="selectCheckListPercent" parameterType="int" resultType="int">
+		SELECT
+			round(a / b) * 100 
+		FROM 
+			(
+				SELECT
+					(case checked when '1' then count(checked) else 0 end) a, count(checked) b 
+				FROM
+					checkitem
+				WHERE
+					CHECKLISTNO = #{no}
+				GROUP BY
+					checked
+			)
+	</select>
 	
 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
 		SELECT
 			no, name, checked
 		FROM
-			checklist
+			checkitem
 		WHERE
-			checklist = #{no}
+			checklistno = #{no}
+	</select>
+	
+	<select id="selectCheckItemCount" parameterType="int" resultType="int">
+		SELECT
+			count(no)
+		FROM
+			checkitem
+		WHERE
+			checklistno = #{checklistno}
 	</select>
 	
 	<insert id="insertCheckList" parameterType="CheckList">
+		<selectKey keyProperty="no" order="AFTER" resultType="int">
+			SELECT checklist_sequence.currval from dual
+		</selectKey>
 		INSERT INTO checklist(no, name, cardno)
 		VALUES(checklist_sequence.nextval, #{name}, #{cardNo})
 	</insert>
 	
 	<insert id="insertCheckItem" parameterType="CheckItem">
+		<selectKey keyProperty="no" order="AFTER" resultType="int">
+			SELECT checkitem_sequence.currval from dual
+		</selectKey>
 		INSERT INTO checkitem(no, name, checklistno)
 		VALUES(checkitem_sequence.nextval, #{name}, #{checklistno})
 	</insert>
+	
+	<delete id="deleteCheckList" parameterType="int">
+		DELETE FROM
+			checklist
+		WHERE
+			no = #{checklistno}
+	</delete>
+	
+	<delete id="deleteCheckItem" parameterType="int">
+		DELETE FROM
+			checkitem
+		WHERE
+			no = #{checkitemno}
+	</delete>
+	
+	<delete id="deleteCheckItemByChecklist" parameterType="int">
+		DELETE FROM
+			checkitem
+		WHERE
+			checklistno = #{checklistno}
+	</delete>
+	
+	<update id="updateCheckListName" parameterType="hashMap">
+		UPDATE
+			checklist
+		SET
+			name = #{name}
+		WHERE
+			no = #{checklistno}
+	</update>
+	
+	<update id="updateCheckItem" parameterType="hashMap">
+		UPDATE
+			checkitem
+		SET
+			checked = #{checked}
+		WHERE
+			no = #{checkitemno}
+	</update>
+	
+	<update id="updateCheckItemName" parameterType="hashMap">
+		UPDATE
+			checkitem
+		SET
+			name = #{name}
+		WHERE
+			no = #{checkitemno}
+	</update>
 	
  	<select id="selectComment" parameterType="int" resultType="Comment">
  		SELECT  no, regdate, cardno, content
@@ -40,7 +120,7 @@
  		WHERE cardno = #{cardNo}
  	</select>
  
- 	<select id="selectCheckList" parameterType="int" resultType="CheckList">
+ 	<select id="selectCheckList" parameterType="int" resultMap="resultCheckList">
  		SELECT no, name, cardno, regdate
  		FROM checklist
  		WHERE cardno = #{cardNo}
@@ -59,6 +139,7 @@
  		INSERT INTO attachment(no, userfilename, cardno, boardno) 
  		VALUES (attachment_sequence.nextval, #{userFileName}, #{cardNo}, #{boardNo})
  	</insert>
+ 	
  	<update id="writeCardInfo" parameterType="Card">
  		UPDATE boardcard
  		SET info = #{info}
@@ -82,6 +163,10 @@
  		DELETE FROM attachment WHERE no = #{attachmentno}
  	</delete>
  	
+ 	<insert id="insertComment" parameterType="comment">
+ 		INSERT INTO boardcomment(no, cardno, content, writer)
+ 		VALUES (comment_sequence.nextval, #{cardNo}, #{content}, #{writer} )
+ 	</insert>
  	
  	
  </mapper>

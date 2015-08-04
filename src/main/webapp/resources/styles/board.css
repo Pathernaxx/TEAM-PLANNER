@@ -241,45 +241,20 @@ float:left;
 }
 
 .teamIcon{
+
 	background-color: #e7eaeb;
   border-radius: 3px;
   color: #4d4d4d;
   cursor: pointer;
   display: block;
   float: left;
-  height: 30px;
+  height: 100%;
   margin: 0 4px 4px 0;
   overflow: hidden;
   position: relative;
-  width: 30px;
+  width: 250px;
 }
 
-.memberAddButton {
-  background: -webkit-linear-gradient(top,#fff 0,#f8f9f9 100%);
-  background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%);
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #e2e4e6;
-  border-bottom-color: #cdd2d4;
-  cursor: pointer;
-  display: block;
-  font-weight: 700;
-  height: 34px;
-  margin-top: 6px;
-  width: 100%;
-  overflow: hidden;
-  padding: 7px;
-  position: relative;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  white-space: nowrap;
-  border-radius:3px;
-  border:none;
-  text-align: center;
-}
 .memberAddButton:hover{
 	background: #9aa5a9;
 }
@@ -287,6 +262,12 @@ float:left;
 	background: #00dd00;
 }
 .memberAddButton.close:hover{
+	background: #008c00;
+}
+.memberAddButton.exit{
+	background: #00dd00;
+}
+.memberAddButton.exit:hover{
 	background: #008c00;
 }
 .window-header {
@@ -623,4 +604,69 @@ float:left;
 }
 .teamList-addMember.close {
 	margin-top: 20%;
+}
+
+#comment-save {
+	float: right;
+	height:30px;
+	margin-top: 3px;
+	margin-right: 13px;
+	color: #444;
+	background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#comment-save:hover{
+	background-color: #cdcdcd;
+}
+#comment-save:active{
+	background-color: black;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.choicefriend{
+	text-decoration: none;
+	color: #a50381;
+	font-weight: bold;
+	font-size: 18px;
+}
+.memberAddButton {
+  background: -webkit-linear-gradient(top,#fff 0,#f8f9f9 100%);
+  background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #e2e4e6;
+  border-bottom-color: #cdd2d4;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  height: 34px;
+  margin-top: 6px;
+  
+  overflow: hidden;
+  padding: 7px;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  white-space: nowrap;
+  border-radius:3px;
+  border:none;
+  text-align: center;
+  width: 200px;
 }

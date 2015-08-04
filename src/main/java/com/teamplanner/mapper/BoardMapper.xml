@@ -124,7 +124,7 @@
  	<select id="selectClosedBoard" parameterType="Integer" resultType="Board">
  		SELECT b.* 
  		FROM teamlist t, board b 
- 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '1' 
+ 		WHERE t.memberno = #{memberNo} AND t.boardno = b.no AND b.closed = '1' AND t.usertype= '0' 
  		ORDER BY b.name
  	</select>
  	<select id="selectBoardbyBoardName" parameterType="hashMap" resultType="Board">
@@ -155,16 +155,29 @@
  		INSERT INTO teamlist(no, memberno , boardno, usertype) 
  		VALUES (teamlist_sequence.nextval , #{tagMemberNo} , #{boardNo} , 1)
  	</insert>
+ 	<insert id="addTagFriend" parameterType="hashMap">
+ 		INSERT INTO teamlist(no, memberno , boardno, usertype) 
+ 		VALUES (teamlist_sequence.nextval , #{friendNo} , #{boardNo} , 1)
+ 	</insert>
  	<select id="selectTeamlistByBoardNo" parameterType="hashMap" resultType="Member">
  		SELECT m.* 
  		from member m , teamlist t 
  		where m.no = t.memberno and t.memberno != #{memberNo} and t.boardno = #{boardNo}
  	</select>
- 	<select id="selectTagFriend"  parameterType="hashMap" resultType="Member">
- 		select m.* 
- 		from memberlist l, member m, teamlist t 
- 		where l.memberno = m.no and l.myno = #{memberNo} and l.memberno = t.memberno and t.boardno != #{boardNo};
- 	</select>
+	<select id="selectUserType" parameterType="hashMap" resultType="int">
+		select usertype 
+		from teamlist 
+		where boardno= #{boardNo} and memberno= #{memberNo}
+	</select>
+	<update id="closedBoard" parameterType="int">
+		update board 
+		set closed = 1
+		where no= #{boardNo}
+	</update>
+	<delete id="exitBoard" parameterType="hashMap">
+		delete from teamlist 
+		where memberno = #{memberNo} AND boardno = #{boardNo}
+	</delete>
  </mapper>
  
  

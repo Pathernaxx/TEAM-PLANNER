@@ -13,16 +13,25 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.repository.ActivityRepository;
 import com.teamplanner.repository.BoardRepository;
+import com.teamplanner.repository.MemberRepository;
 
 @Service(value="boardService")
 public class PlanBoardService implements BoardService{
 	
 	private BoardRepository boardRepository;
+	private MemberRepository memberRepository;
+	
 	
 	@Autowired
 	@Qualifier("boardRepository")
 	public void setBoardRepository(BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
+	}
+	
+	@Autowired
+	@Qualifier("memberRepository")
+	public void setMemberRepository(MemberRepository memberRepository) {
+		this.memberRepository=memberRepository;
 	}
 	
 	@Override
@@ -127,6 +136,11 @@ public class PlanBoardService implements BoardService{
 	}
 	
 	@Override
+	public void addTagFriend(int friendNo, int boardNo) {
+		boardRepository.addTagFriend(friendNo, boardNo);
+	}
+	
+	@Override
 	public List<Member> selectTeamlistByBoardNo(int boardNo, int memberNo) {
 		
 		return boardRepository.selectTeamlistByBoardNo(boardNo, memberNo);
@@ -134,5 +148,29 @@ public class PlanBoardService implements BoardService{
 	@Override
 	public List<Member> selectTagFriend(int boardNo, int memberNo) {
 		return boardRepository.selectTagFriend(boardNo, memberNo);
+	}
+	
+	@Override
+	public Member selectMemberByMemberNo(int memberNo) {
+		
+		return memberRepository.selectMemberByMemberNo(memberNo);
+	}
+	
+	@Override
+	public int selectUserType(int memberNo, int boardNo) {
+		
+		return boardRepository.selectUserType(memberNo, boardNo);
+	}
+	
+	@Override
+	public void closedBoard(int boardNo) {
+		boardRepository.closedBoard(boardNo);
+		
+	}
+	
+	@Override
+	public void exitBoard(int memberNo, int boardNo) {
+		boardRepository.exitBoard(memberNo, boardNo);
+		
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.teamplanner.dto.Activity;
 import com.teamplanner.dto.ActivityTarget;
+import com.teamplanner.dto.Card;
 import com.teamplanner.mapper.ActivityMapper;
 
 @Repository(value="activityRepository")
@@ -45,6 +46,12 @@ public class OracleActivityRepository implements ActivityRepository
 	public List<Activity> selectActivityByMember(int memberNo) {
 		// TODO Auto-generated method stub
 		return activityMapper.selectActivityByMember(memberNo);
+	}
+	
+	@Override
+	public Card selectCard(int cardno) {
+		// TODO Auto-generated method stub
+		return activityMapper.selectCard(cardno);
 	}
 	
 }
