@@ -206,8 +206,7 @@ $(function() {
 					cardno: cardno
 				},
 				success: function(data) {
-					$('.js-activity-view').before(
-					'<div class="checklist-list window-module">'+ 
+					$('.window-module').append(
 						'<div class="checklist" id="' + data + '">' +
 							'<div class="window-module-title window-module-title-no-divider">' +
 								'<span class="window-module-title-icon icon-lg icon-checklist"></span>' +
@@ -231,8 +230,8 @@ $(function() {
 							'<div class="checklist-new-item u-gutter js-new-checklist-item focus">' +
 								'<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>'+
 							'</div>' +
-						'</div>' +
-					'</div>');
+						'</div>'
+					);
 					//alert('checklist insert complete');
 				},
 				error: function() {
@@ -253,7 +252,7 @@ $(function() {
 			current.parents('.checklist').find('.checklist-progress').find('.js-checklist-progress-bar').css('width', c);
 		}
 		
-		$("body").on("click", '.js-toggle-checklist-item', function(event) {
+		$(".window-module").on("click", '.js-toggle-checklist-item', function(event) {
 			//event.preventDefault();
 			var id = $(this).parents('.checklist-item').attr('id');
 			var check;
@@ -290,7 +289,7 @@ $(function() {
 		
 		var text = "";
 		
-		$('body').on('click', '.js-new-checklist-item-input', function(event) {
+		$('.window-module').on('click', '.js-new-checklist-item-input', function(event) {
 			removeControls();
 			
 			$(this).parents('.js-new-checklist-item').addClass('focus');
@@ -299,7 +298,7 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-checkitem-name', function(event) {
+		$('.window-module').on('click', '.js-checkitem-name', function(event) {
 			removeControls();
 			
 			//var id = $(this).parents('.checklist-item').attr('id');
@@ -313,13 +312,13 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-checkitem-input', function(event) {
+		$('.window-module').on('click', '.js-checkitem-input', function(event) {
 			//event.preventDefault();
 			//event.stopPropagation();
 			return false;
 		});
 		
-		$('body').on('click', '.js-delete-item', function(event){
+		$('.window-module').on('click', '.js-delete-item', function(event){
 			var id = $(this).parents('.checklist-item').attr('id');
 			var currentitem = $(this).parents('.checklist-item');
 			$.ajax({
@@ -338,7 +337,7 @@ $(function() {
 			})
 		});
 		
-		$('body').on('click', '.js-confirm-delete', function(event){
+		$('.window-module').on('click', '.js-confirm-delete', function(event){
 			var id = $(this).parents('.checklist').attr('id');
 			var currentlist = $(this).parents('.checklist');
 			$.ajax({
@@ -356,7 +355,7 @@ $(function() {
 			});
 		});
 		
-		$('body').on('click', '.js-save-edit', function(event) {
+		$('.window-module').on('click', '.js-save-edit', function(event) {
 			var message = $(this).parents('.editing').find('.js-checkitem-input').val();
 			
 			// null Check
@@ -396,7 +395,7 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-save-add', function(event) {
+		$('.window-module').on('click', '.js-save-add', function(event) {
 			//event.preventDefault();
 			var message = $(this).parents('.focus').find('textarea.js-new-checklist-item-input');
 			var id = $(this).parents('.checklist').attr('id');
