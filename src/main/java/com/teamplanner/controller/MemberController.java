@@ -228,11 +228,20 @@ public class MemberController {
 		return "member/settings";
 	}
 	
+//	//////////////////////////////////////////////
+	
 	@RequestMapping(value="list.action", method=RequestMethod.POST)
-	public String memberlist() {
-		return "member/memberlist";
+	public ModelAndView memberlist(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members = memberService.memberlist(memberNo);
+		System.out.println(members);
+		mav.addObject("members", members);
+		mav.setViewName("member/memberlist");
+		return mav;
 	}
 	
+
 	@RequestMapping(value="list.action", method=RequestMethod.GET)
 	public String memberlistGet() {
 		return "member/settings";
