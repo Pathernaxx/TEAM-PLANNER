@@ -46,6 +46,8 @@
 	display: inline;
 }
 
+
+
 </style>
 
 <link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
@@ -225,8 +227,12 @@
 			<div>
 				<c:if test="${ prints != null }">
 					<c:forEach var="action" items="${ prints }">
-						<div>
-						<span><span class="action-user">${ action.userName }</span></span>&nbsp;${ action.type }
+					<div style="margin: 18px">
+						<div class="creator member js-show-mem-menu">
+						<span>
+				<img class="pic2" src="/finalProject/resources/images/user.png">
+				</span></div>
+						<span><span class="action-user">${ action.userName }</span></span>&nbsp;<a id="color">${ action.type }</a>
 						<c:choose>
 							<c:when test="${ action.frontLink != '#' }">
 								<a href="${ action.frontLink }">${ action.frontText }</a>
@@ -247,12 +253,14 @@
 							</c:choose>
 						</c:if>
 						</div>
+						
 					</c:forEach>
+					
 				</c:if>
-				
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
 </body>
 </html>
