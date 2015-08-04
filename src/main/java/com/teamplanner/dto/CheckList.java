@@ -8,6 +8,7 @@ public class CheckList {
 	private int cardNo;
 	private Date regDate;
 	private String name;
+	private int percentage;
 	
 	private List<CheckItem> checkItems;
 	
@@ -19,6 +20,14 @@ public class CheckList {
 		this.checkItems = checkItems;
 	}
 	
+	public int getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
+
 	public int getNo() {
 		return no;
 	}

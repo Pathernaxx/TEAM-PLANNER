@@ -14,6 +14,7 @@ public interface CardMapper {
 	
 	void insertCheckList(CheckList checklist);
 	void insertCheckItem(CheckItem checkitem);
+	int selectCheckListPercent(int no);
 	void deleteCheckList(int checklistno);
 	void deleteCheckItem(int checkitemno);
 	void deleteCheckItemByChecklist(int checklistno);

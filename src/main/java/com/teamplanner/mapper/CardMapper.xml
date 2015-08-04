@@ -12,8 +12,25 @@
 		<result column="name" property="name"/>
 		<result column="cardno" property="cardNo"/>
 		<result column="regdate" property="regDate"/>
+		<association column="no" property="percentage" select="selectCheckListPercent"/>
 		<collection column="no" property="checkItems" select="selectCheckItem"/>
 	</resultMap>
+	
+	<select id="selectCheckListPercent" parameterType="int" resultType="int">
+		SELECT
+			round(a / b) * 100 
+		FROM 
+			(
+				SELECT
+					(case checked when '1' then count(checked) else 0 end) a, count(checked) b 
+				FROM
+					checkitem
+				WHERE
+					CHECKLISTNO = #{no}
+				GROUP BY
+					checked
+			)
+	</select>
 	
 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
 		SELECT

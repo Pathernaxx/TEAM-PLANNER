@@ -560,9 +560,9 @@ $(function() {
 										</div>
 									</div>
 									<div class="checklist-progress">
-										<span class="checklist-progress-percentage js-checklist-progress-percent">0%</span>
+										<span class="checklist-progress-percentage js-checklist-progress-percent">${ checklist.percentage }%</span>
 										<div class="checklist-progress-bar">
-											<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: 0%;"></div>
+											<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: ${ checklist.percentage }%;"></div>
 										</div>
 									</div>
 									<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable">
