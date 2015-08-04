@@ -5,42 +5,9 @@
 function addBoard(){}
 
 $(function() {
-	
 	var boardno = $("#boardno").val();
 	var cardno = $("#cardno").val();
 	var cardinfo = $("#cardinfo").val();
-
-	/* 첨부파일 팝업버젼
-	
-	$.ajax({
-		url: "/finalProject/card/insertAttachmentForm.action",
-		type: "get",
-		data: {
-			"cardno" : cardno,
-			"boardno" : boardno
-		},
-		success: function(result) { 
-			b=$('.attachmentbtn').webuiPopover({
-			constrains: 'horizontal',
-			trigger: 'click',
-			multi: false,
-			placement: 'right',
-			width: 300,
-			closeable: true,
-			arrow: false,
-			title: 'Attachment',
-			content: result,
-			cache : false
-			});
-			b.zIndex(10001);
-
-		},
-		error: function() {
-			alert('error');
-		}
-	}); */
-	
-	/* 첨부파일 다이얼로그 버젼 */
 
 	var attachmentdialog = $('#attachmentdialog').dialog({
 		autoOpen: false,
@@ -50,7 +17,6 @@ $(function() {
 	$('#attachmentbtn').click(function() {
 		attachmentdialog.dialog("open");
 	});
-	///////////////////////////////////////////
 	
 	$("#comment-save").click(function() {
 		var content = $(".activity-comment").val();
@@ -126,7 +92,7 @@ $(function() {
 			url: '/finalProject/card/deleteAttachment.action',
 			type: 'GET',
 			data: {
-				fileno : $(this).parents(".attachment-options").find('input').val()//$(this).parent(".attachment-options").children()[0].value
+				fileno : $(this).parents(".attachment-options").find('input').val()
 			},
 			success: function(message) {
 				if(message == "success") {
@@ -146,7 +112,6 @@ $(function() {
 
 	//$('#cardinfo').on('click', ".updateinfo", function() {
 	$(".updateinfo").click(function() {
-		//alert("aaa");
 	
 		$('.editinfo').css('visibility', 'visible');
 		$('.editinfo').css('display', 'block');
@@ -154,6 +119,13 @@ $(function() {
 		$('#information').css('onfocus', 'this.value=""');
 		
 	});
+	
+	$(".editinfo").click(function() {
+		
+		$(".window-attachment").html('card/information');
+	
+	});
+	
 	
 	/*///////////////////동윤/////////////////////////// */
 	$.ajax({
@@ -491,7 +463,6 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
-	<!-- <a class="close-button">x</a> -->
 		<div class="window-header u-clearfix">
 			<table>
 				<tr>
@@ -506,10 +477,16 @@ $(function() {
 		<div class="window-main-middle u-clearfix">
 			<div class="window-main-left">
 				<div class="window-attachment">
-					<div id="cardinfo">
+					<!-- <div id="cardinfo"> -->
 						<c:choose>
 							<c:when test="${ empty cardinfo }">
-								<c:import url="/WEB-INF/views/card/information.jsp" />
+								<%-- <c:import url="/WEB-INF/views/card/information.jsp" /> --%>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="editinfo" style="cursor: pointer;">
+									<img src="/finalProject/resources/styles/images/icons/234.png"
+									class="window-icon2" />&nbsp;
+									Write the Discription
+								</a>
 							</c:when>
 							<c:otherwise>
 							<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
@@ -519,7 +496,7 @@ $(function() {
 							</span>
 							</c:otherwise>
 						</c:choose>
-					</div>
+					<!-- </div> -->
 				</div>
 				<div class="window-boardComment">
 					<div class="window-header">
