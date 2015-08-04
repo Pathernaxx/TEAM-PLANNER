@@ -489,11 +489,11 @@ $(function() {
 								</a>
 							</c:when>
 							<c:otherwise>
-							<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
-							<span>
-								<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
-								Edit the Discription</a>
-							</span>
+								<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
+								<span>
+									<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
+									Edit the Discription</a>
+								</span>
 							</c:otherwise>
 						</c:choose>
 					<!-- </div> -->
@@ -513,10 +513,10 @@ $(function() {
 									<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></span>
 									<span class="content-space">Attachment</span>
 								</div>
-							<c:forEach var="attlist" items="${attachments }">
-								<div id="last-attachment" class="atttr card-elements" >
-									<span class="icon-space"></span>
-									<span class="content-space u-clearfix">
+								<c:forEach var="attlist" items="${attachments }">
+									<div id="last-attachment" class="atttr card-elements" >
+										<span class="icon-space"></span>
+										<span class="content-space u-clearfix">
 											<div class="attachment-thumnail">
 												<a class="attachment-preview">
 													<span class="attachment-preview-src">${attlist.fileType }</span>
@@ -527,16 +527,15 @@ $(function() {
 													</a>
 													<span class="attachment-options" style="font-size: small;">
 														<input type="hidden" value="${attlist.no }" />
-														<a id="filedownload" href="/finalProject/card/filedownload.action?fileno=${attlist.no }" style="text-decoration: underline">
-															Download</a>
+														<a id="filedownload" href="/finalProject/card/filedownload.action?fileno=${attlist.no }" style="text-decoration: underline">Download</a>
 														&nbsp;&nbsp;
 														<a id="filedelete" style="text-decoration: underline">Delete</a>
 													</span>
 												</p>
 											</div>
-									</span>
-								</div>
-							</c:forEach>
+										</span>
+									</div>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 						
@@ -546,19 +545,19 @@ $(function() {
 						</div>
 						<div class="checklist-list window-module">
 							<c:if test="${ checklists ne null }">
-							<c:forEach var="checklist" items="${ checklists }">
-							<div class="checklist" id="${ checklist.no }">
-								<div class="window-module-title window-module-title-no-divider">
-									<span class="window-module-title-icon icon-lg icon-checklist"></span>
-									<div class="editable non-empty checklist-title">
-										<h3 class="current hide-on-edit">${ checklist.name }</h3>
-										<div class="window-module-title-options">
-											<a class="hide-on-edit js-confirm-delete">Delete...</a>
+								<c:forEach var="checklist" items="${ checklists }">
+								<div class="checklist" id="${ checklist.no }">
+									<div class="window-module-title window-module-title-no-divider">
+										<span class="window-module-title-icon icon-lg icon-checklist"></span>
+										<div class="editable non-empty checklist-title">
+											<h3 class="current hide-on-edit">${ checklist.name }</h3>
+											<div class="window-module-title-options">
+												<a class="hide-on-edit js-confirm-delete">Delete...</a>
+											</div>
+											<div class="edit edit-heavy">
+												<textarea class="field full single-line" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px"></textarea>
+											</div>
 										</div>
-										<div class="edit edit-heavy">
-											<textarea class="field full single-line" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px"></textarea>
-										</div>
-									</div>
 									</div>
 									<div class="checklist-progress">
 										<span class="checklist-progress-percentage js-checklist-progress-percent">0%</span>
@@ -568,51 +567,50 @@ $(function() {
 									</div>
 									<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable">
 										<c:if test="${ checklist.checkItems ne null }" >
-										<c:forEach var="checkitem" items="${ checklist.checkItems }">
-										<div class="checklist-item ${ checkitem.checked == true ? 'complete-checklist' : '' }" id="${ checkitem.no }">
-											<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">
-												<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
-											</div>
-											<div class="checklist-item-details non-empty editable">
-												<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">${ checkitem.name }</p>
-												<div class="edit delete convert options-menu">
-													<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+											<c:forEach var="checkitem" items="${ checklist.checkItems }">
+											<div class="checklist-item ${ checkitem.checked == true ? 'complete-checklist' : '' }" id="${ checkitem.no }">
+												<div class="checklist-item-checkbox ui-icon-check js-toggle-checklist-item">
+													<span class="icon-team ui-icon-check checklist-item-checkbox-check"></span>
+												</div>
+												<div class="checklist-item-details non-empty editable">
+													<p class="checklist-item-details-text current hide-on-edit markeddown js-checkitem-name">${ checkitem.name }</p>
+													<div class="edit delete convert options-menu">
+														<textarea class="field full single-line js-checkitem-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+													</div>
 												</div>
 											</div>
-										</div>
-										</c:forEach>
+											</c:forEach>
 										</c:if>
 									</div>
 									<div class="checklist-new-item u-gutter js-new-checklist-item">
 										<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
 									</div>
-								
-							</div>
-							</c:forEach>
+									
+								</div>
+								</c:forEach>
 							</c:if> 
 						</div>
 						<div class="card-elements js-activity-view">
-						<div class="attachment-title">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
-							<span class="content-space">Activity</span>
+							<div class="attachment-title">
+								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
+								<span class="content-space">Activity</span>
+							</div>
+							
+							<div class="card-elements">
+								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
+								<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
+								<button id="comment-save">save</button><br/>
+							</div>
 						</div>
-						
 						<div class="card-elements">
-							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
-							<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
-							<button id="comment-save">save</button><br/>
+							<span class="icon-space"></span>
+							<span class="content-space">누적 activity</span>
 						</div>
-						
-					</div>
-					<div class="card-elements">
-						<span class="icon-space"></span>
-						<span class="content-space">누적 activity</span>
 					</div>
 				</div>
-				
 			</div>
 			<div class="window-main-sidebar" style="position:relative;">
-			<div class="window-sidebar-add u-clearfix">
+				<div class="window-sidebar-add u-clearfix">
 					<h3>Add</h3>
 					<div class="u-clearfix">
 						<a id="tagMemberbtn" class="window-sidebutton"> <span class="icon-sm"> <img
@@ -633,9 +631,8 @@ $(function() {
 						</span>
 						</a>
 					</div>
-
 				</div>
-			<div class="window-sidebar-actions">
+				<div class="window-sidebar-actions">
 					<h3>Actions</h3>
 					<a class="window-sidebutton"> <span class="icon-sm"> <img
 							src="/finalProject/resources/styles/images/icons/5.png"
@@ -652,7 +649,7 @@ $(function() {
 					</a>
 				</div>
 			</div>
-		</div> 
+		</div>
 		
 		<div class="inline-edit">
 			<!-- <div class="comp"></div> -->
@@ -668,18 +665,18 @@ $(function() {
 		</div>
 		<!-- 다이얼로그 -->
 		<div id="attachmentdialog">
-		<div class='attachmentForm'>
-			<form id="uploadForm" method="post" enctype="multipart/form-data"> <!-- action="insertAttachment.action"  -->
-				<input type="hidden" name="cardno" id="cardno" value=${cardno } />
-				<input type="hidden" name="boardno" id="boardno" value=${boardno } />
-				<input class="window-uploadbutton" type='file' class="" id="file" name='file' style="border:none;"/>
-				<br/>
-				&nbsp;&nbsp;
-				<input class="window-uploadbutton" type='submit' name="submit" id="submitbtn" value='Upload' /> <!--  onclick="javascript:Upload();" -->
-				<br/>&nbsp;&nbsp;
-				<input class="window-uploadbutton" type='button' id="cancelbtn" value='Cancel' />
-			</form>
-		</div>
+			<div class='attachmentForm'>
+				<form id="uploadForm" method="post" enctype="multipart/form-data"> <!-- action="insertAttachment.action"  -->
+					<input type="hidden" name="cardno" id="cardno" value=${cardno } />
+					<input type="hidden" name="boardno" id="boardno" value=${boardno } />
+					<input class="window-uploadbutton" type='file' class="" id="file" name='file' style="border:none;"/>
+					<br/>
+					&nbsp;&nbsp;
+					<input class="window-uploadbutton" type='submit' name="submit" id="submitbtn" value='Upload' /> <!--  onclick="javascript:Upload();" -->
+					<br/>&nbsp;&nbsp;
+					<input class="window-uploadbutton" type='button' id="cancelbtn" value='Cancel' />
+				</form>
+			</div>
 			<%-- <c:import  url="/WEB-INF/views/card/upload.jsp"/> --%>
 		</div>
 		
@@ -693,8 +690,5 @@ $(function() {
 				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
 			</form>
 		</div>
-	</div>
-	
-	
-	
+	</div>	
 </div>
