@@ -12,5 +12,5 @@ public interface MemberService {
 	void changeIconPath(int memberNo, String iconpath);
 	Member updateMemberView(int memberNo);
 	void updateMember(Member member);
-	
+	List<Member> memberlist(int memberNo);
 }

@@ -1,5 +1,6 @@
 package com.teamplanner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.dto.ActionPrint;
+import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
 import com.teamplanner.dto.Card;
@@ -183,26 +185,46 @@ public class BoardController {
 		
 		String boardname = boardService.getBoardName(boardNo);
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
+		List<Attachment> attachments = boardService.selectAttachmentListByBoardno(boardNo);
+		
+		String ext="";
+		String filename="";
+		
+		for(int i=0;i<attachments.size();i++) {
+			int pos = attachments.get(i).getUserFileName().lastIndexOf(".");
+			if(pos != 0) {
+				ext = attachments.get(i).getUserFileName().substring(pos+1);
+				filename = attachments.get(i).getUserFileName().substring(0, pos);
+			} else {
+				filename = attachments.get(i).getUserFileName();
+			}
+			attachments.get(i).setFileType(ext);
+			attachments.get(i).setFileName(filename);
+		}
+		
+		//System.out.println(attchments.get(0).getUserFileName());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardLists", boardLists);
 		mav.addObject("boardNo", boardNo);
 		mav.addObject("boardname", boardname);
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
+		mav.addObject("attachments", attachments);
 		mav.setViewName("board/boardview");
 		
 		return mav;
 		
 	}
 	
-	@RequestMapping(value="boardview.action", method = RequestMethod.POST)
+	/*@RequestMapping(value="boardview.action", method = RequestMethod.POST)
 	@ResponseBody
 	public List<BoardList> BoardView2(@RequestParam("boardno") int boardNo) {
 		List<BoardList> boardLists = boardService.BoardView(boardNo);
 		
 		return boardLists;
 	}
-	
+	*/
 	@RequestMapping(value="insertlist.action", method=RequestMethod.GET)
 	@ResponseBody
 	public String insertBoardList(String listname, @RequestParam("boardno") int boardno, HttpSession session) {//@RequestParam("boardno") int boardNo

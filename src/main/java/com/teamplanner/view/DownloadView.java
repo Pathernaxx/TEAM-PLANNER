@@ -39,21 +39,25 @@ public class DownloadView extends AbstractView {
 		//3. 파일을 응답스트림에 기록
 		ServletContext application = request.getSession().getServletContext();
 		String filesavedname = fileno+encodedFileName;
-		String file2 = application.getRealPath(
-			"/resources/uploadfiles/" + filesavedname);
-		BufferedInputStream istream = 
-			new BufferedInputStream(new FileInputStream(file2));
-		BufferedOutputStream ostream = 
-			new BufferedOutputStream(response.getOutputStream());
-		while (true) {
-			int data = istream.read();
-			if (data != -1) 
-				ostream.write(data);
-			else
-				break;
+		String file2 = application.getRealPath("/resources/uploadfiles/" + filesavedname);
+		
+		BufferedInputStream istream = new BufferedInputStream(new FileInputStream(file2));
+		
+		if( istream != null ) {
+			BufferedOutputStream ostream = new BufferedOutputStream(response.getOutputStream());
+			while (true) {
+				int data = istream.read();
+				if (data != -1) 
+					ostream.write(data);
+				else
+					break;
+			}
+			istream.close();
+			ostream.close();
+		} else {
+			System.out.println("no file");
 		}
-		istream.close();
-		ostream.close();
+		
 	}
 	
 }

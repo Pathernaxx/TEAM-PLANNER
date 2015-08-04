@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
+<link rel="Stylesheet" href="/finalProject/resources/styles/checklist.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery-ui.min.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/jquery.webui-popover.css" />
 
@@ -223,7 +224,9 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						<div id="pollSlider-button"></div>	
+						<div id="pollSlider-button">
+						<img src="/finalProject/resources/styles/images/icons/6.png">
+						</div>	
 					</div> 
 				</div>
 	

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -24,23 +25,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.view.DownloadView;
 import com.teamplanner.commons.Util;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
+import com.teamplanner.dto.CheckList;
+import com.teamplanner.dto.Member;
+import com.teamplanner.service.ActivityService;
+import com.teamplanner.dto.Comment;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
+import com.teamplanner.view.DownloadView;
 
 @Controller
 @RequestMapping(value="card")
 public class CardController {
 
-private CardService cardService;
-private BoardService boardService;
+	private CardService cardService;
+	private BoardService boardService;
+	private ActivityService activityService;
 	
 	@Autowired
 	@Qualifier("cardService")
@@ -54,6 +61,12 @@ private BoardService boardService;
 		this.boardService = boardService;
 	}
 	
+	@Autowired
+	@Qualifier("activityService")
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+	
 	@RequestMapping(value="cardview.action", method=RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView CardView(String listname, String cardname, 
@@ -65,6 +78,7 @@ private BoardService boardService;
 		String cardinfo = boardService.selectCardInfo(boardno, listno, cardno);
 		
 		List<Attachment> attachments = cardService.selectAttachmentList(cardno, boardno);
+		List<CheckList> checklists = cardService.selectCheckList(cardno);
 		ArrayList<String> uploadDate = null;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -91,10 +105,81 @@ private BoardService boardService;
 		mav.addObject("boardno", boardno);
 		mav.addObject("cardinfo", cardinfo);
 		mav.addObject("attachments", attachments);
+		mav.addObject("checklists", checklists);
 		
 		mav.setViewName("card/cardview");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="insertchecklist.action", method=RequestMethod.POST)
+	@ResponseBody
+	public int insertchecklist(String name, int cardno, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginuser");
+		
+		int cardlistno = cardService.insertCheckList(name, cardno);
+		
+		CheckList checklist = new CheckList();
+		checklist.setCardNo(cardno);
+		checklist.setName(name);
+		checklist.setNo(cardlistno);
+		
+		activityService.addActivity(member, checklist, cardno);
+		return cardlistno;
+	}
+	
+	@RequestMapping(value="insertcheckitem.action", method=RequestMethod.POST)
+	@ResponseBody
+	public int insertcheckitem(String name, int checklistno) {
+		
+		int no = cardService.insertCheckItem(name, checklistno);
+		
+		return no;
+	}
+	
+	@RequestMapping(value="updatechecklistname.action", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateCheckListName(String name, int checklistno) {
+		
+		cardService.updateCheckListName(name, checklistno);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="updatecheckitemname.action", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateCheckItemName(String name, int checkitemno) {
+		
+		cardService.updateCheckItemName(name, checkitemno);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="updatecheckitembycheck.action", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateCheckItemBoolean(boolean checked, int checkitemno) {
+		
+		cardService.updateCheckItem(checked, checkitemno);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="deletechecklist.action", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteCheckList(int checklistno) {
+		
+		cardService.deleteCheckList(checklistno);
+		
+		//activityService.removeActivity(member, checklist, card, board);
+		return "success";
+	}
+	
+	@RequestMapping(value="deletecheckitem.action", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteCheckItem(int checkitemno) {
+		
+		cardService.deleteCheckItem(checkitemno);
+		return "success";
 	}
 	
 	/*@RequestMapping(value="insertAttachmentForm.action", method=RequestMethod.GET)
@@ -110,12 +195,12 @@ private BoardService boardService;
 	
 	@RequestMapping(value="insertAttachment.action", method=RequestMethod.POST)
 	@ResponseBody
-	public String insertAttachment(@RequestParam("cardno") int cardno, 
+	public ModelAndView insertAttachment(@RequestParam("cardno") int cardno, 
 									@RequestParam("boardno") int boardno,
 									@RequestParam("file") MultipartFile uploadfile,
 									MultipartHttpServletRequest req) {
 		
-		String message="";
+		ModelAndView mav = new ModelAndView();
 		
 		ServletContext application = req.getSession().getServletContext();
 		
@@ -134,11 +219,22 @@ private BoardService boardService;
 			
 			int originNo = cardService.insertAttachment(attachment);
 			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			String date = sdf.format(new Date());
+			
+			int pos = attachment.getUserFileName().lastIndexOf(".");
+			String ext = attachment.getUserFileName().substring(pos+1);
+			String filename2 = attachment.getUserFileName().substring(0, pos);
+			
+			mav.addObject("date", date);
+			mav.addObject("no", originNo);
+			mav.addObject("type", ext);
+			mav.addObject("name", filename2);
+			
 			String path = application.getRealPath("/resources/uploadfiles/");
 //			String savedName = Util.getUniqueFileName(path, originNo+filename);
 //			String savedName = Util.getUniqueFileName(path, filename);
 			String savedName = originNo+filename;
-			
 			
 			try {
 				FileOutputStream ostream = 
@@ -148,18 +244,17 @@ private BoardService boardService;
 					int data = istream.read();
 					if (data == -1) break;
 					ostream.write(data);
-					
-					message = "success";
 				}
 				istream.close();
 				ostream.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				
-				message = "error";
 			}
 		}
-		return message;
+		
+		mav.setViewName("card/att1");
+		return mav;
+		//return message;
 	}
 	
 	@RequestMapping(value="writecardinfo.action", method=RequestMethod.POST)
@@ -221,6 +316,23 @@ private BoardService boardService;
 			message = "error";
 		} 
 		return message;
+		
+	}
+	
+	@RequestMapping(value="insertComment.action", method=RequestMethod.POST)
+	@ResponseBody
+	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
+		
+		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		
+		Comment comment = new Comment();
+		comment.setCardNo(cardno);
+		comment.setContent(content);
+		comment.setWriter(writer);
+		
+		String message = "";
+		
+		cardService.insertComment(comment);
 		
 	}
 	

@@ -89,6 +89,12 @@
  		SELECT name FROM boardlist WHERE no = #{listNo} AND boardno = #{boardNo}
  	</select>
  	
+ 	<select id="selectAttachmentListByBoardno" parameterType="int" resultType="Attachment">
+ 		SELECT no, userfilename, cardno, boardno, regdate, archived
+ 		FROM attachment
+ 		WHERE boardno = #{boardno} AND archived = 0
+ 	</select>
+ 	
  
  <!-- 동윤 -->
  	<insert id="insertBoard" parameterType="String">

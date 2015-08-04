@@ -157,7 +157,7 @@ public class OracleMemberRepository implements MemberRepository{
 		params.put("text", text);
 		return memberMapper.selectMemberbyMemberName(params);
 	}
-	@Override
+	
 	public List<Member> searchTagAllMember(String key, int memberNo, int boardno) {
 		HashMap<Object, Object> params = new HashMap<Object, Object>();
 		params.put("key", key);
@@ -165,6 +165,14 @@ public class OracleMemberRepository implements MemberRepository{
 		params.put("boardNo", boardno);
 
 		return memberMapper.searchTagAllMember(params);
+		
+		
+	}
+
+	@Override
+	public List<Member> memberlist(int memberNo) {
+		
+		return memberMapper.memberlist(memberNo);
 	}
 	
 	@Override

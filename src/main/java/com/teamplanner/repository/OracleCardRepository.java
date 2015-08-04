@@ -36,11 +36,6 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public List<CheckItem> selectCheckItem(int checklistNo) {
-		return cardMapper.selectCheckItem(checklistNo);
-	}
-
-	@Override
 	public List<TagMember> selectTagMember(int cardNo) {
 		return cardMapper.selectTagMember(cardNo);
 	}
@@ -75,6 +70,86 @@ public class OracleCardRepository implements CardRepository {
 	@Override
 	public void deleteAttachment(int attachmentno) {
 		cardMapper.deleteAttachment(attachmentno);
+	}
+
+	@Override
+	public int insertCheckList(CheckList checklist) {
+		cardMapper.insertCheckList(checklist);
+		
+		return checklist.getNo();
+	}
+
+	@Override
+	public int insertCheckItem(CheckItem checkitem) {
+		
+		cardMapper.insertCheckItem(checkitem);
+		
+		return checkitem.getNo();
+	}
+
+	@Override
+	public void deleteCheckList(int checklistno) {
+		
+		cardMapper.deleteCheckList(checklistno);
+		
+	}
+
+	@Override
+	public void deleteCheckItem(int checkitemno) {
+		
+		cardMapper.deleteCheckItem(checkitemno);
+		
+	}
+
+	@Override
+	public void deleteCheckItemByChecklist(int checklistno) {
+		
+		cardMapper.deleteCheckItemByChecklist(checklistno);
+		
+	}
+
+	@Override
+	public void updateCheckListName(String name, int checklistno) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("name", name);
+		params.put("checklistno", checklistno);
+		
+		cardMapper.updateCheckListName(params);
+		
+	}
+
+	@Override
+	public void updateCheckItem(boolean checked, int checkitemno) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("checked", checked);
+		params.put("checkitemno", checkitemno);
+		
+		cardMapper.updateCheckItem(params);
+		
+	}
+
+	@Override
+	public void updateCheckItemName(String name, int checkitemno) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("name", name);
+		params.put("checkitemno", checkitemno);
+		
+		cardMapper.updateCheckItemName(params);
+	}
+
+	@Override
+	public int selectCheckItemCount(int checklistno) {
+		int count = cardMapper.selectCheckItemCount(checklistno);
+		return count;
+	}
+
+	@Override
+	public void insertComment(Comment comment) {
+		cardMapper.insertComment(comment);
+		
 	}
 
 }

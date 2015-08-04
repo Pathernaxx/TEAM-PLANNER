@@ -1,6 +1,7 @@
 package com.teamplanner.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Card {
 	private int no;
@@ -15,6 +16,29 @@ public class Card {
 	private boolean deleted;
 	private String info;
 	private String listName;
+	
+	private List<Attachment> attachments;
+	private List<CheckList> checklists;
+	private List<Member> members;
+	
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+	public List<CheckList> getChecklists() {
+		return checklists;
+	}
+	public void setChecklists(List<CheckList> checklists) {
+		this.checklists = checklists;
+	}
+	public List<Member> getMembers() {
+		return members;
+	}
+	public void setMembers(List<Member> members) {
+		this.members = members;
+	}
 	
 	public String getListName() {
 		return listName;

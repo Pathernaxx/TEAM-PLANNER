@@ -75,7 +75,9 @@
 				
 				if(check) {
 					var formData2 = $('form#changename').serialize();
-				
+					var fullname = $('.changename#fullname').val();
+					var username = $('.changename#username').val();
+					
 					$.ajax({
 						url : "/finalProject/member/change.action",
 						type : "post",
@@ -87,7 +89,10 @@
 								event.preventDefault();
 								$("#name-error").html(result);
 								$("#name-error").css('display', 'block');
-								
+								$('.changename#fullname').val(fullname);
+								$('.changename#username').val(username);
+								$('.memberupdate#fullName').val(fullname);
+								$('.memberupdate#username').val(username);
 								return;
 							}
 							
