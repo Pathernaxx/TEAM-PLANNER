@@ -201,4 +201,9 @@ public class PlanCardService implements CardService {
 	public List<Member> cardMembers(int cardno) {
 		return cardRepository.cardMembers(cardno);
 	}
+	@Override
+	public String isArchivedCard(int cardno) {
+		return cardRepository.isArchivedCard(cardno);
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.teamplanner.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -182,11 +183,6 @@ public class BoardController {
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public ModelAndView BoardView(@RequestParam("boardno") int boardNo, HttpSession session){
 	
-//		int boardno = boardNo;
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("boardno", boardno);
-//		mav.setViewName("board/boardview");
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
 		int userType = boardService.selectUserType(memberNo, boardNo);
@@ -210,7 +206,18 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
+		
 		List<Card> archivedCards = cardService.archivedCardList(boardNo);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		List<String> redate = null;
+		
+		for(int i=0; i<archivedCards.size(); i++) {
+			redate = new ArrayList<>();
+			redate.add(sdf.format(archivedCards.get(i).getRegDate()));
+		}
+		
 		//System.out.println(attchments.get(0).getUserFileName());
 		
 		ModelAndView mav = new ModelAndView();
@@ -220,7 +227,9 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
+		mav.addObject("prints", prints);
 		mav.addObject("archivedCards", archivedCards);
+		mav.addObject("redate", redate);
 		mav.setViewName("board/boardview");
 		
 		return mav;

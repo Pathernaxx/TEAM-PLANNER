@@ -184,11 +184,10 @@
  	</update>
  	
  	<select id="archivedCardList" parameterType="int" resultType="Card">
- 		SELECT no, name, listname
+ 		SELECT no, name, listname, regdate
  		FROM boardcard
- 		WHERE archived = '1'
+ 		WHERE archived = '1' AND boardno=#{boardno}
  	</select>
- 	
  	<select id="searchCardTagMember" parameterType="hashMap" resultType="Member">
  		select m.* 
  		from member m , teamlist t
@@ -215,4 +214,15 @@
 		from member m , teamlist t, tagmember g 
 		where m.no=t.memberno and t.no=g.teamno and g.cardno=#{cardno}
  	</select>
+ 	<select id="isArchivedCard" parameterType="int" resultType="String">
+ 		SELECT archived
+ 		FROM boardcard
+ 		WHERE no = #{cardno}
+ 	</select>
+ 	
  </mapper>
+ 
+ 
+ 
+ 
+ 

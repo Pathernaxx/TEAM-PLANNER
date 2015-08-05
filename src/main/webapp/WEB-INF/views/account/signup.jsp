@@ -28,7 +28,7 @@
 					password : $("#password").val()
 				},
 				success : function(result) {
-					if(result == null) {
+					if(result != null) {
 						var url = "/finalProject/account/login.action";
 						$(location).attr('href', url);
 					} else {

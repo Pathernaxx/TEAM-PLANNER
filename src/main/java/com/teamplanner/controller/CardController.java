@@ -31,12 +31,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.view.DownloadView;
 import com.teamplanner.commons.Util;
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckList;
+import com.teamplanner.dto.Comment;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
-import com.teamplanner.dto.Comment;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
 import com.teamplanner.service.MemberService;
@@ -88,6 +89,7 @@ public class CardController {
 		List<Attachment> attachments = cardService.selectAttachmentList(cardno, boardno);
 		List<CheckList> checklists = cardService.selectCheckList(cardno);
 		ArrayList<String> uploadDate = null;
+		List<ActionPrint> prints = activityService.activityListByComment(cardno);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		
@@ -105,6 +107,8 @@ public class CardController {
 		
 		List<Member> cardMembers = cardService.cardMembers(cardno);
 		
+//		int archived = 
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("uploadDate", uploadDate);
@@ -117,6 +121,7 @@ public class CardController {
 		mav.addObject("attachments", attachments);
 		mav.addObject("checklists", checklists);
 		mav.addObject("cardMembers", cardMembers);
+		mav.addObject("prints", prints);
 		
 		mav.setViewName("card/cardview");
 		
@@ -296,6 +301,7 @@ public class CardController {
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
+	@ResponseBody
 	public ModelAndView fileDownload(@RequestParam("fileno") int fileno,
 								HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -357,6 +363,7 @@ public class CardController {
 	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
 	@ResponseBody
 	public void returnCard(@RequestParam("cardno") int cardno) {
+		//System.out.println(cardno);
 		cardService.returnCard(cardno);
 	}
 	
@@ -366,6 +373,14 @@ public class CardController {
 		
 		return archivedCards;
 	}*/
+	
+	@RequestMapping(value="isArchived.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String isArchived(@RequestParam("cardno") int cardno) {
+		return cardService.isArchivedCard(cardno);
+
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
 

@@ -72,7 +72,7 @@
 		FROM
 		    activity act, activitytarget target
 		WHERE
-		    act.no = target.activityno AND target.typeno = 6 AND target.TARGETNO = #{commentno};
+		    act.no = target.activityno AND act.typeno = 2 AND target.typeno = 3 AND target.targetno = #{cardno}
 	</select>
 	
 	<select id="selectCard" parameterType="int" resultType="Card">

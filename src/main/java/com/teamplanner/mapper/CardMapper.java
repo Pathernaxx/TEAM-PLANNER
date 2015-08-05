@@ -48,4 +48,5 @@ public interface CardMapper {
 
 	List<Card> archivedCardList(int boardno);
 	List<Member> cardMembers(int cardno);
+	String isArchivedCard(int cardno);
 }
