@@ -321,6 +321,7 @@ public class CardController {
 	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
 		
 		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		Member member = (Member)session.getAttribute("loginuser");
 		
 		Comment comment = new Comment();
 		comment.setCardNo(cardno);
@@ -331,6 +332,9 @@ public class CardController {
 		
 		int commentno = cardService.insertComment(comment);
 		
+		comment.setNo(commentno);
+		
+		activityService.commentActivity(member, cardno, comment);
 	}
 	
 	@RequestMapping(value="archiveCard.action", method=RequestMethod.GET)

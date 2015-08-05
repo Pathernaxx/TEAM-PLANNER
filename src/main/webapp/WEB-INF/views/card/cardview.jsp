@@ -137,7 +137,7 @@ $(function() {
 		return false;
 	});
 	
-	$("#archivebtn").click(function() {
+	$('body').on('click', "#archivebtn", function() {
 		$.ajax({
 			url: "/finalProject/card/archiveCard.action",
 			typd: "GET",
@@ -153,6 +153,9 @@ $(function() {
 				alert("error");
 			}
 		});
+		
+		//$('.js-list-find'+cardno).remove();
+		
 	});
 	
 	$("#returnbtn").click(function() {

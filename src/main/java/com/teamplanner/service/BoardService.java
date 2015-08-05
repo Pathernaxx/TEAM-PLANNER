@@ -22,7 +22,7 @@ public interface BoardService {
 	
 	List<BoardList> BoardView(int boardNo);
 	List<Card> selectCard(int listNo);
-	void insertCard(Card card);
+	int insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
 	
 	String selectCardInfo(int boardNo, int listNo, int cardNo);

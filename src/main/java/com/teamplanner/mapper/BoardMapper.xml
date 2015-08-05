@@ -68,6 +68,9 @@
  	</select>
  	
  	<insert id="insertCard" parameterType="Card">
+ 		<selectKey keyProperty="no" resultType="int" order="AFTER">
+ 			SELECT boardcard_sequence.currval FROM DUAL
+ 		</selectKey>
  		INSERT INTO boardcard(no, name, listno, boardno, boardname, position, listname)
  		VALUES (boardcard_sequence.nextval, #{name}, #{listNo}, #{boardNo}, #{boardName}, #{position}, #{listName})
  	</insert>

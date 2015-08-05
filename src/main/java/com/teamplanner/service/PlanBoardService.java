@@ -96,9 +96,10 @@ public class PlanBoardService implements BoardService{
 		return boardName;
 	}
 	@Override
-	public void insertCard(Card card) {
-		boardRepository.insertCard(card);
+	public int insertCard(Card card) {
+		int cardno = boardRepository.insertCard(card);
 		
+		return cardno;
 	}
 
 	@Override

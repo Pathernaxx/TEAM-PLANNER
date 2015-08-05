@@ -235,7 +235,7 @@ $(document).ready(function() {
 					<input type="hidden" id="boardNo" value="${boardNo}" />
 					
 						<c:forEach var="list" items="${ boardLists }">
-						<div class="list">
+						<div class="list js-list-find${ list.no }">
 							<div class="list-header u-clearfix">
 								<h2 class="list-header-name">${ list.name }</h2>
 							</div>
