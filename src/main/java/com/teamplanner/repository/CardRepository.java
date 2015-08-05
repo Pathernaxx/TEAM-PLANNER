@@ -43,4 +43,5 @@ public interface CardRepository {
 	List<Member> selectCardMemberInCard(int cardNo);
 	int selectTeamListNo(int tagNo , int boardNo);
 	List<Card> archivedCardList(int boardno);
+	List<Member> cardMembers(int cardno);
 }

@@ -55,8 +55,8 @@
 		}
 		dialog = $( "#dialog-form" ).dialog({
 		      autoOpen: false,
-		      height: 300,
-		      width: 350,
+		      height: 230,
+		      width: 300,
 		      buttons:{
 		    	  "CREATE" : addBoard,
 		    	  Cancel: function(){

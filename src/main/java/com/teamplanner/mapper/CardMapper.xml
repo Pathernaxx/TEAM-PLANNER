@@ -210,4 +210,9 @@
  		from teamlist
  		where memberno = #{tagNo} AND boardno=#{boardNo}
  	</select>
+ 	<select id="cardMembers" parameterType="hashMap" resultType="Member">
+		select distinct m.* 
+		from member m , teamlist t, tagmember g 
+		where m.no=t.memberno and t.no=g.teamno and g.cardno=#{cardno}
+ 	</select>
  </mapper>

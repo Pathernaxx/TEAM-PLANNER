@@ -207,5 +207,11 @@ public class OracleCardRepository implements CardRepository {
 	public List<Card> archivedCardList(int boardno) {
 		return cardMapper.archivedCardList(boardno);
 	}
+	
+	@Override
+	public List<Member> cardMembers(int cardno) {
 
+		
+		return cardMapper.cardMembers(cardno);
+	}
 }

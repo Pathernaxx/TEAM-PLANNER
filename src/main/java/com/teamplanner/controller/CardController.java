@@ -39,6 +39,7 @@ import com.teamplanner.service.ActivityService;
 import com.teamplanner.dto.Comment;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
+import com.teamplanner.service.MemberService;
 import com.teamplanner.view.DownloadView;
 
 @Controller
@@ -48,6 +49,13 @@ public class CardController {
 	private CardService cardService;
 	private BoardService boardService;
 	private ActivityService activityService;
+	private MemberService memberService;
+	
+	@Autowired
+	@Qualifier("memberService")
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
+	}
 	
 	@Autowired
 	@Qualifier("cardService")
@@ -95,6 +103,8 @@ public class CardController {
 			
 		}
 		
+		List<Member> cardMembers = cardService.cardMembers(cardno);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("uploadDate", uploadDate);
@@ -106,6 +116,7 @@ public class CardController {
 		mav.addObject("cardinfo", cardinfo);
 		mav.addObject("attachments", attachments);
 		mav.addObject("checklists", checklists);
+		mav.addObject("cardMembers", cardMembers);
 		
 		mav.setViewName("card/cardview");
 		
@@ -371,12 +382,12 @@ public class CardController {
 	
 	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Member> selectCardMemberInCard(int tagNo, int cardNo , int boardNo){
+	public Member selectCardMemberInCard(int tagNo, int cardNo , int boardNo){
 		int teamlistNo = cardService.selectTeamListNo(tagNo, boardNo);
 		cardService.setTagMemberInCard(teamlistNo, cardNo);
-		List<Member> members =cardService.selectCardMemberInCard(cardNo);
+		Member member =boardService.selectMemberByMemberNo(tagNo);
 		
-		return members;
+		return member;
 	}
 	
 }

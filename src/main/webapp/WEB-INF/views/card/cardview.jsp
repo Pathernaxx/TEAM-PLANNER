@@ -191,10 +191,8 @@ $(function() {
 	    	  }
 	      }
 	});
-	$("#tagMemberbtn").click(function(){
-		tagdialog.dialog("open");
-	});
-	$("#searchmember").keydown(function(){
+	
+	function searchKeyup(event) {
 		var text = $("#searchmember").val();
 		if(text == "") {
 			return;
@@ -209,7 +207,8 @@ $(function() {
 			},
 			success : function(members){
 				var html;
-				var div = $("#tagmemberlist");
+				//var div = $("#tagmemberlist");
+				var div = tagdialog.find("#tagmemberlist");
 				/* for(var key in members){
 					html+="<div class='tagonemember'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
 					+ "&nbsp;&nbsp;" + members[key].userName+ "</div>";
@@ -219,13 +218,11 @@ $(function() {
 				$.each(members, function(index, member) {
 					div.append("<div class='tagonemember' id='"+member.no+"'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
 							+ "&nbsp;&nbsp;" + member.userName+ "</div>");
-				});
-				
+				});	
 			}
-		});
-		
-		
-	});
+		});	
+	}
+	
 	$('body').on('click', '.tagonemember', function() {
 		var id = $(this).attr('id');
 		$.ajax({
@@ -236,8 +233,8 @@ $(function() {
 				cardNo : cardno,
 				boardNo : boardno
 			},
-			success : function(members){
-				alert("야호");
+			success : function(member){
+				$('.appendcardtag').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
 				$("#tagmemberlist").val("");
 				tagdialog.dialog("close");
 			}
@@ -245,6 +242,19 @@ $(function() {
 		}) 
 	
 	});
+	
+	$("#tagMemberbtn").click(function(){
+		var input = tagdialog.find("#searchmember");
+		input.val('');
+		input.keyup(searchKeyup);
+		tagdialog.dialog("open");
+		
+	});
+	
+	
+	
+	
+	
 	
 	
 	
@@ -589,6 +599,11 @@ $(function() {
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/13.png" class="window-icon2" /></span>
 							<span class="content-space">Members</span>
 						</div>
+							<c:forEach var="member" items="${cardMembers}">
+								<img class="member-avatar" src="/finalProject/resources/images/user.png" width="40px" height="40px" title="${member.userName }"><a style="text-decoration: none;">&nbsp;&nbsp;</a>
+							</c:forEach>
+							<a class="appendcardtag" style="text-decoration: none">&nbsp;</a>
+							<br/>
 						<!-- choose -->
 						<c:choose>
 							<c:when test="${ empty attachments }">
@@ -783,7 +798,7 @@ $(function() {
 		<div id='tagMemberForm'>
 			<form>
 
-				<input type="text" id="searchmember" value="tag a member..." onfocus="this.value=''" style="width: 90%;" />
+				<input type="text" id="searchmember" style="width: 90%;" />
 				<br/><br/>
 				<div id="tagmemberlist"><br/>
 					

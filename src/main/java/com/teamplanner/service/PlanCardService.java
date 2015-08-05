@@ -196,5 +196,9 @@ public class PlanCardService implements CardService {
 	public List<Card> archivedCardList(int boardno) {
 		return cardRepository.archivedCardList(boardno);
 	}
-
+	
+	@Override
+	public List<Member> cardMembers(int cardno) {
+		return cardRepository.cardMembers(cardno);
+	}
 }

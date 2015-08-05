@@ -527,12 +527,14 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
 	top: 0;
 	left: 0;
 	padding: .2em;
-	outline: 0
+	outline: 0;
+	border-radius : 10px;
 }
 
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
-	position: relative
+	position: relative;
+	display:none;
 }
 
 .ui-dialog .ui-dialog-title {
@@ -541,7 +543,8 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
 	white-space: nowrap;
 	width: 90%;
 	overflow: hidden;
-	text-overflow: ellipsis
+	text-overflow: ellipsis;
+	display:none;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
@@ -551,7 +554,8 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
 	width: 20px;
 	margin: -10px 0 0 0;
 	padding: 1px;
-	height: 20px
+	height: 20px;
+	display:none;
 }
 
 .ui-dialog .ui-dialog-content {
