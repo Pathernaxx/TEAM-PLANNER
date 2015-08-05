@@ -102,7 +102,10 @@
 			var url = "/finalProject/member/"
 				$(location).attr('href', url);
 		});
-		
+		$('.logout').click(function() {
+			var url = '/finalProject/account/logout.action';
+			$(location).attr('href', url);
+		});
 	});
 </script>
 </head>
@@ -123,7 +126,9 @@
  	<div class="mypage">
 		My Page
 	</div> 
-	
+	<div class="logout">
+		logout
+	</div> 
 	<div id="dialogform" title="Add Member...">
 	  <form>
 		  <br/>

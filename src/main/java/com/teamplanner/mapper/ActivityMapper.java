@@ -13,5 +13,5 @@ public interface ActivityMapper {
 	void insertActivityTarget(ActivityTarget activitytarget);
 	List<Activity> selectActivityByBoard(int boardNo);
 	List<Activity> selectActivityByMember(int memberNo);
-	List<Activity> selectActivityByCardComment(int commentno);
+	List<Activity> selectActivityByCardComment(int cardno);
 }

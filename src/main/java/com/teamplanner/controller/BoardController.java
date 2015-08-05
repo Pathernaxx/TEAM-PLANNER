@@ -3,6 +3,7 @@ package com.teamplanner.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
@@ -204,6 +206,8 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
+		
 		List<Card> archivedCards = cardService.archivedCardList(boardNo);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -223,6 +227,7 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
+		mav.addObject("prints", prints);
 		mav.addObject("archivedCards", archivedCards);
 		mav.addObject("redate", redate);
 		mav.setViewName("board/boardview");
