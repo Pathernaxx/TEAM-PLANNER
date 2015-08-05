@@ -8685,7 +8685,6 @@ opacity
 	background-color: #d6dadc;
 	border-radius: 3px;
 	color: #4d4d4d;
-	cursor: pointer;
 	display: block;
 	float: left;
 	height: 30px;
@@ -10949,4 +10948,15 @@ input[type=text].boards-page-navigation-input {
 
 .hide {
 	display: none
+}
+
+#color {
+	color: red;
+}
+
+.pic2 {
+	width: 100%;
+	height: 100%;
+	
+	
 }

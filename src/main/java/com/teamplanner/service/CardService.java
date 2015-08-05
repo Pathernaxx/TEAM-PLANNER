@@ -31,10 +31,14 @@ public interface CardService {
 	List<Attachment> selectAttachmentList(int cardno, int boardno);
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
-	void insertComment(Comment comment);
+	int insertComment(Comment comment);
 	
-	List<Member> searchCardTagMember(String text , int memberNo , int boardNo);
+	void archiveCard(int cardno);
+	void returnCard(int cardno);
 	
-	void setTagMemberInCard(int tagNo, int cardNo);
+	List<Member> searchCardTagMember(String text , int memberNo , int boardNo , int cardNo);
+	
+	void setTagMemberInCard(int teamlistNo, int cardNo);
 	List<Member> selectCardMemberInCard(int cardNo);
+	int selectTeamListNo(int tagNo , int boardNo);
 }

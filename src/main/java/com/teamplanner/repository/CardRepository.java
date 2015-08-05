@@ -21,6 +21,7 @@ public interface CardRepository {
 	void updateCheckItem(boolean checked, int checkitemno);
 	void updateCheckItemName(String name, int checkitemno);
 	int selectCheckItemCount(int checklistno);
+	int selectCheckListPercent(int checklistno);
 	
 	List<Comment> selectComment(int cardNo);
 	List<CheckList> selectCheckList(int cardNo);
@@ -32,9 +33,13 @@ public interface CardRepository {
 	List<Attachment> selectAttachmentList(int cardno, int boardno);
 	Attachment selectAttachment(int attachmentno);
 	void deleteAttachment(int attachmentno);
-	void insertComment(Comment comment);
+	int insertComment(Comment comment);
 	
-	List<Member> searchCardTagMember(String text, int memberNo,int boardNo);
-	void setTagMemberInCard(int tagNo, int cardNo);
+	void archiveCard(int cardno);
+	void returnCard(int cardno);
+	
+	List<Member> searchCardTagMember(String text, int memberNo,int boardNo , int cardNo);
+	void setTagMemberInCard(int teamlistNo, int cardNo);
 	List<Member> selectCardMemberInCard(int cardNo);
+	int selectTeamListNo(int tagNo , int boardNo);
 }

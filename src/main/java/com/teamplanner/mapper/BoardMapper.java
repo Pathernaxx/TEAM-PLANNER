@@ -32,7 +32,7 @@ public interface BoardMapper {
 	//////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);
-	void insertCard(Card card);//boardno, listno 가지고 들어옴
+	int insertCard(Card card);//boardno, listno 가지고 들어옴
 	void insertBoardList(BoardList boardlist);
 	String getBoardNameByNo(int boardno);
 	String selectCardInfo(HashMap<Object, Object> params);

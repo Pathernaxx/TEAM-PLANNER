@@ -148,27 +148,43 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public void insertComment(Comment comment) {
+	public int insertComment(Comment comment) {
 		cardMapper.insertComment(comment);
+		return comment.getNo();
+	}
+
+	@Override
+	public int selectCheckListPercent(int checklistno) {
 		
+		return cardMapper.selectCheckListPercent(checklistno);
+	}
+
+	@Override
+	public void archiveCard(int cardno) {
+		cardMapper.archiveCard(cardno);
+	}
+
+	@Override
+	public void returnCard(int cardno) {
+		cardMapper.returnCard(cardno);
 	}
 	
 	@Override
-	public List<Member> searchCardTagMember(String text, int memberNo,
-			int boardNo) {
+	public List<Member> searchCardTagMember(String text, int memberNo, int boardNo, int cardNo) {
 		HashMap<Object, Object> params = new HashMap<Object, Object>();
 		params.put("text", text);
 		params.put("memberNo", memberNo);
 		params.put("boardNo", boardNo);
+		params.put("cardNo", cardNo);
 		
 		return cardMapper.searchCardTagMember(params);
 	}
 	
 	
 	@Override
-	public void setTagMemberInCard(int tagNo, int cardNo) {
+	public void setTagMemberInCard(int teamlistNo, int cardNo) {
 		HashMap<Object, Object> params = new HashMap<Object, Object>();
-		params.put("tagNo", tagNo);
+		params.put("teamlistNo", teamlistNo);
 		params.put("cardNo", cardNo);
 		cardMapper.setTagMemberInCard(params);
 		
@@ -178,5 +194,13 @@ public class OracleCardRepository implements CardRepository {
 	public List<Member> selectCardMemberInCard(int cardNo) {
 		
 		return cardMapper.selectCardMemberInCard(cardNo);
+	}
+	
+	@Override
+	public int selectTeamListNo(int tagNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("tagNo", tagNo);
+		params.put("boardNo", boardNo);
+		return cardMapper.selectTeamListNo(params);
 	}
 }

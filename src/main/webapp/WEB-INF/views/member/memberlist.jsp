@@ -2,9 +2,17 @@
 <meta content="text/plain; charset=utf-8">
 <div class="js-activity">
 	<h2>Member List</h2>
-	<c:forEach var="member" items="${ members }" >
-		<div style="margin: 0.1px"> ${ member.userName } / ${ member.email } </div>
 	
+	
+	<c:forEach var="member" items="${ members }" >
+		<div style="margin: 18px">
+			<div class="creator member js-show-mem-menu">
+				<span>
+				<img class="pic2" src="/finalProject/resources/images/user.png">
+				</span>
+			</div>
+		   ${ member.userName } <a style="color: red;">/</a>  ${ member.email } 
+	 	</div>
 	</c:forEach>
 </div>
 

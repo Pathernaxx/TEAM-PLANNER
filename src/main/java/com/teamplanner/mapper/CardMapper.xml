@@ -12,8 +12,25 @@
 		<result column="name" property="name"/>
 		<result column="cardno" property="cardNo"/>
 		<result column="regdate" property="regDate"/>
+		<association column="no" property="percentage" select="selectCheckListPercent"/>
 		<collection column="no" property="checkItems" select="selectCheckItem"/>
 	</resultMap>
+	
+	<select id="selectCheckListPercent" parameterType="int" resultType="int">
+		SELECT
+			round(a / b) * 100 
+		FROM 
+			(
+				SELECT
+					(case checked when '1' then count(checked) else 0 end) a, count(checked) b 
+				FROM
+					checkitem
+				WHERE
+					CHECKLISTNO = #{no}
+				GROUP BY
+					checked
+			)
+	</select>
 	
 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
 		SELECT
@@ -147,22 +164,44 @@
  	</delete>
  	
  	<insert id="insertComment" parameterType="comment">
+ 		<selectKey keyProperty="no" resultType="int" order="AFTER" >
+			SELECT comment_sequence.currval FROM dual
+		</selectKey>
  		INSERT INTO boardcomment(no, cardno, content, writer)
  		VALUES (comment_sequence.nextval, #{cardNo}, #{content}, #{writer} )
  	</insert>
  	
+ 	<update id="archiveCard" parameterType="int">
+ 		UPDATE boardcard
+ 		SET archived = '1'
+ 		WHERE no = #{cardno}
+ 	</update>
+ 	
+ 	<update id="returnCard" parameterType="int">
+ 		UPDATE boardcard
+ 		SET archived = '0'
+ 		WHERE no = #{cardno}
+ 	</update>
+ 	
  	<select id="searchCardTagMember" parameterType="hashMap" resultType="Member">
  		select m.* 
- 		from member m , teamlist t 
- 		where m.no = t.memberno and t.boardno = #{boardNo} and t.memberno != #{memberNo} and m.username like #{text}||'%'
+ 		from member m , teamlist t
+ 		where t.no  not in(
+                select teamno from tagmember where cardno = #{cardNo} )  and
+   		m.no = t.memberno and t.boardno = #{boardNo} and t.memberno != #{memberNo} and m.username like #{text}||'%'
  	</select>
  	<insert id="setTagMemberInCard" parameterType="hashMap">
  		INSERT INTO tagmember(cardno ,teamno)
- 		VALUES (#{cardNo} , #{tagNo})
+ 		VALUES (#{cardNo} , #{teamlistNo})
  	</insert>
  	<select id="selectCardMemberInCard" parameterType="int" resultType="Member">
  		select m.* 
- 		from member m ,tagmember t 
- 		where m.no=t.teamno and t.cardno=#{cardNo};
+ 		from member m ,tagmember g , teamlist t
+ 		where g.cardno=#{cardNo} and g.teamno = t.no and t.memberno = m.no
+ 	</select>
+ 	<select id="selectTeamListNo" parameterType="hashMap" resultType="int">
+ 		select no 
+ 		from teamlist
+ 		where memberno = #{tagNo} AND boardno=#{boardNo}
  	</select>
  </mapper>

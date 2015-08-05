@@ -15,6 +15,7 @@ public interface CardMapper {
 	
 	void insertCheckList(CheckList checklist);
 	void insertCheckItem(CheckItem checkitem);
+	int selectCheckListPercent(int no);
 	void deleteCheckList(int checklistno);
 	void deleteCheckItem(int checkitemno);
 	void deleteCheckItemByChecklist(int checklistno);
@@ -39,4 +40,9 @@ public interface CardMapper {
 	List<Member> searchCardTagMember(HashMap<Object, Object> params);
 	void setTagMemberInCard(HashMap<Object, Object> params);
 	List<Member> selectCardMemberInCard(int cardNo);
+	int selectTeamListNo(HashMap<Object, Object> params);
+	
+	void archiveCard(int cardno);
+	void returnCard(int cardno);
+
 }

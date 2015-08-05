@@ -66,23 +66,6 @@ $(function() {
 		});
 		
 	}); 
-
-	/* $('.window-header').on('click', "#filedownload", function() {
-		$.ajax({
-			url: '/finalProject/card/filedownload.action',
-			type: 'GET',
-			data: {
-				fileno : $(this).parents(".attachment-options").find('input').val()
-			},
-			success: function() {
-				alert("다운로드완료")
-			},
-			error: function(xhr,status,ex) {
-				//alert("다운로드실패")
-				alert(status+ex)
-			}
-		});
-	}); */
 	
 	$('.window-header').on('click', "#filedelete", function() {
 		//$(this).parent("#atttr").slideUp('fast', function(){$(this).remove();});
@@ -109,23 +92,88 @@ $(function() {
 		attachmentdialog.dialog("close");
 	});
 	
+	$('body .window-attachment').on("click", ".js-save-edit", function() {
+		
+		var text = $(".js-cardinfo-input").val();
+		$.ajax({
+			url: "/finalProject/card/writecardinfo.action",
+			async: true,
+			type: "post",
+			data: {
+				boardno: '${boardno}',
+				listno: '${listno}',
+				cardno: '${cardno}',
+				information: text
+			},
+			success: function() {
+				$(".js-cardinfo-name").text(text);
+				$(".js-cardinfo-input").val("");
+			},
+			error: function(xhr, status, ex) {
+				alert(status + ex);
+			}
+		});
+		
+		$(this).parents(".card-info-details").removeClass('editing');
+		$('.inline-edit').append($('.edit-controls'));
+		
+		return false;
+	});
+	
+	$('.window-attachment').on("click", ".js-cardinfo-input", function() {
+		return false;
+	});
 
-	//$('#cardinfo').on('click', ".updateinfo", function() {
-	$(".updateinfo").click(function() {
 	
-		$('.editinfo').css('visibility', 'visible');
-		$('.editinfo').css('display', 'block');
+	$("body").on("click", ".js-cardinfo-name", function() {
+		var text = $(this)[0].innerHTML;
 		
-		$('#information').css('onfocus', 'this.value=""');
+		$(this).parents(".card-info-details").find(".js-cardinfo-input").val(text);
+		
+		$(this).parents(".card-info-details").addClass('editing');
+		
+		$(this).parents(".card-info-details").find(".js-cardinfo-input").after($(".edit-controls"));
+		
+		return false;
+	});
+	
+	$('body').on('click', "#archivebtn", function() {
+		$.ajax({
+			url: "/finalProject/card/archiveCard.action",
+			typd: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//alert("aaa");
+				//카드다이얼로그 꼭대기에 "this card is archived" 띄우고 archive버튼 아래에 "return to board" 버튼 삽입
+				$("#dialog-header").before("<div id='notice'><h2 style='color:red;'>THIS CARD IS ARCHIVED</h2></div>");
+				$("#returnbtn").css("visibility", "visible");
+				$("#returnbtn").css("display", "block");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
+		
+		//$('.js-list-find'+cardno).remove();
 		
 	});
 	
-	$(".editinfo").click(function() {
-		
-		$(".window-attachment").html('card/information');
-	
+	$("#returnbtn").click(function() {
+		$.ajax({
+			url: "/finalProject/card/returnCard.action",
+			typd: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//alert("aaa");
+				$(".window-wrapper").find("#notice").remove();
+				$("#returnbtn").css("visibility", "hidden");
+				$("#returnbtn").css("display", "none");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
 	});
-	
 	
 	/*///////////////////동윤/////////////////////////// */
 
@@ -145,7 +193,6 @@ $(function() {
 	});
 	$("#tagMemberbtn").click(function(){
 		tagdialog.dialog("open");
-	
 	});
 	$("#searchmember").keydown(function(){
 		var text = $("#searchmember").val();
@@ -153,11 +200,12 @@ $(function() {
 			return;
 		}
 		$.ajax({
-			url: "/finalProject/board/searchCardTagMember.action",
+			url: "/finalProject/card/searchCardTagMember.action",
 			type: "get",
 			data: {
 				text : text,
-				boardNo : boardno
+				boardNo : boardno,
+				cardNo : cardno
 			},
 			success : function(members){
 				var html;
@@ -181,14 +229,17 @@ $(function() {
 	$('body').on('click', '.tagonemember', function() {
 		var id = $(this).attr('id');
 		$.ajax({
-			url : '/finalProject/board/selectCardMemberInCard.action',
+			url : '/finalProject/card/selectCardMemberInCard.action',
 			type: "get",
 			data : {
 				tagNo : id,
-				cardNo : cardno
+				cardNo : cardno,
+				boardNo : boardno
 			},
 			success : function(members){
 				alert("야호");
+				$("#tagmemberlist").val("");
+				tagdialog.dialog("close");
 			}
 		
 		}) 
@@ -246,8 +297,7 @@ $(function() {
 					cardno: cardno
 				},
 				success: function(data) {
-					$('.js-activity-view').before(
-					'<div class="checklist-list window-module">'+ 
+					$('.window-module').append(
 						'<div class="checklist" id="' + data + '">' +
 							'<div class="window-module-title window-module-title-no-divider">' +
 								'<span class="window-module-title-icon icon-lg icon-checklist"></span>' +
@@ -271,8 +321,8 @@ $(function() {
 							'<div class="checklist-new-item u-gutter js-new-checklist-item focus">' +
 								'<textarea class="checklist-new-item-text js-new-checklist-item-input" placeholder="Add an item..." style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>'+
 							'</div>' +
-						'</div>' +
-					'</div>');
+						'</div>'
+					);
 					//alert('checklist insert complete');
 				},
 				error: function() {
@@ -293,7 +343,7 @@ $(function() {
 			current.parents('.checklist').find('.checklist-progress').find('.js-checklist-progress-bar').css('width', c);
 		}
 		
-		$("body").on("click", '.js-toggle-checklist-item', function(event) {
+		$(".window-module").on("click", '.js-toggle-checklist-item', function(event) {
 			//event.preventDefault();
 			var id = $(this).parents('.checklist-item').attr('id');
 			var check;
@@ -330,7 +380,7 @@ $(function() {
 		
 		var text = "";
 		
-		$('body').on('click', '.js-new-checklist-item-input', function(event) {
+		$('.window-module').on('click', '.js-new-checklist-item-input', function(event) {
 			removeControls();
 			
 			$(this).parents('.js-new-checklist-item').addClass('focus');
@@ -339,7 +389,7 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-checkitem-name', function(event) {
+		$('.window-module').on('click', '.js-checkitem-name', function(event) {
 			removeControls();
 			
 			//var id = $(this).parents('.checklist-item').attr('id');
@@ -353,13 +403,13 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-checkitem-input', function(event) {
+		$('.window-module').on('click', '.js-checkitem-input', function(event) {
 			//event.preventDefault();
 			//event.stopPropagation();
 			return false;
 		});
 		
-		$('body').on('click', '.js-delete-item', function(event){
+		$('.window-module').on('click', '.js-delete-item', function(event){
 			var id = $(this).parents('.checklist-item').attr('id');
 			var currentitem = $(this).parents('.checklist-item');
 			$.ajax({
@@ -378,7 +428,7 @@ $(function() {
 			})
 		});
 		
-		$('body').on('click', '.js-confirm-delete', function(event){
+		$('.window-module').on('click', '.js-confirm-delete', function(event){
 			var id = $(this).parents('.checklist').attr('id');
 			var currentlist = $(this).parents('.checklist');
 			$.ajax({
@@ -396,7 +446,7 @@ $(function() {
 			});
 		});
 		
-		$('body').on('click', '.js-save-edit', function(event) {
+		$('.window-module').on('click', '.js-save-edit', function(event) {
 			var message = $(this).parents('.editing').find('.js-checkitem-input').val();
 			
 			// null Check
@@ -436,7 +486,7 @@ $(function() {
 			event.stopPropagation();
 		});
 		
-		$('body').on('click', '.js-save-add', function(event) {
+		$('.window-module').on('click', '.js-save-add', function(event) {
 			//event.preventDefault();
 			var message = $(this).parents('.focus').find('textarea.js-new-checklist-item-input');
 			var id = $(this).parents('.checklist').attr('id');
@@ -503,7 +553,7 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
-		<div class="window-header u-clearfix">
+		<div class="window-header u-clearfix" id="dialog-header">
 			<table>
 				<tr>
 				<td style="text-align: justify"><img src="/finalProject/resources/styles/images/icons/12.png" class="window-icon" /></td>
@@ -516,28 +566,23 @@ $(function() {
 		
 		<div class="window-main-middle u-clearfix">
 			<div class="window-main-left">
+			
 				<div class="window-attachment">
-					<!-- <div id="cardinfo"> -->
-						<c:choose>
-							<c:when test="${ empty cardinfo }">
-								<%-- <c:import url="/WEB-INF/views/card/information.jsp" /> --%>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a class="editinfo" style="cursor: pointer;">
-									<img src="/finalProject/resources/styles/images/icons/234.png"
-									class="window-icon2" />&nbsp;
-									Write the Discription
-								</a>
-							</c:when>
-							<c:otherwise>
-								<span>&nbsp;&nbsp;&nbsp;${ cardinfo}</span><br/>
-								<span>
-									<a class="updateinfo" style="float:right;color:#8c8c8c;font-size: small;cursor:pointer">
-									Edit the Discription</a>
-								</span>
-							</c:otherwise>
-						</c:choose>
-					<!-- </div> -->
+				<div class="attachment-title">
+					<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/133.png" class="window-icon2" /></span>
+					<span class="content-space">Card Detail</span>
 				</div>
+					<div class="card-info">
+						<div class="card-info-details non-empty editable">
+							<p class="card-info-details-text current hide-on-edit markeddown js-cardinfo-name">${ cardinfo eq null ? "Write a Discription.." : cardinfo }</p>
+							<div class="edit delete convert options-menu">
+								<textarea class="field full single-line js-cardinfo-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
 				<div class="window-boardComment">
 					<div class="window-header">
 						<div id="attachment-title" class="attachment-title">
@@ -553,10 +598,10 @@ $(function() {
 									<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/1.png" class="window-icon2" /></span>
 									<span class="content-space">Attachment</span>
 								</div>
-								<c:forEach var="attlist" items="${attachments }">
-									<div id="last-attachment" class="atttr card-elements" >
-										<span class="icon-space"></span>
-										<span class="content-space u-clearfix">
+							<c:forEach var="attlist" items="${attachments }">
+								<div id="last-attachment" class="atttr card-elements" >
+									<span class="icon-space"></span>
+									<span class="content-space u-clearfix">
 											<div class="attachment-thumnail">
 												<a class="attachment-preview">
 													<span class="attachment-preview-src">${attlist.fileType }</span>
@@ -600,9 +645,9 @@ $(function() {
 										</div>
 									</div>
 									<div class="checklist-progress">
-										<span class="checklist-progress-percentage js-checklist-progress-percent">0%</span>
+										<span class="checklist-progress-percentage js-checklist-progress-percent">${ checklist.percentage }%</span>
 										<div class="checklist-progress-bar">
-											<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: 0%;"></div>
+											<div class="checklist-progress-bar-current js-checklist-progress-bar" style="width: ${ checklist.percentage }%;"></div>
 										</div>
 									</div>
 									<div class="checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable">
@@ -635,17 +680,17 @@ $(function() {
 								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
 								<span class="content-space">Activity</span>
 							</div>
-							
-							<div class="card-elements">
-								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
-								<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
-								<button id="comment-save">save</button><br/>
-							</div>
 						</div>
 						<div class="card-elements">
-							<span class="icon-space"></span>
-							<span class="content-space">누적 activity</span>
+							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
+							<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
+							<button id="comment-save">save</button><br/>
 						</div>
+						
+					</div>
+					<div class="card-elements">
+						<span class="icon-space"></span>
+						<span class="content-space">누적 activity</span>
 					</div>
 				</div>
 			</div>
@@ -682,11 +727,14 @@ $(function() {
 							<img src="/finalProject/resources/styles/images/icons/122.png"
 							class="window-icon2" /> Copy
 					</span>
-					</a> <a class="window-sidebutton"> <span class="icon-sm">
-							<img src="/finalProject/resources/styles/images/icons/111.png"
-							class="window-icon2" /> Archived
+					</a> <a class="window-sidebutton" id="archivebtn"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/111.png" class="window-icon2" /> Archived
+					</span>
+					</a> <a class="window-sidebutton" id="returnbtn" style="visibility:visible;display:none"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/9.png" class="window-icon2" /> Return
 					</span>
 					</a>
+					
 				</div>
 			</div>
 		</div>

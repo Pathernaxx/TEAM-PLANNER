@@ -264,11 +264,10 @@ public class CardController {
 								@RequestParam("listno") int listno, 
 								@RequestParam("cardno") int cardno,
 								String information
-							  ){// throws ServletException, IOException 
-		
-		//String information = request.getParameter("information");
-
+							  ){
 		String message="";
+		
+		ModelAndView mav = new ModelAndView();
 		
 		Card card = new Card();
 		card.setBoardNo(boardno);
@@ -282,9 +281,7 @@ public class CardController {
 		} catch (Exception ex) {
 			message = "error";
 		}
-		
 		return message;
-		
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
@@ -324,6 +321,7 @@ public class CardController {
 	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
 		
 		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		Member member = (Member)session.getAttribute("loginuser");
 		
 		Comment comment = new Comment();
 		comment.setCardNo(cardno);
@@ -332,25 +330,48 @@ public class CardController {
 		
 		String message = "";
 		
-		cardService.insertComment(comment);
+		int commentno = cardService.insertComment(comment);
 		
+		comment.setNo(commentno);
+		
+		activityService.commentActivity(member, cardno, comment);
 	}
+	
+	@RequestMapping(value="archiveCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void archiveCard(@RequestParam("cardno") int cardno) {
+		cardService.archiveCard(cardno);
+	}
+	
+	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void returnCard(@RequestParam("cardno") int cardno) {
+		cardService.returnCard(cardno);
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
-	
-	@RequestMapping(value="tagMemberForm.action", method=RequestMethod.GET)
-	public ModelAndView popupTagMemberForm(@RequestParam("cardno") int cardno, @RequestParam("boardno") int boardno
-											,@RequestParam("listno") int listno) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("cardno", cardno);
-		mav.addObject("listno", listno);
-		mav.addObject("boardno", boardno);
-		mav.setViewName("card/tagMemberForm");
+	
+	@RequestMapping(value="searchCardTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> searchCardTagMember(HttpSession session, String text, int boardNo , int cardNo) {
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members =cardService.searchCardTagMember(text, memberNo, boardNo, cardNo);
 		
-		return mav;
+		
+		return members;
 	}
 	
+	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> selectCardMemberInCard(int tagNo, int cardNo , int boardNo){
+		int teamlistNo = cardService.selectTeamListNo(tagNo, boardNo);
+		cardService.setTagMemberInCard(teamlistNo, cardNo);
+		List<Member> members =cardService.selectCardMemberInCard(cardNo);
+		
+		return members;
+	}
 	
 }
 

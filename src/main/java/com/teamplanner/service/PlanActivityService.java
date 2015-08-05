@@ -120,9 +120,10 @@ public class PlanActivityService implements ActivityService {
 	 * @see sdf
 	 */
 	@Override
-	public void addActivity(Member member, Card card, BoardList list,
+	public void addActivity(Member member, int cardno, BoardList list,
 			Board board) {
 		
+		Card card = activityRepository.selectCard(cardno);
 		Activity activity = new Activity();
 		ActivityTarget actTarget = new ActivityTarget();
 		

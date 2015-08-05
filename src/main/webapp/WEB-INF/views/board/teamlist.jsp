@@ -13,6 +13,9 @@
 .choicefriend{
 	cursor: pointer;
 }
+.appendtag{
+	text-decoration: none;
+}
 </style>
 <script>
 
@@ -135,7 +138,7 @@
 		    					boardNo : boardno
 		    				},
 		    				success : function(member){
-		    					$('.teamList-header').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
+		    					$('.appendtag').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
 		    					dialog2.dialog("close");
 		    					dialog3.dialog("close");
 								$("#addMemberbtn").css("display","block");

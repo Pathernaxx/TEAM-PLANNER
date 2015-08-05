@@ -283,8 +283,8 @@ public class BoardController {
 		
 		try {
 			BoardList list = boardService.selectBoardListBylistNo(listno);
-			boardService.insertCard(card);
-			activityService.addActivity(member, card, list, new Board(boardno, boardName));
+			int cardno = boardService.insertCard(card);
+			activityService.addActivity(member, cardno, list, new Board(boardno, boardName));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";
@@ -367,24 +367,7 @@ public class BoardController {
 		return "redirect:/board/boardmain.action";
 	}
 	
-	@RequestMapping(value="searchCardTagMember.action", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Member> searchCardTagMember(HttpSession session, String text, int boardNo) {
-		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
-		List<Member> members =cardService.searchCardTagMember(text, memberNo, boardNo);
-		
-		
-		return members;
-	}
-	
-	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Member> selectCardMemberInCard(int tagNo, int cardNo){
-		cardService.setTagMemberInCard(tagNo, cardNo);
-		List<Member> members =cardService.selectCardMemberInCard(cardNo);
-		
-		return members;
-	}
+
 }
 
 

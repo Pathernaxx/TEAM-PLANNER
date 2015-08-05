@@ -154,21 +154,31 @@ public class PlanCardService implements CardService {
 	}
 
 	@Override
-	public void insertComment(Comment comment) {
-		cardRepository.insertComment(comment);
+	public int insertComment(Comment comment) {
+		int commentno = cardRepository.insertComment(comment);
+		return commentno;
+	}
+
+	@Override
+	public void archiveCard(int cardno) {
+		cardRepository.archiveCard(cardno);
+	}
+
+	@Override
+	public void returnCard(int cardno) {
+		cardRepository.returnCard(cardno);
 	}
 	
 	
 	@Override
-	public List<Member> searchCardTagMember(String text, int memberNo,
-			int boardNo) {
+	public List<Member> searchCardTagMember(String text, int memberNo, int boardNo, int cardNo) {
 		
-		return cardRepository.searchCardTagMember(text, memberNo, boardNo);
+		return cardRepository.searchCardTagMember(text, memberNo, boardNo ,cardNo);
 	}
 	
 	@Override
-	public void setTagMemberInCard(int tagNo, int cardNo) {
-		cardRepository.setTagMemberInCard(tagNo, cardNo);
+	public void setTagMemberInCard(int teamlistNo, int cardNo) {
+		cardRepository.setTagMemberInCard(teamlistNo, cardNo);
 		
 	}
 	
@@ -176,5 +186,10 @@ public class PlanCardService implements CardService {
 	public List<Member> selectCardMemberInCard(int cardNo) {
 		
 		return cardRepository.selectCardMemberInCard(cardNo);
+	}
+	
+	@Override
+	public int selectTeamListNo(int tagNo, int boardNo) {
+		return cardRepository.selectTeamListNo(tagNo, boardNo);
 	}
 }

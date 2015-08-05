@@ -170,9 +170,11 @@ public class OracleBoardRepository implements BoardRepository{
 	}
 
 	@Override
-	public void insertCard(Card card) {
+	public int insertCard(Card card) {
 		
 		boardMapper.insertCard(card);
+		
+		return card.getNo();
 	}
 
 	@Override
