@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>Team Planner</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/default.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/board.css" />
 <link rel="Stylesheet" href="/finalProject/resources/styles/checklist.css" />
@@ -19,7 +19,6 @@
 
 <script src="//code.jquery.com/jquery-1.11.3.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
 
 
 <script type="text/javascript" src="/finalProject/resources/js/jquery.scrollTo.js"></script>
@@ -233,7 +232,7 @@ $(document).ready(function() {
 							<div id="scroller-body">
 								<div id="mask">
 								<div id="panel">
-									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
+									<div id="panel-1"><c:import url="/WEB-INF/views/include/boardactivity.jsp"/></div>
 									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
 									<div id="panel-3"><c:import url="/WEB-INF/views/card/attachment.jsp"/></div>
 									<div id="panel-4"><c:import url="/WEB-INF/views/board/archivedlist.jsp"/></div>
