@@ -349,6 +349,12 @@ public class CardController {
 		cardService.returnCard(cardno);
 	}
 	
+	/*@RequestMapping(value="archivedCardList.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Card> archivedCardList(@RequestParam("boardno") int boardno){
+		
+		return archivedCards;
+	}*/
 	
 	//동윤's Area///////////////////////////////////////////////////////////
 

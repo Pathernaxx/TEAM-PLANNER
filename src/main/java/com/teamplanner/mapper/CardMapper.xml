@@ -183,6 +183,12 @@
  		WHERE no = #{cardno}
  	</update>
  	
+ 	<select id="archivedCardList" parameterType="int" resultType="Card">
+ 		SELECT no, name, listname
+ 		FROM boardcard
+ 		WHERE archived = '1'
+ 	</select>
+ 	
  	<select id="searchCardTagMember" parameterType="hashMap" resultType="Member">
  		select m.* 
  		from member m , teamlist t

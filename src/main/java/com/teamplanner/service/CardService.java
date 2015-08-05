@@ -41,4 +41,5 @@ public interface CardService {
 	void setTagMemberInCard(int teamlistNo, int cardNo);
 	List<Member> selectCardMemberInCard(int cardNo);
 	int selectTeamListNo(int tagNo , int boardNo);
+	List<Card> archivedCardList(int boardno);
 }

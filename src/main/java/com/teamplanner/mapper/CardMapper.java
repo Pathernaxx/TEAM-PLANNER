@@ -45,4 +45,6 @@ public interface CardMapper {
 	void archiveCard(int cardno);
 	void returnCard(int cardno);
 
+
+	List<Card> archivedCardList(int boardno);
 }

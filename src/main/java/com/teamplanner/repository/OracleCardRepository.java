@@ -203,4 +203,9 @@ public class OracleCardRepository implements CardRepository {
 		params.put("boardNo", boardNo);
 		return cardMapper.selectTeamListNo(params);
 	}
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardMapper.archivedCardList(boardno);
+	}
+
 }

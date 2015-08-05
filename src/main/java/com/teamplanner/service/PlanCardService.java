@@ -192,4 +192,9 @@ public class PlanCardService implements CardService {
 	public int selectTeamListNo(int tagNo, int boardNo) {
 		return cardRepository.selectTeamListNo(tagNo, boardNo);
 	}
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardRepository.archivedCardList(boardno);
+	}
+
 }
