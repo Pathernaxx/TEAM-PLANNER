@@ -183,5 +183,11 @@
  		WHERE no = #{cardno}
  	</update>
  	
+ 	<select id="archivedCardList" parameterType="int" resultType="Card">
+ 		SELECT no, name, listname
+ 		FROM boardcard
+ 		WHERE archived = '1'
+ 	</select>
+ 	
  	
  </mapper>

@@ -168,4 +168,9 @@ public class OracleCardRepository implements CardRepository {
 		cardMapper.returnCard(cardno);
 	}
 
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardMapper.archivedCardList(boardno);
+	}
+
 }

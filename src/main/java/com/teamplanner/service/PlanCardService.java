@@ -168,4 +168,9 @@ public class PlanCardService implements CardService {
 		cardRepository.returnCard(cardno);
 	}
 
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardRepository.archivedCardList(boardno);
+	}
+
 }

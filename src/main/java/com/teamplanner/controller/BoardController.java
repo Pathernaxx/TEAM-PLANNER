@@ -23,6 +23,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.CardService;
 import com.teamplanner.service.MemberService;
 import com.teamplanner.service.SearchService;
 
@@ -34,6 +35,7 @@ public class BoardController {
 	private BoardService boardService;
 	private ActivityService activityService;
 	private MemberService memberService;
+	private CardService cardService;
 	
 	@Autowired
 	@Qualifier("boardService")
@@ -48,6 +50,11 @@ public class BoardController {
 		this.searchService = searchService;
 	}
 	
+	@Autowired
+	@Qualifier("cardService")
+	public void setCardService(CardService cardService) {
+		this.cardService = cardService;
+	}
 	
 	@Autowired
 	@Qualifier("activityService")
@@ -202,6 +209,7 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
+		List<Card> archivedCards = cardService.archivedCardList(boardNo);
 		//System.out.println(attchments.get(0).getUserFileName());
 		
 		ModelAndView mav = new ModelAndView();
@@ -211,6 +219,7 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
+		mav.addObject("archivedCards", archivedCards);
 		mav.setViewName("board/boardview");
 		
 		return mav;
