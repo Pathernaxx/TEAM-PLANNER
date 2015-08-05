@@ -1,8 +1,8 @@
 package com.teamplanner.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Board;
 import com.teamplanner.dto.BoardList;
@@ -181,11 +180,6 @@ public class BoardController {
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public ModelAndView BoardView(@RequestParam("boardno") int boardNo, HttpSession session){
 	
-//		int boardno = boardNo;
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("boardno", boardno);
-//		mav.setViewName("board/boardview");
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
 		int userType = boardService.selectUserType(memberNo, boardNo);
@@ -210,6 +204,15 @@ public class BoardController {
 		}
 		
 		List<Card> archivedCards = cardService.archivedCardList(boardNo);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		List<String> redate = null;
+		
+		for(int i=0; i<archivedCards.size(); i++) {
+			redate = new ArrayList<>();
+			redate.add(sdf.format(archivedCards.get(i).getRegDate()));
+		}
+		
 		//System.out.println(attchments.get(0).getUserFileName());
 		
 		ModelAndView mav = new ModelAndView();
@@ -220,6 +223,7 @@ public class BoardController {
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
 		mav.addObject("archivedCards", archivedCards);
+		mav.addObject("redate", redate);
 		mav.setViewName("board/boardview");
 		
 		return mav;

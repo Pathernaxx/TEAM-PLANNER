@@ -145,6 +145,22 @@ $(document).ready(function() {
 			buttons: {
 				"x" : function() {
 					$(this).dialog("close");
+					/* alert($("#cardno").val($(".list-card-details").children()[2].value))
+					$.ajax({
+						url:'/finalProject/card/isArchived.action',
+						type:'GET',
+						data:{cardno : $(".list-card-details").children()[2].value},
+						success:function(result) {
+							if(result == '1') {
+								$(this).dialog("close");
+								var url = '/finalProject/board/boardview.action?boardno='+boardNo;
+								$(location).attr('href', url);
+							} else {
+								$(this).dialog("close");
+							}
+						}
+					}); */
+					
 				}
 			}
 		});

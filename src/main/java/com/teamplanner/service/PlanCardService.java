@@ -173,4 +173,9 @@ public class PlanCardService implements CardService {
 		return cardRepository.archivedCardList(boardno);
 	}
 
+	@Override
+	public String isArchivedCard(int cardno) {
+		return cardRepository.isArchivedCard(cardno);
+	}
+
 }

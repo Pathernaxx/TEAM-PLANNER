@@ -173,4 +173,9 @@ public class OracleCardRepository implements CardRepository {
 		return cardMapper.archivedCardList(boardno);
 	}
 
+	@Override
+	public String isArchivedCard(int cardno) {
+		return cardMapper.isArchivedCard(cardno);
+	}
+
 }

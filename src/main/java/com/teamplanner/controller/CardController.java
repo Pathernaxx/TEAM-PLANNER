@@ -95,6 +95,8 @@ public class CardController {
 			
 		}
 		
+//		int archived = 
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("uploadDate", uploadDate);
@@ -285,6 +287,7 @@ public class CardController {
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
+	@ResponseBody
 	public ModelAndView fileDownload(@RequestParam("fileno") int fileno,
 								HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -346,6 +349,7 @@ public class CardController {
 	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
 	@ResponseBody
 	public void returnCard(@RequestParam("cardno") int cardno) {
+		//System.out.println(cardno);
 		cardService.returnCard(cardno);
 	}
 	
@@ -355,6 +359,14 @@ public class CardController {
 		
 		return archivedCards;
 	}*/
+	
+	@RequestMapping(value="isArchived.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String isArchived(@RequestParam("cardno") int cardno) {
+		return cardService.isArchivedCard(cardno);
+
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
 	

@@ -184,10 +184,20 @@
  	</update>
  	
  	<select id="archivedCardList" parameterType="int" resultType="Card">
- 		SELECT no, name, listname
+ 		SELECT no, name, listname, regdate
  		FROM boardcard
- 		WHERE archived = '1'
+ 		WHERE archived = '1' AND boardno=#{boardno}
  	</select>
  	
+ 	<select id="isArchivedCard" parameterType="int" resultType="String">
+ 		SELECT archived
+ 		FROM boardcard
+ 		WHERE no = #{cardno}
+ 	</select>
  	
  </mapper>
+ 
+ 
+ 
+ 
+ 
