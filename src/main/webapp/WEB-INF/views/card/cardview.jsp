@@ -574,7 +574,7 @@ $(function() {
 						<div class="card-info-details non-empty editable">
 							<p class="card-info-details-text current hide-on-edit markeddown js-cardinfo-name">${ cardinfo eq null ? "Write a Discription.." : cardinfo }</p>
 							<div class="edit delete convert options-menu">
-								<textarea class="field full single-line js-cardinfo-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+								<textarea class="field full single-line js-cardinfo-input" onfocus="this.value=''"  type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
 							</div>
 						</div>
 					</div>
