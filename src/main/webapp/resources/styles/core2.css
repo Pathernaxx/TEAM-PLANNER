@@ -4397,6 +4397,11 @@ a .sidebar-section-header-title {
 	text-decoration: underline
 }
 
+.profile-image.is-editable:hover .profile-image-change-text2 {
+    display: block;
+    text-decoration: underline;
+}
+
 .profile-image.is-gold {
 	background-color: #e2e0ca;
 	border-color: #ded063 #ded063 #d6c43d;
@@ -4446,6 +4451,21 @@ a .sidebar-section-header-title {
 }
 
 .profile-image-change-text {
+	background: rgba(0, 0, 0, .5);
+	bottom: 0;
+	color: #fff;
+	display: none;
+	font-weight: 700;
+	height: 30px;
+	left: 0;
+	line-height: 30px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	width: 100%;
+	z-index: 3
+}
+.profile-image-change-text2 {
 	background: rgba(0, 0, 0, .5);
 	bottom: 0;
 	color: #fff;
