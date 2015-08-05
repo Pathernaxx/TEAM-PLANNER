@@ -46,8 +46,6 @@
 	display: inline;
 }
 
-
-
 </style>
 
 <!-- <link rel="Stylesheet" href="/finalProject/resources/styles/account.css" /> -->
@@ -119,6 +117,14 @@
 			$('#dialog').dialog('open');
 		});
 	});
+	
+	$(function() {
+		$("#cancel2").click(function() {
+			$('#dialog').dialog('close');
+			
+			});
+		});
+	
 
 	$(function() {
 		$('#dialog2').dialog({
@@ -134,11 +140,13 @@
 	});
 	
 	$(function() {
-	$("#cancel").click(function() {
-		$('#dialog2').dialog('close');
+		$("#cancel").click(function() {
+			$('#dialog2').dialog('close');
 		
 		});
 	});
+	
+	
 	
 </script>
 
@@ -155,7 +163,7 @@
 		<div class="tabbed-pane-header-details"> 
 		
 		 &nbsp;&nbsp;	<h1 class="u-inline">${ member.fullName }</h1>
-		 <span> @${ member.userName }</span>
+		 <span> @${ member.userName }</span> 
 			<a href="#" id="button_open_dialog" class="tabbed-pane-header-image profile-image2 is-editable js-change-avatar-profile "> 
 					<img src="/finalProject/resources/images/TinyTacoTalking.png" />
 				<span  class="profile-image-change-text">Change Avatar</span>
@@ -195,6 +203,7 @@
 					 		  </a>
 				  	  <!--  </div> -->
 				</div>
+				<input class="js-cancel-edit-profile" type="button" id="cancel2" value="Cancel">
 			</div>
 <!--         ----------------------------avatarchange 구문 끝------------------------------         -->
   			</br>	
@@ -240,7 +249,9 @@
 							</a>
 						</div> 
 						
-						<span><span class="action-user">${ action.userName }</span></span>&nbsp;<a id="color">${ action.type }</a>
+						
+					
+						<span><span class="action-user"> ${ action.userName }</span></span>&nbsp;<a id="color">${ action.type }</a>
 						<c:choose>
 							<c:when test="${ action.frontLink != '#' }">
 								<a href="${ action.frontLink }">${ action.frontText }</a>
