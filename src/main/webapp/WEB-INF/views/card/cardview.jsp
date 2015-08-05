@@ -289,15 +289,14 @@ $(function() {
 		autoOpen: false,
 		height: 130,
 		width: 280,
-		buttons: {
-			Cancel : function()	 {
-				checklistdialog.dialog("close");
-			} 
-		}
 	});
 	
 	$('.js-checklist-add-btn').click(function() {
 		checklistdialog.dialog("open");
+	});
+	
+	$('.js-cancel-checklist').click(function() {
+		checklistdialog.dialog("close");
 	});
 	
 	function removeControls() {
@@ -829,6 +828,7 @@ $(function() {
 				<label for="title">Title</label>
 				<input type="text" name="title" id="title" tabindex="1" placeholder="Checklist">
 				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
+				<input class="js-cancel-checklist" id="Cancel" type="button" tabindex="2" value="Cancel">
 			</form>
 		</div>
 		
