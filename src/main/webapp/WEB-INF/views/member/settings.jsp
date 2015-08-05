@@ -88,6 +88,7 @@
 		
 	});
 	
+////////////////////////////////////////////////////////////////////////////////////	
 	$(function () {
 		$("#memberupdate").click(function(event) {
 			/* alert($("#username").val()); */
@@ -106,6 +107,7 @@
 			});
 			event.preventDefault();
 		});
+		
 	});
 	
 	$(function() {
@@ -124,6 +126,9 @@
 			resizable: false,
 		});
 		$('#button_open_dialog2').click( function(){
+			$('#dialog2').dialog('open');
+		});
+		$('.dialogimage').click( function(){
 			$('#dialog2').dialog('open');
 		});
 	});
@@ -147,15 +152,15 @@
 	<!--       ------------------------------- 석운 ---------------------------------------------- -->
 	<div class="tabbed-pane-header-wrapper u-clearfix">
 			
-			
 		<div class="tabbed-pane-header-details"> 
 		
 		 &nbsp;&nbsp;	<h1 class="u-inline">${ member.fullName }</h1>
 		 <span> @${ member.userName }</span>
-			<a href="#" id="button_open_dialog" class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile "> 
-				<img src="/finalProject/resources/images/TinyTacoTalking.png" />
+			<a href="#" id="button_open_dialog" class="tabbed-pane-header-image profile-image2 is-editable js-change-avatar-profile "> 
+					<img src="/finalProject/resources/images/TinyTacoTalking.png" />
 				<span  class="profile-image-change-text">Change Avatar</span>
-			</a>
+				</a>
+			
 <!--        ---------------------- avatarchange 구문------------------------------------      -->
 			<div id="dialog" title="Change Avatar">	
 				
@@ -197,10 +202,10 @@
 				 <a class="button-link tabbed-pane-header-details-edit js-edit-profile"  id="button_open_dialog2" href="#">
 				 <span class="icon-sm icon-edit">
 				 </span> Edit profile</a>
-				<div class="webui-popover-title" id="dialog2" title="Edit profile">	
+				<div  id="dialog2" title="Edit profile">	
 					<form class="memberupdate">
-						<label>Full Name</label> <input class="big-link js-change" type="text" id="fullName" value="${ member.fullName }">
-						<label>Username</label> <input class="big-link js-change"type="text" id="username" value="${ member.userName }">
+						<label>Full Name</label> <input type="text1" id="fullName" value="${ member.fullName }">
+						<label>Username</label> <input type="text1" id="username" value="${ member.userName }">
 						<input class="primary js-save-chagne" id="memberupdate" type="submit" value="Save"> 
 						<input class="js-cancel-edit-profile" type="button" id="cancel" value="Cancel">
 					</form>
@@ -227,11 +232,14 @@
 			<div>
 				<c:if test="${ prints != null }">
 					<c:forEach var="action" items="${ prints }">
-					<div style="margin: 18px">
-						<div class="creator member js-show-mem-menu">
-						<span>
-				<img class="pic2" src="/finalProject/resources/images/user.png">
-				</span></div>
+					<div style="margin: 18px; padding-top: 3px" >
+						 <div class="tabbed-pane-header-image profile-image is-editable js-change-avatar-profile ">
+							<a href="#"	class="dialogimage"  > 
+								<img  class="pic2" src="/finalProject/resources/images/user.png">
+								<span class="profile-image-change-text">변경</span>
+							</a>
+						</div> 
+						
 						<span><span class="action-user">${ action.userName }</span></span>&nbsp;<a id="color">${ action.type }</a>
 						<c:choose>
 							<c:when test="${ action.frontLink != '#' }">
@@ -252,7 +260,7 @@
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-						</div>
+					</div>
 						
 					</c:forEach>
 					
