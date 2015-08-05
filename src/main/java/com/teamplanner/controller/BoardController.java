@@ -202,6 +202,8 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
+		
 		//System.out.println(attchments.get(0).getUserFileName());
 		
 		ModelAndView mav = new ModelAndView();
@@ -211,6 +213,7 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
+		mav.addObject("prints", prints);
 		mav.setViewName("board/boardview");
 		
 		return mav;

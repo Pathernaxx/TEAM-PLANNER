@@ -38,4 +38,5 @@ public interface ActivityService {
 	void sentActivity(Member member, BoardList list, Board board);	//리스트 복귀
 	List<ActionPrint> activityListByMember(int memberNo);
 	List<ActionPrint> activityListByBoard(int boardNo);
+	List<ActionPrint> activityListByComment(int cardNo);
 }

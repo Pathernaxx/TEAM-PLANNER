@@ -12,4 +12,5 @@ public interface ActivityRepository {
 	void insertActivityTarget(ActivityTarget activityTarget);
 	List<Activity> selectActivityByBoard(int boardNo);
 	List<Activity> selectActivityByMember(int memberNo);
+	List<Activity> selectActivityByCardComment(int cardno);
 }

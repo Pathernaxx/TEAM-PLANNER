@@ -1,6 +1,29 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+.action-comment {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.23);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    margin: 4px 2px 5px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.action-comment .current-comment {
+    padding: 9px 11px;
+}
+
+.action-comment p {
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+</style>
 <script>
 function addBoard(){}
 
@@ -214,8 +237,13 @@ $(function() {
 	var checklistdialog = $('#checklistdialog').dialog({
 		autoOpen: false,
 		height: 130,
-		width: 280
-	});	
+		width: 280,
+		buttons: {
+			Cancel : function()	 {
+				checklistdialog.dialog("close");
+			} 
+		}
+	});
 	
 	$('.js-checklist-add-btn').click(function() {
 		checklistdialog.dialog("open");
@@ -653,6 +681,14 @@ $(function() {
 					<div class="card-elements">
 						<span class="icon-space"></span>
 						<span class="content-space">누적 activity</span>
+						<c:if test="${ prints ne null }">
+							<c:forEach var="action" items="${ prints }">
+								<span class="action-user">${ action.userName }</span>&nbsp;<a id="color">${ action.type }</a>
+								<div class="action-comment js-comment">
+									<div class="current-comment"><p>${ action.frontText }</p></div>
+								</div>
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 			</div>
