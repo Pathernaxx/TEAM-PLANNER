@@ -160,15 +160,15 @@ $(function() {
 		return false;
 	});
 	
-	$('body').on('click', "#archivebtn", function() {
+	$('body').on('click', "#archivebtn", function(e) {
+		e.preventDefault();
 		$.ajax({
 			url: "/finalProject/card/archiveCard.action",
-			typd: "GET",
+			type: "GET",
 			data: {"cardno" : cardno},
 			success: function() {
-				//alert("aaa");
-				//카드다이얼로그 꼭대기에 "this card is archived" 띄우고 archive버튼 아래에 "return to board" 버튼 삽입
-				$("#dialog-header").before("<div id='notice'><h2 style='color:red;'>THIS CARD IS ARCHIVED</h2></div>");
+				//$("#dialog-header").before("<div id='notice'><h2 style='color:red;'>THIS CARD IS ARCHIVED</h2></div>");
+				$("#notice2").html("<h2 style='color:red;'>THIS CARD IS ARCHIVED</h2>");
 				$("#returnbtn").css("visibility", "visible");
 				$("#returnbtn").css("display", "block");
 			}, 
@@ -176,9 +176,6 @@ $(function() {
 				alert("error");
 			}
 		});
-		
-		//$('.js-list-find'+cardno).remove();
-		
 	});
 	
 	$("#returnbtn").click(function() {
@@ -199,38 +196,76 @@ $(function() {
 	});
 	
 	/*///////////////////동윤/////////////////////////// */
-	$.ajax({
-		url: "/finalProject/card/tagMemberForm.action",
-		type: "get",
-		data: {
-			"cardno" : cardno,
-			"listno" : "${listno}",
-			"boardno" : boardno
-		},
-		success: function(result) { 
-			c = $('#tagMemberbtn').webuiPopover({
-				constrains: 'horizontal',
-				trigger: 'click',
-				multi: false,
-				placement: 'right',
-				width: 300,
-				closeable: true,
-				arrow: false,
-				title: 'Tag Member',
-				content: result,
 
-			});
-
-		},
-		error: function() {
-			alert("tag error");
+	
+	var target = $("#tagMemberbtn");
+	var tagdialog = $( "#tagMemberForm" ).dialog({
+	      autoOpen: false,
+	      height: 200,
+	      width: 250,
+	      position: { my: 'left', at: 'right' ,of : target},
+	      buttons:{
+	    	  Cancel: function(){
+	    		  $("#tagmemberlist").val("");
+	    		  tagdialog.dialog("close");
+	    	  }
+	      }
+	});
+	$("#tagMemberbtn").click(function(){
+		tagdialog.dialog("open");
+	});
+	$("#searchmember").keydown(function(){
+		var text = $("#searchmember").val();
+		if(text == "") {
+			return;
 		}
+		$.ajax({
+			url: "/finalProject/card/searchCardTagMember.action",
+			type: "get",
+			data: {
+				text : text,
+				boardNo : boardno,
+				cardNo : cardno
+			},
+			success : function(members){
+				var html;
+				var div = $("#tagmemberlist");
+				/* for(var key in members){
+					html+="<div class='tagonemember'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+					+ "&nbsp;&nbsp;" + members[key].userName+ "</div>";
+				}
+				div.html(html); */
+				div.html('');
+				$.each(members, function(index, member) {
+					div.append("<div class='tagonemember' id='"+member.no+"'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+							+ "&nbsp;&nbsp;" + member.userName+ "</div>");
+				});
+				
+			}
+		});
+		
+		
+	});
+	$('body').on('click', '.tagonemember', function() {
+		var id = $(this).attr('id');
+		$.ajax({
+			url : '/finalProject/card/selectCardMemberInCard.action',
+			type: "get",
+			data : {
+				tagNo : id,
+				cardNo : cardno,
+				boardNo : boardno
+			},
+			success : function(members){
+				alert("야호");
+				$("#tagmemberlist").val("");
+				tagdialog.dialog("close");
+			}
+		
+		}) 
+	
 	});
 	
-	$('.cardinfo-text').click(function() {
-	
-		$(this).parents(".cardinfo-edittable").addClass("editing");
-	});
 	
 	
 	//////////////////////////// 녕수 ////////////////////////////
@@ -543,6 +578,7 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
+	<div id="notice2"></div>
 		<div class="window-header u-clearfix" id="dialog-header">
 			<table>
 				<tr>
@@ -704,17 +740,18 @@ $(function() {
 								src="/finalProject/resources/styles/images/icons/133.png"
 								class="window-icon2" /> CheckList
 						</span>
-						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
+						</a> <!-- <a class="window-sidebutton"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/14.png"
 								class="window-icon2" /> DueDate
 						</span>
-						</a> <a class="window-sidebutton attachmentbtn" id="attachmentbtn"> <span class="icon-sm"> <img
+						</a>  --><a class="window-sidebutton attachmentbtn" id="attachmentbtn"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/1.png"
 								class="window-icon2" /> Attachment
 						</span>
 						</a>
 					</div>
 				</div>
+				<br/><br/>
 				<div class="window-sidebar-actions">
 					<h3>Actions</h3>
 					<a class="window-sidebutton"> <span class="icon-sm"> <img
@@ -776,5 +813,19 @@ $(function() {
 				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
 			</form>
 		</div>
+		
+		<!-- tagdialog -->
+		<div id='tagMemberForm'>
+			<form>
+
+				<input type="text" id="searchmember" value="tag a member..." onfocus="this.value=''" style="width: 90%;" />
+				<br/><br/>
+				<div id="tagmemberlist"><br/>
+					
+				</div>
+
+			</form>
+		</div>
+		
 	</div>	
 </div>

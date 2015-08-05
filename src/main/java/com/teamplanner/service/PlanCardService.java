@@ -11,6 +11,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.dto.TagMember;
 import com.teamplanner.repository.CardRepository;
 
@@ -166,6 +167,39 @@ public class PlanCardService implements CardService {
 	@Override
 	public void returnCard(int cardno) {
 		cardRepository.returnCard(cardno);
+	}
+	
+	
+	@Override
+	public List<Member> searchCardTagMember(String text, int memberNo, int boardNo, int cardNo) {
+		
+		return cardRepository.searchCardTagMember(text, memberNo, boardNo ,cardNo);
+	}
+	
+	@Override
+	public void setTagMemberInCard(int teamlistNo, int cardNo) {
+		cardRepository.setTagMemberInCard(teamlistNo, cardNo);
+		
+	}
+	
+	@Override
+	public List<Member> selectCardMemberInCard(int cardNo) {
+		
+		return cardRepository.selectCardMemberInCard(cardNo);
+	}
+	
+	@Override
+	public int selectTeamListNo(int tagNo, int boardNo) {
+		return cardRepository.selectTeamListNo(tagNo, boardNo);
+	}
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardRepository.archivedCardList(boardno);
+	}
+
+	@Override
+	public String isArchivedCard(int cardno) {
+		return cardRepository.isArchivedCard(cardno);
 	}
 
 }

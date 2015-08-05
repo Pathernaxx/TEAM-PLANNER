@@ -12,6 +12,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckItem;
 import com.teamplanner.dto.CheckList;
 import com.teamplanner.dto.Comment;
+import com.teamplanner.dto.Member;
 import com.teamplanner.dto.TagMember;
 import com.teamplanner.mapper.CardMapper;
 
@@ -166,6 +167,50 @@ public class OracleCardRepository implements CardRepository {
 	@Override
 	public void returnCard(int cardno) {
 		cardMapper.returnCard(cardno);
+	}
+	
+	@Override
+	public List<Member> searchCardTagMember(String text, int memberNo, int boardNo, int cardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("text", text);
+		params.put("memberNo", memberNo);
+		params.put("boardNo", boardNo);
+		params.put("cardNo", cardNo);
+		
+		return cardMapper.searchCardTagMember(params);
+	}
+	
+	
+	@Override
+	public void setTagMemberInCard(int teamlistNo, int cardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("teamlistNo", teamlistNo);
+		params.put("cardNo", cardNo);
+		cardMapper.setTagMemberInCard(params);
+		
+	}
+	
+	@Override
+	public List<Member> selectCardMemberInCard(int cardNo) {
+		
+		return cardMapper.selectCardMemberInCard(cardNo);
+	}
+	
+	@Override
+	public int selectTeamListNo(int tagNo, int boardNo) {
+		HashMap<Object, Object> params = new HashMap<Object, Object>();
+		params.put("tagNo", tagNo);
+		params.put("boardNo", boardNo);
+		return cardMapper.selectTeamListNo(params);
+	}
+	@Override
+	public List<Card> archivedCardList(int boardno) {
+		return cardMapper.archivedCardList(boardno);
+	}
+
+	@Override
+	public String isArchivedCard(int cardno) {
+		return cardMapper.isArchivedCard(cardno);
 	}
 
 }

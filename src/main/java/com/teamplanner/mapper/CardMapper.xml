@@ -183,5 +183,41 @@
  		WHERE no = #{cardno}
  	</update>
  	
+ 	<select id="archivedCardList" parameterType="int" resultType="Card">
+ 		SELECT no, name, listname, regdate
+ 		FROM boardcard
+ 		WHERE archived = '1' AND boardno=#{boardno}
+ 	</select>
+ 	<select id="searchCardTagMember" parameterType="hashMap" resultType="Member">
+ 		select m.* 
+ 		from member m , teamlist t
+ 		where t.no  not in(
+                select teamno from tagmember where cardno = #{cardNo} )  and
+   		m.no = t.memberno and t.boardno = #{boardNo} and t.memberno != #{memberNo} and m.username like #{text}||'%'
+ 	</select>
+ 	<insert id="setTagMemberInCard" parameterType="hashMap">
+ 		INSERT INTO tagmember(cardno ,teamno)
+ 		VALUES (#{cardNo} , #{teamlistNo})
+ 	</insert>
+ 	<select id="selectCardMemberInCard" parameterType="int" resultType="Member">
+ 		select m.* 
+ 		from member m ,tagmember g , teamlist t
+ 		where g.cardno=#{cardNo} and g.teamno = t.no and t.memberno = m.no
+ 	</select>
+ 	<select id="selectTeamListNo" parameterType="hashMap" resultType="int">
+ 		select no 
+ 		from teamlist
+ 		where memberno = #{tagNo} AND boardno=#{boardNo}
+ 	</select>
+ 	<select id="isArchivedCard" parameterType="int" resultType="String">
+ 		SELECT archived
+ 		FROM boardcard
+ 		WHERE no = #{cardno}
+ 	</select>
  	
  </mapper>
+ 
+ 
+ 
+ 
+ 

@@ -145,6 +145,22 @@ $(document).ready(function() {
 			buttons: {
 				"x" : function() {
 					$(this).dialog("close");
+					/* alert($("#cardno").val($(".list-card-details").children()[2].value))
+					$.ajax({
+						url:'/finalProject/card/isArchived.action',
+						type:'GET',
+						data:{cardno : $(".list-card-details").children()[2].value},
+						success:function(result) {
+							if(result == '1') {
+								$(this).dialog("close");
+								var url = '/finalProject/board/boardview.action?boardno='+boardNo;
+								$(location).attr('href', url);
+							} else {
+								$(this).dialog("close");
+							}
+						}
+					}); */
+					
 				}
 			}
 		});
@@ -220,7 +236,7 @@ $(document).ready(function() {
 									<div id="panel-1"><c:import url="/WEB-INF/views/include/activity.jsp"/></div>
 									<div id="panel-2"><%@include file="teamlist.jsp"%></div>
 									<div id="panel-3"><c:import url="/WEB-INF/views/card/attachment.jsp"/></div>
-									<div id="panel-4">archived</div>
+									<div id="panel-4"><c:import url="/WEB-INF/views/board/archivedlist.jsp"/></div>
 								</div>
 							</div>
 						</div>
