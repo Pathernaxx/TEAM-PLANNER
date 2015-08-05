@@ -1,6 +1,29 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+.action-comment {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.23);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    margin: 4px 2px 5px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.action-comment .current-comment {
+    padding: 9px 11px;
+}
+
+.action-comment p {
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+</style>
 <script>
 function addBoard(){}
 
@@ -35,6 +58,12 @@ $(function() {
 				alert("error")
 			}
 		});
+		$('.comment-space').after('<div><span class="action-user"><strong>Current</strong></span>&nbsp;<a id="color">ON</a>' +
+				'<div class="action-comment js-comment">' +
+					'<div class="current-comment"><p>'+ content +'</p></div>' +
+				'</div>' +
+				'</div>');
+		
 	});
 	
 	$("#uploadForm").submit(function(event) {
@@ -137,48 +166,135 @@ $(function() {
 		return false;
 	});
 	
+	$('body').on('click', "#archivebtn", function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: "/finalProject/card/archiveCard.action",
+			type: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//$("#dialog-header").before("<div id='notice'><h2 style='color:red;'>THIS CARD IS ARCHIVED</h2></div>");
+				$("#notice2").html("<h2 style='color:red;'>THIS CARD IS ARCHIVED</h2>");
+				$("#returnbtn").css("visibility", "visible");
+				$("#returnbtn").css("display", "block");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
+	});
+	
+	$("#returnbtn").click(function() {
+		$.ajax({
+			url: "/finalProject/card/returnCard.action",
+			typd: "GET",
+			data: {"cardno" : cardno},
+			success: function() {
+				//alert("aaa");
+				$(".window-wrapper").find("#notice").remove();
+				$("#returnbtn").css("visibility", "hidden");
+				$("#returnbtn").css("display", "none");
+			}, 
+			error: function() {
+				alert("error");
+			}
+		});
+	});
 	
 	/*///////////////////동윤/////////////////////////// */
-	$.ajax({
-		url: "/finalProject/card/tagMemberForm.action",
-		type: "get",
-		data: {
-			"cardno" : cardno,
-			"listno" : "${listno}",
-			"boardno" : boardno
-		},
-		success: function(result) { 
-			c = $('#tagMemberbtn').webuiPopover({
-				constrains: 'horizontal',
-				trigger: 'click',
-				multi: false,
-				placement: 'right',
-				width: 300,
-				closeable: true,
-				arrow: false,
-				title: 'Tag Member',
-				content: result,
 
-			});
-
-		},
-		error: function() {
-			alert("tag error");
+	
+	var target = $("#tagMemberbtn");
+	var tagdialog = $( "#tagMemberForm" ).dialog({
+	      autoOpen: false,
+	      height: 200,
+	      width: 250,
+	      position: { my: 'left', at: 'right' ,of : target},
+	      buttons:{
+	    	  Cancel: function(){
+	    		  $("#tagmemberlist").val("");
+	    		  tagdialog.dialog("close");
+	    	  }
+	      }
+	});
+	
+	function searchKeyup(event) {
+		var text = $("#searchmember").val();
+		if(text == "") {
+			return;
 		}
+		$.ajax({
+			url: "/finalProject/card/searchCardTagMember.action",
+			type: "get",
+			data: {
+				text : text,
+				boardNo : boardno,
+				cardNo : cardno
+			},
+			success : function(members){
+				var html;
+				//var div = $("#tagmemberlist");
+				var div = tagdialog.find("#tagmemberlist");
+				/* for(var key in members){
+					html+="<div class='tagonemember'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+					+ "&nbsp;&nbsp;" + members[key].userName+ "</div>";
+				}
+				div.html(html); */
+				div.html('');
+				$.each(members, function(index, member) {
+					div.append("<div class='tagonemember' id='"+member.no+"'><img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px'>"
+							+ "&nbsp;&nbsp;" + member.userName+ "</div>");
+				});	
+			}
+		});	
+	}
+	
+	$('body').on('click', '.tagonemember', function() {
+		var id = $(this).attr('id');
+		$.ajax({
+			url : '/finalProject/card/selectCardMemberInCard.action',
+			type: "get",
+			data : {
+				tagNo : id,
+				cardNo : cardno,
+				boardNo : boardno
+			},
+			success : function(member){
+				$('.appendcardtag').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
+				$("#tagmemberlist").val("");
+				tagdialog.dialog("close");
+			}
+		
+		}) 
+	
 	});
 	
-	$('.cardinfo-text').click(function() {
-	
-		$(this).parents(".cardinfo-edittable").addClass("editing");
+	$("#tagMemberbtn").click(function(){
+		var input = tagdialog.find("#searchmember");
+		input.val('');
+		input.keyup(searchKeyup);
+		tagdialog.dialog("open");
+		
 	});
+	
+	
+	
+	
+	
+	
 	
 	
 	//////////////////////////// 녕수 ////////////////////////////
 	var checklistdialog = $('#checklistdialog').dialog({
 		autoOpen: false,
 		height: 130,
-		width: 280
-	});	
+		width: 280,
+		buttons: {
+			Cancel : function()	 {
+				checklistdialog.dialog("close");
+			} 
+		}
+	});
 	
 	$('.js-checklist-add-btn').click(function() {
 		checklistdialog.dialog("open");
@@ -478,7 +594,8 @@ $(function() {
 	
 	
 	<div class="card-detail-window">
-		<div class="window-header u-clearfix">
+	<div id="notice2"></div>
+		<div class="window-header u-clearfix" id="dialog-header">
 			<table>
 				<tr>
 				<td style="text-align: justify"><img src="/finalProject/resources/styles/images/icons/12.png" class="window-icon" /></td>
@@ -501,7 +618,7 @@ $(function() {
 						<div class="card-info-details non-empty editable">
 							<p class="card-info-details-text current hide-on-edit markeddown js-cardinfo-name">${ cardinfo eq null ? "Write a Discription.." : cardinfo }</p>
 							<div class="edit delete convert options-menu">
-								<textarea class="field full single-line js-cardinfo-input" type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
+								<textarea class="field full single-line js-cardinfo-input" onfocus="this.value=''"  type="text" style="overflow: hidden; word-wrap: break-word; resize: none; height: 52px"></textarea>
 							</div>
 						</div>
 					</div>
@@ -514,6 +631,11 @@ $(function() {
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/13.png" class="window-icon2" /></span>
 							<span class="content-space">Members</span>
 						</div>
+							<c:forEach var="member" items="${cardMembers}">
+								<img class="member-avatar" src="/finalProject/resources/images/user.png" width="40px" height="40px" title="${member.userName }"><a style="text-decoration: none;">&nbsp;&nbsp;</a>
+							</c:forEach>
+							<a class="appendcardtag" style="text-decoration: none">&nbsp;</a>
+							<br/>
 						<!-- choose -->
 						<c:choose>
 							<c:when test="${ empty attachments }">
@@ -600,12 +722,7 @@ $(function() {
 								</c:forEach>
 							</c:if> 
 						</div>
-						<div class="card-elements js-activity-view">
-							<div class="attachment-title">
-								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
-								<span class="content-space">Activity</span>
-							</div>
-						</div>
+						
 						<div class="card-elements">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
 							<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
@@ -613,9 +730,19 @@ $(function() {
 						</div>
 						
 					</div>
-					<div class="card-elements">
-						<span class="icon-space"></span>
-						<span class="content-space">누적 activity</span>
+					<div class="comment-elements">
+						<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
+						<span class="comment-space">Activity</span>
+						<c:if test="${ prints ne null }">
+							<c:forEach var="action" items="${ prints }">
+								<div>
+									<span class="action-user"><strong>${ action.userName }</strong></span>&nbsp;<a id="color">${ action.type }</a>
+									<div class="action-comment js-comment">
+										<div class="current-comment"><p>${ action.backText }</p></div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -631,17 +758,18 @@ $(function() {
 								src="/finalProject/resources/styles/images/icons/133.png"
 								class="window-icon2" /> CheckList
 						</span>
-						</a> <a class="window-sidebutton"> <span class="icon-sm"> <img
+						</a> <!-- <a class="window-sidebutton"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/14.png"
 								class="window-icon2" /> DueDate
 						</span>
-						</a> <a class="window-sidebutton attachmentbtn" id="attachmentbtn"> <span class="icon-sm"> <img
+						</a>  --><a class="window-sidebutton attachmentbtn" id="attachmentbtn"> <span class="icon-sm"> <img
 								src="/finalProject/resources/styles/images/icons/1.png"
 								class="window-icon2" /> Attachment
 						</span>
 						</a>
 					</div>
 				</div>
+				<br/><br/>
 				<div class="window-sidebar-actions">
 					<h3>Actions</h3>
 					<a class="window-sidebutton"> <span class="icon-sm"> <img
@@ -652,11 +780,14 @@ $(function() {
 							<img src="/finalProject/resources/styles/images/icons/122.png"
 							class="window-icon2" /> Copy
 					</span>
-					</a> <a class="window-sidebutton"> <span class="icon-sm">
-							<img src="/finalProject/resources/styles/images/icons/111.png"
-							class="window-icon2" /> Archived
+					</a> <a class="window-sidebutton" id="archivebtn"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/111.png" class="window-icon2" /> Archived
+					</span>
+					</a> <a class="window-sidebutton" id="returnbtn" style="visibility:visible;display:none"> <span class="icon-sm">
+							<img src="/finalProject/resources/styles/images/icons/9.png" class="window-icon2" /> Return
 					</span>
 					</a>
+					
 				</div>
 			</div>
 		</div>
@@ -700,5 +831,19 @@ $(function() {
 				<input class="js-add-checklist" id="Add" type="button" tabindex="2" value="Add">
 			</form>
 		</div>
+		
+		<!-- tagdialog -->
+		<div id='tagMemberForm'>
+			<form>
+
+				<input type="text" id="searchmember" style="width: 90%;" />
+				<br/><br/>
+				<div id="tagmemberlist"><br/>
+					
+				</div>
+
+			</form>
+		</div>
+		
 	</div>	
 </div>

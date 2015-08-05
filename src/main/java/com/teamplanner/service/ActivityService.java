@@ -15,7 +15,7 @@ import com.teamplanner.dto.Member;
 public interface ActivityService {
 	void createBoard(Board board, Member member);
 	void addActivity(Member member, BoardList list, Board board);
-	void addActivity(Member member, Card card, BoardList list, Board board);
+	void addActivity(Member member, int cardno, BoardList list, Board board);
 	void addActivity(Member member, CheckList checklist, int cardno);
 	void addActivity(Member member, Member addMember, Board board);
 	void attachmentActivity(Member member, Attachment attachment, int cardno);
@@ -38,4 +38,5 @@ public interface ActivityService {
 	void sentActivity(Member member, BoardList list, Board board);	//리스트 복귀
 	List<ActionPrint> activityListByMember(int memberNo);
 	List<ActionPrint> activityListByBoard(int boardNo);
+	List<ActionPrint> activityListByComment(int cardNo);
 }

@@ -31,14 +31,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teamplanner.view.DownloadView;
 import com.teamplanner.commons.Util;
+import com.teamplanner.dto.ActionPrint;
 import com.teamplanner.dto.Attachment;
 import com.teamplanner.dto.Card;
 import com.teamplanner.dto.CheckList;
+import com.teamplanner.dto.Comment;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
-import com.teamplanner.dto.Comment;
 import com.teamplanner.service.BoardService;
 import com.teamplanner.service.CardService;
+import com.teamplanner.service.MemberService;
 import com.teamplanner.view.DownloadView;
 
 @Controller
@@ -48,6 +50,13 @@ public class CardController {
 	private CardService cardService;
 	private BoardService boardService;
 	private ActivityService activityService;
+	private MemberService memberService;
+	
+	@Autowired
+	@Qualifier("memberService")
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
+	}
 	
 	@Autowired
 	@Qualifier("cardService")
@@ -80,6 +89,7 @@ public class CardController {
 		List<Attachment> attachments = cardService.selectAttachmentList(cardno, boardno);
 		List<CheckList> checklists = cardService.selectCheckList(cardno);
 		ArrayList<String> uploadDate = null;
+		List<ActionPrint> prints = activityService.activityListByComment(cardno);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		
@@ -95,6 +105,10 @@ public class CardController {
 			
 		}
 		
+		List<Member> cardMembers = cardService.cardMembers(cardno);
+		
+//		int archived = 
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("uploadDate", uploadDate);
@@ -106,6 +120,8 @@ public class CardController {
 		mav.addObject("cardinfo", cardinfo);
 		mav.addObject("attachments", attachments);
 		mav.addObject("checklists", checklists);
+		mav.addObject("cardMembers", cardMembers);
+		mav.addObject("prints", prints);
 		
 		mav.setViewName("card/cardview");
 		
@@ -285,6 +301,7 @@ public class CardController {
 	}
 	
 	@RequestMapping(value="filedownload.action", method=RequestMethod.GET)
+	@ResponseBody
 	public ModelAndView fileDownload(@RequestParam("fileno") int fileno,
 								HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -321,6 +338,7 @@ public class CardController {
 	public void insertComment(@RequestParam("cardno") int cardno, String content, HttpSession session) {
 		
 		String writer = ((Member)session.getAttribute("loginuser")).getFullName();
+		Member member = (Member)session.getAttribute("loginuser");
 		
 		Comment comment = new Comment();
 		comment.setCardNo(cardno);
@@ -329,25 +347,63 @@ public class CardController {
 		
 		String message = "";
 		
-		cardService.insertComment(comment);
+		int commentno = cardService.insertComment(comment);
 		
+		comment.setNo(commentno);
+		
+		activityService.commentActivity(member, cardno, comment);
 	}
+	
+	@RequestMapping(value="archiveCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void archiveCard(@RequestParam("cardno") int cardno) {
+		cardService.archiveCard(cardno);
+	}
+	
+	@RequestMapping(value="returnCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public void returnCard(@RequestParam("cardno") int cardno) {
+		//System.out.println(cardno);
+		cardService.returnCard(cardno);
+	}
+	
+	/*@RequestMapping(value="archivedCardList.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Card> archivedCardList(@RequestParam("boardno") int boardno){
+		
+		return archivedCards;
+	}*/
+	
+	@RequestMapping(value="isArchived.action", method=RequestMethod.GET)
+	@ResponseBody
+	public String isArchived(@RequestParam("cardno") int cardno) {
+		return cardService.isArchivedCard(cardno);
+
+	}
+	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
-	
-	@RequestMapping(value="tagMemberForm.action", method=RequestMethod.GET)
-	public ModelAndView popupTagMemberForm(@RequestParam("cardno") int cardno, @RequestParam("boardno") int boardno
-											,@RequestParam("listno") int listno) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("cardno", cardno);
-		mav.addObject("listno", listno);
-		mav.addObject("boardno", boardno);
-		mav.setViewName("card/tagMemberForm");
+	
+	@RequestMapping(value="searchCardTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> searchCardTagMember(HttpSession session, String text, int boardNo , int cardNo) {
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members =cardService.searchCardTagMember(text, memberNo, boardNo, cardNo);
 		
-		return mav;
+		
+		return members;
 	}
 	
+	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public Member selectCardMemberInCard(int tagNo, int cardNo , int boardNo){
+		int teamlistNo = cardService.selectTeamListNo(tagNo, boardNo);
+		cardService.setTagMemberInCard(teamlistNo, cardNo);
+		Member member =boardService.selectMemberByMemberNo(tagNo);
+		
+		return member;
+	}
 	
 }
 

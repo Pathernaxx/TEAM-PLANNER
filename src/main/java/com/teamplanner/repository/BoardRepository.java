@@ -33,7 +33,7 @@ public interface BoardRepository {
 //////////////유정///////////////////////
 	Board selectBoardByList(int boardNo); //Board객체에 BoardList 있음
 	List<Card> selectCard(int listNo);
-	void insertCard(Card card);
+	int insertCard(Card card);
 	void insertBoardList(BoardList boardlist);
 	String getBoardNameByNo(int boardno);
 	String selectCardInfo(int boardNo, int listNo, int cardNo);

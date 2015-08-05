@@ -1,5 +1,6 @@
 package com.teamplanner.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import com.teamplanner.dto.Card;
 import com.teamplanner.dto.Member;
 import com.teamplanner.service.ActivityService;
 import com.teamplanner.service.BoardService;
+import com.teamplanner.service.CardService;
 import com.teamplanner.service.MemberService;
 import com.teamplanner.service.SearchService;
 
@@ -34,6 +36,7 @@ public class BoardController {
 	private BoardService boardService;
 	private ActivityService activityService;
 	private MemberService memberService;
+	private CardService cardService;
 	
 	@Autowired
 	@Qualifier("boardService")
@@ -47,7 +50,7 @@ public class BoardController {
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
-	
+
 	
 	@Autowired
 	@Qualifier("activityService")
@@ -59,6 +62,12 @@ public class BoardController {
 	@Qualifier("memberService")
 	public void setMemberService(MemberService memberService) {
 		this.memberService=memberService;
+	}
+	
+	@Autowired
+	@Qualifier("cardService")
+	public void setCardService(CardService cardService) {
+		this.cardService=cardService;
 	}
 
 
@@ -174,11 +183,6 @@ public class BoardController {
 	@RequestMapping(value="boardview.action", method = RequestMethod.GET)
 	public ModelAndView BoardView(@RequestParam("boardno") int boardNo, HttpSession session){
 	
-//		int boardno = boardNo;
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("boardno", boardno);
-//		mav.setViewName("board/boardview");
 		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
 		List<Member> members = boardService.selectTeamlistByBoardNo(boardNo, memberNo);
 		int userType = boardService.selectUserType(memberNo, boardNo);
@@ -202,6 +206,18 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
+		
+		List<Card> archivedCards = cardService.archivedCardList(boardNo);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		List<String> redate = null;
+		
+		for(int i=0; i<archivedCards.size(); i++) {
+			redate = new ArrayList<>();
+			redate.add(sdf.format(archivedCards.get(i).getRegDate()));
+		}
+		
 		//System.out.println(attchments.get(0).getUserFileName());
 		
 		ModelAndView mav = new ModelAndView();
@@ -211,6 +227,9 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
+		mav.addObject("prints", prints);
+		mav.addObject("archivedCards", archivedCards);
+		mav.addObject("redate", redate);
 		mav.setViewName("board/boardview");
 		
 		return mav;
@@ -275,8 +294,8 @@ public class BoardController {
 		
 		try {
 			BoardList list = boardService.selectBoardListBylistNo(listno);
-			boardService.insertCard(card);
-			activityService.addActivity(member, card, list, new Board(boardno, boardName));
+			int cardno = boardService.insertCard(card);
+			activityService.addActivity(member, cardno, list, new Board(boardno, boardName));
 			message = "complete";
 		} catch (Exception e) {
 			message = "error";
@@ -359,6 +378,7 @@ public class BoardController {
 		return "redirect:/board/boardmain.action";
 	}
 	
+
 }
 
 

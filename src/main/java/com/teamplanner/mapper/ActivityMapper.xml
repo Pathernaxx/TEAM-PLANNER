@@ -66,6 +66,15 @@
 			userno = #{memberNo}
 	</select>
 	
+	<select id="selectActivityByCardComment" parameterType="int" resultMap="resultActivity">
+		SELECT
+		    act.no as no, act.userno as userno, act.username as username, act.typeno as typeno, act.regdate as regdate, act.backno as backno, act.backtitle as backtitle, act.boardno as boardno, act.boardname as boardname
+		FROM
+		    activity act, activitytarget target
+		WHERE
+		    act.no = target.activityno AND act.typeno = 2 AND target.typeno = 3 AND target.targetno = #{cardno}
+	</select>
+	
 	<select id="selectCard" parameterType="int" resultType="Card">
 		SELECT
 			no, name, boardno, boardname, listno, listname

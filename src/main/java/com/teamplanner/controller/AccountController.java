@@ -90,8 +90,9 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="logout.action", method = RequestMethod.GET)
-	public String accountLogout()
+	public String accountLogout(HttpSession session)
 	{
-		return "";
+		session.removeAttribute("loginuser");
+		return "account/loginform";
 	}
 }

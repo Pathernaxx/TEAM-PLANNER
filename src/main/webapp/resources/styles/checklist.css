@@ -277,7 +277,7 @@ p {
 	margin: 0 0 8px;
 }
 
-a {
+.window-module a {
     color: #999;
     text-decoration: underline;
     cursor: auto;

@@ -49,6 +49,12 @@ public class OracleActivityRepository implements ActivityRepository
 	}
 	
 	@Override
+	public List<Activity> selectActivityByCardComment(int cardno) {
+		// TODO Auto-generated method stub
+		return activityMapper.selectActivityByCardComment(cardno);
+	}
+	
+	@Override
 	public Card selectCard(int cardno) {
 		// TODO Auto-generated method stub
 		return activityMapper.selectCard(cardno);

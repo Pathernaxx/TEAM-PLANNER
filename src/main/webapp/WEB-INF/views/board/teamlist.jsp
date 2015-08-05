@@ -13,6 +13,9 @@
 .choicefriend{
 	cursor: pointer;
 }
+.appendtag{
+	text-decoration: none;
+}
 </style>
 <script>
 
@@ -135,7 +138,7 @@
 		    					boardNo : boardno
 		    				},
 		    				success : function(member){
-		    					$('.teamList-header').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
+		    					$('.appendtag').append("<img class='member-avatar' src='/finalProject/resources/images/user.png' width='40px' height='40px' title="+member.userName+">");
 		    					dialog2.dialog("close");
 		    					dialog3.dialog("close");
 								$("#addMemberbtn").css("display","block");
@@ -208,7 +211,7 @@
 <div class="teamList-header">
 	<div class="teamIcon">
 		<c:forEach var="member" items="${members}">
-			<img class="member-avatar" src="/finalProject/resources/images/user.png" width="40px" height="40px" title="${member.userName }"><a>&nbsp;&nbsp;</a>
+			<img class="member-avatar" src="/finalProject/resources/images/user.png" width="40px" height="40px" title="${member.userName }"><a style="text-decoration: none;">&nbsp;&nbsp;</a>
 		</c:forEach>
 		<a class="appendtag"></a>
 	</div>
@@ -217,10 +220,10 @@
 <hr/>
 <div style="width:100px">
 	<div class="teamList-addMember" style="width:100px">
-			<div id="addMemberbtn" class="memberAddButton" style="width:100px">Tag Members...    </div><br/>
+			<div id="addMemberbtn" class="memberAddButton" style="width:100px!important">Tag Members...    </div><br/>
 	</div>
 	<div class="teamList-addMember" style="width:100px">
-			<div id="addFriendbtn" class="memberAddButton" style="width:100px">Tag Friends...    </div><br/>
+			<div id="addFriendbtn" class="memberAddButton" style="width:100px!important">Tag Friends...    </div><br/>
 	</div>
 </div>
 
