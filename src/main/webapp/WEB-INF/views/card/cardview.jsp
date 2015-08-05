@@ -58,6 +58,12 @@ $(function() {
 				alert("error")
 			}
 		});
+		$('.comment-space').after('<div><span class="action-user"><strong>Current</strong></span>&nbsp;<a id="color">ON</a>' +
+				'<div class="action-comment js-comment">' +
+					'<div class="current-comment"><p>'+ content +'</p></div>' +
+				'</div>' +
+				'</div>');
+		
 	});
 	
 	$("#uploadForm").submit(function(event) {
@@ -701,12 +707,7 @@ $(function() {
 								</c:forEach>
 							</c:if> 
 						</div>
-						<div class="card-elements js-activity-view">
-							<div class="attachment-title">
-								<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
-								<span class="content-space">Activity</span>
-							</div>
-						</div>
+						
 						<div class="card-elements">
 							<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/2.png" class="window-icon2" /></span>
 							<span class="content-space"><input class="activity-comment" type="text" value="write a comment..." onfocus="this.value=''" /></span><br/>
@@ -714,14 +715,16 @@ $(function() {
 						</div>
 						
 					</div>
-					<div class="card-elements">
-						<span class="icon-space"></span>
-						<span class="content-space">누적 activity</span>
+					<div class="comment-elements">
+						<span class="icon-space"><img src="/finalProject/resources/styles/images/icons/199.png" class="window-icon2" /></span>
+						<span class="comment-space">Activity</span>
 						<c:if test="${ prints ne null }">
 							<c:forEach var="action" items="${ prints }">
-								<span class="action-user">${ action.userName }</span>&nbsp;<a id="color">${ action.type }</a>
-								<div class="action-comment js-comment">
-									<div class="current-comment"><p>${ action.frontText }</p></div>
+								<div>
+									<span class="action-user"><strong>${ action.userName }</strong></span>&nbsp;<a id="color">${ action.type }</a>
+									<div class="action-comment js-comment">
+										<div class="current-comment"><p>${ action.backText }</p></div>
+									</div>
 								</div>
 							</c:forEach>
 						</c:if>
