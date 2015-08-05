@@ -48,12 +48,7 @@ public class BoardController {
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
-	
-	@Autowired
-	@Qualifier("cardService")
-	public void setCardService(CardService cardService) {
-		this.cardService = cardService;
-	}
+
 	
 	@Autowired
 	@Qualifier("activityService")
@@ -65,6 +60,12 @@ public class BoardController {
 	@Qualifier("memberService")
 	public void setMemberService(MemberService memberService) {
 		this.memberService=memberService;
+	}
+	
+	@Autowired
+	@Qualifier("cardService")
+	public void setCardService(CardService cardService) {
+		this.cardService=cardService;
 	}
 
 
@@ -372,6 +373,7 @@ public class BoardController {
 		return "redirect:/board/boardmain.action";
 	}
 	
+
 }
 
 

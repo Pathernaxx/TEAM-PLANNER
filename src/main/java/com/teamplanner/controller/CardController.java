@@ -369,18 +369,26 @@ public class CardController {
 	
 	
 	//동윤's Area///////////////////////////////////////////////////////////
-	
-	@RequestMapping(value="tagMemberForm.action", method=RequestMethod.GET)
-	public ModelAndView popupTagMemberForm(@RequestParam("cardno") int cardno, @RequestParam("boardno") int boardno
-											,@RequestParam("listno") int listno) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("cardno", cardno);
-		mav.addObject("listno", listno);
-		mav.addObject("boardno", boardno);
-		mav.setViewName("card/tagMemberForm");
+	
+	@RequestMapping(value="searchCardTagMember.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> searchCardTagMember(HttpSession session, String text, int boardNo , int cardNo) {
+		int memberNo = ((Member)session.getAttribute("loginuser")).getNo();
+		List<Member> members =cardService.searchCardTagMember(text, memberNo, boardNo, cardNo);
 		
-		return mav;
+		
+		return members;
+	}
+	
+	@RequestMapping(value="selectCardMemberInCard.action", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Member> selectCardMemberInCard(int tagNo, int cardNo , int boardNo){
+		int teamlistNo = cardService.selectTeamListNo(tagNo, boardNo);
+		cardService.setTagMemberInCard(teamlistNo, cardNo);
+		List<Member> members =cardService.selectCardMemberInCard(cardNo);
+		
+		return members;
 	}
 	
 }
