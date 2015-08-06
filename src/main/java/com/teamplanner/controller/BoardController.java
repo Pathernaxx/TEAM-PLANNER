@@ -99,7 +99,7 @@ public class BoardController {
 			}else{
 				message = "complete";
 				boardService.insertBoard(title);
-				//activityService.createBoard(board, member); 
+				 
 				int boardNo = boardService.getBoardNo(title);
 				boardService.insertTeamList(boardNo, memberNo);
 				
@@ -206,7 +206,7 @@ public class BoardController {
 			attachments.get(i).setFileName(filename);
 		}
 		
-		//List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
+		List<ActionPrint> prints = activityService.activityListByBoard(boardNo);
 		
 		List<Card> archivedCards = cardService.archivedCardList(boardNo);
 		
@@ -227,7 +227,7 @@ public class BoardController {
 		mav.addObject("members", members);
 		mav.addObject("userType", userType);
 		mav.addObject("attachments", attachments);
-		//mav.addObject("prints", prints);
+		mav.addObject("prints", prints);
 		mav.addObject("archivedCards", archivedCards);
 		mav.addObject("redate", redate);
 		mav.setViewName("board/boardview");

@@ -690,6 +690,9 @@ public class PlanActivityService implements ActivityService {
 		Iterator<Activity> iter= activity.iterator();
 		List<ActionPrint> prints = new ArrayList<ActionPrint>();
 		
+		if(activity == null) {
+			return null;
+		}
 		
 		while(iter.hasNext()) {
 			Activity temp = iter.next();
@@ -888,7 +891,10 @@ public class PlanActivityService implements ActivityService {
 				print.setBoardName(temp.getBoardName());
 				prints.add(print);
 				break;
+			default:
+				break;
 			}
+			
 		}
 		
 		return prints;
