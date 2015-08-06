@@ -220,21 +220,21 @@
 <hr/>
 <div style="width:100px">
 	<div class="teamList-addMember" style="width:100px">
-			<div id="addMemberbtn" class="memberAddButton" style="width:100px!important">Tag Members...    </div><br/>
+			<div id="addMemberbtn" class="memberAddButton" style="width:100% !important">Tag Members...    </div><br/>
 	</div>
 	<div class="teamList-addMember" style="width:100px">
-			<div id="addFriendbtn" class="memberAddButton" style="width:100px!important">Tag Friends...    </div><br/>
+			<div id="addFriendbtn" class="memberAddButton" style="width:100% !important">Tag Friends...    </div><br/>
 	</div>
 </div>
 
 <c:if test="${userType == 0}">
 	<div class="teamList-addMember close" >
-			<div id="closebutton" class="memberAddButton close">CLOSE</div><br/>
+			<div id="closebutton" class="memberAddButton close" style="width:100% !important">CLOSE</div><br/>
 	</div>
 </c:if>
 <c:if test="${userType == 1}">
 	<div class="teamList-addMember close" >
-			<div id="exitbutton" class="memberAddButton exit">EXIT</div><br/>
+			<div id="exitbutton" class="memberAddButton exit" style="width:100% !important">EXIT</div><br/>
 	</div>
 </c:if>
 

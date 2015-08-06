@@ -700,11 +700,9 @@ public class PlanActivityService implements ActivityService {
 				print.setUserName(temp.getUserName());
 				print.setUserNo(temp.getUserNo());
 				print.setType("ADDED");
-				if(temp.getTarget().getTargetNo() == TARGET.CARD) {
+				
 					print.setFrontLink("#");
-				} else {
-					print.setFrontLink("#");
-				}
+				
 				print.setFrontText(temp.getTarget().getTargetName());
 				//print.setBackLink("#");
 				print.setBackText("to " + temp.getBackTitle());
