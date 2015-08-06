@@ -118,13 +118,10 @@
 		<input class="searchtext" type="text" value="Search...@Member / #Board" onfocus="this.value=''"/>
 	</div>
 	<div class="mainpage">
-		<img class="mainpageimg" src="/finalProject/resources/images/mainpage.png">
-	</div>
-	<div class="alarm">
-		♬
+		<img class="mainpageimg" src="/finalProject/resources/images/456.png">
 	</div>
  	<div class="mypage">
-		My Page
+		MyPage
 	</div> 
 	<div class="logout">
 		logout
