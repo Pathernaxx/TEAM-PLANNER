@@ -1,7 +1,8 @@
 body {
-	color:#ab0c67;
+	color:#fff;
 	font: 14px;
 	line-height: 18px;
+	background-color: #fff;
 }
 
 body, button, html, input, select, textarea {
@@ -689,5 +690,5 @@ float:left;
 	cursor: pointer;
 }
 .tagonemember:hover{
-	background-color: #005fbd;
+	background-color: #c0c0c0;
 }

@@ -18,7 +18,7 @@ $("#panel-3").on("click", ".attachment-icon", function() {
 });
 </script>
 
-<div class="u-clearfix attachment-list">
+<div class="u-clearfix attachment-list" style="float:left">
 	<c:choose>
 		<c:when test="${ empty attachments }">
 			<br/><br/>
@@ -26,15 +26,14 @@ $("#panel-3").on("click", ".attachment-icon", function() {
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="attlist" items="${attachments }">
-				<div class="attachment-thumnail-slide" style="float:left;align:center">
+				<span class="attachment-thumnail-slide" style="float:left;align:center">
 						<a class="attachment-icon" id="${attlist.no }" 
 							style="cursor: pointer;" href="/finalProject/card/filedownload.action?fileno=${attlist.no }" >
 						<input type="hidden" value="${attlist.no }" />
 							${attlist.fileType }
 						</a>
-					<br/>
-						<span style="overflow:hidden">${attlist.fileName }</span>
-				</div>
+						<span style="overflow:hidden" style="overflow:hidden">${attlist.fileName }</span>
+				</span>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

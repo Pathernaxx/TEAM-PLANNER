@@ -3,6 +3,60 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+html {
+	font-size: 20px;
+}
+.section-background-blue {
+	background-color: #e4f0f6;
+}
+
+.section-wrapper {
+	margin: 0 auto;
+	max-width: 1300px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+div {
+	display: block;
+}
+
+.login-form {
+	width: 400px;
+}
+
+.wrapper-signup {
+	display: block;
+	max-width: 585px;
+	margin: 0 auto;
+	position: relative;
+	text-align: left;
+}
+
+label {
+	display: block;
+}
+
+textarea, input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+	background: #edeff0;
+	border-radius: 4px;
+	border: 1px solid #cdd2d4;
+	box-sizing: border-box;
+	padding: .5em;
+	max-width: 400px;
+	width: 100%;
+	margin: 0 0 1.2em;
+}
+
+button, input, select, textarea {
+	color: inherit;
+	font: inherit;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create Team Planner Account</title>
 <link rel="Stylesheet" href="/finalProject/resources/styles/account.css" />
