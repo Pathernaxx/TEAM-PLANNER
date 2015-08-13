@@ -154,12 +154,6 @@ public class OracleCardRepository implements CardRepository {
 	}
 
 	@Override
-	public int selectCheckListPercent(int checklistno) {
-		
-		return cardMapper.selectCheckListPercent(checklistno);
-	}
-
-	@Override
 	public void archiveCard(int cardno) {
 		cardMapper.archiveCard(cardno);
 	}

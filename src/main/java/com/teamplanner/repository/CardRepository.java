@@ -21,7 +21,6 @@ public interface CardRepository {
 	void updateCheckItem(boolean checked, int checkitemno);
 	void updateCheckItemName(String name, int checkitemno);
 	int selectCheckItemCount(int checklistno);
-	int selectCheckListPercent(int checklistno);
 	
 	List<Comment> selectComment(int cardNo);
 	List<CheckList> selectCheckList(int cardNo);

@@ -16,7 +16,7 @@
 		<collection column="no" property="checkItems" select="selectCheckItem"/>
 	</resultMap>
 	
-	<select id="selectCheckListPercent" parameterType="int" resultType="int">
+	<!-- <select id="selectCheckListPercent" parameterType="int" resultType="int">
 		SELECT
 			round(a / b) * 100 
 		FROM 
@@ -30,6 +30,11 @@
 				GROUP BY
 					checked
 			)
+	</select> -->
+	<select id="selectCheckListPercent" parameterType="int" resultType="int">
+		select round(((select count(no) from checkitem where checked='1' and checklistno = #{no}) / (select count(no) from checkitem where checklistno = #{no}))*100) percentage
+		from
+		  dual
 	</select>
 	
 	<select id="selectCheckItem" parameterType="int" resultType="CheckItem">
